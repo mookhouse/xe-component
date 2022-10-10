@@ -391,7 +391,7 @@ address {
   color: #333;
   padding-left: 35px;
   line-height: 21px;
-  background-image: url(../images/introcuction/icon_cooperative.png);
+  /*background-image: url(../images/introcuction/icon_cooperative.png);*/
   background-position: 0 0;
   background-repeat: no-repeat; }
 .cooperative article .article-content {
