@@ -1,0 +1,37 @@
+{@ $idx=0}
+<div class="gallery-list">
+	<ul>
+<block loop="$wi->document_list=>$item">
+		<li>
+			<a href="{$item->getPermanentUrl()}">
+				<figure>
+					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="/widgets/ange_main_pc/skins/ange_old_pc_skin/img/_blank.gif" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:170px;height:155px;background-image:url('{$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');background-size:cover;background-position:center center;">
+				</figure>
+			</a>
+		</li>
+{@ $idx++}
+<!--@if($idx == 2)-->
+{@ break;}
+<!--@end-->
+</block>
+	</ul>
+</div>
+<div class="qna-list">
+	<ul class="qna-ul">
+{@ $idx2=0}
+<block loop="$wi->document_list=>$item">
+{@ $idx2++}
+<!--@if($idx2 <= 2)-->
+{@ continue;}
+<!--@end-->
+		<li><a sv-attr="pc_main_QNA_list{$idx2}" href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a></li>
+</block>
+	</ul>
+	<!--ul class='qna-ul' style='display:none;'>
+		<li><a sv-attr="pc_main_QNA_list5" href="https://ange.co.kr/usr?menu=story602&submenu=story_detail&NO=9030">우리 아이는 장화 홀릭 중</a></li>
+		<li><a sv-attr="pc_main_QNA_list6" href="https://ange.co.kr/usr?menu=story602&submenu=story_detail&NO=9029">전염력 강한 수두, 백신 접종이 최선의 방어책</a></li>
+		<li><a sv-attr="pc_main_QNA_list7" href="https://ange.co.kr/usr?menu=story602&submenu=story_detail&NO=9018">세상이 어질어질~ 이석증 바로 알기</a></li>
+		<li><a sv-attr="pc_main_QNA_list8" href="https://ange.co.kr/usr?menu=story602&submenu=story_detail&NO=9017">임신 중 짙어진 기미, 출산 후 없어질까요?</a></li>
+		<li><a sv-attr="pc_main_QNA_list9" href="https://ange.co.kr/usr?menu=story602&submenu=story_detail&NO=9016">아이에 대한 집착과 불안, 혹시 부모 분리불안...</a></li>
+	</ul-->
+</div>

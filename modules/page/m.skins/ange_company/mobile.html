@@ -1,0 +1,17 @@
+<link href="https://ange.co.kr/mobile/_assets/css/introduction.css" rel="stylesheet">
+
+<div class="container">
+<block cond="$oDocument">
+<!--@if($module_info->default_style=='intro' || $module_info->default_style=='')-->
+	<include target="_intro.html" />
+<!--@elseif($module_info->default_style=='clients')-->
+	<include target="_clients.html" />
+<!--@elseif($module_info->default_style=='inquiry')-->
+	<include target="_inquiry.html" />
+<!--@end-->
+</block>
+
+<block cond="!$oDocument">
+{$lang->none_content}
+</block>            
+</div>

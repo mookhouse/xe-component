@@ -1,0 +1,48 @@
+{@ $cate_list = array(); $current_key = null; }
+<!--@foreach($category_list as $key=>$val)-->
+	<!--@if(!$val->depth)-->
+		{@
+			$cate_list[$key] = $val;
+			$cate_list[$key]->children = array();
+			$current_key = $key;
+		}
+	<!--@elseif($current_key)-->
+		{@ $cate_list[$current_key]->children[] = $val }
+	<!--@end-->
+<!--@end-->
+
+<article class="chatter-list">
+	<div class="container">
+		<div class="article-content">
+			<!---p style="padding-bottom:15px;text-align:right;">관리자 : <span id="COMM_MG_NM">앙쥬</span></p--->
+			<div class="board-type-2">
+				<ul id="dataList">
+<block cond="$document_list || $notice_list">
+					<!-- NOTICE -->
+					<li loop="$notice_list=>$no,$document">
+						<a href="{$document->getPermanentUrl()}">
+							<h4><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> <strong>[{$lang->notice}]</strong>{$document->getTitle()|noescape}({$document->getCommentCount()})</h4>
+							<ul class="icon-list">
+								<li class="user">{$document->getNickName()}</li>
+								<li class="date">{$document->getRegdate('Y-m-d')}</li>
+							</ul>
+						</a>
+					</li>
+					<!-- /NOTICE -->
+					<!-- LIST -->
+					<li loop="$document_list=>$no,$document">
+						<a href="{$document->getPermanentUrl()}">
+							<h4><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> {$document->getTitle()|noescape} ({$document->getCommentCount()})</h4>
+							<ul class="icon-list">
+								<li class="user">{$document->getNickName()}</li>
+								<li class="date">{$document->getRegdate('Y-m-d')}</li>
+							</ul>
+						</a>
+					</li>
+					<!-- /LIST -->
+</block>
+				</ul>
+			</div>
+		</div>
+	</div>
+</article>

@@ -1,0 +1,70 @@
+<h2 class="sub-title">e매거진</h2>
+<section class="ebook-list">
+	<!-- NOTICE -->
+	<div class="section-header" loop="$notice_list=>$no,$document">
+		<div class="column column-4">
+			<figure><a href="{$document->getPermanentUrl()}"><img src="{$document->getThumbnail(350, 466, 'crop')}" alt="월간 잡지 표지" style="width:350px;height:466px;"></a></figure>
+			<p style="font-size:13px;"><br> - 위 표지를 클릭하시면 E-Book 을 보실 수 있습니다. </p>
+		</div>
+		<div class="column column-6">
+			<div class="summary-content">
+				<!--small>월간 앙쥬 </small-->
+				<h3>{$document->getTitle()|noescape}</h3>
+				<ul class="like-comment">
+					<li class="like">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
+					<li class="comment">{$document->get('comment_count')}</li>
+				</ul>
+				<p class="small-title">
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='sub_title'">
+﻿{$val->getValueHTML()|noescape}
+</block>
+				</p>
+				<p class="cont-txt">[커버스토리] 
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='cover_story'">
+﻿{$val->getValueHTML()|noescape}
+</block>
+				<br></p>
+				<p class="part-list">Monthly Issue<br>
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='cover_monthly_issue'">
+﻿{$val->getValueHTML()|noescape}
+</block>					
+					<br>
+				</p>
+				<div class="btn-ebook">
+					<p><a href="{$document->getPermanentUrl()}" class="btn btn-white btn-more" role="button">자세히 보기</a><a href="#" class="btn btn-pink btn-more" role="button">e-book 보기</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /NOTICE -->
+	<div class="section-content">
+		<div class="year-list dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<span id="_SEARCH_YY">2022</span><i class="icon-down-open"><span class="더보기"></span></i>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li><a href="javascript:$scope.getSearchYear('2022')">2022</a></li>
+			</ul>
+		</div>
+		<article class="magazine-list">
+			<ol id="dataList">
+				<li loop="$document_list=>$no,$document">
+					<a href="{getUrl('document_srl',$document->document_srl, 'cpage','')}">
+						<p class="item"><img src="{$document->getThumbnail(158, 210, 'crop')}" alt="{$document->getTitle()|noescape}" style="width:158px;height:210px;"></p>
+						<div class="details">
+							<ul class="like-comment">
+								<li class="like">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
+								<li class="comment">{$document->getCommentCount()}</li>
+							</ul>
+							<p>{$document->getTitle()|noescape}</p>
+						</div>
+					</a>
+				</li>
+			</ol>
+		</article>
+	</div>
+	<div class="btnArea">
+		<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
+		<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
+	</div>
+</section>

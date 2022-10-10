@@ -1,0 +1,134 @@
+<!-- Content Start -->
+<div class="sub-content" style="padding-top: 0px; padding-left: 0px;">
+	<section class="community-view">
+		<!---h2 class="sub-title">수다방 <small>(관리자:<span id="COMM_MG_NM">앙쥬</span>)</small></h2--->
+		<div class="section-content">
+			<article class="board-view type-1">
+				<div class="article-header">
+					<a href="{$oDocument->getPermanentUrl()}"><h3>{$oDocument->getTitle()|noescape}</h3></a>
+					<div class="row">
+						<div class="col-xs-6">
+							<ul class="infor-list">
+								<li class="user"><i class="icon-user"></i>{$oDocument->getNickName()}</li>
+								<li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
+								<li class="comment"><i class="icon-comment"></i>{$oDocument->getCommentCount()}</li>
+								<li class="date"><i class="icon-calendar-1"></i>{$oDocument->getRegdate('Y.m.d H:i')}</li>
+							</ul>
+						</div>
+						<!---div class="col-xs-6">
+							<ul class="print-share">
+								<li class="print">
+									<a href="javascript:;" onclick="contentPrint()">
+										<p class="icon">
+											<i class="icon-print"></i>
+										</p>
+										프린트
+									</a>
+								</li>
+								<li class="sympathy">
+									<a href="javascript:;" id="LIKE_FL_Y" onclick="$scope.click_likeCntAdd('N');" style="display:none;">
+										<p class="icon"><i class="icon-heart-filled"></i></p>
+										공감
+									</a>
+									<a href="javascript:;" id="LIKE_FL_N" onclick="$scope.click_likeCntAdd('Y');" style="display:none;">
+										<p class="icon"><i class="icon-heart-filled"></i></p>
+										공감취소
+									</a>
+								</li>
+							</ul>
+						</div--->
+					</div>
+				</div>
+				<!--
+					<button id="SCRAP_FL"   type="button" title="이 글을 모아두려면 클릭"	onclick="$scope.click_scrapAdd('989005');">스크랩</button>
+					<button id="ADD_REPORT" type="button" title="이 글을 신고하려면 클릭"	onclick="$scope.click_BoardReport(item)">신고</button>
+					-->
+				<div class="article-content">
+					<div class="content">
+						<!--@if($oDocument->isSecret() && !$oDocument->isGranted())-->
+						<form action="./" method="get" onsubmit="return procFilter(this, input_password)">
+							<input type="hidden" name="mid" value="{$mid}" />
+							<input type="hidden" name="page" value="{$page}" />
+							<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+							<p><label for="cpw">{$lang->msg_is_secret} {$lang->msg_input_password}</label></p>
+							<p><input type="password" name="password" id="cpw" class="iText" /><input type="submit" value="{$lang->cmd_input}" class="btn" />
+							</p>
+						</form>
+						<!--@else-->
+						{$oDocument->getContent(false)|noescape}
+						<!--@end-->
+					</div>
+					<!--
+						<div class="attach">
+							<dl>
+								<dt>첨부파일</dt>
+								<dd>
+									<a href="#">첨부된파일명.jpg</a>
+									<a href="#">첨부된파일명.jpg</a>
+								</dd>
+							</dl>
+						</div>
+						-->
+					<!---div class="btn-area">
+						<p>
+							<a href="javascript:;" onclick="$scope.click_showBoardList();" class="btn btn-sm btn-pink" role="button">목록</a>
+						</p>
+					</div>
+					<div class="page-link" style="padding-bottom:30px;">
+						<ul>
+							<li class="prev">
+								<dl>
+									<dt>이전글</dt>
+									<dd>
+										<a href="javascript:$scope.click_showViewBoard('989003')">피아노</a>
+									</dd>
+								</dl>
+							</li>
+							<li class="next">
+								<dl>
+									<dt>다음글</dt>
+									<dd>
+										<a href="javascript:$scope.click_showViewBoard('989009')">끝이없는 다이어트</a>
+									</dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+					<div id='tdn_pc_post_728x90_bottom' style="width:728px;margin:0 auto;margin-top:10px;">
+						<script>displayTDN("tdn_pc_post_728x90_bottom");</script>
+					</div--->
+				</div>
+				<div class="btn-area">
+					<p>
+						<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_modify}</a>
+						<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_delete}</a>
+						<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-gray" role="button">{$lang->cmd_list}</a>
+					</p>
+				</div>
+			</article>
+			<script src="/usr/vm/module-reply.vm.js"></script>
+			<article class="comment-area">
+				<form action="#">
+					<div class="comment-write">
+						<h4>의견쓰기<small>타인비방, 모욕, 개인정보 노출, 상업광고, 홍보글 등은 공지없이 바로 삭제</small></h4>
+						<div class="write">
+							<div class="form-group">
+								<textarea id="replyComment" name="replyComment" onkeyup="$scope.fnByteCal(this);" class="form-control" placeholder="입력창에 댓글을 작성해 주세요."></textarea>
+								<label for="replyComment" class="sr-only">댓글달기</label>
+							</div>
+							<button type="button" class="btn btn-write btn-reply-write-submit" onclick="$scope.click_saveComment();">등록하기</button>
+						</div>
+						<p class="comment-num">총 <b id="reply_total_count"></b>개의 댓글이 있습니다.</p>
+					</div>
+					<div class="article-content">
+						<ul class="comment-list" id="replyList">
+						</ul>
+					</div>
+					<nav class="paging" aria-label="Page navigation">
+						<ul class="pagination" id="replyPage"></ul>
+					</nav>
+				</form>
+			</article>
+		</div>
+	</section>
+</div>

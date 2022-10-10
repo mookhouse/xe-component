@@ -1,0 +1,165 @@
+<section class="affiliates">
+	<div class="section-header">
+		<h2 class="sub-title">오프라인 광고 및 온라인 마케팅 문의</h2>
+	</div>
+	<div class="section-content">
+		<!---h4 class="title">ㄴㅇㄹㄴㅇㄹ</h4--->
+		<p>
+			<!---a href="/file/business/ange-mediakit.pdf" class="btn media-btn btn-pink" role="button">
+				<i class="icon-download"></i>미디어킷 다운
+			</a---->
+			<span class="essential"></span>필수 작성 항목입니다
+		</p>
+		<form id="joinForm" name="joinForm">	
+			<div class="table-wrap">
+				<table class="table table-bordered type-1">
+					<tbody>
+						<tr>
+							<th class="essential">구분</th>
+							<td class="separation">
+								<div class="form-group">
+									<select class="form-control" name="CATEGORY_GB2">
+										<!--
+										<option value="월간 앙쥬(잡지) 광고 문의">월간 앙쥬(잡지) 광고 문의</option>
+										<option value="온라인 광고 및 제휴 문의">온라인 광고 및 제휴 문의</option>
+										<option value="체험단 및 이벤트/공동구매 문의">체험단 및 이벤트/공동구매 문의</option>
+										<option value="스토어 판매 관련 문의">스토어 판매 관련 문의</option>
+										<option value="디자인물 제작 문의">디자인물 제작 문의</option>
+										-->
+										<option value="">문의 구분 선택</option>
+										<option value="잡지/백과 광고 문의">잡지/백과 광고 문의</option>
+										<option value="오프라인 마케팅 문의">오프라인 마케팅 문의</option>
+										<option value="앙쥬 사이트 광고 문의">앙쥬 사이트 광고 문의</option>
+										<option value="컨텐츠 구입 문의">컨텐츠 구입 문의</option>
+										<option value="동영상 홍보 문의">동영상 홍보 문의</option>
+										<option value="바이럴 홍보 문의">바이럴 홍보 문의</option>
+										<option value="체험/이벤트 대행 문의">체험/이벤트 대행 문의</option>
+										<option value="단행본 제작 문의">단행본 제작 문의</option>
+										<option value="인물사진 문의">인물사진 문의</option>
+										<option value="광고사진 문의">광고사진 문의</option>
+										<option value="산후조리원 교육 후원사 문의">산후조리원 교육 후원사 문의</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="company_nm">기업명</label></th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="company_nm" class="form-control" name="COMPANY_NM">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="charge_nm">담당자명</label></th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="charge_nm" class="form-control" name="CHARGE_NM">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="url">홈페이지</label></th>
+							<td class="homepage">
+								<div class="form-group">
+									<input type="text" id="url" class="form-control" placeholder="http://ange.co.kr" name="URL">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="u-email">이메일</label></th>
+							<td class="mail">
+								<div class="form-group">
+									<input type="text" id="u-email" class="form-control" name="EMAIL_ID"> @
+									<input type="text" id="EMAIL_TYPE" class="form-control" name="EMAIL_TYPE">
+									<label for="EMAIL_TYPE" class="sr-only">도메인주소</label>
+									<select class="form-control" name="EMAIL_SELECT" onchange="$('#EMAIL_TYPE').val(this.value)">
+										<option>직접입력</option>
+										<option value="naver.com">네이버</option>
+										<option value="daum.net" >다음</option>
+										<option value="gmail.com">구글</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>유선전화</th>
+							<td class="contact">
+								<div class="form-group">
+									<select class="form-control" name="PHONE_1_1">
+										<option value="" selected>지번</option>
+										<option value="02">02</option>
+										<option value="031">031</option>
+										<option value="032">032</option>
+										<option value="041">041</option>
+										<option value="042">042</option>
+										<option value="043">043</option>
+										<option value="051">051</option>
+										<option value="052">052</option>
+										<option value="053">053</option>
+										<option value="054">054</option>
+										<option value="055">055</option>
+										<option value="061">061</option>
+										<option value="062">062</option>
+										<option value="063">063</option>
+										<option value="064">064</option>
+									</select>
+									 -
+									<input type="text" id="u-tel2" class="form-control" name="PHONE_1_2"> -
+									<label for="u-tel2" class="sr-only">전화번호</label>
+									<input type="text" id="u-tel3" class="form-control" name="PHONE_1_3">
+									<label for="u-tel3" class="sr-only">전화번호</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential">휴대폰</th>
+							<td class="contact">
+								<div class="form-group">
+									<input type="text" id="phone_1" class="form-control" name="PHONE_2_1"> -
+									<label for="phone_1" class="sr-only">전화번호</label>
+									<input type="text" id="phone_2" class="form-control" name="PHONE_2_2"> -
+									<label for="phone_2" class="sr-only">전화번호</label>
+									<input type="text" id="phone_3" class="form-control" name="PHONE_2_3">
+									<label for="phone_3" class="sr-only">전화번호</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential v-top"><label for="note">내용</label></th>
+							<td>
+								<div class="form-group">
+									<textarea id="note" class="form-control" name="NOTE"></textarea>
+								</div>
+							</td>
+						</tr>
+						<!---tr>
+							<th class="">제휴제안서</th>
+							<td class="file">
+								<div class="form-group">
+									<input type="file" name="files[]" id="uploadedfile" data-url="/service/upload/" style="display:none"/>
+									<span id="uploadedfileName"></span>
+									<label for="attach" onclick='$("#uploadedfile").click();'>파일첨부</label>
+								</div>
+							</td>
+						</tr---->
+					</tbody>
+				</table>
+			</div>
+			<div class="privacy">
+				<h5>&lt;개인정보 취급방침 동의</h5>
+				<ul>
+					<li>수집 항목: (필수)회사명, 이름, 이메일, 휴대폰번호(선택)홈페이지주소,전화번호</li>
+					<li>수집 목적: 제휴 및 광고 업체 회신</li>
+					<li>보유 기간: 업무 종료일까지</li>
+				</ul>
+				<div class="form-group">
+					<label><input type="checkbox" name="COMPANY_AGREE_YN"> 개인정보 취급방침에 동의합니다.</label>
+				</div>
+			</div>
+			<div class="btn-area">
+				<p><a href="javascript:window.history.back();" class="btn btn-white" role="button">취소</a> <button type="button" class="btn btn-pink" onclick="$scope.click_comp()">문의</button></p>
+			</div>
+		</form>
+	</div>
+</section>

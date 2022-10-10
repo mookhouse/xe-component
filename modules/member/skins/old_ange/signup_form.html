@@ -1,0 +1,566 @@
+<link href="/modules/member/skins/old_ange/css/sub.css" rel="stylesheet">
+<link href="/modules/member/skins/old_ange/css/customer.css" rel="stylesheet">
+<!-- 페이지명 클래스 -->
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<h2 class="nav-title">회원가입</h2>
+			<ul id="lnb-list">
+				<li class=""><a href='/usr/?menu=faq&submenu='>자주하는 질문</a></li>
+				<li class=""><a href='/usr/?menu=forgot&submenu='>아이디 찾기</a></li>
+				<li class=""><a href='/usr/?menu=forgot_password&submenu='>비밀번호 찾기</a></li>
+				<li class="active"><a href='/usr/?menu=signon&submenu='>회원가입</a></li>
+				<li class=""><a href='/usr/?menu=notice&submenu='>앙쥬 공지</a></li>
+				<li class=""><a href='/usr/?menu=ange_agreement_info&submenu='>이용약관</a></li>
+				<li class=""><a href='/usr/?menu=ange_codeofconduct&submenu='>윤리강령</a></li>
+				<li class=""><a href='/usr/?menu=ange_personal_info&submenu='>개인정보 취급방침</a></li>
+				<li class="">
+					<a href='javascript:;'>앙쥬이용백서</a>
+					<ul>
+						<li class=""><a href='/usr/?menu=use_detail_info1&submenu='>앙쥬 처음이세요?</a></li>
+						<li class=""><a href='/usr/?menu=use_detail_info2&submenu='>오랜만의 방문이세요?</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content" style="padding: 0px 29px 75px 64px;">
+			<!---h2 class="sub-title">회원가입</h2--->
+			<!-- Step-list 공통 -->
+			<!---div class="step-list">
+				<ol>
+					<li class="active">
+						<b>STEP 01</b>
+						<p class="icon">
+							<img src="/usr/_assets/images/customer/icon_step_list01_active.png" alt="">
+						</p>
+						<h3>약관동의</h3>
+					</li>
+					<li>
+						<b>STEP 02</b>
+						<p class="icon">
+							<img src="/usr/_assets/images/customer/icon_step_list02.png" alt="">
+						</p>
+						<h3>회원정보입력</h3>
+					</li>
+					<li>
+						<b>STEP 03</b>
+						<p class="icon">
+							<img src="/usr/_assets/images/customer/icon_step_list03.png" alt="">
+						</p>
+						<h3>가입완료</h3>
+					</li>
+				</ol>
+			</div---->
+			<div class="agreement-content">
+				<article class="write-form">
+					<h4 class="title">{$lang->cmd_signup}</h4>
+					<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+						<p>{$XE_VALIDATOR_MESSAGE}</p>
+					</div>
+					<form ruleset="@insertMember" id="fo_insert_member" action="./" method="post" enctype="multipart/form-data" class="form-horizontal">
+						<input type="hidden" name="act" value="procMemberInsert" />
+						<input type="hidden" name="xe_validator_id" value="modules/member/skins" />
+						<input type="hidden" name="success_return_url" value="{getUrl('act','dispMemberInfo')}" />
+						<div class="table-wrap">
+							<table class="table table-bordered type-1">
+								<tbody>
+									<tr>
+										<th class="essential"><label for="USER_ID">아이디</label></th>
+										<td class="user-id">
+											<div class="form-group basic-group">
+												<input type="text" id="USER_ID"	name="USER_ID" class="form-control">
+											</div>
+											<p class="overlap-confirm" id="confirm_id">6~12자리 영문,숫자 (특수문자 사용불가)</p>
+										</td>
+									</tr>
+									<tr>
+										<th><label for="PASSWORD">{$lang->password}</label></th>
+										<td class="user-pw">
+											<div class="form-group basic-group">
+												<input type="password" id="PASSWORD" name="PASSWORD" class="form-control">
+											</div>
+											<p class="overlap-confirm" id="confirm_pwd">6~12자리 공백없이 영문,숫자 (특수문자 사용가능)</p>
+										</td>
+									</tr>
+									<tr>
+										<th><label for="PASSWORD_CP">{$lang->password3}</label></th>
+										<td class="user-id">
+											<div class="form-group basic-group">
+												<input type="password" id="PASSWORD_CP"	name="PASSWORD_CP" class="form-control">
+											</div>
+											<p class="overlap-confirm" id="confirm_pwd_p"></p>
+										</td>
+									</tr>
+									<tr>
+										<th class="essential"><label for="USER_NM">이름</label></th>
+										<td>
+											<div class="form-group basic-group">
+												<input type="text" id="USER_NM"	name="USER_NM" class="form-control">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th class="essential"><label for="NICK_NM">닉네임</label></th>
+										<td class="user-id">
+											<div class="form-group basic-group">
+												<input type="text" id="NICK_NM"	name="NICK_NM" class="form-control">
+											</div>
+											<p class="overlap-confirm" id="confirm_nick">영문 4~12자리, 한글 2~6자리, 조합 3~6자리 공백없이</p>
+										</td>
+									</tr>
+									<!---tr>
+										<th class="essential">생년월일</th>
+										<td class="birthday">
+											<div class="form-group">
+												<input type="hidden" name="LUNAR_FL" value="0">
+												<select class="form-control" id="YEAR" name="YEAR">
+													<option value="">년도</option>
+													<option value="2022">2022</option>
+													<option value="2021">2021</option>
+													<option value="2020">2020</option>
+													<option value="2019">2019</option>
+													<option value="2018">2018</option>
+													<option value="2017">2017</option>
+													<option value="2016">2016</option>
+													<option value="2015">2015</option>
+													<option value="2014">2014</option>
+													<option value="2013">2013</option>
+													<option value="2012">2012</option>
+													<option value="2011">2011</option>
+													<option value="2010">2010</option>
+													<option value="2009">2009</option>
+													<option value="2008">2008</option>
+													<option value="2007">2007</option>
+													<option value="2006">2006</option>
+													<option value="2005">2005</option>
+													<option value="2004">2004</option>
+													<option value="2003">2003</option>
+													<option value="2002">2002</option>
+													<option value="2001">2001</option>
+													<option value="2000">2000</option>
+													<option value="1999">1999</option>
+													<option value="1998">1998</option>
+													<option value="1997">1997</option>
+													<option value="1996">1996</option>
+													<option value="1995">1995</option>
+													<option value="1994">1994</option>
+													<option value="1993">1993</option>
+													<option value="1992">1992</option>
+													<option value="1991">1991</option>
+													<option value="1990">1990</option>
+													<option value="1989">1989</option>
+													<option value="1988">1988</option>
+													<option value="1987">1987</option>
+													<option value="1986">1986</option>
+													<option value="1985">1985</option>
+													<option value="1984">1984</option>
+													<option value="1983">1983</option>
+													<option value="1982">1982</option>
+													<option value="1981">1981</option>
+													<option value="1980">1980</option>
+													<option value="1979">1979</option>
+													<option value="1978">1978</option>
+													<option value="1977">1977</option>
+													<option value="1976">1976</option>
+													<option value="1975">1975</option>
+													<option value="1974">1974</option>
+													<option value="1973">1973</option>
+													<option value="1972">1972</option>
+													<option value="1971">1971</option>
+												</select>
+												<select class="form-control" id="MONTH" name="MONTH">
+													<option value="">월</option>
+													<option value="01">01</option>
+													<option value="02">02</option>
+													<option value="03">03</option>
+													<option value="04">04</option>
+													<option value="05">05</option>
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+												</select>
+												<select class="form-control" id="DAY" name="DAY">
+													<option value="">일</option>
+													<option value="01">01</option>
+													<option value="02">02</option>
+													<option value="03">03</option>
+													<option value="04">04</option>
+													<option value="05">05</option>
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+													<option value="21">21</option>
+													<option value="22">22</option>
+													<option value="23">23</option>
+													<option value="24">24</option>
+													<option value="25">25</option>
+													<option value="26">26</option>
+													<option value="27">27</option>
+													<option value="28">28</option>
+													<option value="29">29</option>
+													<option value="30">30</option>
+													<option value="31">31</option>
+												</select>
+											</div>
+										</td>
+									</tr--->
+									<tr>
+										<th class="essential">성별</th>
+										<td>
+											<div class="form-group">
+												<label><input type="radio" name="SEX_GB" type="radio" value="F" checked>여</label>
+												<label><input type="radio" name="SEX_GB" type="radio" value="M">남</label>
+											</div>
+										</td>
+									</tr>
+									<!---tr>
+										<th class="essential">우편번호</th>
+										<td class="addr">
+											<div class="form-group">
+												<div class="new-addr">
+													<input type="text" id="zone" name="ZONE_CODE" readonly class="form-control" placeholder="신주소">
+													<label for="new-addr" class="sr-only">신주소</label>
+												</div>
+												<div class="zip-code" style="display:none;">
+													<input type="text" id="post_1" name="POST_1" readonly class="form-control">
+													<label for="zip-code1" class="sr-only">우편번호</label>
+													-
+													<input type="text" id="post_2" name="POST_2" readonly class="form-control">
+													<label for="zip-code2" class="sr-only">우편번호</label>
+												</div>
+												<p class="zipcode-confirm">
+													<a href="javascript:$scope.click_openDaumPostcode();" class="btn btn-white" role="button">우편번호</a>
+												</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th class="essential">주소</th>
+										<td class="details-addr">
+											<div class="form-group">
+												<input type="text" id="addr" name="ADDR" readonly class="form-control" placeholder="기본주소">
+												<label for="basic-addr" class="sr-only">기본주소</label>
+												<input type="text" id="addr_detail"	name="ADDR_DETAIL" class="form-control" placeholder="상세주소">
+												<label for="details-addr" class="sr-only">상세주소</label>
+											</div>
+										</td>
+									</tr--->
+									<tr>
+										<th class="essential">휴대폰</th>
+										<td class="phone">
+											<div class="form-group">
+												<select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0">
+													<option value="">010</option>
+													<option value="2023">011</option>
+													<option value="2022">017</option>
+													<option value="2021">019</option>
+													<option value="2020">018</option>
+												</select> - 
+												<label for="u-phone1" class="sr-only">전화번호</label>
+												<input type="text" name="PHONE_2_2" maxlength="4" class="form-control"> -
+												<label for="u-phone2" class="sr-only">전화번호</label>
+												<input type="text" name="PHONE_2_3" maxlength="4" class="form-control">
+												<label for="u-phone3" class="sr-only">전화번호</label>
+												<a href="javascript:$scope.click_certUser('phone');" class="btn btn-white" role="button">휴대폰 인증하기</a>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th class="essential"><label for="NICK_NM">인증번호</label></th>
+										<td class="user-id">
+											<div class="form-group basic-group">
+												<input type="text" id="NICK_NM"	name="NICK_NM" class="form-control">
+											</div>
+										</td>
+									</tr>
+									<!---tr>
+										<th class="essential"><label for="u-email">이메일</label></th>
+										<td class="mail">
+											<div class="form-group">
+												<input type="text" id="EMAIL_ID"   name="EMAIL_ID"   class="form-control"> @
+												<input type="text" id="EMAIL_TYPE" name="EMAIL_TYPE" class="form-control">
+												<label for="domain" class="sr-only">도메인주소</label>
+												<select class="form-control" name="EMAIL_SELECT" onchange="$('#EMAIL_TYPE').val(this.value)">
+													<option>직접입력</option>
+													<option value="naver.com">네이버</option>
+													<option value="daum.net" >다음</option>
+													<option value="gmail.com">구글</option>
+												</select>
+											</div>
+										</td>
+									</tr--->
+									<!---tr>
+										<th>정보수신동의</th>
+										<td class="consent">
+											<p>앙쥬 각종소식 (Event/체험단/광고성 정보/당첨안내 등)</p>
+											<div class="form-group">
+												<label><input type="checkbox" name="EN_ANGE_EMAIL_FL" checked>이메일</label>
+												<label><input type="checkbox" name="EN_ANGE_SMS_FL" checked >SMS</label>
+											</div>
+											<p class="summary" style="color:#e00000;padding-top:10px;">*앙쥬맘박스/체험단/이벤트에 응모하시려면 수신동의 해주셔야합니다.</p>
+										</td>
+									</tr---->
+									<!---tr>
+										<th class="essential">임신여부</th>
+										<td>
+											<div class="row">
+												<div class="col-xs-5">
+													<div class="form-group">
+														<label><input type="radio" name="PREGNENT_FL" value="N" >해당없음</label>
+														<label><input type="radio" name="PREGNENT_FL" value="Y" >해당됨</label>
+													</div>
+												</div>
+												<div class="col-xs-7">
+													<dl>
+														<dt>출산예정일</dt>
+														<dd>
+															<div class="form-group">
+																<select class="form-control" name="YEAR1">
+																	<option value="">년도</option>
+																	<option value="2022">2022</option>
+																	<option value="2023">2023</option>
+																</select>
+																<select class="form-control" name="MONTH1">
+																	<option value="">월</option>
+																	<option value="01">01</option>
+																	<option value="02">02</option>
+																	<option value="03">03</option>
+																	<option value="04">04</option>
+																	<option value="05">05</option>
+																	<option value="06">06</option>
+																	<option value="07">07</option>
+																	<option value="08">08</option>
+																	<option value="09">09</option>
+																	<option value="10">10</option>
+																	<option value="11">11</option>
+																	<option value="12">12</option>
+																</select>
+																<select class="form-control" name="DAY1">
+																	<option value="">일</option>
+																	<option value="01">01</option>
+																	<option value="02">02</option>
+																	<option value="03">03</option>
+																	<option value="04">04</option>
+																	<option value="05">05</option>
+																	<option value="06">06</option>
+																	<option value="07">07</option>
+																	<option value="08">08</option>
+																	<option value="09">09</option>
+																	<option value="10">10</option>
+																	<option value="11">11</option>
+																	<option value="12">12</option>
+																	<option value="13">13</option>
+																	<option value="14">14</option>
+																	<option value="15">15</option>
+																	<option value="16">16</option>
+																	<option value="17">17</option>
+																	<option value="18">18</option>
+																	<option value="19">19</option>
+																	<option value="20">20</option>
+																	<option value="21">21</option>
+																	<option value="22">22</option>
+																	<option value="23">23</option>
+																	<option value="24">24</option>
+																	<option value="25">25</option>
+																	<option value="26">26</option>
+																	<option value="27">27</option>
+																	<option value="28">28</option>
+																	<option value="29">29</option>
+																	<option value="30">30</option>
+																	<option value="31">31</option>
+																</select>
+															</div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</td>
+									</tr---->
+									<!---tr>
+										<th class="v-top essential">출산예정일</th>
+										<td class="kids-info">
+											<p style="color:#347cff;font-weight:600;font-size:15px;">* 출산예정이신 경우 태명과 출산예정일을 입력해주세요</p>
+											<ul style="padding-top:10px;">
+												<li>
+													<div class="row">
+														<div class="col-xs-5">
+															<div class="form-group">
+																<input type="text" id="BABY_NM0" class="form-control" placeholder="이름" name="BABY_NM0" value="">
+																<select name="BABY_SEX_GB0" class="form-control" style="margin-right:0px;" id="BABY_SEX_GB_0">
+																	<option value="">성별</option>
+																	<option value="M" >남</option>
+																	<option value="F" >여</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-xs-7">
+															<dl>
+																<dt>생년월일</dt>
+																<dd>
+																	<div class="form-group">
+																		<select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0">
+																			<option value="">년도</option>
+																			<option value="2023">2023</option>
+																			<option value="2022">2022</option>
+																			<option value="2021">2021</option>
+																			<option value="2020">2020</option>
+																			<option value="2019">2019</option>
+																			<option value="2018">2018</option>
+																			<option value="2017">2017</option>
+																			<option value="2016">2016</option>
+																			<option value="2015">2015</option>
+																			<option value="2014">2014</option>
+																			<option value="2013">2013</option>
+																			<option value="2012">2012</option>
+																			<option value="2011">2011</option>
+																			<option value="2010">2010</option>
+																			<option value="2009">2009</option>
+																			<option value="2008">2008</option>
+																			<option value="2007">2007</option>
+																			<option value="2006">2006</option>
+																			<option value="2005">2005</option>
+																			<option value="2004">2004</option>
+																			<option value="2003">2003</option>
+																			<option value="2002">2002</option>
+																		</select>
+																		<select class="form-control" id="BABY_MONTH0" name="BABY_MONTH0">
+																			<option value="">월</option>
+																			<option value="01">01</option>
+																			<option value="02">02</option>
+																			<option value="03">03</option>
+																			<option value="04">04</option>
+																			<option value="05">05</option>
+																			<option value="06">06</option>
+																			<option value="07">07</option>
+																			<option value="08">08</option>
+																			<option value="09">09</option>
+																			<option value="10">10</option>
+																			<option value="11">11</option>
+																			<option value="12">12</option>
+																		</select>
+																		<select class="form-control" id="BABY_DAY0" name="BABY_DAY0">
+																			<option value="">일</option>
+																			<option value="01">01</option>
+																			<option value="02">02</option>
+																			<option value="03">03</option>
+																			<option value="04">04</option>
+																			<option value="05">05</option>
+																			<option value="06">06</option>
+																			<option value="07">07</option>
+																			<option value="08">08</option>
+																			<option value="09">09</option>
+																			<option value="10">10</option>
+																			<option value="11">11</option>
+																			<option value="12">12</option>
+																			<option value="13">13</option>
+																			<option value="14">14</option>
+																			<option value="15">15</option>
+																			<option value="16">16</option>
+																			<option value="17">17</option>
+																			<option value="18">18</option>
+																			<option value="19">19</option>
+																			<option value="20">20</option>
+																			<option value="21">21</option>
+																			<option value="22">22</option>
+																			<option value="23">23</option>
+																			<option value="24">24</option>
+																			<option value="25">25</option>
+																			<option value="26">26</option>
+																			<option value="27">27</option>
+																			<option value="28">28</option>
+																			<option value="29">29</option>
+																			<option value="30">30</option>
+																			<option value="31">31</option>
+																		</select>
+																	</div>
+																</dd>
+															</dl>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</td>
+									</tr--->
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</article>
+				<hr>
+				<article cond="$member_config->agreement" class="terms">
+						<h3>이용약관 <i class="necessary">필수</i></h3>
+						<div class="content">{$member_config->agreement|noescape}</div>
+						<div class="check-box">
+							<label><input type="checkbox" id="checkInfo1" name="checkInfo1" >{$lang->about_accept_agreement}</label>
+						</div>
+				</article>
+				<article cond="$member_config->privacy_usage" class="terms">
+					<h3>개인정보처리 방침 <i class="necessary">필수</i></h3>
+					<div class="content">{$member_config->privacy_usage|noescape}</div>
+					<div class="check-box">
+						<label><input type="checkbox" id="checkInfo2" name="checkInfo2" >{$lang->about_accept_agreement}</label>
+					</div>
+				</article>
+				<article cond="$member_config->privacy_shr" class="terms">
+					<h3>제 3자 정보제공동의 <i class="necessary">필수</i></h3>
+					<div class="content">{$member_config->privacy_shr|noescape}</div>
+					<div class="check-box">
+						<label><input type="checkbox" id="checkInfo3" name="checkInfo3">{$lang->about_accept_agreement}</label>
+					</div>
+				</article>
+				
+				<div class="btn-area">
+					<div class="check-box">
+						<label><input type="checkbox" id="checkInfo4" name="checkInfo4" onclick="$scope.all_check(this)">[전체동의] 이용약관, 개인정보취급방침, 제 3자 정보제공 모두 동의합니다.</label>
+						<!---p>
+							<button type="button" class="btn btn-pink" onclick="$scope.click_next()">다음</button>
+							<a href="$scope.click_home()" class="btn btn-white" role="button">취소</a>
+						</p---->
+					</div>
+				</div>
+				<!---div class="identification">
+					<h5>회원정보에 등록된 휴대전화 번호와 일치해야, 인증번호를 받을 수 있습니다.</h5>
+					<p>
+						[인증하기]을 클릭하시면 본인 휴대폰으로 실명인증이 가능합니다.<br>
+						일치하는 정보가 없을 시 인증메세지가 뜨지 않습니다.
+					</p>
+					<div class="confirm-btn">
+						<div class="form-group identi-btn" id="p_confirmInfo" style="display:none;">
+							<input type="text" id="CERT_NO_CP" class="form-control" placeholder="인증번호입력"><label for="CERT_NO_CP" class="sr-only">인증번호확인</label>
+							<div class="btn-area">
+								<p>
+									<button type="button" class="btn btn-gray" onclick="$scope.click_checkCertNo();">인증번호 확인</button>
+								</p>
+							</div>
+						</div>
+						<a href="javascript:$scope.click_certUser('phone');" class="btn btn-white" role="button">휴대폰 인증하기</a>
+					</div>
+				</div---->
+				<div class="btn-area">
+					<p>
+						<button type="button" class="btn btn-pink btn-write-submit" onclick="$scope.saveUser()">회원가입</button>
+						<a href="javascript:window.history.back();" class="btn btn-white" role="button">취소</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

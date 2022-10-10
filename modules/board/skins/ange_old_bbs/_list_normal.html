@@ -1,0 +1,73 @@
+<section class="board-list">
+	<div class="section-header">
+		<!---h2 class="sub-title">수다방 <small>(관리자:<span id="COMM_MG_NM"></span>)</small></h2-->
+	</div>
+	<div class="section-content">
+		<!---div class="search-form">
+			<form id="searchForm" name="searchForm" method="get">
+				<input type="hidden" name="menu"		value="angeroom"/>
+				<input type="hidden" name="submenu"		value=""/>
+				<input type="hidden" name="PAGE_NO"		value="0"/>
+				<input type="hidden" name="PAGE_SIZE"	value="8"/>
+				<input type="hidden" name="NO"			value=""/>
+				<input type="hidden" name="COMM_NO"		value="1"/>
+				<div class="form-group">
+					<select class="form-control" name="CONDITION" id="CONDITION">
+					<option value='SUBJECT' >제목+내용</option>
+					<option value='NICK_NM' >등록자</option>
+					<option value='HEAD' >말머리</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" name="KEYWORD" id="KEYWORD" class="form-control" placeholder="검색어를 입력해 주세요" value="" onkeypress="if(event.keyCode == 13){ $scope.pageChanged(0); return; }">
+					<input type="text" style="display:none;">
+					<label for="KEYWORD" class="sr-only">검색하기</label>
+				</div>
+				<p class="btn-search">
+					<button type="button" class="btn btn-default" onclick="$scope.pageChanged(0);">
+					<i class="icon-search"></i>
+					<span class="sr-only">검색 버튼</span>
+					</button>
+				</p>
+			</form>
+		</div--->
+		<div class="table-wrap">
+			<table class="table table-bordered type-2">
+				<thead>
+					<tr>
+						<th>{$lang->no}</th>
+						<th width='450'>{$lang->title}</th>
+						<th>{$lang->writer}</th>
+						<th>{$lang->date}</th>
+						<th>{$lang->readed_count}</th>
+						<th scope="col" cond="$grant->manager" style="width:44px"><span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span></th>
+					</tr>
+				</thead>
+				<tbody id="dataList">
+<block cond="$document_list || $notice_list">
+			<!-- NOTICE -->
+			<tr loop="$notice_list=>$no,$document">
+					<td>&raquo;</td>
+					<td class="title"><a href="{$document->getPermanentUrl()}"><strong>[{$lang->notice}]</strong> {$document->getTitle()|noescape}({$document->getCommentCount()})</a></td>
+					<td>{$document->getNickName()}</td>
+					<td class="date">{$document->getRegdate('Y.m.d')}</td>
+					<td class="hit">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
+					<td cond="$grant->manager" class="check"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+			</tr>
+			<!-- /NOTICE -->
+			<!-- LIST -->
+			<tr loop="$document_list=>$no,$document">
+				<td>{$no}</td>
+				<td class="title"><a href="{$document->getPermanentUrl()}">{$document->getTitle()|noescape} ({$document->getCommentCount()})</a></td>
+				<td>{$document->getNickName()}</td>
+				<td class="date">{$document->getRegdate('Y.m.d')}</td>
+				<td class="hit">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
+				<td cond="$grant->manager" class="check"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+			</tr>
+			<!-- /LIST -->
+</block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>

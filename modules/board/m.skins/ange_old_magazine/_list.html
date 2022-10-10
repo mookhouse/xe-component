@@ -1,0 +1,71 @@
+<section class="ebook">
+	<div class="container">
+		<!-- NOTICE -->
+		<div class="section-header" id="dataHeader" loop="$notice_list=>$no,$document">
+			<div class="row">
+				<div class="col-xs-5">
+					<figure><a href="{$document->getPermanentUrl()}"><img src="{$document->getThumbnail(309, 400, 'crop')}" alt="" class="img-responsive"></a></figure>
+				</div>
+				<div class="col-xs-7">
+					<div class="details">
+						<!---small>월간 앙쥬</small--->
+						<BR>
+						<h3>{$document->getTitle()|noescape}</h3>
+						<ul class="icon-list">
+							<li class="like"><span>{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</span></li>
+							<li class="comment"><span>{$document->get('comment_count')}</span></li>
+						</ul>
+						<p></p>
+						<p class="small-title">
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='sub_title'">
+﻿{$val->getValueHTML()|noescape}
+</block><br><br>
+						</p>
+						<p class="cont-txt">[커버스토리] 
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='cover_story'">
+﻿{$val->getValueHTML()|noescape}
+</block><br><br>
+						</p>
+						<p class="part-list">Monthly Issue<br>
+							<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='cover_monthly_issue'">
+﻿{$val->getValueHTML()|noescape}
+</block><br>
+						</p>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div class="btn-ebook">
+				<p><a href="{$document->getPermanentUrl()}" class="btn btn-md btn-white" role="button">자세히보기</a><a href="#" class="btn btn-md btn-pink" role="button">e-book 보기</a></p>
+			</div>
+		</div>
+		<!-- /NOTICE -->
+		<div class="section-content">
+			<div class="year-date">
+				<select onchange="$scope.getSearchYear(this.value);">
+					<option value="2022" selected="">2022</option>
+					<option value="2021">2021</option>
+					<option value="2020">2020</option>
+				</select>
+			</div>
+			<ul class="row" id="dataList">
+				<li class="col-xs-4" loop="$document_list=>$no,$document">
+					<a href="{getUrl('document_srl',$document->document_srl, 'cpage','')}">
+						<figure><img src="{$document->getThumbnail(380, 494, 'crop')}" alt="{$document->getTitle()|noescape}" class="img-responsive"></figure>
+						<div class="details">
+							<ul class="icon-list">
+								<li class="like"><span>{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</span></li>
+								<li class="comment"><span>{$document->getCommentCount()}</span></li>
+							</ul>
+							<h4>{$document->getTitle()|noescape}</h4>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="btnArea">
+			<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
+			<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
+		</div>
+	</div>
+</section>

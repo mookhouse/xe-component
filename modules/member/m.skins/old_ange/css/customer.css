@@ -1,0 +1,270 @@
+@import url("../css/common.css");
+
+/* 아이디 찾기 */
+.id-confirm .section-header .section-title {
+    font-size: 13px;
+}
+.id-confirm .section-content {
+    margin-top: 22px;
+}
+.id-confirm .section-content .authentication {
+    margin-top: 20px;
+}
+.id-confirm .section-content .result {
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 30px 0;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+}
+.id-confirm .section-content .result p {
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+}
+.id-confirm .section-content .result p i {
+    color: #333;
+    font-style: normal;
+}
+.id-confirm .section-content .btn-area {
+    margin-top: 20px;
+    text-align: right;
+}
+.id-confirm .section-content .btn-area > p > .btn-pink > i {
+    font-size: 10px;
+    margin-right: 6px;
+}
+
+/* 비밀번호 찾기 */
+.pw-confirm .pw-find .section-header .section-title {
+    font-size: 13px;
+}
+.pw-confirm .pw-find .section-content {
+    margin-top: 22px;
+}
+.pw-confirm .pw-find .section-content .authentication {
+    margin-top: 20px;
+}
+.pw-confirm .pw-find .section-content .new-pw {
+    margin-top: 20px;
+}
+.pw-confirm .pw-find .section-content .new-pw .btn-area {
+    margin-top: 20px;
+    text-align: right;
+}
+.pw-confirm ..pw-find section-content .new-pw .btn-area > p > .btn-pink > i {
+    font-size: 10px;
+    margin-right: 6px;
+}
+
+/* Step-list 공통 */
+.customer .section-header {
+    padding-bottom: 0;
+}
+.customer .section-header .step-list {
+    margin-top: 15px;
+}
+
+/* 회원가입 약관동의 */
+.agreement .agreement-list .section-content {
+    margin-top: 25px;
+}
+.agreement .agreement-list .section-content .terms ~ .terms
+{
+    margin-top: 30px;
+}
+.agreement .agreement-list .section-content .terms h3 {
+    font-size: 11px;
+    color: #333;
+}
+.agreement .agreement-list .section-content .terms h3 i {
+    font-style: normal;
+}
+.agreement .agreement-list .section-content .terms h3 i.necessary {
+    font-style: normal;
+    color: #e25371;
+}
+.agreement .agreement-list .section-content .terms h3 i:before {
+    content: "(";
+}
+.agreement .agreement-list .section-content .terms h3 i:after {
+    content: ")";
+}
+.agreement .agreement-list .section-content .terms .content {
+    overflow-y: scroll;
+    width: 100%;
+    height: 85px;
+    font-size: 11px;
+    color: #666;
+    line-height: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+.agreement .agreement-list .section-content .terms label {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #666;
+    font-weight: 300;
+}
+.agreement .agreement-list .section-content .terms label input {
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+.agreement .agreement-list .section-content hr {
+    display: block;
+    margin: 20px 0;
+    border-top: 1px solid #ccc;
+}
+.agreement .agreement-list .section-content .btn-area {
+    text-align: left;
+}
+.agreement .agreement-list .section-content label.all {
+    font-size: 11px;
+    color: #666;
+    line-height: 15px;
+    font-weight: 300;
+}
+.agreement .agreement-list .section-content label.all > input {
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+.agreement .agreement-list .section-content .btn-area .check-box p {
+    text-align: right;
+    margin-top: 40px;
+}
+
+/* 회원가입 완료 */
+.success .agreement-complete .section-content {
+    margin-top: 20px;
+    padding: 40px 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+}
+.success .agreement-complete .section-content h4 {
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+}
+.success .agreement-complete .section-content .summary {
+    text-align: center;
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 20px;
+    color: #8f8f8f;
+}
+.success .agreement-complete .section-content figure {
+    margin: 0 auto;
+    width: 180px;
+}
+.success .agreement-complete .section-content figure img{
+    width: 100%;
+}
+.success .agreement-complete .btn-area {
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* 고객센터 title 공통 */
+.customer .title {
+    font-size: 13px;
+    color: #333;
+}
+
+/* 앙쥬공지 목록 */
+.notice-list .list-wrap .section-header .title{
+    margin-bottom: 15px;
+}
+.notice-list .list-wrap .section-header .search-form {
+    margin-bottom: 15px;
+}
+.notice-list .list-wrap .section-content .paging {
+    margin-top: 20px;
+}
+
+/* 앙쥬공지 보기 */
+.notice-view section h4 {
+    margin-bottom: 15px;
+}
+
+/* 자주하는질문 목록 */
+.faq-list .section-header h4 {
+    margin-bottom: 10px;
+}
+.faq-list .section-header .search-form {
+    margin: 15px 0;
+}
+.faq-list .section-content .board-type-2 ul li a .icon-list > li.user:before {
+    content: "\E817"
+}
+.faq-list .section-content .board-type-2 .paging {
+    margin-top: 20px;
+}
+
+/* 자주하는질문 목록 */
+.qna-list .section-header h4 {
+    margin-bottom: 10px;
+}
+.qna-list .section-header .search-form {
+    margin: 15px 0;
+}
+.qna-list .section-content .board-type-2 ul li a .icon-list > li.user:before {
+    content: "\E817"
+}
+.qna-list .section-content .board-type-2 .paging {
+    margin-top: 20px;
+}
+
+
+/* 자주하는질문 보기 */
+.faq-view section .section-header h4 {
+    margin-bottom: 10px;
+}
+.faq-view section .section-content {
+    margin-top: 15px;
+}
+
+/* 회원문의 목록 */
+.inquiry-list section .section-header .search-form {
+    margin: 15px 0;
+}
+.inquiry-list section .section-content .board-type-2 .btn-area {
+    margin-top: 20px;
+}
+.inquiry-list section .section-content .board-type-2 .paging {
+    margin-top: 20px;
+}
+.inquiry-list section .section-content .board-type-2 .btn-area {
+    text-align: right;
+}
+
+
+
+
+/* 회원문의 보기 */
+.inquiry-view section .title {
+    margin-bottom: 15px;
+}
+.inquiry-view section .section-content .board-view .article-header .icon-list li:last-child {
+    float: left;
+}
+
+/* 회원문의 쓰기 */
+.inquiry-write .table-wrap .summary {
+    margin-bottom: 10px;
+}
+.inquiry-write .table-wrap h4.title {
+    margin-bottom: 15px;
+}
+.inquiry-write .table-wrap .btn-area {
+    margin-top: 30px;
+    text-align: right;
+}
+.inquiry-write .table-wrap .btn-area p > .btn{
+    width: 90px;
+}
+

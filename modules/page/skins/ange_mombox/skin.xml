@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">Ange PC 맘박스 Page Skin</title>
+	<description xml:lang="ko">
+		 Ange PC 맘박스 페이지의 기본 스킨입니다.
+	</description>
+	<version>1.0</version>
+	<date>2022-09-05</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">전체 설정</title>
+			<var name="default_style" type="radio">
+				<title xml:lang="ko">페이지 종류</title>
+				<options value="main">
+					<title xml:lang="ko">메인페이지</title>
+				</options>
+				<options value="before">
+					<title xml:lang="ko">임신맘</title>
+				</options>
+				<options value="after">
+					<title xml:lang="ko">출산맘</title>
+				</options>
+			</var>
+			<var name="side_nav_bar" type="radio">
+				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
+				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="CONTENTS_NAV">
+					<title xml:lang="ko">CONTENTS_NAV 메뉴</title>
+				</options>
+				<options value="COMMUNITY_NAV">
+					<title xml:lang="ko">COMMUNITY_NAV 메뉴</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">맘박스 메인 페이지 설정</title>
+			<var name="before_banner_img" type="image">
+				<title xml:lang="ko">좌측 임신맘 배너 이미지</title>
+				<description xml:lang="ko">좌측 임신맘 신청 배너 이미지로 사용할 수 있습니다.</description>
+			</var>
+			<var name="before_banner_link" type="text">
+				<title xml:lang="ko">좌측 임신맘 링크 URL</title>
+				<description xml:lang="ko">좌측 임신맘 신청 배너 이미지 클릭하면 이동할 페이지 주소</description>
+			</var>
+			<var name="after_banner_img" type="image">
+				<title xml:lang="ko">우측 출산맘 배너 이미지</title>
+				<description xml:lang="ko">우측 출산맘 신청 배너 이미지로 사용할 수 있습니다.</description>
+			</var>
+			<var name="after_banner_link" type="text">
+				<title xml:lang="ko">우측 출산맘 링크 URL</title>
+				<description xml:lang="ko">우측 출산맘 신청 배너 이미지 클릭하면 이동할 페이지 주소</description>
+			</var>
+			<var name="bottom_banner_img" type="image">
+				<title xml:lang="ko">하단 배너 이미지</title>
+				<description xml:lang="ko">하단 배너 이미지로 사용할 수 있습니다.</description>
+			</var>
+			<var name="bottom_banner_link" type="text">
+				<title xml:lang="ko">하단 배너 링크 URL</title>
+				<description xml:lang="ko">하단 배너 이미지 클릭하면 이동할 페이지 주소</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">임신맘 박스 페이지 설정</title>
+				
+		</group>
+	</extra_vars>
+</skin>

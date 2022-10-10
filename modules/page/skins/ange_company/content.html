@@ -1,0 +1,42 @@
+<link href="/modules/page/skins/ange_mombox/css/sub.css" rel="stylesheet">
+<link href="/modules/page/skins/ange_company/css/introduction.css" rel="stylesheet">
+
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<h2 class="nav-title">회사소개</h2>
+			<ul id="lnb-list">
+				<li class="active"><a href='#'>회사소개</a></li>
+				<!---li class="">
+					<a href='javascript:;'>비지니스 센터</a>
+					<ul>
+						<li class=""><a href='#'>광고마케팅</a></li>
+						<li class=""><a href='#'>온라인마케팅</a></li>
+						<li class=""><a href='#'>단행본/디자인</a></li>
+						<li class=""><a href='#'>촬영/스튜디오</a></li>
+						<li class=""><a href='#'>앙쥬클럽</a></li>
+					</ul>
+				</li--->
+				<li class=""><a href='/clients'>협력사소개</a></li>
+			</ul>
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+<block cond="$oDocument">
+<!--@if($module_info->default_style=='intro' || $module_info->default_style=='')-->
+	<include target="_intro.html" />
+<!--@elseif($module_info->default_style=='clients')-->
+	<include target="_clients.html" />
+<!--@elseif($module_info->default_style=='inquiry')-->
+	<include target="_inquiry.html" />
+<!--@end-->
+</block>
+
+<block cond="!$oDocument">
+{$lang->none_content}
+</block>
+		</div>
+	</div>
+</div>
+

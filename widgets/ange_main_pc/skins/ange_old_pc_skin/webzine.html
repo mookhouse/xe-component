@@ -1,0 +1,49 @@
+<!--
+Copyright inpleworks, Co. 
+-->
+{@ 	
+	// webzine size
+	if($wi->col_webzine==2) $thumb_size = 'col-xs-4';
+	elseif($wi->col_webzine==3) $thumb_size = 'col-xs-3';
+	elseif($wi->col_webzine==4) $thumb_size = 'col-xs-2';
+	else $thumb_size = 'col-xs-4';
+	
+	if($wi->col_webzine==2) $desc_size = 'col-xs-8';
+	elseif($wi->col_webzine==3) $desc_size = 'col-xs-9';
+	elseif($wi->col_webzine==4) $desc_size = 'col-xs-10';
+	else $desc_size = 'col-xs-8';
+}
+<div class="xet-plus-webzine">
+	{@ $_idx=0}
+    <div class="item xet-row mg-xs-b15 mg-sm-b30" loop="$wi->document_list=>$item">
+		<div class="thumbnail {$thumb_size}" cond="$wi->show_thumbnail!='N' && $item->getThumbnail()">
+			<a href="{$item->getPermanentUrl()}" target="_blank"|cond="$wi->new_window">		 
+				<img src="{$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}" alt="{strip_tags($item->getTitle())}" />								
+			 </a>
+		</div>								
+		<div class="captions <!--@if($item->getThumbnail())-->col-xs-12 col-sm-6 {$desc_size}<!--@else-->col-xs-12<!--@end--> text-left">
+			<div class="vertical-align">
+				<div class="inner middle">
+					<h6 class="h6 mg-b10" cond="$wi->show_title!='N'">
+						<a href="{$item->getPermanentUrl()}" class="title" target="_blank"|cond="$wi->new_window">{$item->getTitle($wi->subject_cut_size)}</a>
+						<span class="xet-plus-content-icon fs-12" cond="$wi->show_icon=='Y'">								
+							<i class="xi-new" cond="(int)($item->getRegdate('YmdHis') > date('YmdHis', time()-($wi->duration_new)))"></i>
+							<i class="xi-update" cond="((int)($item->get('last_update') > date('YmdHis', time()-($wi->duration_new)))) && ($item->getRegdate('YmdHis') != $item->get('last_update'))"></i>
+							<i class="xi-lock" cond="$item->variables[status]=='SECRET'"></i>
+						</span>
+					</h6>			
+					<p class="mg-b10" cond="$wi->show_content!='N'">{$item->getSummary($wi->content_cut_size)}</p>
+					<p class="fs-12" cond="$wi->show_regdate=='Y' || $wi->show_nickname=='Y' || $wi->show_readed_count=='Y' || $wi->show_comment_count=='Y'">								
+						<span cond="$wi->show_regdate=='Y'"><i class="fa fa-clock-o" aria-hidden="true"></i> {$item->getRegdate("M d, Y")}</span>
+						<span cond="$wi->show_nickname=='Y'"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {cut_str($item->getNickName(), $wi->nickname_cut_size)}</span>
+						<span cond="$wi->show_readed_count=='Y' && $item->get('readed_count')"><i class="fa fa-eye" aria-hidden="true"></i> {$item->get('readed_count')}</span>
+						<span cond="$wi->show_comment_count=='Y' && $item->getCommentCount()"><a href="{$item->document_srl}#comment"><i class="fa fa-commenting" aria-hidden="true"></i> {$item->getCommentCount()}</a></span>
+					</p>
+					<p class="fs-12 mg-t10" cond="$wi->show_category_title=='Y' && $item->category->title"><i class="fa fa-folder-open" aria-hidden="true"></i> {$item->category->title}</p>
+				</div>
+			</div>
+		</div>
+		{@ $_idx++}
+	</div>
+</div>
+

@@ -1,0 +1,12 @@
+<link href="/modules/board/m.skins/ange_old_event/css/event.css" rel="stylesheet">
+
+<div class="container">
+	<section>
+<block cond="$oDocument->isExists()">
+	<include target="_read.html" />
+</block>
+<block cond="!$oDocument->isExists()">
+	<include target="_list.html" />
+</block>
+	</section>
+</div>

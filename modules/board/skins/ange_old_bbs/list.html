@@ -1,0 +1,149 @@
+<include target="_header.html" />
+
+<load target="css/sub.css" />
+<load target="css/e_magazine.css" />
+<load target="js/common_sub.js" type="body" />
+
+<script>
+$(function(){
+	// 목록 보기, 썸네일 보기 버튼
+	$(document).on('click', '.type-btn .btn-type-1',  function(){
+		$('.board-list').addClass('list-type-1');
+		$('.board-list').removeClass('list-type-2');
+		$('.board-list .article-header .btn-type-1').addClass('active');
+		$('.board-list .article-header .btn-type-2').removeClass('active');
+		$(".thumb_summary").show();
+		$(".list_summary").hide();
+	});
+	$(document).on('click', '.type-btn .btn-type-2',  function(){
+		$('.board-list').addClass('list-type-2');
+		$('.board-list').removeClass('list-type-1');
+		$('.board-list .article-header .btn-type-2').addClass('active');
+		$('.board-list .article-header .btn-type-1').removeClass('active');
+		$(".thumb_summary").hide();
+		$(".list_summary").show();
+	});
+
+	// 주차별 / 월별 탭 좌/우 클릭
+	var now_tab_num = 0;
+	var max_tab_num = $(".tab_ol").length - 1;
+	console.log(max_tab_num );
+	$(document).on("click", ".week-tab-list > .btn-controls > a", function(){
+		var type = $(this).attr("data-type");
+		switch(type){
+			case "prev":
+				if(now_tab_num == 0) return;
+				now_tab_num--;
+				$(".tab_ol").hide().eq(now_tab_num).show();
+				break;
+			case "next":
+				if(now_tab_num == max_tab_num) return;
+				now_tab_num++;
+				$(".tab_ol").hide().eq(now_tab_num).show();
+				break;
+		}
+	});
+});
+</script>
+
+{@
+// refer to layouts/old_ange/info.xml
+if($module_info->side_nav_bar == 'CONTENTS_NAV')
+	$oSideMenuVar = $CONTENTS_NAV;
+elseif($module_info->side_nav_bar == 'COMMUNITY_NAV')
+	$oSideMenuVar = $COMMUNITY_NAV;
+else
+	$oSideMenuVar = '';
+}
+<!-- 페이지명 클래스 -->
+<div class="container">
+   <div class="sub-wrapper">
+      <!-- 서브 lnb -->
+      <nav class="nav-lnb">
+         <h2 class="nav-title">{$module_info->browser_title}</h2>
+		 <ul id="lnb-list">
+			<block loop="$oSideMenuVar->list=>$key1,$val1" cond="$val1['url']!='index'" >
+				<li class="active"|cond="$val1['selected']">
+					<a sv-attr="pc_top_menu_{$val1['text']}" href="javascript:;" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+					<ul cond="$val1['list']">
+						<block loop="$val1['list']=>$key2,$val2">
+							<li class="active"|cond="$val2['selected']">
+								<a sv-attr='pc_content_menuebook_monthly' href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a>
+							</li>
+						</block>
+					</ul>
+				</li>
+			</block>
+		</ul>
+      </nav>
+      <!-- Content Start -->
+      <div class="sub-content">
+<block cond="$oDocument->isExists()">
+<!--@if($module_info->default_style=='gallery')-->
+	<include target="_read_gallery.html" />
+<!--@elseif($module_info->default_style=='list' || !$module_info->default_style)-->
+	<!--@if(!Mobile::isMobileCheckByAgent() || $module_info->list_m)-->
+	<include target="_read_normal.html" />
+	<!--@else-->
+	<include target="_read_m.html" />
+	<!--@end-->
+<!--@end-->
+</block>
+
+<block cond="!$oDocument->isExists()">
+<!--// 게시판 유형 -->
+<!--@if($module_info->default_style=='gallery')-->
+	<include target="_list_gallery.html" />
+<!--@elseif($module_info->default_style=='list' || !$module_info->default_style)-->
+	<!--@if(!Mobile::isMobileCheckByAgent() || $module_info->list_m)-->
+	<include target="_list_normal.html" />
+	<!--@else-->
+	<include target="_list_m.html" />
+	<!--@end-->
+<!--@end-->
+</block>       
+		 <block cond="!$oDocument->isExists()">
+			<BR>
+			<!-- begin - pagination -->
+			<nav class="paging" aria-label="Page navigation">
+				<ul class="pagination" id="dataPage">
+					<li class="prev"><a aria-label="Previous" href="{getUrl('page','','document_srl','','division',$division,'last_division',$last_division)}" class="pprev" title="{$lang->first_page}"><i sv-attr='pc_content_paginationprev' class="icon-angle-double-left"></i></a></li>
+					<block loop="$page_no=$page_navigation->getNextPage()">
+						<li class="active"|cond="$page==$page_no"><a sv-attr='pc_content_pagination1' href="{getUrl('page',$page_no,'document_srl','','division',$division,'last_division',$last_division)}">{$page_no}</a></li>
+					</block>
+					<li class="last"><a aria-label="Next" href="{getUrl('page',$page_no,'document_srl','','division',$division,'last_division',$last_division)}" title="{$lang->last_page}"><i sv-attr='pc_content_paginationend' class="icon-angle-double-right"></i></a></li>
+				</ul>
+			</nav>
+			<!-- end - pagination -->
+			<!-- begin - search form -->
+			<div class="search-form">
+				<form id="board_search" name="searchForm" method="get" cond="$grant->view" action="{getUrl()}" onsubmit="return procFilter(this, search)" no-error-return-url="true">
+				<input type="hidden" name="vid" value="{$vid}" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="category" value="{$category}" />
+					<div class="form-group">
+						<select class="form-control" name="search_target" id="search_target">
+							<option loop="$search_option=>$key,$val" value="{$key}" selected="selected"|cond="$search_target==$key">{$val}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" title="{$lang->cmd_search}" class="form-control" placeholder="검색어를 입력해 주세요" value="">
+					</div>
+					<p class="btn-search">
+						<button type="submit" class="btn btn-default" onclick="xGetElementById('board_search').submit();return false;">
+							<i class="icon-search"></i>
+							<span class="sr-only">{$lang->cmd_search}</span>
+						</button>
+						<a cond="$last_division" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}" class="btn">{$lang->cmd_search_next}</a>
+						<a href="{getUrl('act','dispBoardTagList')}" class="tagSearch" title="{$lang->tag}">{$lang->tag}</a>
+					</p>
+				</form>
+			</div>
+			<!-- end - search form -->
+			<div class="btnArea">
+				<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
+				<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
+			</div>
+		</block>
+	</div>
+</div>

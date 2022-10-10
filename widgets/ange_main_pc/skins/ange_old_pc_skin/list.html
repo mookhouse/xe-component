@@ -1,0 +1,19 @@
+<!--
+Copyright inpleworks, Co. 
+-->
+<ul class="xet-plus-list">
+	<li loop="$wi->document_list=>$item">		
+		<a href="{$item->getPermanentUrl()}" target="_blank"|cond="$wi->new_window">
+			<span class="regdate" cond="$wi->show_regdate=='Y'"><i class="fa fa-clock-o" aria-hidden="true"></i> {$item->getRegdate("Y m-d")}</span>
+			<span class="category" cond="$wi->show_category_title=='Y' && $item->category->title"><i class="fa fa-folder-open" aria-hidden="true"></i> {$item->category->title}</span>			
+			<span class="title" cond="$wi->show_title!='N'">{$item->getTitle($wi->subject_cut_size)}</span>
+		</a>
+		<span class="replyNum" cond="$wi->show_comment_count=='Y' && $item->getCommentCount()"><a href="{$item->document_srl}#comment"><i class="fa fa-commenting" aria-hidden="true"></i> {$item->getCommentCount()}</a></span>				
+		<span class="nicname" cond="$wi->show_nickname=='Y'"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {cut_str($item->getNickName(), $wi->nickname_cut_size)}</span>
+		<span class="xet-plus-content-icon" cond="$wi->show_icon=='Y'">
+			<i class="xi-new" cond="(int)($item->getRegdate('YmdHis') > date('YmdHis', time()-($wi->duration_new)))"></i>
+			<i class="xi-update" cond="((int)($item->get('last_update') > date('YmdHis', time()-($wi->duration_new)))) && ($item->getRegdate('YmdHis') != $item->get('last_update'))"></i>
+			<i class="xi-lock" cond="$item->variables[status]=='SECRET'"></i>
+		</span>		
+	</li>
+</ul>

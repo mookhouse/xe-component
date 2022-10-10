@@ -1,0 +1,93 @@
+{@ $cate_list = array(); $current_key = null; }
+<!--@foreach($category_list as $key=>$val)-->
+	<!--@if(!$val->depth)-->
+		{@
+			$cate_list[$key] = $val;
+			$cate_list[$key]->children = array();
+			$current_key = $key;
+		}
+	<!--@elseif($current_key)-->
+		{@ $cate_list[$current_key]->children[] = $val }
+	<!--@end-->
+<!--@end-->
+
+<section class="magazine-list">
+	<div class="container">
+		<div class="section-header">
+			<nav class="tab-list" cond="$module_info->use_category=='Y'">
+{@$nCatIdx=0;}
+<block loop="$cate_list=>$key,$val">
+{@
+$nCatLoopCnt = 5;
+}
+<!--@if($nCatIdx%$nCatLoopCnt==0 && $nCatIdx == 0)-->
+					<ul class="tab_ol" style="display:block;">
+<!--@elseif($nCatIdx%$nCatLoopCnt==0 && $nCatIdx>2)-->
+					<ul class="tab_ol" style="display:none;">
+<!--@end-->
+<!--@if($nCatIdx==0)-->
+					<li class="active"|cond="$category==''" id="cateAll"><a sv-attr='pc_content_menumonthly' href="{$module_info->mid}">전체</a></li>
+{@$nCatIdx++;} <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
+<!--@end-->
+<!--@if($category==$val->category_srl)-->
+					<li class="active"><a href="{getUrl(category,$val->category_srl,'document_srl','', 'page', '')}">{$val->title}
+<!--@else-->
+					<li class="categoryList"><a href="{getUrl(category,$val->category_srl,'document_srl','', 'page', '')}">{$val->title}
+<!--@end-->
+	<block cond="$val->document_count">[{$val->document_count}]</block></a></li>
+<!--@if($nCatIdx>1 && ($nCatIdx+1)%$nCatLoopCnt==0)-->  <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
+				</ul>
+<!--@end-->
+{@
+$nCatIdx++;
+}
+</block>
+				</ul>
+				<div class="btn-controls">
+					<a href="javascript:;" data-type="prev" class="prev"><i class="icon-left-circle"><span class="sr-only">이전</span></i></a>
+					<a href="javascript:;" data-type="next" class="next"><i class="icon-right-circle"><span class="sr-only">다음</span></i></a>
+				</div>
+			</nav>
+		</div>
+		<div class="section-content list-type-1">
+			<!---div class="type-btn">
+				<button type="button" class="btn btn-type-1 active"><i class="icon-th"></i></button>
+				<button type="button" class="btn btn-type-2"><i class="icon-menu-1"></i></button>
+			</div--->
+			<ul id="dataList">
+<block loop="$document_list=>$no,$document">
+				<li>
+					<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" rel="nofollow">
+						<figure sv-attr='' >
+							<img src="/modules/board/m.skins/ange_old_bbs/images/_blank.gif" alt="{$document->getTitle()|noescape}" style="background-image:url('{$document->getThumbnail(575, 575, 'crop')}');background-size:cover;background-position:center center;width:100%;">
+						</figure>
+						<div class="details">
+							<h4>{$document->getTitle()|noescape}</h4>
+							<ul class="icon-list">
+								<li class="like">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
+								<li class="comment">{$document->getCommentCount()}</li>
+							</ul>
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='preface'">
+							<p class="thumb_summary">﻿{cut_str($val->getValueHTML(), 90, '...')}</p>
+							<!---p class="list_summary" style="display:none;">﻿{cut_str($val->getValueHTML(), 180, '...')}</p--->
+</block>
+						</div>
+					</a>
+				</li>
+</block>
+			</ul>
+			<!--nav class="paging" aria-label="Page navigation">
+				<ul class="pagination" id="dataPage">
+					<li class="prev"><a aria-label="Previous" href="javascript:;" class="pprev" title="이전"><i class="icon-angle-left"></i></a></li>
+					<li class="active"><a href="javascript:;">1</a></li>
+					<li><a href="javascript:$scope.getSearch('1')">2</a></li>
+					<li><a href="javascript:$scope.getSearch('2')">3</a></li>
+					<li><a href="javascript:$scope.getSearch('3')">4</a></li>
+					<li><a href="javascript:$scope.getSearch('4')">5</a></li>
+					<li class="next"><a aria-label="Next" href="javascript:$scope.getSearch('5');" title="다음"><i class="icon-angle-right"></i></a></li>
+					<li class="last"><a aria-label="Next" href="javascript:$scope.getSearch('56');" title="맨뒤로"><i class="icon-angle-double-right"></i></a></li>
+				</ul>
+			</nav--->
+		</div>
+	</div>
+</section>

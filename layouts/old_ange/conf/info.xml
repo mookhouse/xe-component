@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.2">
+    <title xml:lang="ko">(구)앙쥬 PC 레이아웃</title>
+    <description xml:lang="ko">(구)앙쥬 PC 레이아웃</description>
+    <version>1.0</version>
+    <date>2022-02-16</date>
+    <author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+        <name xml:lang="ko">singleview.co.kr</name>
+    </author>
+    <menus>
+        <menu name="GNB" maxdepth="2" default="true">
+            <title xml:lang="ko">전역 네비게이션 바</title>
+        </menu>
+		<menu name="CONTENTS_NAV" maxdepth="2">
+            <title xml:lang="ko">컨텐츠 섹션 네비게이션</title>
+        </menu>
+		<menu name="COMMUNITY_NAV" maxdepth="2">
+            <title xml:lang="ko">커뮤니티 섹션 네비게이션</title>
+        </menu>
+		<menu name="FOOTER" maxdepth="2">
+            <title xml:lang="ko">푸터 메뉴</title>
+        </menu>
+    </menus>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본 설정</title>
+			<var name="GTM_CONTAINER_ID" type="text">
+				<title xml:lang="ko">Google Tag Mgr Container ID</title>
+				<title xml:lang="en">Google Tag Mgr Container ID</title>
+			</var>
+			<var name="GAv3_ID" type="text">
+				<title xml:lang="ko">google analytics v3 ID</title>
+				<title xml:lang="en">google analytics v3 ID</title>
+			</var>
+			<var name="GAv4_ID" type="text">
+				<title xml:lang="ko">google analytics v4 ID</title>
+				<title xml:lang="en">google analytics v4 ID</title>
+			</var>
+			<var name="GOOGLE_ADWORDS_CONV_ID" type="text">
+				<title xml:lang="ko">google Adwords Conversion ID</title>
+				<title xml:lang="en">google Adwords Conversion ID</title>
+			</var>
+			<var name="FB_PIXEL_ID" type="text">
+				<title xml:lang="ko">Facebook Pixel ID</title>
+				<title xml:lang="en">Facebook Pixel ID</title>
+			</var>
+			<var name="WCS_ID" type="text">
+				<title xml:lang="ko">네이버 프리미엄 로그 ID</title>
+				<title xml:lang="en">Naver Premium Log Analytics ID</title>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">사이트 설정</title>	
+			<var name="LOGO_IMG" type="image">
+				<title xml:lang="ko">사이트 로고 이미지</title>
+			</var>
+			<var name="LOGO_TEXT" type="text">
+				<title xml:lang="ko">사이트 로고 문자</title>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">최상단 롤링 배너 설정</title>
+				<var name="rolling_banner_1" type="image">
+					<title xml:lang="ko">배너 1 이미지</title>
+					<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+				</var>
+				<var name="rolling_banner_2" type="image">
+					<title xml:lang="ko">배너 2 이미지</title>
+					<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+				</var>
+		</group>
+		<group>
+			<title xml:lang="ko">좌 플로팅 배너 설정</title>
+				<var name="floating_banner_img_1" type="image">
+					<title xml:lang="ko">배너 1 이미지</title>
+					<description xml:lang="ko">PC 글로벌 플로팅 배너 이미지</description>
+				</var>
+				<var name="floating_banner_link_1" type="text">
+					<title xml:lang="ko">배너 1 링크</title>
+					<description xml:lang="ko">PC 글로벌 플로팅 배너 이미지의 링크.</description>
+				</var>
+				<var name="floating_banner_img_2" type="image">
+					<title xml:lang="ko">배너 2 이미지</title>
+					<description xml:lang="ko">PC 글로벌 플로팅 배너 이미지</description>
+				</var>
+				<var name="floating_banner_link_2" type="text">
+					<title xml:lang="ko">배너 2 링크</title>
+					<description xml:lang="ko">PC 글로벌 플로팅 배너 이미지의 링크.</description>
+				</var>
+				<var name="floating_banner_img_3" type="image">
+					<title xml:lang="ko">배너 3 이미지</title>
+					<description xml:lang="ko">PC 글로벌 페이지의 플로팅 배너 이미지</description>
+				</var>
+				<var name="floating_banner_link_3" type="text">
+					<title xml:lang="ko">배너 3 링크</title>
+					<description xml:lang="ko">PC 글로벌 페이지의 플로팅 배너 이미지의 링크.</description>
+				</var>
+				<var name="floating_banner_img_4" type="image">
+					<title xml:lang="ko">배너 4 이미지</title>
+					<description xml:lang="ko">PC 글로벌 페이지의 플로팅 배너 이미지</description>
+				</var>
+				<var name="floating_banner_link_4" type="text">
+					<title xml:lang="ko">배너 4 링크</title>
+					<description xml:lang="ko">PC 글로벌 페이지의 플로팅 배너 이미지의 링크.</description>
+				</var>
+		</group>
+	</extra_vars>
+</layout>

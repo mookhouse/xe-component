@@ -1,0 +1,83 @@
+<include target="./common_header.html" />
+<load target="./css/social_login.css" />
+
+<div class="signin">
+	<div class="login-header">
+		<h1><i class="icon-user"></i> {$lang->cmd_login}</h1>
+	</div>
+	<div class="login-body">
+        
+		<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+			<p>{$XE_VALIDATOR_MESSAGE}</p>
+		</div>
+      
+		<form ruleset="@login" action="{getUrl('', 'act', 'procMemberLogin')}" method="post" id="fo_member_login">
+			<input type="hidden" name="success_return_url" value="{$referer_url}" />
+			<input type="hidden" name="act" value="procMemberLogin" />
+			<input type="hidden" name="xe_validator_id" value="modules/member/skins" />
+			<fieldset>
+				<div class="control-group">
+					<input type="text" cond="$identifier == 'user_id'" name="user_id" id="uid" required placeholder="{$lang->user_id}" title="{$lang->user_id}" />
+					<input type="email" cond="$identifier != 'user_id'" name="user_id" id="uid" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
+					<input type="password" name="password" id="upw" required placeholder="{$lang->password}" title="{$lang->password}" />
+				</div>
+				<div class="control-group">
+					<label for="keepid_opt">
+						<input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" />
+						{$lang->keep_signed}
+					</label>
+					<div id="warning">
+						<p>{$lang->about_keep_warning}</p>
+					</div>
+					<input type="submit" value="{$lang->cmd_login}" class="submit btn btn-inverse" />
+				</div>
+			</fieldset>
+		</form>
+        <block cond="$enable_naver_login">
+            <div class="social_login" cond="!$logged_info">
+                <span class="social_label">소셜 {$lang->cmd_login}</span>
+        <block cond="$naver_client_id && $naver_cb_mid">
+                <a class="btn_social_login" id="naverIdLogin_loginButton" href="javascript:void(0)"><span>Naver Login</span></a>
+                
+        </block>
+            </div>
+    </block>  
+    </div>
+    
+	<div class="login-footer">
+		<a href="{getUrl('act','dispMemberFindAccount')}">{$lang->cmd_find_member_account}</a>
+		|
+		<a href="{getUrl('act','dispMemberSignUpForm')}">{$lang->cmd_signup}</a>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	var keep_msg = $('#warning');
+	keep_msg.hide();
+	$('#keepid_opt').change(function(){
+		if($(this).is(':checked')){
+			keep_msg.slideDown(200);
+		} else {
+			keep_msg.slideUp(200);
+		}
+	});
+});
+</script>
+
+<block cond="$naver_client_id && $naver_cb_mid">
+<!-- 네이버 스크립트 -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+<script>
+var naverLogin = new naver.LoginWithNaverId(
+    {
+        clientId: "{$naver_client_id}", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
+        callbackUrl: "{$sServerRootPath}{$naver_cb_mid}", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+        isPopup: false,
+        callbackHandle: true
+    }
+);	
+naverLogin.init();
+</script>
+</block>
+<include target="./common_footer.html" />

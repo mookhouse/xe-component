@@ -1,0 +1,443 @@
+<link href="/modules/page/m.skins/ange_main/css/main.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+<script>
+(function($) {
+	// top 배너 슬라이드 부분
+	$('.top-banner ul').bxSlider({
+		touchEnabled:(navigator.maxTouchPoints > 0),
+		controls: false,
+		pager: false,
+		auto: true
+	});
+	// 메인슬라이드
+	$(document).ready(function(){
+		$('.jumbo .container > ul').bxSlider({
+			controls: true,
+			auto: true,
+			prevText: '<img src="/modules/page/m.skins/ange_main/images/left_btn.png" alt="">',
+			nextText: '<img src="/modules/page/m.skins/ange_main/images/right_btn.png" alt="">'
+		});
+	});
+})(jQuery);
+</script>
+<!---div class="hot-issue">
+	<div class="container">
+	</div>
+</div--->
+<!-- main slider -->
+<div class="jumbo">
+	<div class="container">
+		<ul>
+			<li>
+				<a href="#">
+					<img sv-attr='mob_rev2_main_banner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img sv-attr='mob_rev2_main_banner0' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="container">
+	<!--article class="parenting-learn">
+		<div class="article-header">
+			<h3>영상으로 배우는 육아</h3>
+		
+			<div class="btn-controls">
+				<a href="javascript:;" class="btn btn-prev movie-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_video_prev' class="icon-left-circle">
+						<span class="sr-only">이전</span>
+					</i>
+				</a>
+				<a href="javascript:;" class="btn btn-next movie-btn" role="button" data-type="next">
+					<i sv-attr='mob_rev2_main_video_next' class="icon-right-circle">
+						<span class="sr-only">다음</span>
+					</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<ul class="row movie-ul"-->
+	<!--li class="col-xs-4">
+		<a href="/mobile?menu=story603&submenu=story_detail&NO="-->
+	<!--figure--->
+	<!--img sv-attr='mob_rev2_main_video6' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url();">
+		<figcaption-->
+	<!--em>영상으로 배우는 육아</em-->
+	<!--p sv-attr='mob_rev2_main_video6' ></p-->
+	<!--/figcaption-->
+	<!--/figure--->
+	<!--/a>
+		</li-->
+	<!--/ul>
+		</div>
+		</article-->
+	<article class="brand-banner">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="brand-news">
+					<figure>
+						<img src="{$module_info->fixed_left_banner_img}" alt="brand news" class="img-responsive">
+					</figure>
+					<a href="{$module_info->fixed_left_banner_out_link}">
+						<div class="details">
+							<h3><img sv-attr='mob_rev2_main_brandnews' src="/modules/page/m.skins/ange_main/images/brand_news_title.png" alt="brand news"></h3>
+							<p sv-attr='mob_rev2_main_brandnews' class="product-name">{$module_info->fixed_left_banner_title}</p>
+							<p sv-attr='mob_rev2_main_brandnews' class="summary">{$module_info->fixed_left_banner_desc}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="banner-item">
+					<a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='mob_rev2_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive"></a>
+				</div>
+			</div>
+		</div>
+	</article>
+	<article class="qna-list">
+		<div class="article-header">
+			<h3>닥터앙쥬 전문가 Q&amp;A</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+				<i sv-attr='mob_rev2_main_QNA_prev' class="icon-left-circle">
+				<span class="sr-only">이전</span>
+				</i>
+				</a--->
+				<a href="javascript:;" class="btn btn-next qna-btn" role="button" data-type="next">
+				<i sv-attr='mob_rev2_main_QNA_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<figure>
+				<a href="/mobile?menu=story602&submenu=story_detail&NO=9083"><img sv-attr='mob_rev2_main_QNA_thumb' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630db71d554fc);"></a>
+			</figure>
+			<div class="details">
+				<ul class="qna-ul">
+					<li><a sv-attr='mob_rev2_main_QNA_list0' href="/mobile?menu=story602&submenu=story_detail&NO=9081">당신의 부드럽고 매끈한 피부를 위하여</a></li>
+					<li><a sv-attr='mob_rev2_main_QNA_list1' href="/mobile?menu=story602&submenu=story_detail&NO=9063">임신 후 겪는 7대 굴욕의 순간</a></li>
+					<li><a sv-attr='mob_rev2_main_QNA_list2' href="/mobile?menu=story602&submenu=story_detail&NO=9062">롱코비드 시대의 아이를 위한 위생 습관 백서</a></li>
+					<li><a sv-attr='mob_rev2_main_QNA_list3' href="/mobile?menu=story602&submenu=story_detail&NO=9061">아이 머리에 구멍이?! 신생아 탈모 궁금증</a></li>
+				</ul>
+			</div>
+		</div>
+	</article>
+	<article class="subject-content">
+		<div class="article-header">
+			<ul>
+				<li class="stab active" id="subject_tab1"><a href="javascript:$scope.onStoryStep(1);" sv-attr='mob_rev2_main_story_앙쥬스토리' class="stab_btn" data-tab="1">앙쥬스토리</a></li>
+				<li class="stab" id="subject_tab2"><a href="javascript:$scope.onStoryStep(2);" sv-attr='mob_rev2_main_story_성장/건강' class="stab_btn" data-tab="2">성장/건강</a></li>
+				<li class="stab" id="subject_tab3"><a href="javascript:$scope.onStoryStep(3);" sv-attr='mob_rev2_main_story_임신/출산' class="stab_btn" data-tab="3">임신/출산</a></li>
+				<li class="stab" id="subject_tab4"><a href="javascript:$scope.onStoryStep(4);" sv-attr='mob_rev2_main_story_놀이/교육' class="stab_btn" data-tab="4">놀이/교육</a></li>
+				<li class="stab" id="subject_tab5"><a href="javascript:$scope.onStoryStep(5);" sv-attr='mob_rev2_main_story_리빙/헬스' class="stab_btn" data-tab="5">리빙/헬스</a></li>
+			</ul>
+		</div>
+		<div class="article-content">
+			<ul class="row scon" id="subject_list_tab1">
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('346','9078');">
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb0' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="지구를 살리는 제로 웨이스트 실천법 5R" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630db29a7a7a8);">
+						<figcaption>지구를 살리는 제로 웨이스트 실천법 ...</figcaption>
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('363','9077');">
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb1' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="육아 뉴스 : 아동기본법 제정을 위한 공개토론회 진행 외" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630db0688396e);">
+						<figcaption>육아 뉴스 : 아동기본법 제정을 위한...</figcaption>
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('137','9076');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb2' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="아나운서 이정민의 지혜로운 육아" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630da84140e45);">
+						<figcaption>아나운서 이정민의 지혜로운 육아</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('363','9086');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb3' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="트렌디한 육아맘·대디가 선택한 스트롤러 부가부 폭스3 & 부가부 비6" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/63157a0549211);">
+						<figcaption>트렌디한 육아맘·대디가 선택한 스트롤...</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('332','9079');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb4' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="난소 나이를 돌릴 수 있나요?" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630db360bd58d);">
+						<figcaption>난소 나이를 돌릴 수 있나요?</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('353','9084');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb5' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="[앙쥬 22년 9월] 특별하고 의미 있는 추석 플랜 외" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/631576fd7c2ee);">
+						<figcaption>[앙쥬 22년 9월] 특별하고 의미 ...</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('353','9072');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb6' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="장 자크 루소 "최고의 교사는 부모다"" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630c245e73061);">
+						<figcaption>장 자크 루소 "최고의 교사는 부모다...</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('353','9071');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb7' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="내 소중한 친구를 소개합니다 (feat.이행 대상)" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630c24bcd26c9);">
+						<figcaption>내 소중한 친구를 소개합니다 (fea...</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="javascript:$scope.getStoryLink('342','9083');">
+						<!---figure--->
+						<img sv-attr='mob_rev2_main_story_앙쥬스토리_thumb8' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="친구한테 맞고 온 아이, 그 대처법은?" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630db71d554fc);">
+						<figcaption>친구한테 맞고 온 아이, 그 대처법은...</figcaption>
+						<!---/figure---->
+					</a>
+				</li>
+			</ul>
+		</div>
+	</article>
+	<!---div style="width:320px;margin:10px auto 0px;">
+		<div id="tdn_s003_ange_ga01_mo_main_mid_btf_300x250">
+			<script>
+			if((navigator.userAgent.match(/Mobile|iP(hone)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/))){
+				window.googletag = window.googletag || {cmd: []};
+				googletag.cmd.push(function() {
+					googletag.defineSlot('/21682743634,22419415600/S003/ange/ga01/mo/main_mid_btf_300x250', [300, 250], 'tdn_s003_ange_ga01_mo_main_mid_btf_300x250').addService(googletag.pubads().set('page_url', '//ange.co.kr'));
+					googletag.enableServices();
+					googletag.display('tdn_s003_ange_ga01_mo_main_mid_btf_300x250');
+				});
+			}
+			</script>
+		</div>
+		</div--->
+	<article class="brand-strory">
+		<div class="article-header">
+			<h3>브랜드 스토리</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev brand-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_brandstory_prev' class="icon-left-circle">
+					<span class="sr-only">이전</span>
+					</i>
+				</a--->
+				<a href="javascript:;" class="btn btn-next brand-btn" role="button" data-type="next">
+				<i sv-attr='mob_rev2_main_brandstory_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<ul class="row brand-ul">
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9074');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb0' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="써모스, 마이 디자인 보틀 시즌2 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/63085a4d49af3);">
+						</div>
+						<p class="details">써모스, 마이 디자인 ..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9073');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb1' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="다이슨, 다이슨 에어랩™ 멀티 스타일러 판매" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/630859d1dd30b);">
+						</div>
+						<p class="details">다이슨, 다이슨 에어랩..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9059');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb2' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="엘빈즈, 유기농 츄러스 롱뻥 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302ebbcc5b99);">
+						</div>
+						<p class="details">엘빈즈, 유기농 츄러스..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9058');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb3' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="필립스, 전기면도기 이지 앤 고 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302eaf50351f);">
+						</div>
+						<p class="details">필립스, 전기면도기 이..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9057');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb4' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="베베쿡, 우리 쌀로 만든 두부도넛 2종 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302ea9a01504);">
+						</div>
+						<p class="details">베베쿡, 우리 쌀로 만..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9056');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb5' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="락앤락, 음식물 쓰레기 냉장고 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302e9ee9385e);">
+						</div>
+						<p class="details">락앤락, 음식물 쓰레기..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9055');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb6' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="서울우유협동조합, 비요뜨 더 그래놀라 신제품 출시" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302e99746382);">
+						</div>
+						<p class="details">서울우유협동조합, 비요..</p>
+					</a>
+				</li>
+				<li class="col-xs-3">
+					<a href="javascript:$scope.getStoryLink('361','9054');">
+						<div class="product-item">
+							<img sv-attr='mob_rev2_main_brandstory_thumb7' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="안양시, 아이좋아 행복꾸러미" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/cms/thumbnail/6302e9472019f);">
+						</div>
+						<p class="details">안양시, 아이좋아 행복..</p>
+					</a>
+				</li>
+			</ul>
+			<div class="story-banner">
+				<a href="{$module_info->fixed_bottom_banner_out_link}">
+					<!--figure--->
+					<img sv-attr='mob_rev2_main_brandstory_bannerbottom' src="{$module_info->fixed_bottom_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
+					<!---/figure--->
+				</a>
+			</div>
+		</div>
+	</article>
+</div>
+<!--div class="ange-community">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4">
+				<a href="/mobile?menu=sample_pack_11&submenu=" class="samplepack">
+					<div class="icon">
+						<img sv-attr='mob_rev2_main_samplepackapply' src="/modules/page/m.skins/ange_main/images/icon_samplepack.png" alt="">
+					</div>
+					<p class="caption"><img src="/modules/page/m.skins/ange_main/images/community_title01.png" alt=""></p>
+				</a>
+			</div>
+			<div class="col-xs-4">
+				<a href="/mobile?menu=eventwinner&submenu=" class="event">
+					<div class="icon">
+						<img sv-attr='mob_rev2_main_eventwinnter' src="/modules/page/m.skins/ange_main/images/icon_event.png" alt="">
+					</div>
+					<p class="caption"><img src="/modules/page/m.skins/ange_main/images/community_title02.png" alt=""></p>
+				</a>
+			</div>
+			<div class="col-xs-4">
+				<a href="/mobile?menu=ange_club_teacher&submenu=" class="ange-club">
+					<div class="icon">
+						<img sv-attr='mob_rev2_main_angeclub' src="/modules/page/m.skins/ange_main/images/icon_ange_club.png" alt="">
+					</div>
+					<p class="caption"><img src="/modules/page/m.skins/ange_main/images/community_title03.png" alt=""></p>
+				</a>
+			</div>
+		</div>
+	</div>
+</div--->
+<!---div class="container">
+	<section class="ange-poll">
+		<div class="section-header">
+			<h3><a sv-attr='mob_rev2_main_angepoll_goto' href="/mobile?menu=poll&submenu=">앙쥬 Poll</a></h3>
+		</div>
+		<div class="section-content"--->
+			<!-- 
+				진행중 : .ongoing
+				완료 : .completion
+				-->
+			<!---ul class="poll-list">
+				<li><a sv-attr='mob_rev2_main_angepoll_list0' href="/mobile?menu=poll&submenu=poll_detail&ada_idx=7492"><span class='completion'>완료</span>앙쥬POLL_10월베스트콘텐츠</a></li>
+				<li><a sv-attr='mob_rev2_main_angepoll_list1' href="/mobile?menu=poll&submenu=poll_detail&ada_idx=7389"><span class='completion'>완료</span>앙쥬POLL_9월베스트콘텐츠</a></li>
+				<li><a sv-attr='mob_rev2_main_angepoll_list2' href="/mobile?menu=poll&submenu=poll_detail&ada_idx=7300"><span class='completion'>완료</span>앙쥬POLL_8월베스트콘텐츠</a></li>
+				<li><a sv-attr='mob_rev2_main_angepoll_list3' href="/mobile?menu=poll&submenu=poll_detail&ada_idx=7305"><span class='completion'>완료</span>앙쥬맘 체온계 설문조사</a></li>
+				<li><a sv-attr='mob_rev2_main_angepoll_list4' href="/mobile?menu=poll&submenu=poll_detail&ada_idx=7221"><span class='completion'>완료</span>앙쥬POLL_7월베스트콘텐츠</a></li>
+			</ul>
+		</div>
+	</section>
+	<section class="model" style="display:none;">
+		<div class="section-header">
+			<h3><a href="/mobile?menu=angemodel&submenu=">베이비 모델</a></h3>
+		</div>
+		<div class="section-content">
+			<ul class="row">
+			</ul>
+		</div>
+	</section>
+	<section class="know-how">
+		<div class="section-header">
+			<h3><a sv-attr='mob_rev2_main_knowhow_goto' href="/mobile?menu=ange_knowhow&submenu=">앙쥬맘 노하우</a></h3>
+		</div>
+		<div class="section-content">
+			<ul class="row">
+				<li class="col-xs-4">
+					<a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=993055">
+						<img sv-attr='mob_rev2_main_knowhow_thumb0' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="종이컵 놀이" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/board/thumbnail/62bb2e507937d);">
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=992258">
+						<img sv-attr='mob_rev2_main_knowhow_thumb1' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="잉크 쏟았을 때 지우는 효과적인 방법" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/board/thumbnail/627cb3158a4c7);">
+					</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=991171">
+						<img sv-attr='mob_rev2_main_knowhow_thumb2' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="스티커놀이" style="width: 100%;background-size: cover;background-position: center center;background-image: url(https://ange.co.kr/storage/board/thumbnail/62202c5da06c2);">
+					</a>
+				</li>
+			</ul--->
+			<!--ul class="dot-list">
+				<li><a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=993055">종이컵 놀이</a></li>
+				<li><a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=992258">잉크 쏟았을 때 지우는 효과...</a></li>
+				<li><a href="/mobile?menu=ange_knowhow&submenu=ange_knowhow_detail&COMM_NO=80&NO=991171">스티커놀이</a></li>
+				</ul-->
+		<!--/div>
+	</section>
+	<article class="ange-company">
+		<ul>
+			<li>
+				<a href="/mobile?menu=mileagemall&submenu=">
+					<figure>
+						<img sv-attr='mob_rev2_main_bottom_membership' src="/modules/page/m.skins/ange_main/images/icon_company01.png" alt="">
+					</figure>
+					<p>회원혜택<i class="icon"><img src="/modules/page/m.skins/ange_main/images/icon_go.gif" alt=""></i></p>
+				</a>
+			</li>
+			<li>
+				<a href="/mobile?menu=productreview&submenu=">
+					<figure>
+						<img sv-attr='mob_rev2_main_bottom_review' src="/modules/page/m.skins/ange_main/images/icon_company02.png" alt="">
+					</figure>
+					<p>체험후기<i class="icon"><img src="/modules/page/m.skins/ange_main/images/icon_go.gif" alt=""></i></p>
+				</a>
+			</li>
+			<li>
+				<a href="/mobile/?menu=faq&submenu=">
+					<figure>
+						<img sv-attr='mob_rev2_main_bottom_cscenter' src="/modules/page/m.skins/ange_main/images/icon_company03.png" alt="">
+					</figure>
+					<p>고객센터<i class="icon"><img src="/modules/page/m.skins/ange_main/images/icon_go.gif" alt=""></i></p>
+				</a>
+			</li>
+		</ul>
+	</article>
+</div--->
+<!---div class="banner-list">
+	<div class="container">
+		<ul class="row">
+		</ul>
+	</div>
+</div--->

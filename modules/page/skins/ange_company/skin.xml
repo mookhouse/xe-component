@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">Ange PC 회사소개 Page Skin</title>
+	<description xml:lang="ko">
+		 Ange PC 회사소개 페이지의 기본 스킨입니다.
+	</description>
+	<version>1.0</version>
+	<date>2022-09-05</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">전체 설정</title>
+			<var name="default_style" type="radio">
+				<title xml:lang="ko">페이지 종류</title>
+				<options value="intro">
+					<title xml:lang="ko">메인 페이지</title>
+				</options>
+				<options value="clients">
+					<title xml:lang="ko">고객사 소개 페이지</title>
+				</options>
+				<options value="inquiry">
+					<title xml:lang="ko">상담 신청 페이지</title>
+				</options>
+			</var>
+			<var name="side_nav_bar" type="radio">
+				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
+				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="CONTENTS_NAV">
+					<title xml:lang="ko">CONTENTS_NAV 메뉴</title>
+				</options>
+				<options value="COMMUNITY_NAV">
+					<title xml:lang="ko">COMMUNITY_NAV 메뉴</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">광고 문의 페이지 설정</title>
+			
+		</group>
+	</extra_vars>
+</skin>
