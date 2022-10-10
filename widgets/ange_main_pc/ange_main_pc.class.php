@@ -24,6 +24,7 @@ class ange_main_pc extends WidgetHandler
 		if(!$list_count) $list_count = 6;
 		
 		// 갤러리 가로 출력 수
+		$widget_info = new stdClass();
 		$widget_info->col_count = $args->col_count;
 		if(!$widget_info->col_count) $widget_info->col_count = 3; 
 		
@@ -65,6 +66,7 @@ class ange_main_pc extends WidgetHandler
 			$oModuleModel = &getModel('module');
 			$module_srl = $oModuleModel->getModuleSrlByMid($mid_list);
 		}
+		$obj = new stdClass();
 		// 대상 모듈 (mid_list는 기존 위젯의 호환을 위해서 처리하는 루틴을 유지. module_srl로 위젯에서 변경)
 		if($args->mid_list) {
 			$mid_list = explode(",",$args->mid_list);
@@ -81,7 +83,9 @@ class ange_main_pc extends WidgetHandler
 					$module_srl = $oModuleModel->getModuleSrlByMid($mid_list);
 				}
 			}
-		} elseif($args->module_srls) $obj->module_srl = $args->module_srls;
+		} 
+		elseif($args->module_srls) 
+			$obj->module_srl = $args->module_srls;
 
 		$obj->sort_index = $order_target;
 		$obj->order_type = $order_type=="desc"?"asc":"desc";
