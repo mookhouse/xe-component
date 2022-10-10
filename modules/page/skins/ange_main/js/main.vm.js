@@ -15,7 +15,7 @@ function fn_mainLogin(){
 	fn_loginSubmit($("#main_loginId"), $("#main_loginPwd"), '');
 }
 
-$scope.storyStep = 1;
+/*$scope.storyStep = 1;
 $scope.onStoryStep = function(step){
 	$scope.storyStep = step;
 	
@@ -49,7 +49,7 @@ $scope.onStoryNextStep = function(idx){
 	$scope.storyStep = step;
 	$scope.onStoryStep($scope.storyStep);
 }
-
+*/
 
 //상세페이지 이동
 function latest(mainmenu,submenu,no,comm_no){
