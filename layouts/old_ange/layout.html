@@ -99,6 +99,9 @@ elseif($mid == 'clients')
 	$sMainCssClassId = 'cooperative';
 elseif($act == 'dispMemberSignUpForm')
 	$sMainCssClassId = 'agreement';
+
+if($act == 'dispBoardWrite')
+	$sMainCssClassId = 'chatter-write';
 }
 
 <body class="{$sBodyCssClassId}">

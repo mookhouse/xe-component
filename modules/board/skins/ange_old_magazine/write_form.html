@@ -1,80 +1,158 @@
 <include target="_header.html" />
-<form action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="board_write">
-	<input type="hidden" name="mid" value="{$mid}" />
-	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
-	<input type="hidden" name="document_srl" value="{$document_srl}" />
-	<div class="write_header">
-		<select name="category_srl" cond="$module_info->use_category=='Y'">
-			<option value="">{$lang->category}</option>
-			<option loop="$category_list => $val" disabled="disabled"|cond="!$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl')">
-				{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
-			</option>
-		</select>
-		<input cond="$oDocument->getTitleText()" type="text" name="title" class="iText" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
-		<input cond="!$oDocument->getTitleText()" type="text" name="title" class="iText" title="{$lang->title}" />
-		<input cond="$grant->manager" type="checkbox" name="is_notice" value="Y" class="iCheck" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
-		<label cond="$grant->manager" for="is_notice">{$lang->notice}</label>
-	</div>
-    <div class="exForm" cond="count($extra_keys)">
-		<table cond="count($extra_keys)" border="1" cellspacing="0" summary="Extra Form">
-			<caption><em>*</em> : {$lang->is_required}</caption>
-			<tr loop="$extra_keys=>$key,$val">
-				<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
-				<td>{$val->getFormHTML()|noescape}</td>
-			</tr>
-		</table>
-	</div>
-    <div class="write_editor">
-		{$oDocument->getEditor()|noescape}
-	</div>
-	<div class="write_footer">
-		<div class="write_option">
-			<block cond="$grant->manager">
-				<input type="checkbox" name="title_bold" id="title_bold" class="iCheck" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
-				<label for="title_bold">{$lang->title_bold}</label>
-			</block>
-			<input cond="$module_info->secret=='Y'" type="checkbox" name="is_secret" class="iCheck" value="Y" checked="checked"|cond="$oDocument->isSecret()" id="is_secret" />
-			<label cond="$module_info->secret=='Y'" for="is_secret">{$lang->secret}</label>
-            <input type="checkbox" name="comment_status" class="iCheck" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
-            <label for="comment_status">{$lang->allow_comment}</label>
-            <input type="checkbox" name="allow_trackback" class="iCheck" value="Y" checked="checked"|cond="$oDocument->allowTrackback()" id="allow_trackback" />
-            <label for="allow_trackback">{$lang->allow_trackback}</label>
-			<block cond="$is_logged">
-				<input type="checkbox" name="notify_message" class="iCheck" value="Y" checked="checked"|cond="$oDocument->useNotify()" id="notify_message" />
-				<label for="notify_message">{$lang->notify}</label>
-			</block>
-			<!--@if(is_array($status_list))-->
-				<!--@foreach($status_list AS $key=>$value)-->
-				<input type="radio" name="status" value="{$key}" id="{$key}" <!--@if($oDocument->get('status') == $key || ($key == 'PUBLIC' && !$document_srl))-->checked="checked"<!--@end--> /> 
-				<label for="{$key}">{$value}</label>
-				<!--@end-->
-			<!--@end-->
+
+<style>
+.extra-form-group input[type="text"] {
+	width:100%;
+	height: 36px;
+	border: 1px solid #dfdfdf;
+	box-shadow: none !important;
+	display:inline-block;
+}
+
+.extra-form-group textarea {
+	width:100%;
+	height: 180px;
+	border: 1px solid #dfdfdf;
+	box-shadow: none !important;
+	display:inline-block;
+}
+</style>
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- ¼­ºê lnb -->
+		<nav class="nav-lnb">
+			<include target="_left_menu.html" />
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+			<section class="board-write">
+				<!---div class="section-header">
+					<h2 class="sub-title">¼ö´Ù¹æ <small>(°ü¸®ÀÚ:<span id="COMM_MG_NM">¾ÓÁê</span>)</small></h2>
+				</div--->
+				<div class="section-content">
+					<form action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="board_write">
+					<input type="hidden" name="mid" value="{$mid}" />
+					<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+					<input type="hidden" name="document_srl" value="{$document_srl}" />
+						<div class="table-wrap">
+							<table class="table table-bordered type-1">
+								<tbody>
+									<tr>
+										<th><label for="subject">{$lang->title}</label></th>
+										<td class="SUBJECT">
+											<div class="form-group">
+												<select name="category_srl" class="form-control" style="width:15%;display:inline-block;" cond="$module_info->use_category=='Y'">
+													<option value="">{$lang->category}</option>
+													<option loop="$category_list => $val" disabled="disabled"|cond="!$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl')">
+														{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+													</option>
+												</select>
+												<input cond="$oDocument->getTitleText()" type="text" name="title" class="form-control"  style="width:80%;display:inline-block;" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
+												<input cond="!$oDocument->getTitleText()" type="text" name="title" class="form-control"  style="width:80%;display:inline-block;" title="{$lang->title}" />
+											</div>
+										</td>
+									</tr>
+									<tr cond="$grant->manager" >
+										<th><label for="subject">{$lang->notice}</label></th>
+										<td class="SUBJECT">
+											<div class="form-group">
+												<input cond="$grant->manager" type="checkbox" name="is_notice" value="Y" class="iCheck" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+												<label cond="$grant->manager" for="is_notice">{$lang->notice}</label>
+											</div>
+										</td>
+									</tr>
+<block cond="count($extra_keys)">
+									<tr>
+										<th><label for="subject"><em>*</em> : {$lang->is_required}</th>
+										<td class="SUBJECT"><div class="form-group"></div></td>
+									</tr>
+									<tr loop="$extra_keys=>$key,$val">
+										<th><label for="subject"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+										<td class="extra-form">
+											<div class="extra-form-group">
+												{$val->getFormHTML()|noescape}
+											</div>
+										</td>
+									</tr>
+</block>
+									<tr>
+										<th><label for="u-content">{$lang->content}</label></th>
+										<td>
+											<div class="form-group">
+												{$oDocument->getEditor()|noescape}
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>{$lang->status}</th>
+										<td class="file">
+											<div class="form-group">
+												<block cond="$grant->manager">
+													<input type="checkbox" name="title_bold" id="title_bold" class="iCheck" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
+													<label for="title_bold">{$lang->title_bold}</label>
+												</block>
+												<input cond="$module_info->secret=='Y'" type="checkbox" name="is_secret" class="iCheck" value="Y" checked="checked"|cond="$oDocument->isSecret()" id="is_secret" />
+												<label cond="$module_info->secret=='Y'" for="is_secret">{$lang->secret}</label>
+												<input type="checkbox" name="comment_status" class="iCheck" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
+												<label for="comment_status">{$lang->allow_comment}</label>
+												<input type="checkbox" name="allow_trackback" class="iCheck" value="Y" checked="checked"|cond="$oDocument->allowTrackback()" id="allow_trackback" />
+												<label for="allow_trackback">{$lang->allow_trackback}</label>
+												<block cond="$is_logged">
+													<input type="checkbox" name="notify_message" class="iCheck" value="Y" checked="checked"|cond="$oDocument->useNotify()" id="notify_message" />
+													<label for="notify_message">{$lang->notify}</label>
+												</block>
+												<!--@if(is_array($status_list))-->
+													<!--@foreach($status_list AS $key=>$value)-->
+													<input type="radio" name="status" value="{$key}" id="{$key}" <!--@if($oDocument->get('status') == $key || ($key == 'PUBLIC' && !$document_srl))-->checked="checked"<!--@end--> /> 
+													<label for="{$key}">{$value}</label>
+													<!--@end-->
+												<!--@end-->
+											</div>
+										</td>
+									</tr>
+									<tr cond="!$is_logged">
+										<th><label for="u-content">{$lang->writer}</label></th>
+										<td>
+											<div class="form-group">
+												<span class="item" cond="!$is_logged">
+													<label for="userName" class="iLabel">{$lang->writer}</label>
+													<input type="text" name="nick_name" id="userName" class="iText userName" style="width:80px" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
+												</span>
+												<span class="item" cond="!$is_logged">
+													<label for="userPw" class="iLabel">{$lang->password}</label>
+													<input type="password" name="password" id="userPw" class="iText userPw" style="width:80px" />
+												</span>
+												<span class="item" cond="!$is_logged">
+													<label for="homePage" class="iLabel">{$lang->homepage}</label>
+													<input type="text" name="homepage" id="homePage" class="iText homePage"  style="width:140px"value="{htmlspecialchars($oDocument->get('homepage'))}" />
+												</span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th><label for="u-content">{$lang->tag}: {$lang->about_tag}</label></th>
+										<td>
+											<div class="form-group">
+												<input type="text" name="tags" id="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="form-control"  style="width:100%;display:inline-block;" title="Tag" />
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="btn-area" style="margin-top:15px; text-align: right;">
+							<p>
+								<input type="submit" class="btn btn-sm btn-pink btn-write-submit" value="{$lang->cmd_registration}"/>
+								<block cond="!$oDocument->isExists() || $oDocument->get('status') == 'TEMP'">
+								<button cond="$is_logged" class="btn btn-sm btn-white" type="button" onclick="doDocumentSave(this);">{$lang->cmd_temp_save}</button>
+								<button cond="$is_logged" class="btn btn-sm btn-white" type="button" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button>
+								</block>
+							</p>
+						</div>
+					</form>
+				</div>
+			</section>
 		</div>
-		<div class="write_author">
-			<span class="item" cond="!$is_logged">
-				<label for="userName" class="iLabel">{$lang->writer}</label>
-				<input type="text" name="nick_name" id="userName" class="iText userName" style="width:80px" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
-			</span>
-			<span class="item" cond="!$is_logged">
-				<label for="userPw" class="iLabel">{$lang->password}</label>
-				<input type="password" name="password" id="userPw" class="iText userPw" style="width:80px" />
-			</span>
-			<span class="item" cond="!$is_logged">
-				<label for="homePage" class="iLabel">{$lang->homepage}</label>
-				<input type="text" name="homepage" id="homePage" class="iText homePage"  style="width:140px"value="{htmlspecialchars($oDocument->get('homepage'))}" />
-			</span>
-			<span class="item">
-				<label for="tags" class="iLabel">{$lang->tag}: {$lang->about_tag}</label>
-				<input type="text" name="tags" id="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="iText" style="width:300px" title="Tag" />
-			</span>		
-		</div>
-		<div class="btnArea">
-			<input type="submit" value="{$lang->cmd_registration}" class="btn" />
-			<block cond="!$oDocument->isExists() || $oDocument->get('status') == 'TEMP'">
-			<button cond="$is_logged" class="btn" type="button" onclick="doDocumentSave(this);">{$lang->cmd_temp_save}</button>
-			<button cond="$is_logged" class="btn" type="button" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button>
-			</block>
-		</div>
 	</div>
-</form>
+</div>
 <include target="_footer.html" />
