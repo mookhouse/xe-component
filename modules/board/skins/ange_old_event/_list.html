@@ -36,24 +36,29 @@
 	<!--@end-->
 	</block>
 {@
-	$dtToday = new DateTime();
-	//$sRegiEndDate = '2022-09-12';
-	$dtExpired = new DateTime($sRegiEndDate);
-	$nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
-	//echo $sRegiEndDate.'<BR>';
-	//echo $nRemainingDay;
-	if($nRemainingDay > 0)
-		$sClassName = 'today-event';
-	elseif($nRemainingDay == 0)
-		$sClassName = 'today-closing';
-	elseif($nRemainingDay < 0)
-		$sClassName = 'finish-event';
+$dtToday = new DateTime();
+//$sRegiEndDate = '2022-10-13';
+$dtExpired = new DateTime($sRegiEndDate);
+$nRemainingDays = -$dtExpired->diff($dtToday)->format("%r%a");
+//echo $nRemainingDays.'<BR>';
+$dtDiff = $dtExpired->diff($dtToday);
+$nRemainingHrs = (int)$dtDiff->h + (int)($dtDiff->days*24);
+if($nRemainingDays < 0)
+	$nRemainingHrs = -$nRemainingHrs;
+//echo $dtDiff->h.'<BR>';
+//echo $nRemainingHrs;
+if($nRemainingHrs > 24)
+	$sClassName = 'today-event';
+elseif($nRemainingHrs < 24 && $nRemainingHrs > 0)
+	$sClassName = 'today-closing';
+elseif($nRemainingHrs < 0)
+	$sClassName = 'finish-event';
 }
 			<a href="{$document->getPermanentUrl()}" class="{$sClassName}">
 				<div class="item">
 					<img src="/modules/board/skins/ange_old_event/images/_blank.gif" alt="{$document->getTitle()|noescape}" style="background-image:url('{$document->getThumbnail(400, 247, 'crop')}');background-size:cover;background-position:center center;width:400px;height:247px;">
 					<div class="event-situation">
-<!--@if($nRemainingDay == 0)-->
+<!--@if($nRemainingDays == 0)-->
 						<p class="situation-txt">오늘<br>마감</p>
 <!--@end-->
 					</div>
@@ -67,11 +72,8 @@
 								<p>{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</p>
 							</li>
 							<li>
-								<i class="icon-calendar">남은 일수</i>
-{@
-	$nRemainingDayDisplay = $nRemainingDay > 0 ? $nRemainingDay : 0;
-}
-								<p>{$nRemainingDayDisplay}일</p>
+								<i class="icon-calendar">종료일</i>
+								<p>{$sRegiEndDate}</p>
 							</li>
 							<li>
 								<i class="icon-user">관심인원( {$document->get('comment_count')} ) / 모집인원( {$nApplicants} )</i>

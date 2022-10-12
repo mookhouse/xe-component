@@ -106,33 +106,44 @@
 	<div class="list-wrap">
 		<ul class="event-list" id="dataList">
 <block loop="$document_list=>$no,$document">
-<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML()">
-<!--@if($val->eid=='applicants')-->
-{@ $nApplicants = $val->getValueHTML();}
-<!--@elseif($val->eid=='regi_end')-->
-{@ $sRegiEndDate = $val->getValueHTML();}
-<!--@end-->
-</block>
+	<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML()">
+	<!--@if($val->eid=='applicants')-->
+	{@ $nApplicants = $val->getValueHTML();}
+	<!--@elseif($val->eid=='regi_end')-->
+	{@ $sRegiEndDate = $val->getValueHTML();}
+	<!--@end-->
+	</block>
 {@
+//$aNotice = array('today-event' => 'today-event', 'today-closing' => '오늘<br>마감', 'finish-event' => '응모<br>종료')
+
 $dtToday = new DateTime();
-//$sRegiEndDate = '2022-09-12';
+//$sRegiEndDate = '2022-10-13';
 $dtExpired = new DateTime($sRegiEndDate);
-$nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
-//echo $sRegiEndDate.'<BR>';
-//echo $nRemainingDay;
-if($nRemainingDay > 0)
-$sClassName = 'today-event';
-elseif($nRemainingDay == 0)
-$sClassName = 'today-closing';
-elseif($nRemainingDay < 0)
-$sClassName = 'finish-event';
+$nRemainingDays = -$dtExpired->diff($dtToday)->format("%r%a");
+//echo $nRemainingDays.'<BR>';
+$dtDiff = $dtExpired->diff($dtToday);
+$nRemainingHrs = (int)$dtDiff->h + (int)($dtDiff->days*24);
+if($nRemainingDays < 0)
+	$nRemainingHrs = -$nRemainingHrs;
+//echo $dtDiff->h.'<BR>';
+//echo $nRemainingHrs;
+if($nRemainingHrs > 24)
+	$sClassName = 'today-event';
+elseif($nRemainingHrs < 24 && $nRemainingHrs > 0)
+	$sClassName = 'today-closing';
+elseif($nRemainingHrs < 0)
+	$sClassName = 'finish-event';
 }
 			<li class="event-item {$sClassName}">
 				<a href="{$document->getPermanentUrl()}">
+					{$sClassName}
 					<div class="item">
 						<img src="{$document->getThumbnail(940, 582, 'crop')}" alt="{$document->getTitle()|noescape}" onerror='this.src="/modules/board/m.skins/ange_old_event/images/board_none_img.jpg"'>
-						<div cond="$nRemainingDay == 0" class="event-backdrop">
+						<div cond="$nRemainingHrs < 24 && $nRemainingHrs > 0" class="event-backdrop">
 							<p>오늘<br>마감</p>
+						</div>
+						<div cond="$nRemainingHrs < 0" class="event-backdrop">
+							<p>응모<br>종료</p>
 						</div>
 					</div>
 					<div class="details">
@@ -140,10 +151,7 @@ $sClassName = 'finish-event';
 						<div class="event-information">
 							<ul>
 								<li><i class="icon-eye">조회수</i> {$document->get('readed_count')>0?$document->get('readed_count'):'0'}</li>
-{@
-$nRemainingDayDisplay = $nRemainingDay > 0 ? $nRemainingDay : 0;
-}
-								<li><i class="icon-calendar-empty">남은 일수</i> {$nRemainingDayDisplay}일</li>
+								<li><i class="icon-calendar-empty">종료일</i> {$sRegiEndDate}일</li>
 								<li><i class="icon-user">관심인원( {$document->get('comment_count')} ) / 모집인원( {$nApplicants} )</i></li>
 								<!---li><i class="icon-database"></i>+0</li--->
 							</ul>
@@ -153,46 +161,6 @@ $nRemainingDayDisplay = $nRemainingDay > 0 ? $nRemainingDay : 0;
 				</a>
 			</li>
 </block>
-			
-			<!---li class="event-item today-event">
-				<a href="javascript:$scope.comp_momsexperience('8202')">
-					<div class="item">            <img src="https://ange.co.kr/adm/upload/9월-포스트팔로우-썸네일.jpg" alt="9월 앙쥬 네이버 포스트 팔로우 이벤트" onerror="this.src=&quot;/mobile/_assets/images/sub/board_none_img.jpg&quot;">        </div>
-					<div class="details">
-						<p class="title">9월 앙쥬 네이버 포스트 팔로우 이벤트</p>
-						<div class="event-information">
-							<ul>
-								<li>                        <i class="icon-eye"></i>211                    </li>
-								<li>                        <i class="icon-calendar-empty"></i>D-18                    </li>
-								<li>                        <i class="icon-user"></i>55/9                    </li>
-								<li>                        <i class="icon-database"></i>+0                    </li>
-							</ul>
-							<p class="event-before">미응모</p>
-						</div>
-					</div>
-				</a>
-			</li>
-			<li class="event-item finish-event">
-				<a href="javascript:$scope.comp_momsexperience('8127')">
-					<div class="item">
-						<img src="https://ange.co.kr/adm/upload/400x247_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1.jpg" alt="스완두 I-SIZE 회전형 카시트 마리3 체험단 모집" onerror="this.src=&quot;/mobile/_assets/images/sub/board_none_img.jpg&quot;">            
-						<div class="event-backdrop">
-							<p>응모<br>종료</p>
-						</div>
-					</div>
-					<div class="details">
-						<p class="title">스완두 I-SIZE 회전형 카시트 마리3 체험단 모집</p>
-						<div class="event-information">
-							<ul>
-								<li>                        <i class="icon-eye"></i>3149                    </li>
-								<li>                        <i class="icon-calendar-empty"></i>D-0                    </li>
-								<li>                        <i class="icon-user"></i>193/5                    </li>
-								<li>                        <i class="icon-database"></i>+0                    </li>
-							</ul>
-							<p class="event-before">미응모</p>
-						</div>
-					</div>
-				</a>
-			</li---->
 		</ul>
 	</div>
 </div>
