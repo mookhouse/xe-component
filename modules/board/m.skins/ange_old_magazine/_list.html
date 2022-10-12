@@ -41,13 +41,13 @@
 		</div>
 		<!-- /NOTICE -->
 		<div class="section-content">
-			<div class="year-date">
+			<!---div class="year-date">
 				<select onchange="$scope.getSearchYear(this.value);">
 					<option value="2022" selected="">2022</option>
 					<option value="2021">2021</option>
 					<option value="2020">2020</option>
 				</select>
-			</div>
+			</div---->
 			<ul class="row" id="dataList">
 				<li class="col-xs-4" loop="$document_list=>$no,$document">
 					<a href="{getUrl('document_srl',$document->document_srl, 'cpage','')}">

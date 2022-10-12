@@ -52,7 +52,7 @@ address {
 
 .e-book .ebook-list .section-header {
   overflow: hidden;
-  padding-bottom: 75px; }
+  padding-bottom: 5px; }
   .e-book .ebook-list .section-header .column {
     float: left; }
     .e-book .ebook-list .section-header .column.column-4 {

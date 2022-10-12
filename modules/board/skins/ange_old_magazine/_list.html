@@ -38,14 +38,14 @@
 	</div>
 	<!-- /NOTICE -->
 	<div class="section-content">
-		<div class="year-list dropdown">
+		<!---div class="year-list dropdown">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			<span id="_SEARCH_YY">2022</span><i class="icon-down-open"><span class="더보기"></span></i>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a href="javascript:$scope.getSearchYear('2022')">2022</a></li>
 			</ul>
-		</div>
+		</div--->
 		<article class="magazine-list">
 			<ol id="dataList">
 				<li loop="$document_list=>$no,$document">
@@ -62,9 +62,5 @@
 				</li>
 			</ol>
 		</article>
-	</div>
-	<div class="btnArea">
-		<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
-		<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
 	</div>
 </section>

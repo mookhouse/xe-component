@@ -3,6 +3,53 @@
 <load target="css/e_magazine.css" />
 <load target="js/common_sub.js" type="body" />
 
+<style>
+.btn-write-submit {
+	color: #fff;
+    border: 1px solid #ff7875;
+    background-color: #ff7875;
+    width: 140px;
+    font-size: 14px;
+    line-height: 23px;
+    text-align: center;
+    margin-right: 10px;
+    border-radius: 30px;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.15s;
+    transition-duration: 0.15s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.btn-write-submit:hover {
+    opacity: .7;
+}
+
+.btn-etc {
+	width: 140px;
+    font-size: 14px;
+    color: #666;
+    line-height: 23px;
+    text-align: center;
+    margin-right: 10px;
+	border: 1px solid #ccc;
+    border-radius: 30px;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.15s;
+    transition-duration: 0.15s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.btn-etc:hover {
+    opacity: .7;
+}
+</style>
+
 <script>
 $(function(){
 	// 목록 보기, 썸네일 보기 버튼
@@ -81,7 +128,7 @@ $(function(){
 		 <block cond="!$oDocument->isExists()">
 			<BR>
 			<!-- begin - pagination -->
-			<nav class="paging" aria-label="Page navigation">
+			<nav class="paging" aria-label="Page navigation" style="margin-top:0px;">
 				<ul class="pagination" id="dataPage">
 					<li class="prev"><a aria-label="Previous" href="{getUrl('page','','document_srl','','division',$division,'last_division',$last_division)}" class="pprev" title="{$lang->first_page}"><i sv-attr='pc_content_paginationprev' class="icon-angle-double-left"></i></a></li>
 					<block loop="$page_no=$page_navigation->getNextPage()">
@@ -107,18 +154,20 @@ $(function(){
 					</div>
 					<p class="btn-search">
 						<button type="submit" class="btn btn-default" onclick="xGetElementById('board_search').submit();return false;">
-							<i class="icon-search"></i>
+							<i class="icon-search" style="position: relative; top: 6px;"></i>
 							<span class="sr-only">{$lang->cmd_search}</span>
 						</button>
 						<a cond="$last_division" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}" class="btn">{$lang->cmd_search_next}</a>
-						<a href="{getUrl('act','dispBoardTagList')}" class="tagSearch" title="{$lang->tag}">{$lang->tag}</a>
 					</p>
 				</form>
 			</div>
 			<!-- end - search form -->
 			<div class="btnArea">
-				<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
-				<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
+				<p>
+				<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow"><button class="btn-write-submit" type="button">{$lang->cmd_write}</button></a>
+				<a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag}"><button class="btn-etc" type="button">{$lang->tag}</button></a>
+				<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" onclick="popopen(this.href,'manageDocument'); return false;"><button class="btn-etc" type="button">{$lang->cmd_manage_document}</button></a>
+				</p>
 			</div>
 		</block>
 	</div>

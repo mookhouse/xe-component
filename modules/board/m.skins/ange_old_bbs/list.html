@@ -1,6 +1,36 @@
 <!--link href="https://www.ange.co.kr/mobile/_assets/css/sub.css" rel="stylesheet"--->
 <link href="/modules/board/m.skins/ange_old_bbs/css/e_magazine.css" rel="stylesheet">
 
+<style>
+.btn-write-submit {
+    line-height: 34px;
+    border: 0;
+    color: #fff;
+    background-color: #ff7875;
+    margin-right: 0;
+    width: 100px;
+    display: inline-block;
+    font-size: 12px;
+    text-align: center;
+    margin-right: 10px;
+    border-radius: 30px;
+}
+
+.btn-etc {
+	line-height: 34px;
+    border: 0;
+    color: #000;
+    background-color: #d5e1df;
+    margin-right: 0;
+    width: 100px;
+    display: inline-block;
+    font-size: 12px;
+    text-align: center;
+    margin-right: 10px;
+    border-radius: 30px;
+}
+</style>
+
 <script>
 $(function(){
 	// 목록 보기, 썸네일 보기 버튼
@@ -81,6 +111,7 @@ $(function(){
 		</ul>
 	</nav>
 	<!-- end - pagination -->
+	<BR>
 	<!-- begin - search form -->
 	<div class="search-form">
 		<form id="board_search" name="searchForm" method="get" cond="$grant->view" action="{getUrl()}" onsubmit="return procFilter(this, search)" no-error-return-url="true">
@@ -95,19 +126,20 @@ $(function(){
 			<div class="form-group">
 				<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" title="{$lang->cmd_search}" class="form-control" placeholder="검색어를 입력해 주세요" value="">
 			</div>
-			<p class="btn-search">
+			<div class="search-btn">
 				<button type="submit" class="btn btn-default" onclick="xGetElementById('board_search').submit();return false;">
-					<i class="icon-search"></i>
-					<span class="sr-only">{$lang->cmd_search}</span>
+					<i class="icon-search">
+						<span class="sr-only">{$lang->cmd_search}</span>
+					</i>
 				</button>
 				<a cond="$last_division" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}" class="btn">{$lang->cmd_search_next}</a>
-				<a href="{getUrl('act','dispBoardTagList')}" class="tagSearch" title="{$lang->tag}">{$lang->tag}</a>
-			</p>
+			</div>
 		</form>
 	</div>
 	<!-- end - search form -->
 	<div class="btnArea">
-		<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn">{$lang->cmd_write}</a>
-		<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
+		<a href="{getUrl('act','dispBoardWrite','document_srl','')}" rel="nofollow" class="btn-write-submit">{$lang->cmd_write}</a>
+		<a href="{getUrl('act','dispBoardTagList')}" class="btn-etc" title="{$lang->tag}">{$lang->tag}</a>
+		<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn-etc" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
 	</div>
 </block>
