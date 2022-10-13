@@ -64,7 +64,33 @@
 		</group>
 		<group>
 			<title xml:lang="ko">임신맘 박스 페이지 설정</title>
-				
+			<var name="before_mombox_img" type="image">
+				<title xml:lang="ko">임신맘박스 구성 이미지</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="before_mombox_detail_link" type="text">
+				<title xml:lang="ko">임신맘박스 구성 자세히 보기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="before_mombox_submit_link" type="text">
+				<title xml:lang="ko">임신맘박스 신청하기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">출산맘 박스 페이지 설정</title>
+			<var name="after_mombox_img" type="image">
+				<title xml:lang="ko">출산맘박스 구성 이미지</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="after_mombox_detail_link" type="text">
+				<title xml:lang="ko">출산맘박스 구성 자세히 보기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="after_mombox_submit_link" type="text">
+				<title xml:lang="ko">출산맘박스 신청하기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
 		</group>
 	</extra_vars>
 </skin>
