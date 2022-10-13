@@ -51,18 +51,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script type="text/javascript">
   gaectkHeader.init(['{$layout_info->GAv3_ID}', '{$layout_info->GAv4_ID}']);
 </script>
-<!---script src="/layouts/old_ange/js/data-service.js"></script--->
-<!-- ## 190716 연관채널 추가 ##-->
-<!---span itemscope="" itemtype="http://schema.org/Organization">
- <link itemprop="url" href="https://www.ange.co.kr">
- <a itemprop="sameAs" href="https://blog.naver.com/angemoms"></a>
- <a itemprop="sameAs" href="https://m.post.naver.com/my.nhn?memberNo=541939"></a>
- <a itemprop="sameAs" href="https://tv.naver.com/ange"></a>
- <a itemprop="sameAs" href="https://story.kakao.com/ch/angemom"></a>
- <a itemprop="sameAs" href="https://www.facebook.com/angemoms"></a>
- <a itemprop="sameAs" href="https://www.youtube.com/channel/UCWyXmO0AP0nW0sFCxzyCyig"></a>
- <a itemprop="sameAs" href="https://www.instagram.com/angemoms/"></a>
-</span--->
 
 {@
 if($mid == 'index')
@@ -311,23 +299,6 @@ if($act == 'dispBoardWrite')
 		<a href="{$layout_info->floating_banner_link_4}" class="item"><img src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
 	</nav>
 	<!-- Quick Top -->
-	<script>
-	 $(document).ready(function(){ 
-		var userInputId = getCookie("userInputId");
-		$("#popLoginId").val(userInputId);  
-		if($("#popLoginId").val() != ""){
-			$("#save_id").attr("checked", true);
-		}
-		//$("#save_id").change(function(){
-		//	if($(this).is(":checked")){
-		//		var userInputId = $('#popLoginId').val();
-		//		setCookie("userInputId", userInputId, 30);
-		//	}else{ // ID 저장하기 체크 해제 시,
-		//		deleteCookie("userInputId");
-		//	}
-		//});
-	 });
-	</script>
 	<!---div class="login-layer">
 		<div class="login-bg"></div>
 		<div id="login-popup" class="pop-layer">
