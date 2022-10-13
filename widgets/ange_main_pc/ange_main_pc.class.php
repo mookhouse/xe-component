@@ -21,7 +21,8 @@ class ange_main_pc extends WidgetHandler
 		// 목록 수
 		$list_count = (int)$args->list_count;
 		if(!$list_count) $list_count = 6;
-	 
+		
+		$widget_info = new stdClass();
 		// 글자 제목 길이
 		$widget_info->subject_cut_size = (int)$args->subject_cut_size;
 		
