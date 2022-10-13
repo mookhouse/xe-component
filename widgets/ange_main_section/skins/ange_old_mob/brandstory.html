@@ -1,0 +1,10 @@
+<ul class="row brand-ul">
+	<li class="col-xs-3" loop="$wi->document_list=>$item">
+		<a href="{$item->getPermanentUrl()}">
+			<div class="product-item">
+				<img sv-attr='mob_rev2_main_brandstory_thumb1' src="/widgets/ange_main_section/skins/ange_old_pc/img/_blank.gif" alt="{$item->getTitle($wi->subject_cut_size)}" style="width: 100%;background-size: cover;background-position: center center;background-image: url('{$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');">
+			</div>
+			<p class="details">{$item->getTitle($wi->subject_cut_size)}</p>
+		</a>
+	</li>
+</ul>

@@ -56,5 +56,56 @@
 				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
 			</var>
 		</group>
+		<group>
+			<title xml:lang="ko">컨텐츠 섹션 위젯 설정</title>
+			<var name="expert_qna_module_srl" type="text">
+				<title xml:lang="ko">전문가 QNA 게시판 모듈 srl</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="brandstory_module_srl" type="text">
+				<title xml:lang="ko">브랜드 스토리 게시판 모듈 srl</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_module_srl" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 게시판 모듈 srl</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_title_1" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 제목1</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_title_2" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 제목2</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_link_2" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 링크주소2</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_title_3" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 제목3</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_link_3" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 링크주소3</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_title_4" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 제목4</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_link_4" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 링크주소4</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_title_5" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 제목5</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_tab_link_5" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 탭 링크주소5</title>
+				<description xml:lang="ko">...</description>
+			</var>
+		</group>
 	</extra_vars>
 </skin>

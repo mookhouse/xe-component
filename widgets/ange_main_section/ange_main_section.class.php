@@ -1,12 +1,12 @@
 <?php
 /**
- * @class ange_main_pc
+ * @class ange_main_section
  * @author singleview.co.kr
  * @brief 메인 페이지 컨텐츠 섹션 추출
  * @version 0.0.1
  **/
 
-class ange_main_pc extends WidgetHandler 
+class ange_main_section extends WidgetHandler 
 {
 	function proc($args) 
 	{
@@ -79,7 +79,7 @@ class ange_main_pc extends WidgetHandler
 		if($args->content_type == "document") {
 			$obj->is_notice = "N"; // 공지제외 게시물만 출력			
 		}
-		$output = executeQueryArray('widgets.ange_main_pc.getNewestDocuments', $obj);
+		$output = executeQueryArray('widgets.ange_main_section.getNewestDocuments', $obj);
 		if(!$output->toBool() || !$output->data) 
 			return;
 		// 결과가 있으면 각 문서 객체화를 시킴
