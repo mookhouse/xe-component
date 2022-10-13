@@ -54,7 +54,7 @@
 									</div>
 								</td>
 							</tr>
-<block cond="count($extra_keys)">
+<block cond="count((array)$extra_keys)">
 							<tr cond="$grant->manager" >
 								<th class="v-top"><label for="subject"><em>*</em> : {$lang->is_required}</label></th>
 								<td><div class="form-group"></div></td>
