@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title xml:lang="ko">XET 기본스킨</title>
-	<title xml:lang="en">XET Default Skin</title>
-	<description xml:lang="ko">XET 플러스 레이아웃 위젯 전용 스킨</description>
+	<title xml:lang="ko">(구)앙쥬 홈피 PC 메인 페이지 위젯</title>
+	<description xml:lang="ko">(구)앙쥬 홈피 PC 메인 페이지 위젯</description>
 	<version>1.0</version>
-	<date>2016-11-07</date>
-	<author email_address="inpleworks@gmail.com" link="http://xetemplate.com">
-		<name xml:lang="ko">XE템플릿</name>
+	<date>2022-10-13</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
 	</author>	
 	<colorset>
 		<color name="default">

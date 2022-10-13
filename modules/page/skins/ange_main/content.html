@@ -73,7 +73,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div class="article-content">
-					<img class="zbxe_widget_output" widget="ange_main_pc" skin="ange_old_pc_skin" colorset="default" module_srls="181" content_type="document" order_target="list_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="{$subject_cut}" content_cut_size="{$li->blog_content_cut_size}" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
+					<img class="zbxe_widget_output" widget="ange_main_pc" skin="ange_old_pc_skin" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" content_type="document" order_target="list_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="{$subject_cut}" content_cut_size="{$li->blog_content_cut_size}" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
 				</div>
 				<BR>
 				<div class="brand-banner">
@@ -101,52 +101,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div class="article-content">
-					<div class="gallery-list">
-						<ul class="movie-ul">
-							<li>
-								<a href="https://ange.co.kr/usr?menu=story603&submenu=story_detail&NO=9045">
-									<figure>
-									<img sv-attr="pc_main_video_thumb0" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="레고 듀플로 놀이법 창의력 발달 편" style="width:145px;height:110px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/63085a4d49af3');background-size:cover;background-position:center center;">
-									<figcaption>
-									<p sv-attr="pc_main_brandstory_thumb0" style="max-width:145px;">써모스, 마이 디자인...</p>
-									</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="https://ange.co.kr/usr?menu=story603&submenu=story_detail&NO=9072">
-									<figure>
-									<img sv-attr="pc_main_video_thumb1" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="장 자크 루소 "최고의 교사는 부모다"" style="width:145px;height:110px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630859d1dd30b');background-size:cover;background-position:center center;">
-									<figcaption>
-									<p sv-attr="pc_main_video_thumb1" style="max-width:145px;">다이슨, 다이슨 에어...</p>
-									</figcaption>
-									</figure>
-								</a>
-							</li>
-						</ul>
-						<ul class="movie-ul">
-							<li>
-								<a href="https://ange.co.kr/usr?menu=story603&submenu=story_detail&NO=9045">
-									<figure>
-									<img sv-attr="pc_main_video_thumb0" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="레고 듀플로 놀이법 창의력 발달 편" style="width:145px;height:110px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/63085a4d49af3');background-size:cover;background-position:center center;">
-									<figcaption>
-									<p sv-attr="pc_main_brandstory_thumb0" style="max-width:145px;">써모스, 마이 디자인...</p>
-									</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="https://ange.co.kr/usr?menu=story603&submenu=story_detail&NO=9072">
-									<figure>
-									<img sv-attr="pc_main_video_thumb1" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="장 자크 루소 "최고의 교사는 부모다"" style="width:145px;height:110px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630859d1dd30b');background-size:cover;background-position:center center;">
-									<figcaption>
-									<p sv-attr="pc_main_video_thumb1" style="max-width:145px;">다이슨, 다이슨 에어...</p>
-									</figcaption>
-									</figure>
-								</a>
-							</li>
-						</ul>
-					</div>
+					<img class="zbxe_widget_output" widget="ange_main_pc" skin="ange_old_pc_skin" colorset="default" module_srls="{$module_info->brandstory_module_srl}" content_type="document" order_target="list_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="{$subject_cut}" content_cut_size="{$li->blog_content_cut_size}" thumbnail_width="145" thumbnail_height="110" thumbnail_type="crop"/>
 				</div>
 				<!---div class="brand-banner">
 					<a sv-attr="pc_main_brandstory_bannerbottom30" href="{$module_info->fixed_bottom_banner_out_link}">
@@ -165,11 +120,12 @@ $(document).ready(function(){
 					<h3>주제별 컨텐츠</h3>
 					<nav class="subject-list">
 						<ul>
-							<li class="stab active" id="subject_tab1"><a sv-attr="pc_main_story_앙쥬스토리" href="javascript:;" class="stab_btn" data-tab="1">앙쥬스토리</a></li>
-							<li class="stab" id="subject_tab2"><a sv-attr="pc_main_story_성장/건강" href="javascript:;" class="stab_btn" data-tab="2">성장/건강</a></li>
-							<li class="stab" id="subject_tab3"><a sv-attr="pc_main_story_임신/출산" href="javascript:;" class="stab_btn" data-tab="3">임신/출산</a></li>
-							<li class="stab" id="subject_tab4"><a sv-attr="pc_main_story_놀이/교육" href="javascript:;" class="stab_btn" data-tab="4">놀이/교육</a></li>
-							<li class="stab" id="subject_tab5"><a sv-attr="pc_main_story_리빙/헬스" href="javascript:;" class="stab_btn" data-tab="5">리빙/헬스</a></li>
+							<li class="stab active" cond="$module_info->subject_section_tab_title_1"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_1}">{$module_info->subject_section_tab_title_1}</a></li>
+
+							<li class="stab" cond="$module_info->subject_section_tab_title_2"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_2}" href="{$module_info->subject_section_tab_link_2}">{$module_info->subject_section_tab_title_2}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_3"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_3}" href="{$module_info->subject_section_tab_link_3}">{$module_info->subject_section_tab_title_3}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_4"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_4}" href="{$module_info->subject_section_tab_link_4}">{$module_info->subject_section_tab_title_4}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_5"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_5}" href="{$module_info->subject_section_tab_link_5}">{$module_info->subject_section_tab_title_5}</a></li>
 						</ul>
 					</nav>
 					<div class="btn-controls">
@@ -186,106 +142,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div class="article-content">
-					<div class="content-list scon" id="subject_list_tab1">
-						<ul>
-							<li>
-								<a href="javascript:$scope.getStoryLink('340','9067');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb0" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="푸짐하고 건강한 한 입 여름 쌈밥" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630854bcad473');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb0"  style="text-align:left;">푸짐하고 건강한 한 입 여름 쌈밥</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('313','9068');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb1" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="혼자서 냠냠! 올 어바웃 자기주도이유식" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630855791f061');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb1"  style="text-align:left;">혼자서 냠냠! 올 어바웃 자기주도이유식</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('272','9064');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb2" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="첨범청벙~ 임신부의 슬기로운 물놀이법" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/63046ed50e308');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb2"  style="text-align:left;">첨범청벙~ 임신부의 슬기로운 물놀이법</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('363','9075');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb3" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="엄마 손길처럼 포근하게~ 엉덩이 전체를 커버 업! 페넬로페 허그업 팬티 기저귀" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630c3cce5dff9');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb3"  style="text-align:left;">엄마 손길처럼 포근하게~ 엉덩이 전체를 커버 업! 페넬로페 허그업 팬티 기저귀</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('339','9069');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb4" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="한글이 좋아요! 우리 아이의 생애 첫 한글교육" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630856adab0d4');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb4"  style="text-align:left;">한글이 좋아요! 우리 아이의 생애 첫 한글교육</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('353','9045');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb5" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="레고 듀플로 놀이법 창의력 발달 편" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/6302dc4bc4537');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb5"  style="text-align:left;">레고 듀플로 놀이법 창의력 발달 편</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('353','9072');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb6" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="장 자크 루소 "최고의 교사는 부모다"" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630c245e73061');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb6"  style="text-align:left;">장 자크 루소 "최고의 교사는 부모다"</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('353','9071');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb7" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="내 소중한 친구를 소개합니다 (feat.이행 대상)" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630c24bcd26c9');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb7"  style="text-align:left;">내 소중한 친구를 소개합니다 (feat.이행 대상)</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('352','9063');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb8" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="임신 후 겪는 7대 굴욕의 순간" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/630465873ce6d');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb8"  style="text-align:left;">임신 후 겪는 7대 굴욕의 순간</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('342','9062');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb9" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="롱코비드 시대의 아이를 위한 위생 습관 백서" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/63046465cd5a9');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb9"  style="text-align:left;">롱코비드 시대의 아이를 위한 위생 습관 백서</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('308','9061');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb10" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="아이 머리에 구멍이?! 신생아 탈모 궁금증" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/6304639a1b699');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb10"  style="text-align:left;">아이 머리에 구멍이?! 신생아 탈모 궁금증</figcaption>
-									</figure>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:$scope.getStoryLink('333','9070');">
-									<figure>
-										<img sv-attr="pc_main_story_앙쥬스토리_thumb11" src="https://ange.co.kr/usr/_assets/images/_blank.gif" alt="태동으로 태아의 건강을 알 수 있나요?" style="width:170px;height:170px;background-image:url('https://ange.co.kr/storage/cms/thumbnail/63085777771f6');background-size:cover;background-position:center center;">
-										<figcaption sv-attr="pc_main_story_앙쥬스토리_thumb11"  style="text-align:left;">태동으로 태아의 건강을 알 수 있나요?</figcaption>
-									</figure>
-								</a>
-							</li>
-						</ul>
-					</div>
+					<img class="zbxe_widget_output" widget="ange_main_pc" skin="ange_old_pc_skin" colorset="default" module_srls="{$module_info->subject_module_srl}" content_type="document" order_target="list_order" order_type="desc" list_type="subject" list_count="12" subject_cut_size="{$subject_cut}" content_cut_size="{$li->blog_content_cut_size}" thumbnail_width="170" thumbnail_height="170" thumbnail_type="crop"/>
 				</div>
 			</article>
 		</div>
