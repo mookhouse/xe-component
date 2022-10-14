@@ -100,10 +100,10 @@ if($act == 'dispMemberSignUpForm')
 	<header id="header">
 		<div class="top-banner" style='padding:5px; height: 30px; text-align: right;'>
 <!--@if($is_logged)-->
-			<a style='padding:0 10px; font-size: 15px;' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a>
-			<a style='padding:0 10px; font-size: 15px;' sv-attr='pc_main_회원가입' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
+			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a>
+			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
 <!--@else-->
-			<a style='padding:0 10px; font-size: 15px;' sv-attr='pc_main_로그인' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a>
+			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a>
 <!--@end-->
 		</div>
 		<!---div class="top-banner">
@@ -121,9 +121,9 @@ if($act == 'dispMemberSignUpForm')
 			</ul>
 		</div--->
 		<div class="logo-nav">  <!--- default.css --->
-			<h1><a href="/"><img style='height: 40px;' sv-attr='mob_rev2_main_topmenu_logo' src="{$layout_info->LOGO_IMG}" alt="{$layout_info->LOGO_TEXT}"></a></h1>
+			<h1><a href="/"><img style='height: 40px;' sv-attr='mob_main_top_logo' src="{$layout_info->LOGO_IMG}" alt="{$layout_info->LOGO_TEXT}"></a></h1>
 			<button type="button" class="btn-open-nav">
-				<img class="btn-open-nav" sv-attr='mob_rev2_main_leftmenu_open' src="/m.layouts/old_ange/images/btn_menu.jpg" alt="버튼 아이콘">
+				<img class="btn-open-nav" sv-attr='mob_main_leftmenu_open' src="/m.layouts/old_ange/images/btn_menu.jpg" alt="버튼 아이콘">
 			</button>
 			<div class="search-container">
 				<form action="/action_page.php">
@@ -139,14 +139,14 @@ if($act == 'dispMemberSignUpForm')
 		<div id="gnb">
 			<ul>
 				<li loop="$GNB->list=>$key1,$val1" cond="$val1['url']!='index'" >
-					<a sv-attr='mob_rev2_main_topmenu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+					<a sv-attr='mob_main_gnb_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
 				</li>
 			</ul>
 		</div>
 		<div class="page-header">  <!--- sub.css --->
 			<!-- 폴더별 타이틀 -->
 			<div class="page-title">
-				<h2 class="dropdown_title"><a sv-attr='pc_main_' href="#"><i sv-attr='pc_main_favorite' class="icon-star"></i>[공지] 라파티 루이보스티 3종 친환경 티백으로 아이와 함께...</a></h2>
+				<h2 class="dropdown_title"><a sv-attr='mob_main_top_notice' href="#"><i sv-attr='mob_main_favorite' class="icon-star"></i>[공지] 라파티 루이보스티 3종 친환경 티백으로 아이와 함께...</a></h2>
 				<!---div class="btn-controls">
 					<a href="javascript:;" class="moveMenu prev">
 					<i class="icon-left-open-big">
@@ -161,11 +161,11 @@ if($act == 'dispMemberSignUpForm')
 				</div--->
 			</div>
 			<!-- dropdowns-menu -->
-			<button type="button" class="drop-open-btn">
+			<!---button type="button" class="drop-open-btn">
 			<span sv-attr='mob_content_menu_open' class="sr-only">메뉴 열기</span>
-			</button>
+			</button--->
 		</div>
-		<div class="dropdowns-menu">
+		<!---div class="dropdowns-menu">
 			<div class="drop-container">
 				<ul>
 <block loop="$GNB->list=>$key1,$val1">
@@ -177,7 +177,7 @@ if($act == 'dispMemberSignUpForm')
 		$s1stClass .= ' has-child';
 }
 				<li class="{$s1stClass}" cond="$val1['url']!='index'" >
-					<a sv-attr='pc_top_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+					<a sv-attr='mob_top_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
 					<ul cond="$val1['list']">
 {@
 	$s2ndClass = '';
@@ -190,10 +190,10 @@ if($act == 'dispMemberSignUpForm')
 </block>
 				</ul>
 				<button type="button" class="drop-close-btn">
-				<span sv-attr='pc_content_menu_close' class="sr-only">메뉴 닫기</span>
+				<span sv-attr='mob_content_menu_close' class="sr-only">메뉴 닫기</span>
 				</button>
 			</div>
-		</div>
+		</div--->
 
 		<!-- nav menu -->
 		<nav id="gnb-nav">
@@ -201,7 +201,7 @@ if($act == 'dispMemberSignUpForm')
 			<div class="nav-container">
 				<div class="nav-header">
 					<button type="button" class="btn btn-close">
-					<img src="https://ange.co.kr/mobile/_assets/images/nav_btn_close.png" alt="네비 닫기">
+					<img sv-attr='mob_main_leftmenu_close' src="/m.layouts/old_ange/images/nav_btn_close.png" alt="네비 닫기">
 					</button>
 					<!---div class="global-search">
 						<form id="comSearchForm" name="comSearchForm" method="get" action="/mobile">
@@ -267,44 +267,6 @@ if($act == 'dispMemberSignUpForm')
 											<li menuNo='275' menuDepth='2' class=''><a menuNo='275' href='/mobile/?menu=story206&submenu=' sv-attr='mob_rev2_main_leftmenu_산후관리' class='last_depth'>산후관리<span></span></a></li>
 										</ul>
 									</li>
-									<li menuNo='276' menuDepth='1' class='has-child'>
-										<a menuNo='276' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_성장/건강'  class='second_depth'>성장/건강<span></span></a>
-										<ul>
-											<li menuNo='277' menuDepth='2' class=''><a menuNo='277' href='/mobile/?menu=story301&submenu=' sv-attr='mob_rev2_main_leftmenu_1~36개월 정보' class='last_depth'>1~36개월 정보<span></span></a></li>
-											<li menuNo='278' menuDepth='2' class=''><a menuNo='278' href='/mobile/?menu=story302&submenu=' sv-attr='mob_rev2_main_leftmenu_3세' class='last_depth'>3세<span></span></a></li>
-											<li menuNo='279' menuDepth='2' class=''><a menuNo='279' href='/mobile/?menu=story303&submenu=' sv-attr='mob_rev2_main_leftmenu_4세' class='last_depth'>4세<span></span></a></li>
-											<li menuNo='280' menuDepth='2' class=''><a menuNo='280' href='/mobile/?menu=story304&submenu=' sv-attr='mob_rev2_main_leftmenu_5세 이상' class='last_depth'>5세 이상<span></span></a></li>
-											<li menuNo='281' menuDepth='2' class=''><a menuNo='281' href='/mobile/?menu=story305&submenu=' sv-attr='mob_rev2_main_leftmenu_이유식&푸드' class='last_depth'>이유식&푸드<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='282' menuDepth='1' class='has-child'>
-										<a menuNo='282' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_놀이/교육'  class='second_depth'>놀이/교육<span></span></a>
-										<ul>
-											<li menuNo='283' menuDepth='2' class=''><a menuNo='283' href='/mobile/?menu=story401&submenu=' sv-attr='mob_rev2_main_leftmenu_DIY&놀이법' class='last_depth'>DIY&놀이법<span></span></a></li>
-											<li menuNo='284' menuDepth='2' class=''><a menuNo='284' href='/mobile/?menu=story402&submenu=' sv-attr='mob_rev2_main_leftmenu_훈육노하우' class='last_depth'>훈육노하우<span></span></a></li>
-											<li menuNo='285' menuDepth='2' class=''><a menuNo='285' href='/mobile/?menu=story403&submenu=' sv-attr='mob_rev2_main_leftmenu_부모교육' class='last_depth'>부모교육<span></span></a></li>
-											<li menuNo='286' menuDepth='2' class=''><a menuNo='286' href='/mobile/?menu=story404&submenu=' sv-attr='mob_rev2_main_leftmenu_육아용품' class='last_depth'>육아용품<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='287' menuDepth='1' class='has-child'>
-										<a menuNo='287' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_리빙/헬스'  class='second_depth'>리빙/헬스<span></span></a>
-										<ul>
-											<li menuNo='288' menuDepth='2' class=''><a menuNo='288' href='/mobile/?menu=story501&submenu=' sv-attr='mob_rev2_main_leftmenu_데코' class='last_depth'>데코<span></span></a></li>
-											<li menuNo='289' menuDepth='2' class=''><a menuNo='289' href='/mobile/?menu=story502&submenu=' sv-attr='mob_rev2_main_leftmenu_실용정보' class='last_depth'>실용정보<span></span></a></li>
-											<li menuNo='290' menuDepth='2' class=''><a menuNo='290' href='/mobile/?menu=story503&submenu=' sv-attr='mob_rev2_main_leftmenu_뷰티&패션' class='last_depth'>뷰티&패션<span></span></a></li>
-											<li menuNo='291' menuDepth='2' class=''><a menuNo='291' href='/mobile/?menu=story504&submenu=' sv-attr='mob_rev2_main_leftmenu_부모건강' class='last_depth'>부모건강<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='292' menuDepth='1' class='has-child'>
-										<a menuNo='292' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_앙쥬스토리'  class='second_depth'>앙쥬스토리<span></span></a>
-										<ul>
-											<li menuNo='293' menuDepth='2' class=''><a menuNo='293' href='/mobile/?menu=story601&submenu=' sv-attr='mob_rev2_main_leftmenu_커버스토리' class='last_depth'>커버스토리<span></span></a></li>
-											<li menuNo='294' menuDepth='2' class=''><a menuNo='294' href='/mobile/?menu=story602&submenu=' sv-attr='mob_rev2_main_leftmenu_닥터앙쥬 전문가 Q&A' class='last_depth'>닥터앙쥬 전문가 Q&A<span></span></a></li>
-											<li menuNo='295' menuDepth='2' class=''><a menuNo='295' href='/mobile/?menu=story603&submenu=' sv-attr='mob_rev2_main_leftmenu_영상으로 배우는 육아' class='last_depth'>영상으로 배우는 육아<span></span></a></li>
-											<li menuNo='296' menuDepth='2' class=''><a menuNo='296' href='/mobile/?menu=story604&submenu=' sv-attr='mob_rev2_main_leftmenu_브랜드스토리' class='last_depth'>브랜드스토리<span></span></a></li>
-											<li menuNo='430' menuDepth='2' class=''><a menuNo='430' href='/mobile/?menu=story605&submenu=' sv-attr='mob_rev2_main_leftmenu_월간앙쥬' class='last_depth'>월간앙쥬<span></span></a></li>
-										</ul>
-									</li>
 								</ul>
 							</li>
 							<li class="">
@@ -338,42 +300,6 @@ if($act == 'dispMemberSignUpForm')
 											<li menuNo='323' menuDepth='2' class=''><a menuNo='323' href='/mobile/?menu=ange_knowhow&submenu=' sv-attr='mob_rev2_main_leftmenu_육아노하우전수' class='last_depth'>육아노하우전수<span></span></a></li>
 										</ul>
 									</li>
-									<li menuNo='113' menuDepth='1' class='has-child'>
-										<a menuNo='113' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_회원혜택'  class='second_depth'>회원혜택<span></span></a>
-										<ul>
-											<li menuNo='477' menuDepth='2' class=''><a menuNo='477' href='/mobile/?menu=mileagemall&submenu=' sv-attr='mob_rev2_main_leftmenu_회원혜택' class='last_depth'>회원혜택<span></span></a></li>
-											<li menuNo='111' menuDepth='2' class=''><a menuNo='111' href='/mobile/?menu=store6&submenu=' sv-attr='mob_rev2_main_leftmenu_장바구니' class='last_depth'>장바구니<span></span></a></li>
-											<li menuNo='210' menuDepth='2' class=''><a menuNo='210' href='/mobile/?menu=storereview&submenu=' sv-attr='mob_rev2_main_leftmenu_회원혜택 선물후기' class='last_depth'>회원혜택 선물후기<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='337' menuDepth='1' class='has-child'>
-										<a menuNo='337' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_앙쥬맘 생각'  class='second_depth'>앙쥬맘 생각<span></span></a>
-										<ul>
-											<li menuNo='95' menuDepth='2' class=''><a menuNo='95' href='/mobile/?menu=poll&submenu=' sv-attr='mob_rev2_main_leftmenu_앙쥬 POLL' class='last_depth'>앙쥬 POLL<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='307' menuDepth='1' class='has-child'>
-										<a menuNo='307' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_앙쥬클럽'  class='second_depth'>앙쥬클럽<span></span></a>
-										<ul>
-											<li menuNo='308' menuDepth='2' class=''><a menuNo='308' href='/mobile/?menu=ange_club_teacher&submenu=' sv-attr='mob_rev2_main_leftmenu_클럽 / 선생님 소개' class='last_depth'>클럽 / 선생님 소개<span></span></a></li>
-											<li menuNo='309' menuDepth='2' class=''><a menuNo='309' href='/mobile/?menu=ange_club_info&submenu=' sv-attr='mob_rev2_main_leftmenu_회원사 소개' class='last_depth'>회원사 소개<span></span></a></li>
-											<li menuNo='310' menuDepth='2' class=''><a menuNo='310' href='/mobile/?menu=ange_club_qna&submenu=' sv-attr='mob_rev2_main_leftmenu_모유수유 Q&A' class='last_depth'>모유수유 Q&A<span></span></a></li>
-											<li menuNo='364' menuDepth='2' class=''><a menuNo='364' href='/mobile/?menu=ange_club_member&submenu=' sv-attr='mob_rev2_main_leftmenu_회원혜택' class='last_depth'>회원혜택<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='463' menuDepth='1' class='has-child'>
-										<a menuNo='463' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_커뮤니티 방장방'  class='second_depth'>커뮤니티 방장방<span></span></a>
-										<ul>
-											<li menuNo='431' menuDepth='2' class=''><a menuNo='431' href='/mobile/?menu=supporter_list&submenu=' sv-attr='mob_rev2_main_leftmenu_커뮤니티 방장방' class='last_depth'>커뮤니티 방장방<span></span></a></li>
-										</ul>
-									</li>
-									<li menuNo='460' menuDepth='1' class='has-child'>
-										<a menuNo='460' href='javascript:;' sv-attr='mob_rev2_main_leftmenu_서포터즈 게시판'  class='second_depth'>서포터즈 게시판<span></span></a>
-										<ul>
-											<li menuNo='453' menuDepth='2' class=''><a menuNo='453' href='/mobile/?menu=supporters_list&submenu=' sv-attr='mob_rev2_main_leftmenu_서포터즈 게시판' class='last_depth'>서포터즈 게시판<span></span></a></li>
-											<li menuNo='459' menuDepth='2' class=''><a menuNo='459' href='/mobile/?menu=supporters2_list&submenu=' sv-attr='mob_rev2_main_leftmenu_앙쥬맘 6기 게시판' class='last_depth'>앙쥬맘 6기 게시판<span></span></a></li>
-										</ul>
-									</li>
 								</ul>
 							</li>
 							<li class="">
@@ -387,10 +313,10 @@ if($act == 'dispMemberSignUpForm')
 					</div--->
 					<div class="gnb-banner">
 						<ul>
-							<a href="{$layout_info->floating_banner_link_1}" class="item" target="_blank"><img src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
-							<a href="{$layout_info->floating_banner_link_2}" class="item" target="_blank"><img src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
-							<a href="{$layout_info->floating_banner_link_3}" class="item" target="_blank"><img src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
-							<a href="{$layout_info->floating_banner_link_4}" class="item" target="_blank"><img src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+							<a href="{$layout_info->floating_banner_link_1}" class="item" target="_blank"><img sv-attr='mob_left_floating_1' src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+							<a href="{$layout_info->floating_banner_link_2}" class="item" target="_blank"><img sv-attr='mob_left_floating_2' src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+							<a href="{$layout_info->floating_banner_link_3}" class="item" target="_blank"><img sv-attr='mob_left_floating_3' src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+							<a href="{$layout_info->floating_banner_link_4}" class="item" target="_blank"><img sv-attr='mob_left_floating_4' src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
 							<!---li>
 								<a href="#"><figure><img src="https://ange.co.kr/mobile/_assets/images/img_gnb_banner01.jpg" alt=""></figure></a>
 							</li>
@@ -406,37 +332,37 @@ if($act == 'dispMemberSignUpForm')
 						<ul>
 							<li>
 								<a href="http://post.naver.com/my.nhn?memberNo=541939" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_네이버 포스트' src="/m.layouts/old_ange/images/icon_naver_post.png" alt="네이버 포스트">
+								<img sv-attr='mob_main_bottom_nvrpost' src="/m.layouts/old_ange/images/icon_naver_post.png" alt="네이버 포스트">
 								</a>
 							</li>
 							<li>
 								<a href="http://blog.naver.com/angemoms" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_네이버 블로그' src="/m.layouts/old_ange/images/icon_naver_blog.png" alt="네이버 블로그">
+								<img sv-attr='mob_main_bottom_nvrblog' src="/m.layouts/old_ange/images/icon_naver_blog.png" alt="네이버 블로그">
 								</a>
 							</li>
 							<li>
 								<a href="https://story.kakao.com/ch/angemom" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_카카오 스토리' src="/m.layouts/old_ange/images/icon_kakao.png" alt="카카오 스토리">
+								<img sv-attr='mob_main_bottom_kkostory' src="/m.layouts/old_ange/images/icon_kakao.png" alt="카카오 스토리">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.facebook.com/angemoms" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_페이스북' src="/m.layouts/old_ange/images/icon_facebook.png" alt="페이스북">
+								<img sv-attr='mob_main_bottom_fb' src="/m.layouts/old_ange/images/icon_facebook.png" alt="페이스북">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.instagram.com/angemoms/" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_인스타그램' src="/m.layouts/old_ange/images/icon_insta.png" alt="인스타그램">
+								<img sv-attr='mob_main_bottom_ig' src="/m.layouts/old_ange/images/icon_insta.png" alt="인스타그램">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.youtube.com/channel/UCWyXmO0AP0nW0sFCxzyCyig?sub_confirmation=1" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_유튜브' src="/m.layouts/old_ange/images/icon_youtube.png" alt="유튜브">
+								<img sv-attr='mob_main_bottom_yt' src="/m.layouts/old_ange/images/icon_youtube.png" alt="유튜브">
 								</a>
 							</li>
 							<li>
 								<a href="https://tv.naver.com/ange" target="_blank">
-								<img sv-attr='mob_rev2_main_leftmenu_네이버 TV' src="/m.layouts/old_ange/images/icon_naver_tv.png" alt="네이버 TV">
+								<img sv-attr='mob_main_bottom_nvrtv' src="/m.layouts/old_ange/images/icon_naver_tv.png" alt="네이버 TV">
 								</a>
 							</li>
 						</ul>
@@ -446,15 +372,15 @@ if($act == 'dispMemberSignUpForm')
 		</nav>
 		<!-- 로그인 하였을 경우만 -->
 		<!-- mypage -->
-		<nav id="mypage-nav">
+		<!---nav id="mypage-nav">
 			<div class="nav-backdrop"></div>
 			<div class="nav-container">
 				<div class="nav-header">
 					<button type="button" class="btn btn-close">
 					<img src="https://ange.co.kr/mobile/_assets/images/nav_btn_close.png" alt="네비 닫기">
-					</button>
+					</button---->
 					<!-- 로그아웃 일때 -->
-					<div class="member-login">
+					<!---div class="member-login">
 						<h2>로그인</h2>
 						<form action="#">
 							<div class="form-group">
@@ -472,7 +398,7 @@ if($act == 'dispMemberSignUpForm')
 							</ul>
 						</form>
 					</div>
-				</div>
+				</div--->
 				<!--div class="ange-event">
 					<a href="javascript:fn_menuUrlLink('naming_14','/mobile/?menu=naming_14&submenu=','0');">
 						<h3><img sv-attr='mob_rev2_main_rightmenu_이름짓기' src="https://ange.co.kr/mobile/_assets/images/main/sub_samplepack.png" alt=""> <small>우리아이 이름짓기</small></h3>
@@ -489,8 +415,8 @@ if($act == 'dispMemberSignUpForm')
 						<a sv-attr='mob_rev2_main_rightmenu_커뮤니티' href="/mobile?menu=ange_exhibit&submenu=" class="title">커뮤니티</a>
 					</div>
 				</div--->
-			</div>
-		</nav>
+			<!---/div>
+		</nav---->
 	</header>
 	<!-- Main Content -->
 	<!---script src="https://ange.co.kr/mobile/vm/main.vm.js?v=1662665444"></script--->
@@ -575,7 +501,7 @@ if($act == 'dispMemberSignUpForm')
 			<nav class="policy">
 				<ul>
 					<li loop="$FOOTER->list=>$key1,$val1" cond="$val1['url']!='index'" >
-						<a sv-attr='pc_main_bottom_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+						<a sv-attr='mob_main_bottom_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
 					</li>
 					<!---li><a sv-attr='mob_rev2_main_bottom_회사소개' href="/mobile?menu=intro_detail1">회사소개</a></li>
 					<li><a sv-attr='mob_rev2_main_bottom_비지니스센터' href="/mobile?menu=business_center1&submenu=">비지니스센터</a></li>

@@ -30,7 +30,7 @@ $(document).ready(function(){
 						<a href=""><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure></a>
 					</li>
 					<li>
-						<a href=""><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure>
+						<a href=""><figure><img sv-attr='pc_main_mainbanner1' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure>
 						</a>
 					</li>
 				</ul>
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	<div class="section">
 		<div class="column column-8">
 			<div class="brand-news">
-				<a sv-attr='pc_main_brand-news' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url({$module_info->fixed_left_banner_img})">
+				<a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url({$module_info->fixed_left_banner_img})">
 					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
 					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
 					<p sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_desc}</p>
@@ -49,7 +49,7 @@ $(document).ready(function(){
 		</div>
 		<div class="column column-4">
 			<div class="banner-item">
-				<a sv-attr='pc_main_brandnews_right' href="{$module_info->fixed_right_banner_out_link}"><img src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="https://ange.co.kr/usr/_assets/images/event/img_none_review_view.jpg"'></a>
+				<a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='pc_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/event/img_none_review_view.jpg"'></a>
 			</div>
 		</div>
 	</div>
@@ -64,7 +64,7 @@ $(document).ready(function(){
 						<span class="sr-only">이전</span>
 						</i>
 						</a--->
-						<a href="javascript:;" class="btn btn-next qna-btn" role="button" data-type="next">
+						<a href="#" class="btn btn-next qna-btn" role="button" data-type="next">
 							<i sv-attr="pc_main_QNA_next" class="icon-right-circle">
 							<span class="sr-only">다음</span>
 							</i>
@@ -76,8 +76,8 @@ $(document).ready(function(){
 				</div>
 				<BR>
 				<div class="brand-banner">
-					<a sv-attr="pc_main_brandstory_bannerbottom30" href="{$module_info->fixed_bottom_banner_out_link}">
-					<figure><img src="{$module_info->fixed_bottom_banner_img}" alt="" style="width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
+					<a href="{$module_info->fixed_bottom_banner_out_link}">
+					<figure><img sv-attr="pc_main_qna_bottombanner" src="{$module_info->fixed_bottom_banner_img}" alt="" style="width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
 					</a>
 				</div>
 			</article>
@@ -92,8 +92,8 @@ $(document).ready(function(){
 							<span class="sr-only">이전</span>
 							</i>
 						</a--->
-						<a href="javascript:;" class="btn btn-next movie-btn" role="button" data-type="next">
-							<i sv-attr="pc_main_video_next" class="icon-right-circle">
+						<a href="#" class="btn btn-next movie-btn" role="button" data-type="next">
+							<i sv-attr="pc_main_brandstory_next" class="icon-right-circle">
 							<span class="sr-only">다음</span>
 							</i>
 						</a>
@@ -119,11 +119,11 @@ $(document).ready(function(){
 					<h3>주제별 컨텐츠</h3>
 					<nav class="subject-list">
 						<ul>
-							<li class="stab active" cond="$module_info->subject_section_tab_title_1"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_1}">{$module_info->subject_section_tab_title_1}</a></li>
-							<li class="stab" cond="$module_info->subject_section_tab_title_2"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_2}" href="{$module_info->subject_section_tab_link_2}">{$module_info->subject_section_tab_title_2}</a></li>
-							<li class="stab" cond="$module_info->subject_section_tab_title_3"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_3}" href="{$module_info->subject_section_tab_link_3}">{$module_info->subject_section_tab_title_3}</a></li>
-							<li class="stab" cond="$module_info->subject_section_tab_title_4"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_4}" href="{$module_info->subject_section_tab_link_4}">{$module_info->subject_section_tab_title_4}</a></li>
-							<li class="stab" cond="$module_info->subject_section_tab_title_5"><a sv-attr="pc_main_story_{$module_info->subject_section_tab_title_5}" href="{$module_info->subject_section_tab_link_5}">{$module_info->subject_section_tab_title_5}</a></li>
+							<li class="stab active" cond="$module_info->subject_section_tab_title_1"><a sv-attr="pc_main_subject_{$module_info->subject_section_tab_title_1}">{$module_info->subject_section_tab_title_1}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_2"><a sv-attr="pc_main_subject_{$module_info->subject_section_tab_title_2}" href="{$module_info->subject_section_tab_link_2}">{$module_info->subject_section_tab_title_2}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_3"><a sv-attr="pc_main_subject_{$module_info->subject_section_tab_title_3}" href="{$module_info->subject_section_tab_link_3}">{$module_info->subject_section_tab_title_3}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_4"><a sv-attr="pc_main_subject_{$module_info->subject_section_tab_title_4}" href="{$module_info->subject_section_tab_link_4}">{$module_info->subject_section_tab_title_4}</a></li>
+							<li class="stab" cond="$module_info->subject_section_tab_title_5"><a sv-attr="pc_main_subject_{$module_info->subject_section_tab_title_5}" href="{$module_info->subject_section_tab_link_5}">{$module_info->subject_section_tab_title_5}</a></li>
 						</ul>
 					</nav>
 					<div class="btn-controls">
@@ -132,8 +132,8 @@ $(document).ready(function(){
 							<span class="sr-only">이전</span>
 							</i>
 						</a--->
-						<a sv-attr="pc_main_story_next" href="javascript:;" class="btn btn-next subject-btn" role="button" data-type="next">
-							<i class="icon-right-circle">
+						<a href="#" class="btn btn-next subject-btn" role="button" data-type="next">
+							<i sv-attr="pc_main_subject_next" class="icon-right-circle">
 							<span class="sr-only">다음</span>
 							</i>
 						</a>

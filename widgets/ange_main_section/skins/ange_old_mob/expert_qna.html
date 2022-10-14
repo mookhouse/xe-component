@@ -1,11 +1,12 @@
 <figure>
-	<a href="{$wi->document_list[0]->getPermanentUrl()}"><img sv-attr='mob_rev2_main_QNA_thumb' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url('{$wi->document_list[0]->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');"></a>
+	<a href="{$wi->document_list[0]->getPermanentUrl()}"><img sv-attr="mob_main_QNA_thumb1" src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url('{$wi->document_list[0]->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');"></a>
 </figure>
 {@
 unset($wi->document_list[0]);
+$idx=2;
 }
 <div class="details">
 	<ul class="qna-ul">
-		<li loop="$wi->document_list=>$item"><a sv-attr='mob_rev2_main_QNA_list0' href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a></li>
+		<li loop="$wi->document_list=>$item"><a sv-attr='mob_main_QNA_list{$idx++}' href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a></li>
 	</ul>
 </div>

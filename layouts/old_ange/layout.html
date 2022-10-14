@@ -100,7 +100,7 @@ if($act == 'dispBoardWrite')
 				<div class="row">
 					<div class="col-xs-4"></div>
 					<div class="col-xs-2">
-						<h1 class="logo" style="background-image: url({$layout_info->LOGO_IMG});"><a sv-attr='pc_main_앙쥬 로고' href="/"><span class="sr-only">{$layout_info->LOGO_TEXT}</span></a></h1>
+						<h1 class="logo" style="background-image: url({$layout_info->LOGO_IMG});"><a sv-attr='pc_main_top_logo' href="/"><span class="sr-only">{$layout_info->LOGO_TEXT}</span></a></h1>
 					</div>
 					<div class="col-xs-4">
 						<div class="global-seearch">
@@ -146,7 +146,7 @@ if($act == 'dispBoardWrite')
 						<div class="bookmark">
 							<ul>
 								<li>
-									<a sv-attr='pc_main_' href="#"><i sv-attr='pc_main_favorite' class="icon-star"></i>[공지] 라파티 루이보스티 3종 친환경 티백으로 아이와 함께하는 소중한 티타임을 즐겨보세요!</a>
+									<a sv-attr='pc_main_top_notice' href="#"><i class="icon-star"></i>[공지] 라파티 루이보스티 3종 친환경 티백으로 아이와 함께하는 소중한 티타임을 즐겨보세요!</a>
 								</li>
 								<!--li>
 									<a sv-attr='pc_main_즐겨찾기' href="javascript:fn_favorite()"><i sv-attr='pc_main_favorite' class="icon-star"></i>즐겨찾기</a>
@@ -162,10 +162,10 @@ if($act == 'dispBoardWrite')
 							<ul>
 								<!--li><a sv-attr='pc_main_홈으로' href="/">홈으로</a></li--->
 <!--@if($is_logged)-->
-								<li><a href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a></li>
-								<li><a sv-attr='pc_main_회원가입' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
+								<li><a sv-attr='pc_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a></li>
+								<li><a sv-attr='pc_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
 <!--@else-->
-								<li><a sv-attr='pc_main_로그인' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
+								<li><a sv-attr='pc_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
 <!--@end-->
 								<!---li><a sv-attr='pc_main_고객센터' href="#">고객센터</a></li--->
 							</ul>
@@ -181,20 +181,20 @@ if($act == 'dispBoardWrite')
 				<div class="gnb-nav">
 					<div class="btn-controls">
 						<button type="button" class="btn btn-open">
-							<img sv-attr='pc_top_menu_open' src="/layouts/old_ange/imgs/menu_open.png" alt="메뉴열기">
+							<img sv-attr='pc_main_gnb_menu_open' src="/layouts/old_ange/imgs/menu_open.png" alt="메뉴열기">
 							열기
 							<!--span class="bar"></span>
 								<span class="bar"></span>
 								<span class="bar"></span--->
 							<span class="sr-only">메뉴 열기</span>
 						</button>
-						<button sv-attr='pc_main_topmenu_close' type="button" class="btn btn-close">닫기</button>
+						<button sv-attr='pc_main_gnb_menu_close' type="button" class="btn btn-close">닫기</button>
 					</div>
 					<ul class="gnb-menu">
 						<li loop="$GNB->list=>$key1,$val1" cond="$val1['url']!='index'" >
-							<a sv-attr='pc_top_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+							<a sv-attr='pc_main_gnb_menu_1_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
 							<ul cond="$val1['list']">
-								<li loop="$val1['list']=>$key2,$val2"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a></li>
+								<li loop="$val1['list']=>$key2,$val2"><a sv-attr='pc_main_gnb_menu_2_{$val2["text"]}' href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -202,11 +202,11 @@ if($act == 'dispBoardWrite')
 			</div>
 		</nav>
 	</header>
-	<!-- Main Content -->
+	<!-- begin Main Content -->
 	<main id="content" class="{$sMainCssClassId}">
 		{$content|noescape}
 	</main>
-
+	<!-- end Main Content -->
 	<footer id="footer">
 		<div class="container">
 			<div class="row">
@@ -246,37 +246,37 @@ if($act == 'dispBoardWrite')
 						<ul class="sns-list">
 							<li>
 								<a href="http://post.naver.com/my.nhn?memberNo=541939" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_naver_post.png" alt="네이버 포스트">
+								<img sv-attr='pc_main_bottom_nvrpost' src="/layouts/old_ange/imgs/icon_naver_post.png" alt="네이버 포스트">
 								</a>
 							</li>
 							<li>
 								<a href="http://blog.naver.com/angemoms" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_naver_blog.png" alt="네이버 블로그">
+								<img sv-attr='pc_main_bottom_nvrblog' src="/layouts/old_ange/imgs/icon_naver_blog.png" alt="네이버 블로그">
 								</a>
 							</li>
 							<li>
 								<a href="https://story.kakao.com/ch/angemom" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_kakao_story.png" alt="카카오 스토리">
+								<img sv-attr='pc_main_bottom_kkostory' src="/layouts/old_ange/imgs/icon_kakao_story.png" alt="카카오 스토리">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.facebook.com/angemoms" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_facebook.png" alt="페이스북">
+								<img sv-attr='pc_main_bottom_fb' src="/layouts/old_ange/imgs/icon_facebook.png" alt="페이스북">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.instagram.com/angemoms/" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_insta.png" alt="인스타그램">
+								<img sv-attr='pc_main_bottom_ig' src="/layouts/old_ange/imgs/icon_insta.png" alt="인스타그램">
 								</a>
 							</li>
 							<li>
 								<a href="https://www.youtube.com/channel/UCWyXmO0AP0nW0sFCxzyCyig?sub_confirmation=1" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_youtube.png" alt="유튜브">
+								<img sv-attr='pc_main_bottom_yt' src="/layouts/old_ange/imgs/icon_youtube.png" alt="유튜브">
 								</a>
 							</li>
 							<li>
 								<a href="https://tv.naver.com/ange" target="_blank">
-								<img src="/layouts/old_ange/imgs/icon_naver_tv.png" alt="네이버 TV">
+								<img sv-attr='pc_main_bottom_nvrtv' src="/layouts/old_ange/imgs/icon_naver_tv.png" alt="네이버 TV">
 								</a>
 							</li>
 						</ul>
@@ -293,10 +293,10 @@ if($act == 'dispBoardWrite')
 	</footer>
 	<!-- Quick Banner -->
 	<nav id="quick-banner" cond="$act!='dispBoardWrite' && $act!='dispBoardDelete'">
-		<a href="{$layout_info->floating_banner_link_1}" class="item"><img src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
-		<a href="{$layout_info->floating_banner_link_2}" class="item"><img src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
-		<a href="{$layout_info->floating_banner_link_3}" class="item"><img src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
-		<a href="{$layout_info->floating_banner_link_4}" class="item"><img src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
+		<a href="{$layout_info->floating_banner_link_1}" class="item"><img sv-attr='pc_left_floating_1' src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
+		<a href="{$layout_info->floating_banner_link_2}" class="item"><img sv-attr='pc_left_floating_2' src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
+		<a href="{$layout_info->floating_banner_link_3}" class="item"><img sv-attr='pc_left_floating_3' src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
+		<a href="{$layout_info->floating_banner_link_4}" class="item"><img sv-attr='pc_left_floating_4' src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
 	</nav>
 	<!-- Quick Top -->
 	<!---div class="login-layer">
