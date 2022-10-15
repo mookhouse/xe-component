@@ -48,7 +48,7 @@
 			<!-- NOTICE -->
 			<tr loop="$notice_list=>$no,$document">
 					<td>&raquo;</td>
-					<td class="title"><a href="{$document->getPermanentUrl()}"><strong>[{$lang->notice}]</strong> {$document->getTitle()|noescape}({$document->getCommentCount()})</a></td>
+					<td class="title"><a sv-attr='pc_{$mid}_{$document->document_srl}' href="{$document->getPermanentUrl()}"><strong>[{$lang->notice}]</strong> {$document->getTitle()|noescape}({$document->getCommentCount()})</a></td>
 					<td>{$document->getNickName()}</td>
 					<td class="date">{$document->getRegdate('Y.m.d')}</td>
 					<td class="hit">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
@@ -58,7 +58,7 @@
 			<!-- LIST -->
 			<tr loop="$document_list=>$no,$document">
 				<td>{$no}</td>
-				<td class="title"><a href="{$document->getPermanentUrl()}">{$document->getTitle()|noescape} ({$document->getCommentCount()})</a></td>
+				<td class="title"><a sv-attr='pc_{$mid}_{$document->document_srl}' href="{$document->getPermanentUrl()}">{$document->getTitle()|noescape} ({$document->getCommentCount()})</a></td>
 				<td>{$document->getNickName()}</td>
 				<td class="date">{$document->getRegdate('Y.m.d')}</td>
 				<td class="hit">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>

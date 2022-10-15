@@ -19,10 +19,10 @@
    <ol class="tab_ol" style="display:none;"|cond="$nCatIdx>2">
 <!--@end-->
 <!--@if($nCatIdx==0)-->
-		<li class="active"|cond="$category==''" id="cateAll"><a sv-attr='pc_content_menumonthly' href="{$module_info->mid}">전체</a></li>
+		<li class="active"|cond="$category==''" id="cateAll"><a sv-attr='pc_{$mid}_cateall' href="{$module_info->mid}">전체</a></li>
 		{@$nCatIdx++;} <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
 <!--@end-->
-		<li class="active"|cond="$category==$val->category_srl"><a href="{getUrl('category',$val->category_srl,'document_srl','', 'page', '')}">{$val->title}
+		<li class="active"|cond="$category==$val->category_srl"><a sv-attr='pc_{$mid}_cate{$val->title}' href="{getUrl('category',$val->category_srl,'document_srl','', 'page', '')}">{$val->title}
 		<block cond="$val->document_count">[{$val->document_count}]</block></a></li>
 <!--@if($nCatIdx>1 && ($nCatIdx+1)%11==0)-->  <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
 	</ol>
@@ -33,8 +33,8 @@ $nCatIdx++;
 </block>
 	</ol>
    <div class="move-tabs btn-controls">
-		<a href="javascript:;" data-type='prev'><i class="icon-left-circle"><span class=sr-only>다음</span></i></a>
-		<a href="javascript:;" data-type='next'><i class="icon-right-circle"><span class=sr-only>이전</span></i></a>
+		<a href="javascript:;" data-type='prev'><i sv-attr='pc_{$mid}_cateprev' class="icon-left-circle"><span class=sr-only>이전</span></i></a>
+		<a href="javascript:;" data-type='next'><i sv-attr='pc_{$mid}_catenext' class="icon-right-circle"><span class=sr-only>다음</span></i></a>
 	</div>
 </nav>
 <BR>
@@ -54,17 +54,17 @@ $nCatIdx++;
 		<ul id="dataList">
 			<li loop="$document_list=>$no,$document">
 				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" rel="nofollow">
-					<figure sv-attr='' >
+					<figure sv-attr='pc_{$mid}_{$document->document_srl}'>
 						<img src="/modules/board/skins/ange_old_bbs/images/_blank.gif" alt="{$document->getTitle()|noescape}" style="background-image:url('{$document->getThumbnail(270, 270, 'crop')}');background-size:cover;background-position:center center;width:270px;height:270px;">
 					</figure>
 					<div class="details">
-						<h3 sv-attr='pc_content_menumonthly_thumbnail1'>{$document->getTitle()|noescape}</h3>
+						<h3 sv-attr='pc_{$mid}_{$document->document_srl}'>{$document->getTitle()|noescape}</h3>
 						<ul class="like-comment">
 							<li class="like">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
 							<li class="comment">{$document->getCommentCount()}</li>
 						</ul>
 <block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='preface'">
-						<p class="thumb_summary">﻿{cut_str($val->getValueHTML(), 90, '...')}</p>
+						<p sv-attr='pc_{$mid}_{$document->document_srl}' class="thumb_summary">﻿{cut_str($val->getValueHTML(), 90, '...')}</p>
 						<!---p class="list_summary" style="display:none;">﻿{cut_str($val->getValueHTML(), 180, '...')}</p--->
 </block>
 					</div>

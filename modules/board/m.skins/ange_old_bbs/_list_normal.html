@@ -21,7 +21,7 @@
 					<!-- NOTICE -->
 					<li loop="$notice_list=>$no,$document">
 						<a href="{$document->getPermanentUrl()}">
-							<h4><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> <strong>[{$lang->notice}]</strong>{$document->getTitle()|noescape}({$document->getCommentCount()})</h4>
+							<h4 sv-attr='mob_{$mid}_{$document->document_srl}'><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> <strong>[{$lang->notice}]</strong>{$document->getTitle()|noescape}({$document->getCommentCount()})</h4>
 							<ul class="icon-list">
 								<li class="user">{$document->getNickName()}</li>
 								<li class="date">{$document->getRegdate('Y-m-d')}</li>
@@ -32,7 +32,7 @@
 					<!-- LIST -->
 					<li loop="$document_list=>$no,$document">
 						<a href="{$document->getPermanentUrl()}">
-							<h4><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> {$document->getTitle()|noescape} ({$document->getCommentCount()})</h4>
+							<h4 sv-attr='mob_{$mid}_{$document->document_srl}'><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /> {$document->getTitle()|noescape} ({$document->getCommentCount()})</h4>
 							<ul class="icon-list">
 								<li class="user">{$document->getNickName()}</li>
 								<li class="date">{$document->getRegdate('Y-m-d')}</li>
