@@ -1,0 +1,96 @@
+<link href="/modules/board/skins/ange_old_bbs/css/event.css" rel="stylesheet">
+
+<!--h2 class="sub-title">체험/이벤트</h2--->
+<!---article class="event-slider">
+	<ul>
+		<li>
+			<a href="#"><figure><img src="sdfds" alt="" onerror='this.src="/modules/board/skins/ange_old_event/images/img_sample_list_none.png"' style="width:840px;height:360px;"></figure></a>
+		</li>
+	</ul>
+</article--->
+<!---dl class="prizewinner">
+	<dt>당첨자발표/공지</dt>
+	<dd><a href="/usr?menu=eventwinner&submenu=eventwinner_detail&NO=992895">[공지] 앙쥬 활동점수(M) 적립 중단 및 사용 종료 안내</a></dd>
+</dl--->
+<div class="list-content">
+	<!---form id="searchForm" name="searchForm" method="get">
+		<div class="form-group">
+			<select class="form-control">
+				<option value="'exp','event'">분류 전체</option>
+				<option value="">체험1단</option>
+				<option value="">이벤트</option>
+			</select>
+			<select class="form-control">
+				<option value=''>상태 전체</option>
+				<option value='' >진행중</option>
+				<option value='' >종료</option>
+			</select>
+		</div>
+	</form---->
+	<ul class="list" id="dataList">
+<block loop="$document_list=>$no,$document">
+		<li>
+	<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML()">
+	<!--@if($val->eid=='applicants')-->
+	{@ $nApplicants = $val->getValueHTML();}
+	<!--@elseif($val->eid=='regi_end')-->
+	{@ $sRegiEndDate = $val->getValueHTML();}
+	<!--@end-->
+	</block>
+{@
+$dtToday = new DateTime();
+//$sRegiEndDate = '2022-10-13';
+$dtExpired = new DateTime($sRegiEndDate);
+$nRemainingDays = -$dtExpired->diff($dtToday)->format("%r%a");
+//echo $nRemainingDays.'<BR>';
+$dtDiff = $dtExpired->diff($dtToday);
+$nRemainingHrs = (int)$dtDiff->h + (int)($dtDiff->days*24);
+if($nRemainingDays < 0)
+	$nRemainingHrs = -$nRemainingHrs;
+//echo $dtDiff->h.'<BR>';
+//echo $nRemainingHrs;
+if($nRemainingHrs > 24)
+	$sClassName = 'today-event';
+elseif($nRemainingHrs < 24 && $nRemainingHrs > 0)
+	$sClassName = 'today-closing';
+elseif($nRemainingHrs < 0)
+	$sClassName = 'finish-event';
+}
+			<a href="{$document->getPermanentUrl()}" class="{$sClassName}">
+				<div class="item">
+					<img src="/modules/board/skins/ange_old_event/images/_blank.gif" alt="{$document->getTitle()|noescape}" style="background-image:url('{$document->getThumbnail(400, 247, 'crop')}');background-size:cover;background-position:center center;width:400px;height:247px;">
+					<div class="event-situation">
+<!--@if($nRemainingDays == 0)-->
+						<p class="situation-txt">오늘<br>마감</p>
+<!--@end-->
+					</div>
+				</div>
+				<div class="details">
+					<p class="title">{$document->getTitle()|noescape}</p>
+					<div class="event-information">
+						<ul>
+							<li>
+								<i class="icon-eye">조회수</i>
+								<p>{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</p>
+							</li>
+							<li>
+								<i class="icon-calendar">종료일</i>
+								<p>{$sRegiEndDate}</p>
+							</li>
+							<li>
+								<i class="icon-user">관심인원( {$document->get('comment_count')} ) / 모집인원( {$nApplicants} )</i>
+								<!--p>/</p--->
+							</li>
+							<!---li>
+								<i class="icon-database"></i>
+								<p>+0</p>
+							</li--->
+						</ul>
+						<!---p class="event-before">미응모</p--->
+					</div>
+				</div>
+			</a>
+		</li>
+</block>
+	</ul>
+</div>

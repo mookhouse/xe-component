@@ -19,6 +19,12 @@
 				<options value="gallery">
 					<title xml:lang="ko">갤러리형</title>
 				</options>
+				<options value="event">
+					<title xml:lang="ko">이벤트형</title>
+				</options>
+				<options value="magazine">
+					<title xml:lang="ko">잡지형</title>
+				</options>
 			</var>
 		</group>
 		<group>

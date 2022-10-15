@@ -19,6 +19,12 @@
 				<options value="gallery">
 					<title xml:lang="ko">갤러리형</title>
 				</options>
+				<options value="event">
+					<title xml:lang="ko">이벤트형</title>
+				</options>
+				<options value="magazine">
+					<title xml:lang="ko">잡지형</title>
+				</options>
 			</var>
 			<var name="side_nav_bar" type="radio">
 				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
@@ -43,4 +49,3 @@
 		</group>
     </extra_vars>
 </skin>
-

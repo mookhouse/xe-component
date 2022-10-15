@@ -1,7 +1,7 @@
 <include target="_header.html" />
 
-<load target="css/e_magazine.css" />
-<load target="js/common_sub.js" type="body" />
+<link href="/modules/board/skins/ange_old_event/css/e_magazine.css" rel="stylesheet">
+<script src="/modules/board/skins/ange_old_event/js/common_sub.js"></script>
 
 <style>
 .btn-write-submit {
@@ -104,12 +104,14 @@ $(function(){
 <block cond="$oDocument->isExists()">
 <!--@if($module_info->default_style=='gallery')-->
 	<include target="_read_gallery.html" />
-<!--@elseif($module_info->default_style=='list' || !$module_info->default_style)-->
-	<!--@if(!Mobile::isMobileCheckByAgent() || $module_info->list_m)-->
+<!--@elseif($module_info->default_style=='list')-->
 	<include target="_read_normal.html" />
-	<!--@else-->
-	<include target="_read_m.html" />
-	<!--@end-->
+<!--@elseif($module_info->default_style=='event')-->
+	<include target="_read_event.html" />
+<!--@elseif($module_info->default_style=='magazine')-->
+	<include target="_read_magazine.html" />
+<!--@else-->
+	<include target="_read_normal.html" />
 <!--@end-->
 </block>
 
@@ -117,14 +119,16 @@ $(function(){
 <!--// 게시판 유형 -->
 <!--@if($module_info->default_style=='gallery')-->
 	<include target="_list_gallery.html" />
-<!--@elseif($module_info->default_style=='list' || !$module_info->default_style)-->
-	<!--@if(!Mobile::isMobileCheckByAgent() || $module_info->list_m)-->
+<!--@elseif($module_info->default_style=='list')-->
 	<include target="_list_normal.html" />
-	<!--@else-->
-	<include target="_list_m.html" />
-	<!--@end-->
+<!--@elseif($module_info->default_style=='event')-->
+	<include target="_list_event.html" />
+<!--@elseif($module_info->default_style=='magazine')-->
+	<include target="_list_magazine.html" />
+<!--@else-->
+	<include target="_list_normal.html" />
 <!--@end-->
-</block>       
+</block>
 		 <block cond="!$oDocument->isExists()">
 			<BR>
 			<!-- begin - pagination -->

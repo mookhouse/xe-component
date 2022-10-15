@@ -1,0 +1,151 @@
+<link href="/modules/board/m.skins/ange_old_magazine/css/e_magazine_detail.css" rel="stylesheet">
+<section class="magazine-view">
+	<div class="container">
+		<div class="section-header">
+			<!--h3 class="section-title">e매거진</h3-->
+		</div>
+		<div class="section-content">
+			<article>
+				<div class="article-header">
+					<!--ul class="share-list"--->
+						<!--
+							<li class="naver-blog"><a href="http://blog.naver.com/angemoms" target="_blank"></a></li>
+							<li class="naver-post"><a href="http://post.naver.com/my.nhn?memberNo=541939" target="_blank"></a></li>
+							
+							<li class="twitter"><a href="javascript:$scope.click_loginWithTwitter()"></a></li>
+							-->
+						<!-- <li class="naver-blog"><a href="http://share.naver.com/web/shareView.nhn?url=http%3A%2F%2Fange.co.kr%2Fmobile%2F%3Fmenu%3Dstory_1%26submenu%3Dstory_detail%26PAGE_NO%3D0%26PAGE_SIZE%3D9%26S_CATEGORY%3D%26NO%3D9060%26SEARCH_YY%3D2022&title=월간앙쥬 [2022년9월]" target="_blank"></a></li>
+							<li class="naver-cafe"><a href="#"></a></li> -->
+						<!--li class="naver"><a href="http://share.naver.com/web/shareView.nhn?url=ange.co.kr%2Fmobile%2F%3Fmenu%3Dstory_1%26submenu%3Dstory_detail%26PAGE_NO%3D0%26PAGE_SIZE%3D9%26S_CATEGORY%3D%26NO%3D9060%26SEARCH_YY%3D2022&title=월간앙쥬 [2022년9월]" target="_blank"></a></li--->
+						<!--li class="insta"><a href="https://www.instagram.com/angemoms/" target="_blank"></a></li-->
+						<!---li class="kakao"><a href="javascript:$scope.share_open()"></a></li>
+						<li class="facebook"><a href="javascript:$scope.click_loginWithFacebook()"></a></li>
+						<li class="export"><a href="javascript:;" data-clipboard-text="https://ange.co.kr/mobile/?menu=story_1&submenu=story_detail&PAGE_NO=0&PAGE_SIZE=9&S_CATEGORY=&NO=9060&SEARCH_YY=2022" class="clipboard"></a></li>
+						<li class="last-ebook"><a href='javascript:$scope.click_eBookOpen("http://ebook.ange.co.kr/ebook/ecatalog.php?Dir=312");' class="btn btn-pink btn-ebook" role="button">eBook</a></li--->
+					<!---/ul--->
+					<!--h4>월간앙쥬 [2022년9월]</h4-->
+					<figure class="story_content">
+						<div class="story-row previewwrap">
+							<div class="story-col-xs-12 article_previewwrap" id="inBodyForm">
+								<div>
+									<subtitle>
+										<!---div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div--->
+										<span style="font-family:nanum gothic;"><span style="font-size:16px;">{$oDocument->getTitle()|noescape}</span></span>
+									</subtitle>
+									<maintitle><span style="color:#A52A2A;">
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='sub_title'">
+﻿{$val->getValueHTML()}
+</block>
+									</span></maintitle>
+								</div>
+								<div><img alt="" src="{$oDocument->getThumbnail(780, 1011, 'crop')}" /></div>
+								<p>&nbsp;</p>
+								<sectionsub><span style="font-family:nanum gothic; font-size:16px;">Opening & Play & Living</span></sectionsub>
+								<p><span style="font-family:nanum gothic; font-size:16px;">
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='open_play_live'">
+﻿{$val->getValueHTML()}
+</block>
+								</span></p>
+								<p>&nbsp;</p>
+								<p><sectionsub><span style="font-family:nanum gothic; font-size:16px;">Monthly Issue</span></sectionsub></p>
+								<p><span style="font-family:nanum gothic; font-size:16px;">
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='monthly_issue'">
+﻿{$val->getValueHTML()}
+</block>					
+								</span></p>
+								<p>&nbsp;</p>
+								<p><sectionsub><span style="font-family:nanum gothic; font-size:16px;">Dr. ange</span></sectionsub></p>
+								<p><span style="font-size:16px;">
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='dr_ange'">
+﻿{$val->getValueHTML()}
+</block>			
+								</span></p>
+								<p>&nbsp;</p>
+								<p><sectionsub><span style="font-size:16px;"><span style="font-family:nanum gothic;">etc</span></span></sectionsub></p>
+								<p><span style="font-family:nanum gothic; font-size:16px;">
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='etc'">
+﻿{$val->getValueHTML()}
+</block>
+								</span></p>
+								<div><p><byline><span style="font-family:nanum gothic;"><span style="font-size:16px;">프로젝트 [호제] {$oDocument->getTitle()|noescape}</span></span></byline></p></div>
+						</div>
+					</figure>
+					<div class="btn-ebook">
+						<p>
+							<a href='#' class="btn btn-md btn-pink" role="button">e-book 보기</a>
+						</p>
+					</div>
+					<div class="table-wrap">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td><a href="javascript:$scope.getStoryLink('353','9095');">9월 육아 뉴스, 아동기본법 제정을 위한 공개토론회 진행 외</a>(0)</td>
+								</tr>
+								<tr>
+									<td><a href="javascript:$scope.getStoryLink('137','9094');">아나운서 이정민과 아들 시온, 앙쥬 표지 촬영 현장</a>(0)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-area">
+						<p>
+							<a href="#" class="btn btn-md btn-pink" role="button" id='LIKE_FL_N' style="">공감하기<img src="/modules/board/m.skins/ange_old_bbs/images/btn_sympathy.gif" alt=""></a>
+							<a href="#" class="btn btn-md btn-pink" role="button" id='LIKE_FL_Y' style="display:none;">공감취소하기<img src="/modules/board/m.skins/ange_old_bbs/images/btn_sympathy.gif" alt=""></a>
+						</p>
+					</div>
+					<p class="summary">
+						현재 <i id="like_fl_9060_txt">2</i> 명의 회원이 공감하고 있습니다.<br>
+						공감한 스토리는 <i>'스크랩'</i> 됩니다.
+					</p>
+					<hr>
+					<div class="btn-area">
+						<p>
+							<a cond="$oDocument->isEditable()" class="btn btn-md btn-gray" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_modify}</a>
+							<a cond="$oDocument->isEditable()" class="btn btn-md btn-gray" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_delete}</a>
+							<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-xs btn-gray" role="button">{$lang->cmd_list}</a>
+						</p>
+					</div>
+					
+					<div style="width:100%;margin:10px auto 0px;">
+						<div id="tdn_s003_ange_ga01_mo_post_bottom_btf_video_300x250">
+							<script>
+								if((navigator.userAgent.match(/Mobile|iP(hone)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/))){
+									window.googletag = window.googletag || {cmd: []};
+									googletag.cmd.push(function() {
+										googletag.defineSlot('/21682743634,22419415600/S003/ange/ga01/mo/post_bottom_btf_video_300x250', [[300, 250], [320, 240]], 'tdn_s003_ange_ga01_mo_post_bottom_btf_video_300x250').addService(googletag.pubads().set('page_url', '//ange.co.kr'));
+										googletag.pubads().set("document_language", "ko");
+										googletag.enableServices();
+										googletag.display('tdn_s003_ange_ga01_mo_post_bottom_btf_video_300x250');
+									});
+								}
+							</script>
+						</div>
+					</div>
+				</div>
+				<div class="article-content">
+					<div class="review-write">
+						<form action="#">
+							<div class="write-header">
+								<h4>의견쓰기</h4>
+								<div class="form-group">
+									<textarea id="replyComment" name="replyComment" onkeyup="$scope.fnByteCal(this);" class="form-control" placeholder="타인비방, 모욕, 개인정보 노출, 상업광고, 홍보글 등은 공지없이 바로 삭제됩니다."></textarea>
+									<label for="replyComment" class="sr-only"></label>
+								</div>
+								<div class="btn-register">
+									<button type="button" class="btn btn-lg btn-gray btn-reply-write-submit" onclick="$scope.click_saveComment();">등록하기</button>
+								</div>
+							</div>
+							<div class="write-content">
+								<p class="inform">총 <b id="reply_total_count"></b>개의 댓글이 있습니다.</p>
+								<ul class="review-list" id="replyList"></ul>
+							</div>
+						</form>
+					</div>
+					<nav class="paging" aria-label="Page navigation">
+						<ul class="pagination" id="replyPage"></ul>
+					</nav>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>
