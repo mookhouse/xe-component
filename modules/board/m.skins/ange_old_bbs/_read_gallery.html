@@ -40,65 +40,13 @@
 					</figure>
 					<div class="btn-ebook">
 						<p>
-							<a href='javascript:$scope.click_eBookOpen("http://ebook.ange.co.kr/ebook/ecatalog.php?Dir=312&start=108");' class="btn btn-md btn-pink" role="button">e-book 보기</a>
+							<a href='http://ebook.ange.co.kr/ebook/ecatalog.php?Dir=312&start=108' class="btn btn-md btn-pink" role="button">e-book 보기</a>
 						</p>
 					</div>
-					<div class="table-wrap">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<td><a href="javascript:$scope.getStoryLink('353','9095');">9월 육아 뉴스, 아동기본법 제정을 위한 공개토론회 진행 외</a>(0)</td>
-								</tr>
-								<tr>
-									<td><a href="javascript:$scope.getStoryLink('137','9094');">아나운서 이정민과 아들 시온, 앙쥬 표지 촬영 현장</a>(0)</td>
-								</tr>
-								<tr>
-									<td><a href="javascript:$scope.getStoryLink('342','9093');">한 번 시작하면 100번은 기본 무한 반복 놀이의 매직</a>(0)</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="btn-area">
-						<p>
-							<a href="javascript:$scope.click_addLike('9082')" class="btn btn-md btn-pink" role="button" id='LIKE_FL_N' style="">공감하기<img src="/mobile/_assets/images/e_magazine/btn_sympathy.gif" alt=""></a>
-							<a href="javascript:$scope.click_addLike('9082')" class="btn btn-md btn-pink" role="button" id='LIKE_FL_Y' style="display:none;">공감취소하기<img src="/mobile/_assets/images/e_magazine/btn_sympathy.gif" alt=""></a>
-						</p>
-					</div>
-					<p class="summary">
-						현재 <i id="like_fl_9082_txt">0</i> 명의 회원이 공감하고 있습니다.<br>
-						공감한 스토리는 <i>'스크랩'</i> 됩니다.
-					</p>
-					<hr>
-					<div class="btn-area">
-						<p>
-							<a href="javascript:;" onclick="$scope.click_showBoardList();" class="btn btn-xs btn-gray" role="button">목록</a>
-						</p>
-					</div>
+					<include target="_read_cmd_btn.html" />
+					<include target="_read_recommended_article.html" />
 				</div>
-				<script src="/mobile/vm/module-reply.vm.js"></script>
-				<div class="article-content">
-					<div class="review-write">
-						<form action="#">
-							<div class="write-header">
-								<h4>의견쓰기</h4>
-								<div class="form-group">
-									<textarea id="replyComment" name="replyComment" onkeyup="$scope.fnByteCal(this);" class="form-control" placeholder="타인비방, 모욕, 개인정보 노출, 상업광고, 홍보글 등은 공지없이 바로 삭제됩니다."></textarea>
-									<label for="replyComment" class="sr-only"></label>
-								</div>
-								<div class="btn-register">
-									<button type="button" class="btn btn-lg btn-gray btn-reply-write-submit" onclick="$scope.click_saveComment();">등록하기</button>
-								</div>
-							</div>
-							<div class="write-content">
-								<p class="inform">총 <b id="reply_total_count"></b>개의 댓글이 있습니다.</p>
-								<ul class="review-list" id="replyList"></ul>
-							</div>
-						</form>
-					</div>
-					<nav class="paging" aria-label="Page navigation">
-						<ul class="pagination" id="replyPage"></ul>
-					</nav>
-				</div>
+				<include target="_read_comment.html" />
 			</article>
 		</div>
 	</div>

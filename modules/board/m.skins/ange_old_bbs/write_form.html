@@ -1,5 +1,25 @@
-<load target="js/mboard.js" />
-<load target="css/mboard.css" />
+{@
+include_once('./modules/file/file.class.php');
+include_once('./modules/file/file.controller.php');
+$oFileController = &getController('file');
+$editor_sequence = '1';
+$upload_target_srl = $document_srl;
+$oFileController->setUploadInfo($editor_sequence, $upload_target_srl);
+$_SESSION['upload_info'][$editor_sequence]->enabled = true;
+$_SESSION['upload_info'][$editor_sequence]->upload_target_srl = $upload_target_srl;
+Context::loadLang('./modules/editor/lang');
+// File config
+$oFileModel = getModel('file');
+$file_config = $oFileModel->getUploadConfig();
+// Editor Config
+$oDocument->getEditor()->option;
+
+$mi->m_editor = 2;
+}
+
+<script type="text/javascript" src="/modules/board/m.skins/ange_old_bbs/js/mboard.min.js"></script>
+<script type="text/javascript" src="/modules/board/m.skins/ange_old_bbs/js/editor_m.js"></script>
+<script type="text/javascript" src="/modules/board/m.skins/ange_old_bbs/js/ajaxfileupload.js"></script>
 
 <style>
 .extra-form-group input[type="text"] {
@@ -22,10 +42,11 @@
 
 <div class="chatter-write">
 	<div class="container">
-		<form action="./" method="post" onsubmit="return procFilter(this, insert)" class="board_write">
+		<form action="./" method="post" onsubmit="return procFilter(this, insert)" id="ff" class="board_write">
 		<input type="hidden" name="mid" value="{$mid}" />
-		<!---input type="hidden" name="content" value="{$oDocument->getContentText()}" /---->
 		<input type="hidden" name="document_srl" value="{$document_srl}" />
+		<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+		<input type="hidden" name="use_html" value="Y" />
 			<article>
 				<div class="table-wrap">
 					<table class="table table-bordered table-write type-1">
@@ -68,7 +89,11 @@
 								<th class="v-top"><label for="u-content">{$lang->content}</label></th>
 								<td>
 									<div class="form-group">
-										{$oDocument->getEditor()|noescape}
+										<!--// textarea -->
+										<div cond="$mi->m_editor==2" class="m_editor">
+											<script type="text/javascript" src="/modules/board/m.skins/ange_old_bbs/js/editor_textarea.js"></script>
+											<textarea id="nText" col="50" rows="8" style="width:100%;"></textarea>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -134,12 +159,12 @@
 				</div>
 			</article>
 			<div class="btn-area" style="margin-top:15px; text-align: right;">
-				<p>
-					<input type="submit" value="{$lang->cmd_registration}" class="btn btn-sm btn-pink btn-write-submit" />
-					<block cond="!$oDocument->isExists() || $oDocument->get('status') == 'TEMP'">
+				<p style="margin-bottom: 12px;">
+					<input type="submit" id="frmSubmit" value="{$lang->cmd_submit}" class="btn btn-lg btn-pink btn-write-submit" onclick="frmSubmitMobile();return false;" />
+				</p>
+				<p cond="!$oDocument->isExists() || $oDocument->get('status') == 'TEMP'">
 					<button cond="$is_logged" class="btn btn-sm btn-white" type="button" onclick="doDocumentSave(this);">{$lang->cmd_temp_save}</button>
 					<button cond="$is_logged" class="btn btn-sm btn-white" type="button" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button>
-					</block>
 				</p>
 			</div>
 		</form>

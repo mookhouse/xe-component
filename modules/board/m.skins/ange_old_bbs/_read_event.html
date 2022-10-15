@@ -31,7 +31,7 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 		-->
 	<div class="event-item ">
 		<div class="item">
-			<img src="{$oDocument->getThumbnail(940, 582, 'crop')}" alt="" onerror='this.src="/modules/board/m.skins/ange_old_event/images/board_none_img.jpg"'>
+			<!---img src="{$oDocument->getThumbnail(940, 582, 'crop')}" alt="" onerror='this.src="/modules/board/m.skins/ange_old_event/images/board_none_img.jpg"'--->
 			<div class="event-backdrop">
 				<p>오늘<br>마감</p>
 			</div>
@@ -83,15 +83,7 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 				<dd id="like_fl_8201_txt">명</dd--->
 			</dl>
 		</div>
-		<div class="btn-area">
-			<p>
-				<a cond="$oDocument->isEditable()" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" class='btn btn-md btn-white' role='button'>{$lang->cmd_modify}</a>	
-				<a cond="$oDocument->isEditable()" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" class="btn btn-md btn-white" role="button">{$lang->cmd_delete}</a>
-			</p>
-			<p>
-				<a href="{getUrl('document_srl','')}" class="btn btn-lg btn-pink" role="button">{$lang->cmd_list}</a>
-			</p>
-		</div>
+		
 		<!---div style="width:300px;margin:10px auto 0px;z-index:99;position:relative;">
 			<div id='tdn_mobile_post_video_bottom'>
 				<script>displayTDN("tdn_mobile_post_video_bottom");</script>
@@ -372,3 +364,6 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 		</div>
 	</div--->
 </div>
+
+<include target="_read_cmd_btn.html" />
+<include target="_read_comment.html" />

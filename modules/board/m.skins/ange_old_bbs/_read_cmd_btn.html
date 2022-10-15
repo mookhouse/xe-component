@@ -1,0 +1,20 @@
+<!---div class="btn-area">
+	<p>
+		<a href="#" class="btn btn-md btn-pink" role="button" id='LIKE_FL_N' style="">공감하기<img src="/modules/board/m.skins/ange_old_bbs/images/btn_sympathy.gif" alt=""></a>
+		<a href="#" class="btn btn-md btn-pink" role="button" id='LIKE_FL_Y' style="display:none;">공감취소하기<img src="/modules/board/m.skins/ange_old_bbs/images/btn_sympathy.gif" alt=""></a>
+	</p>
+</div>
+<p class="summary">
+	현재 <i id="like_fl_9060_txt">2</i> 명의 회원이 공감하고 있습니다.<br>
+	공감한 스토리는 <i>'스크랩'</i> 됩니다.
+</p>
+<hr---->
+<div class="btn-area">
+	<p style="margin-bottom: 12px;">
+		<a cond="$oDocument->isEditable()" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" class='btn btn-md btn-white' role='button' style="width: 48%;">{$lang->cmd_modify}</a>	
+		<a cond="$oDocument->isEditable()" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" class="btn btn-md btn-white" role="button" style="width: 48%;">{$lang->cmd_delete}</a>
+	</p>
+	<p>
+		<a href="{getUrl('document_srl','')}" class="btn btn-lg btn-pink" role="button">{$lang->cmd_list}</a>
+	</p>
+</div>

@@ -99,10 +99,7 @@ $(function(){
 <!--@else-->
 	<include target="_list_normal.html" />
 <!--@end-->
-</block>
-</main>
 
-<block cond="!$oDocument->isExists()">
 	<!-- begin - pagination -->
 	<nav class="paging" aria-label="Page navigation">
 		<ul class="pagination" id="dataPage">
@@ -146,3 +143,4 @@ $(function(){
 		<a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" rel="nofollow" class="btn-etc" onclick="popopen(this.href,'manageDocument'); return false;">{$lang->cmd_manage_document}</a>
 	</div>
 </block>
+</main>
