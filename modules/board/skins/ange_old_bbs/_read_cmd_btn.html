@@ -1,0 +1,105 @@
+<style>
+/* 공감하기 버튼 */
+.table-wrap .sympathize {
+    text-align: center;
+    padding: 45px 0;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.table-wrap .sympathize .sympathize-btn .btn-pink {
+   text-align: center;
+    width: 145px;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 30px;
+    background-color: #ff7875;
+    transition-property: all;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+}
+
+.table-wrap .sympathize .sympathize-btn .btn-pink:after {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-left: 15px;
+    content: url('/modules/board/skins/ange_old_bbs/images/btn_pink.png');
+}
+
+.table-wrap .sympathize .sympathize-btn .btn-pink:hover {
+    opacity: .7;
+}
+
+.table-wrap .sympathize p {
+    font-size: 13px;
+    color: #999;
+    line-height: 20px;
+    margin-top: 10px;
+}
+
+.table-wrap .sympathize p i {
+    color: #ff7875;
+    font-style: normal;
+}
+
+/* prev next button */
+.page-link > ul > li dl dd {
+    display: inline;
+    font-size: 13px;
+    color: #999;
+    line-height: 24px;
+    width: 700px;
+    font-weight: 400;
+    padding-right: 30px;
+}
+
+/* command buttons */
+.btn-area p .btn {
+    width: 115px;
+    font-size: 13px;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid #b7b7b7;
+    border-radius: 30px;
+}
+</style>
+
+<!--div class="table-wrap">
+	<div class="sympathize">
+		<div class="sympathize-btn">
+			<a sv-attr='pc_content_article_sympathy' href="#" class="btn btn-pink" role="button" id='LIKE_FL_N' style="">공감하기</a>
+			<a sv-attr='pc_content_article_sympathycancel' href="#" class="btn btn-pink" role="button" id='LIKE_FL_Y' style="display:none;">공감취소하기</a>
+		</div>
+		<p>현재 <i id="like_fl_7637_txt">0</i> 명의 회원이 공감하고 있습니다.<br>공감한 스토리는 <i>'스크랩'</i> 됩니다.</p>
+	</div>
+</div--->
+
+<div class="page-link" style="padding-top:30px; padding-bottom:30px;">
+	<ul>
+		<li class="prev">
+			<dl>
+				<dt>이전글</dt>
+				<dd>
+					<a href="#">6월2일-열 내리기, 맥주보단 오미자차  </a>
+				</dd>
+			</dl>
+		</li>
+		<li class="next">
+			<dl>
+				<dt>다음글</dt>
+				<dd>
+					<a href="#">활동점수가 사라지네요!</a>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-area">
+	<p>
+		<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_modify}</a>
+		<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_delete}</a>
+		<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-pink" style="float: right;" role="button">{$lang->cmd_list}</a>
+	</p>
+</div>

@@ -94,35 +94,10 @@
 				</p>
 			</div--->
 		<!---/div--->
-		<div class="btn-area">
-			<p>
-				<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_modify}</a>
-				<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_delete}</a>
-				<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-gray" role="button">{$lang->cmd_list}</a>
-			</p>
-		</div>
+		<include target="_read_cmd_btn.html" />
+		<include target="_read_recommended_article.html" />	
 	</div>
-	<script src="/usr/vm/module-reply.vm.js"></script>
 	<article class="comment-area">
-		<form action="#">
-			<div class="comment-write">
-				<h4>의견쓰기<small>타인비방, 모욕, 개인정보 노출, 상업광고, 홍보글 등은 공지없이 바로 삭제</small></h4>
-				<div class="write">
-					<div class="form-group">
-						<textarea id="replyComment" name="replyComment" onkeyup="$scope.fnByteCal(this);" class="form-control" placeholder="입력창에 댓글을 작성해 주세요."></textarea>
-						<label for="replyComment" class="sr-only">댓글달기</label>
-					</div>
-					<button type="button" class="btn btn-write btn-reply-write-submit" onclick="$scope.click_saveComment();">등록하기</button>
-				</div>
-				<p class="comment-num">총 <b id="reply_total_count"></b>개의 댓글이 있습니다.</p>
-			</div>
-			<div class="article-content">
-				<ul class="comment-list" id="replyList">
-				</ul>
-			</div>
-			<nav class="paging" aria-label="Page navigation">
-				<ul class="pagination" id="replyPage"></ul>
-			</nav>
-		</form>
-	</article>
+		<include target="_read_comment.html" />	
+	 </article>
 </section>

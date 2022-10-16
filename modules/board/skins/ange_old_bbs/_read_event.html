@@ -78,13 +78,6 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 					<dd id="like_fl_8228_txt">명</dd--->
 				</dl>
 			</div>
-			<div class="btn-area">
-				<p>
-					<a cond="$oDocument->isEditable()" class="btn btn-xs btn-white" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" role="button">{$lang->cmd_modify}</a>
-					<a cond="$oDocument->isEditable()" class="btn btn-xs btn-white" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"  role="button">{$lang->cmd_delete}</a>
-					<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-sm btn-pink" role="button">{$lang->cmd_list}</a>
-				</p>
-			</div>
 			<!---div class="btn-area">
 				<p>
 					<a href='javascript:alert("로그인 후 참여 하실 수 있습니다.");' class="btn btn-sm btn-pink" role="button">응모하기</a>
@@ -409,6 +402,11 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 					</p>
 				</div--->
 			</form>
+			<include target="_read_cmd_btn.html" />
+			<include target="_read_recommended_article.html" />
+			<article class="comment-area">
+				<include target="_read_comment.html" />	
+			 </article>
 		</div>
 	</div>
 </article>

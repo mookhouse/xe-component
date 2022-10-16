@@ -1,6 +1,5 @@
 <include target="_header.html" />
 <link href="/modules/board/skins/ange_old_bbs/css/e_magazine_detail.css" rel="stylesheet">
-
 <!--h2 class="sub-title">{$module_info->browser_title}</h2--->
 <section class="view">
 	<!--div class="section-header">
@@ -21,7 +20,7 @@
 				<a href='javascript:$scope.click_eBookOpen("http://ebook.ange.co.kr/ebook/ecatalog.php?Dir=311&start=140");' class="btn btn-ebook" style="color:#555;font-size:14px;border:1px solid #b3b3b3;" role="button">eBook</a>
 			</li>
 		</ul>
-	</div--->
+		</div--->
 	<div class="section-content">
 		<figure>
 			<div class="story-row previewwrap">
@@ -32,98 +31,27 @@
 							<maintitle><a href="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()|noescape}</a></maintitle>
 						</p>
 						<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='preface'">
-						<p>
-							<preface>﻿{$val->getValueHTML()}</preface>
-						</p>
+							<p>
+								<preface>﻿{$val->getValueHTML()}</preface>
+							</p>
 						</block>
 						{$oDocument->getContent(false)|noescape}
 					</div>
 				</block>
 				<block cond="!$oDocument->isExists()">
-				없는 페이지입니다.
+					없는 페이지입니다.
 				</block>
 			</div>
 		</figure>
-		
-
-	<div class="btn-ebook">
-	   <p>
-		  <a sv-attr='pc_content_article_readebook' href='javascript:$scope.click_eBookOpen("");' class="btn btn-pink btn-more" role="button">e-book 보기</a>
-	   </p>
+		<div class="btn-ebook">
+			<p>
+				<a sv-attr='pc_content_article_readebook' href='#' class="btn btn-pink btn-more" role="button">e-book 보기</a>
+			</p>
+		</div>
+		<include target="_read_cmd_btn.html" />
+		<include target="_read_recommended_article.html" />
 	</div>
-	<div class="table-wrap">
-	   <table class="table table-bordered">
-		  <tbody>
-			 <tr>
-				<th>1개월 [202203]</th>
-				<td><a sv-attr='pc_content_article_relatedlist1' href="https://www.ange.co.kr/usr/?menu=story_1&submenu=&PAGE_NO=0">코드 영역</a>(0)</td>
-			 </tr>
-			 <tr>
-				<th>1개월 [202203]</th>
-				<td><a sv-attr='pc_content_article_relatedlist2' href="https://www.ange.co.kr/usr/?menu=story_1&submenu=&PAGE_NO=0">코드 영역</a>(0)</td>
-			 </tr>
-			 <tr>
-				<th>1개월 [202203]</th>
-				<td><a sv-attr='pc_content_article_relatedlist3' href="https://www.ange.co.kr/usr/?menu=story_1&submenu=&PAGE_NO=0">코드 영역</a>(0)</td>
-			 </tr>
-			 <tr>
-				<th>1개월 [202203]</th>
-				<td><a sv-attr='pc_content_article_relatedlist4' href="https://www.ange.co.kr/usr/?menu=story_1&submenu=&PAGE_NO=0">코드 영역?</a>(1)</td>
-			 </tr>
-			 <tr>
-				<th>1개월 [202203]</th>
-				<td>
-				   <a sv-attr='pc_content_article_relatedlist5' href="https://www.ange.co.kr/usr/?menu=story_1&submenu=&PAGE_NO=0">
-					  신간 
-					  <혼자도 좋지만 둘은 더 좋아>
-					  외
-				   </a>
-				   (0)
-				</td>
-			 </tr>
-		  </tbody>
-	   </table>
-	   <div class="sympathize">
-		  <div class="sympathize-btn">
-			 <a sv-attr='pc_content_article_sympathy' href="javascript:$scope.click_addLike('7637')" class="btn btn-pink" role="button" id='LIKE_FL_N' style="">공감하기</a>
-			 <a sv-attr='pc_content_article_sympathycancel' href="javascript:$scope.click_addLike('7637')" class="btn btn-pink" role="button" id='LIKE_FL_Y' style="display:none;">공감취소하기</a>
-		  </div>
-		  <p>
-			 현재 <i id="like_fl_7637_txt">0</i> 명의 회원이 공감하고 있습니다.<br>
-			 공감한 스토리는 <i>'스크랩'</i> 됩니다.
-		  </p>
-	   </div>
-	</div>
-
-	<div class="btn-area">
-		<p>
-			<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_modify}</a>
-			<a cond="$oDocument->isEditable()" class="btn" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}" rel="nofollow">{$lang->cmd_delete}</a>
-			<a sv-attr='pc_content_article_tolist' href="{getUrl('document_srl','')}" class="btn btn-gray" role="button">{$lang->cmd_list}</a>
-		</p>
-	</div>
- </div>
- <script src="https://www.ange.co.kr/usr/vm/module-reply.vm.js"></script>
- <article class="comment-area">
-	<form action="#">
-	   <div class="comment-write">
-		  <h4>의견쓰기<small>타인비방, 모욕, 개인정보 노출, 상업광고, 홍보글 등은 공지없이 바로 삭제</small></h4>
-		  <div class="write">
-			 <div class="form-group">
-				<textarea sv-attr='pc_content_article_comment' id="replyComment" name="replyComment" onkeyup="$scope.fnByteCal(this);" class="form-control" placeholder="입력창에 댓글을 작성해 주세요."></textarea>
-				<label for="replyComment" class="sr-only">댓글달기</label>
-			 </div>
-			 <button sv-attr='pc_content_article_commentbtn' type="button" class="btn btn-write btn-reply-write-submit" onclick="$scope.click_saveComment();">등록하기</button>
-		  </div>
-		  <p class="comment-num">총 <b id="reply_total_count"></b>개의 댓글이 있습니다.</p>
-	   </div>
-	   <div class="article-content">
-		  <ul class="comment-list" id="replyList">
-		  </ul>
-	   </div>
-	   <nav class="paging" aria-label="Page navigation">
-		  <ul class="pagination" id="replyPage"></ul>
-	   </nav>
-	</form>
- </article>
+	<article class="comment-area">
+		<include target="_read_comment.html" />
+	</article>
 </section>
