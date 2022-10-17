@@ -1,18 +1,39 @@
 <include target="_header.html" />
-<div cond="$oDocument->isExists()" class="context_data">
-	<h3 class="title">{$oDocument->getTitle()|noescape}</h3>
-	<p class="author">
-		<strong>{$oDocument->getNickName()}</strong>
-	</p>
-</div>
-<form action="./" method="get" onsubmit="return procFilter(this, delete_document)" class="context_message">
-	<input type="hidden" name="mid" value="{$mid}" />
-	<input type="hidden" name="page" value="{$page}" />
-	<input type="hidden" name="document_srl" value="{$document_srl}" />
-	<h1>{sprintf($lang->comfirm_act_msg,$lang->document,$lang->cmd_delete,$lang->msg_rul)}</h1>
-	<div class="btnArea">
-		<input type="submit" class="btn" value="{$lang->cmd_delete}" />
-		<button type="button" class="btn" onclick="history.back()">{$lang->cmd_cancel}</button>
+
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<include target="_left_menu.html" />
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+			<section class="board-write">
+				<!---div class="section-header">
+					<h2 class="sub-title">수다방 <small>(관리자:<span id="COMM_MG_NM">앙쥬</span>)</small></h2>
+				</div--->
+				<div class="section-content">
+					<div cond="$oDocument->isExists()" class="context_data">
+						<h3 class="title">{$oDocument->getTitle()|noescape}</h3>
+						<p class="author">
+							<strong>{$oDocument->getNickName()}</strong>
+						</p>
+					</div>
+					<form action="./" method="get" onsubmit="return procFilter(this, delete_document)" class="context_message">
+						<input type="hidden" name="mid" value="{$mid}" />
+						<input type="hidden" name="page" value="{$page}" />
+						<input type="hidden" name="document_srl" value="{$document_srl}" />
+						<h1>{sprintf($lang->comfirm_act_msg,$lang->document,$lang->cmd_delete,$lang->msg_rul)}</h1>
+						<div class="btn-area" style="margin-top:15px; text-align: right;">
+							<p>
+								<input type="submit" class="btn btn-sm btn-pink btn-write-submit" value="{$lang->cmd_delete}"/>
+								<button type="button" class="btn btn-sm btn-white" onclick="history.back()">{$lang->cmd_cancel}</button>
+							</p>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
 	</div>
-</form>
+</div>
 <include target="_footer.html" />
