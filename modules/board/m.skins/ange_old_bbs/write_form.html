@@ -124,25 +124,20 @@ $mi->m_editor = 2;
 									</div>
 								</td>
 							</tr>
-							<tr cond="!$is_logged">
-								<th>{$lang->writer}</th>
-								<td class="file">
-									<div class="write_author">
-										<span class="item" cond="!$is_logged">
-											<label for="userName" class="iLabel">{$lang->writer}</label>
-											<input type="text" name="nick_name" id="userName" class="iText userName" style="width:80px" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
-										</span>
-										<span class="item" cond="!$is_logged">
-											<label for="userPw" class="iLabel">{$lang->password}</label>
-											<input type="password" name="password" id="userPw" class="iText userPw" style="width:80px" />
-										</span>
-										<span class="item" cond="!$is_logged">
-											<label for="homePage" class="iLabel">{$lang->homepage}</label>
-											<input type="text" name="homepage" id="homePage" class="iText homePage"  style="width:140px"value="{htmlspecialchars($oDocument->get('homepage'))}" />
-										</span>
-									</div>
-								</td>
+<block cond="!$is_logged">
+							<tr>
+								<th scope="row">{$lang->writer}</th>
+								<td><div class="extra-form-group"><input type="text" name="nick_name" id="userName" class="iText userName" value="{htmlspecialchars($oDocument->get('nick_name'))}" /></div></td>
 							</tr>
+							<tr>
+								<th scope="row">{$lang->password}</th>
+								<td><div class="extra-form-group"><input type="password" name="password" id="userPw" class="iText userPw" /></div></td>
+							</tr>
+							<tr>
+								<th scope="row">{$lang->homepage}</th>
+								<td><div class="extra-form-group"><input type="text" name="homepage" id="homePage" class="iText homePage" value="{htmlspecialchars($oDocument->get('homepage'))}" /></div></td>
+							</tr>
+</block>
 							<tr>
 								<th>{$lang->tag}</th>
 								<td class="file">
