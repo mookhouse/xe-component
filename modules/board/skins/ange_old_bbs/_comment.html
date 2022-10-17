@@ -36,17 +36,17 @@
 	</div>
 	<p class="comment-num">총 <b id="reply_total_count">{$oDocument->getCommentcount()}</b>개의 댓글이 있습니다.</p>
 </div>
-<div class="article-content">
+<div class="article-content" style="padding-top:0px; margin-top:0px;">
 	<ul class="comment-list" id="replyList" cond="$oDocument->getCommentcount()">
 <block loop="$oDocument->getComments()=>$key,$comment">
 <!--@if($comment->get('depth'))-->
 		<li id="comment_{$comment->comment_srl}" class="fdb_itm clear re bg{($comment->get('depth'))%2}" style="margin-left:{(($comment->get('depth')-1)%10+1)*2}%">
-			<i class="fa fa-share fa-flip-vertical re"></i><i cond="$comment->get('depth')>10" class="fa fa-share fa-flip-vertical re rere"></i>
 <!--@else-->
 		<li id="comment_{$comment->comment_srl}" class="fdb_itm clear">
 <!--@end-->
 			<div class="information">
 				<strong class="user-id">
+<!--@if($comment->get('depth'))-->&#8627;<!--@end-->
 					<a cond="!$comment->member_srl && $comment->homepage" href="{$comment->getHomepageUrl()}" rel="nofollow noopener">{$comment->getNickName()}</a>
 					<block cond="!$comment->member_srl && !$comment->homepage">{$comment->getNickName()}</block>
 					<a cond="$comment->member_srl" href="#popup_menu_area" class="member_{$comment->member_srl}" onclick="return false">{$comment->getNickName()}</a>
