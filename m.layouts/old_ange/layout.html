@@ -103,7 +103,8 @@ if($act == 'dispMemberSignUpForm')
 			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a>
 			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
 <!--@else-->
-			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a>
+			<!--a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a--->
+			<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="https://ange.co.kr">{$lang->cmd_login}/{$lang->cmd_signup}</a>
 <!--@end-->
 		</div>
 		<!---div class="top-banner">
