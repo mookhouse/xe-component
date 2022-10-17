@@ -217,7 +217,9 @@ address {
     display: table; }
     .magazine-list .week-tab-list > ol > li {
       display: table-cell;
-      width: 70px; }
+	  padding-right:20px;
+      /*width: 70px; */
+	  }
       .magazine-list .week-tab-list > ol > li > a {
         display: block;
         text-decoration: none;

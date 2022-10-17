@@ -1,15 +1,4 @@
-{@ $cate_list = array(); $current_key = null; }
-<!--@foreach($category_list as $key=>$val)-->
-	<!--@if(!$val->depth)-->
-		{@
-			$cate_list[$key] = $val;
-			$cate_list[$key]->children = array();
-			$current_key = $key;
-		}
-	<!--@elseif($current_key)-->
-		{@ $cate_list[$current_key]->children[] = $val }
-	<!--@end-->
-<!--@end-->
+<include target="_category.html" />
 
 <article class="chatter-list">
 	<div class="container">

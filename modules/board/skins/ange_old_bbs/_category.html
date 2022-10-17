@@ -1,0 +1,42 @@
+{@ $cate_list = array(); $current_key = null; }
+<!--@foreach($category_list as $key=>$val)-->
+	<!--@if(!$val->depth)-->
+		{@
+			$cate_list[$key] = $val;
+			$cate_list[$key]->children = array();
+			$current_key = $key;
+		}
+	<!--@elseif($current_key)-->
+		{@ $cate_list[$current_key]->children[] = $val }
+	<!--@end-->
+<!--@end-->
+
+<!---h2 class="sub-title">{$module_info->browser_title}</h2--->
+{@$nCatIdx=0;}
+<article class="magazine-list">
+	<nav class="week-tab-list" cond="$module_info->use_category=='Y'">
+	<block loop="$cate_list=>$key,$val">
+	<!--@if($nCatIdx%11==0)-->
+	   <ol class="tab_ol" style="display:none;"|cond="$nCatIdx>2">
+	<!--@end-->
+	<!--@if($nCatIdx==0)-->
+			<li class="active"|cond="$category==''" id="cateAll" style="width:70px; padding-right:20px;"><a sv-attr='pc_{$mid}_cateall' href="{$module_info->mid}">전체</a></li>
+			{@$nCatIdx++;} <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
+	<!--@end-->
+			<li class="active"|cond="$category==$val->category_srl"><a sv-attr='pc_{$mid}_cate{$val->title}' href="{getUrl('category',$val->category_srl,'document_srl','', 'page', '')}">{$val->title}
+			<block cond="$val->document_count">[{$val->document_count}]</block></a></li>
+	<!--@if($nCatIdx>1 && ($nCatIdx+1)%11==0)-->  <!--- 무조건 표시된 전체 항목 요소 1개를 고려해야 함  --->
+		</ol>
+	<!--@end-->
+	{@
+	$nCatIdx++;
+	}
+	</block>
+		</ol>
+	   <div class="move-tabs btn-controls">
+			<a href="javascript:;" data-type='prev'><i sv-attr='pc_{$mid}_cateprev' class="icon-left-circle"><span class=sr-only>이전</span></i></a>
+			<a href="javascript:;" data-type='next'><i sv-attr='pc_{$mid}_catenext' class="icon-right-circle"><span class=sr-only>다음</span></i></a>
+		</div>
+	</nav>
+</article>
+<BR>
