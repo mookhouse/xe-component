@@ -1,10 +1,11 @@
-<load target="js/mboard.js" />
-<load target="css/mboard.css" />
+{@
+$mi->m_editor=2;
+}
 
-<div class="bd rd">
-	<div class="hx h2">
-		<h2><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$module_info->browser_title}</a></h2>
-	</div>
+<script type="text/javascript" src="/modules/board/m.skins/ange_old_bbs/js/mboard.min.js"></script>
+
+<div class="chatter-write">
+	<div class="container">
 
 	<!--@if($oSourceComment->isExists())-->
 	<div class="origin">{$oSourceComment->getContent(false)|noescape}</div>
@@ -15,38 +16,64 @@
 		<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
 		<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
 		<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
-		<ul>
-			<li>
-				<label for="rText">{$lang->comment}</label>
-				<!--@if($module_info->mobile_use_editor === 'Y')-->
-					<input type="hidden" name="content" value="{$oComment->getContentText()}">
-					{$oComment->getEditor()|noescape}
-				<!--@else-->
-					<textarea name="content" rows="8" cols="42" id="rText">{$oComment->getContentText()}</textarea>
-				<!--@endif-->
-			</li>
-			<!--@if(!$is_logged)-->
-			<li>
-				<label for="uName">{$lang->writer}</label>
-				<input name="nick_name" type="text" id="uName" />
-			</li>
-			<li>
-				<label for="uMail">{$lang->email_address}</label>
-				<input name="email_address" type="email" id="uMail" />
-			</li>
-			<li>
-				<label for="uPw">{$lang->password}</label>
-				<input name="password" type="password" id="uPw" />
-			</li>
-			<li>
-				<label for="uSite">{$lang->homepage}</label>
-				<input name="homepage" type="url" id="uSite" value="" />
-			</li>
-			<!--@endif-->
-		</ul>
-		<div class="bna">
-			<input name="" type="submit" class="bn dark" value="{$lang->cmd_comment_registration}" />
-		</div>
-	</form>
-
+		<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
+			<article>
+				<div class="table-wrap">
+					<table class="table table-bordered table-write type-1">
+						<tbody>
+							<tr>
+								<th class="v-top"><label for="subject">{$lang->comment}</label></th>
+								<td>
+									<div class="form-group">
+										<!-- Textarea -->
+										<block cond="$mi->m_editor==2">
+										<load target="/modules/editor/tpl/js/editor_common.min.js" />
+										<load target="/modules/editor/skins/xpresseditor/js/xe_textarea.min.js" />
+										<input type="hidden" name="use_html" value="Y" />
+										<input type="hidden" id="htm_1" value="n" />
+												<textarea id="editor_1" col="50" rows="8"></textarea>
+										<script>
+											editorStartTextarea(1,"content","document_srl");
+										</script>
+										</block>
+									</div>
+								</td>
+							</tr>
+<!--@if(!$is_logged)-->
+							<tr>
+								<th class="v-top"><label for="subject">{$lang->writer}</label></th>
+								<td>
+									<div class="extra-form-group"><input name="nick_name" type="text" id="uName" value="{$oComment->getNickName()}"/></div>
+								</td>
+							</tr>
+							<tr>
+								<th class="v-top"><label for="subject">{$lang->email_address}</label></th>
+								<td>
+									<div class="extra-form-group"><input name="email_address" type="email" id="uMail" /></div>
+								</td>
+							</tr>
+							<tr>
+								<th class="v-top"><label for="subject">{$lang->password}</label></th>
+								<td>
+									<div class="extra-form-group"><input name="password" type="password" id="uPw" /></div>
+								</td>
+							</tr>
+							<tr>
+								<th class="v-top"><label for="subject">{$lang->homepage}</label></th>
+								<td>
+									<div class="extra-form-group"><input name="homepage" type="url" id="uSite" value="" /></div>
+								</td>
+							</tr>
+<!--@endif-->
+						</tbody>
+					</table>
+				</div>
+			</article>
+			<div class="btn-area" style="margin-top:15px; text-align: right;">
+				<p style="margin-bottom: 12px;">
+					<input type="submit" id="frmSubmit" value="{$lang->cmd_comment_registration}" class="btn btn-lg btn-pink btn-write-submit" onclick="frmSubmitMobile();return false;" />
+				</p>
+			</div>
+		</form>
+	</div>
 </div>
