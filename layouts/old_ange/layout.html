@@ -6,6 +6,7 @@
 
 <link cond="$mid=='index'" href="/layouts/old_ange/css/main.css" rel="stylesheet">
 <link cond="$mid!='index'" href="/layouts/old_ange/css/sub.css" rel="stylesheet">
+<link cond="$act=='IS'" href="/layouts/old_ange/css/sub.css" rel="stylesheet">
 
 <block cond="$layout_info->GTM_CONTAINER_ID">
 <!-- Google Tag Manager -->
@@ -62,6 +63,8 @@ else
 
 if($act == 'dispMemberSignUpForm')
 	$sBodyCssClassId = 'sub customer';
+elseif($act == 'IS')
+	$sBodyCssClassId = 'sub';
 
 $aContentsMid = array('maternity', 'cover_story', 'baby_grow_health', 'edutainment', 'living_health', 'brand_story');
 
@@ -104,17 +107,15 @@ if($act == 'dispBoardWrite')
 					</div>
 					<div class="col-xs-4">
 						<div class="global-seearch">
-							<form id="comSearchForm" name="comSearchForm" method="get" action="/usr">
-								<input type="hidden" name="menu" value="search_10"/>
-								<input type="hidden" name="submenu" value=""/>							
+							<form id="comSearchForm" name="comSearchForm" action="{getUrl()}" method="get">
+								<input type="hidden" name="vid" value="{$vid}" />
+								<input type="hidden" name="mid" value="{$mid}" />
+								<input type="hidden" name="act" value="IS" />
 								<div class="form-group">
-									<input sv-attr='pc_main_검색어' type="text" id="comm_search_key" name="comm_search_key" class="form-control" placeholder="태아보험">
-									<label for="comm_search_key" class="sr-only"></label>
+								<input type="text" name="is_keyword" value="{$is_keyword}" class="form-control" placeholder="Search.."/>
 								</div>
 								<button type="submit" class="btn btn-default">
-								<i sv-attr='pc_main_검색버튼' class="icon-search">
-								<span class="sr-only">검색 버튼</span>
-								</i>
+								<i sv-attr='pc_main_검색버튼' class="icon-search"><span class="sr-only">{$lang->cmd_search}</span></i>
 								</button>
 							</form>
 						</div>

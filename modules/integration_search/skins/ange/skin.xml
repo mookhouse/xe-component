@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">앙쥬 통합검색 스킨</title>
+    <description xml:lang="ko">앙쥬 통합검색 스킨</description>
+    <version>0.1</version>
+    <date>2022-10-18</date>
+
+    <author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+        <name xml:lang="ko">singleview.co.kr</name>
+    </author>
+
+    <colorset>
+        <color name="normal" src="screenshot/normal.gif">
+            <title xml:lang="ko">기본</title>
+        </color>
+    </colorset>
+
+    <extra_vars>
+        <var name="memo" type="textarea">
+            <title xml:lang="ko">설명</title>
+            <description xml:lang="ko">검색결과 상단에 결과가 출력됩니다.</description>
+        </var>
+    </extra_vars>
+</skin>
