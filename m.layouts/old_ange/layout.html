@@ -127,9 +127,12 @@ if($act == 'dispMemberSignUpForm')
 				<img class="btn-open-nav" sv-attr='mob_main_leftmenu_open' src="/m.layouts/old_ange/images/btn_menu.jpg" alt="버튼 아이콘">
 			</button>
 			<div class="search-container">
-				<form action="/action_page.php">
-				  <input type="text" placeholder="Search.." name="search">
-				  <input type="submit" value='검색'>
+				<form id="comSearchForm" name="comSearchForm" action="{getUrl()}" method="get">
+					<input type="hidden" name="vid" value="{$vid}" />
+					<input type="hidden" name="mid" value="{$mid}" />
+					<input type="hidden" name="act" value="IS" />
+					<input type="text" name="is_keyword" value="{$is_keyword}" placeholder="Search.."/>
+					<input type="submit" value='검색'>
 				</form>
 			  </div>
 			</div>
