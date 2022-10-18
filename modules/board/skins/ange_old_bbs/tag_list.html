@@ -1,27 +1,45 @@
 <include target="_header.html" />
-<div class="tagList">
-	<!--@foreach($tag_list as $val)-->
-		<!--@if($val->count>5)-->
-			{@ $tag_class = "rank1" }
-		<!--@elseif($val->count>3)-->
-			{@ $tag_class = "rank2" }
-		<!--@elseif($val->count>2)-->
-			{@ $tag_class = "rank3" }
-		<!--@elseif($val->count>1)-->
-			{@ $tag_class = "rank4" }
-		<!--@else-->
-			{@ $tag_class = "rank5" }
-		<!--@end-->
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<include target="_left_menu.html" />
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+			<section class="board-write">
+				<div class="section-content">
+					<div class="btn-area" style="margin-top:15px;">
+						<p>
+						<!--@foreach($tag_list as $val)-->
+							<!--@if($val->count>5)-->
+								{@ $tag_class = "rank1" }
+							<!--@elseif($val->count>3)-->
+								{@ $tag_class = "rank2" }
+							<!--@elseif($val->count>2)-->
+								{@ $tag_class = "rank3" }
+							<!--@elseif($val->count>1)-->
+								{@ $tag_class = "rank4" }
+							<!--@else-->
+								{@ $tag_class = "rank5" }
+							<!--@end-->
 
-		<!--@if($layout_info->mid)-->
-			<a class="{$tag_class}"|cond="$tag_class" href="{getUrl('','mid',$layout_info->mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
-		<!--@else-->
-			<a class="{$tag_class}"|cond="$tag_class" href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
-		<!--@end-->
-
-	<!--@end-->
-</div>
-<div class="tagFooter">
-    <a href="{getUrl('act','')}" class="btn">{$lang->cmd_back}</a>
+							<!--@if($layout_info->mid)-->
+								<button class="btn btn-sm btn-white" type="button" onclick="location.href='{getUrl('','mid',$layout_info->mid,'search_target','tag','search_keyword',$val->tag)}'">{htmlspecialchars($val->tag)}</button>
+							<!--@else-->
+								<button class="btn btn-sm btn-white" type="button" onclick="location.href='{getUrl('','mid',$mid,'search_target','tag','search_keyword',$val->tag)}'">{htmlspecialchars($val->tag)}</button>
+							<!--@end-->
+						<!--@end-->
+						</p>
+					</div>
+					<div class="btn-area" style="margin-top:15px; text-align: right;">
+						<p>
+							<button type="button" class="btn btn-sm btn-pink btn-write-submit" onclick="location.href='{getUrl('act','')}'">{$lang->cmd_back}</button>
+						</p>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 </div>
 <include target="_footer.html" />
