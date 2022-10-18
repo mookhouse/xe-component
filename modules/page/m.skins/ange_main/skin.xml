@@ -16,8 +16,16 @@
 				<title xml:lang="ko">배너 1 이미지</title>
 				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
 			</var>
+			<var name="rolling_banner_1_out_link" type="text">
+				<title xml:lang="ko">배너 1 아웃링크 주소</title>
+				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
+			</var>
 			<var name="rolling_banner_2" type="image">
 				<title xml:lang="ko">배너 2 이미지</title>
+				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
+			</var>
+			<var name="rolling_banner_2_out_link" type="text">
+				<title xml:lang="ko">배너 2 아웃링크 주소</title>
 				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
 			</var>
 		</group>
