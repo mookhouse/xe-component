@@ -19,7 +19,7 @@
 					<li value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','document','search_target',$key,'page',1,'division','')}">{$val}</a></li>
 					<!--@end-->
 				</ul>
-				<!--@if(!count($output->data))-->
+				<!--@if(!count((array)$output->data))-->
 					<span class="noResult">
 						{$lang->msg_no_result}
 						<!--@if($last_division)-->
