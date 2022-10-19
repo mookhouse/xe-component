@@ -65,17 +65,47 @@
 			</var>
 		</group>
 		<group>
-			<title xml:lang="ko">컨텐츠 섹션 위젯 설정</title>
+			<title xml:lang="ko">전문가 QNA 섹션 설정</title>
 			<var name="expert_qna_module_srl" type="text">
-				<title xml:lang="ko">전문가 QNA 게시판 모듈 srl</title>
+				<title xml:lang="ko">전문가 QNA 연결 게시판 모듈 srl</title>
 				<description xml:lang="ko">...</description>
 			</var>
+			<var name="expert_qna_section_title" type="text">
+				<title xml:lang="ko">전문가 QNA 섹션 제목</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="expert_qna_section_link_more" type="text">
+				<title xml:lang="ko">전문가 QNA 섹션 더보기 링크주소</title>
+				<description xml:lang="ko">...</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">브랜드 스토리 섹션 설정</title>
 			<var name="brandstory_module_srl" type="text">
-				<title xml:lang="ko">브랜드 스토리 게시판 모듈 srl</title>
+				<title xml:lang="ko">브랜드 스토리 연결 게시판 모듈 srl</title>
 				<description xml:lang="ko">...</description>
 			</var>
+			<var name="brandstory_section_title" type="text">
+				<title xml:lang="ko">브랜드 스토리 섹션 제목</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="brandstory_section_link_more" type="text">
+				<title xml:lang="ko">브랜드 스토리 섹션 더보기 링크주소</title>
+				<description xml:lang="ko">...</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">주제별 섹션 위젯 설정</title>
 			<var name="subject_module_srl" type="text">
-				<title xml:lang="ko">주제별 컨텐츠 게시판 모듈 srl</title>
+				<title xml:lang="ko">주제별 컨텐츠 연결 게시판 모듈 srl</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_title" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 제목</title>
+				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_section_link_more" type="text">
+				<title xml:lang="ko">주제별 컨텐츠 섹션 더보기 링크주소</title>
 				<description xml:lang="ko">...</description>
 			</var>
 			<var name="subject_section_tab_title_1" type="text">
