@@ -1,6 +1,27 @@
 <link href="/modules/board/skins/ange_old_bbs/css/e_magazine_detail.css" rel="stylesheet">
 <!--h2 class="sub-title">e매거진</h2-->
-<section class="view">
+<div style="padding-top: 0px; padding-left: 0px;">
+	<section class="community-view">
+		<div class="section-content">
+			<article class="board-view type-1">
+				<div class="article-header" style="padding: 0px 20px 5px 35px; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; background-color: #fafafa;">
+					<div class="row">
+						<div class="col-xs-12">
+							<ul class="infor-list">
+								<li class="user">작성자: {$oDocument->getNickName()}</li>
+								<li class="user">조회수: {$oDocument->get('readed_count')}</li>
+								<!---li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li--->
+								<li class="comment">댓글: {$oDocument->getCommentCount()}</li>
+								<li class="date">작성일: {$oDocument->getRegdate('Y.m.d H:i')}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+<section class="view" style="padding-top: 10px;">
 	<!---div class="section-header">
 		<ul class="share-list">
 			<li class="icon-bg icon-naver">

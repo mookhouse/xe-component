@@ -6,6 +6,15 @@
 		</div>
 		<div class="section-content">
 			<article>
+				<div class="article-header" style="padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+					<ul class="icon-list">
+						<li class="user">작성자: {$oDocument->getNickName()}</li>
+						<li class="user">조회수: {$oDocument->get('readed_count')}</li>
+						<!---li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li--->
+						<li class="comment">댓글: {$oDocument->getCommentCount()}</li>
+						<li class="date">작성일: {$oDocument->getRegdate('Y.m.d H:i')}</li>
+					</ul>
+				</div>
 				<div class="article-header">
 					<!--ul class="share-list"--->
 						<!--
@@ -26,7 +35,7 @@
 					<!--h4>월간앙쥬 [2022년9월]</h4-->
 					<figure class="story_content">
 						<div class="story-row previewwrap">
-							<div class="story-col-xs-12 article_previewwrap" id="inBodyForm">
+							<div class="story-col-xs-12 article_previewwrap" id="inBodyForm" style="padding-top: 10px;">
 								<div>
 									<subtitle>
 										<!---div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div--->
@@ -78,7 +87,7 @@
 					<include target="_read_cmd_btn.html" />
 					<include target="_read_recommended_article.html" />
 					
-					<div style="width:100%;margin:10px auto 0px;">
+					<!---div style="width:100%;margin:10px auto 0px;">
 						<div id="tdn_s003_ange_ga01_mo_post_bottom_btf_video_300x250">
 							<script>
 								if((navigator.userAgent.match(/Mobile|iP(hone)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/))){
@@ -92,7 +101,7 @@
 								}
 							</script>
 						</div>
-					</div>
+					</div---->
 				</div>
 				<include target="_comment.html" />
 			</article>

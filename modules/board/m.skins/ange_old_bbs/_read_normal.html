@@ -6,24 +6,28 @@
 			<!--h3 class="section-title">1~36개월 정보</h3-->
 		</div>
 		<div class="section-content">
-			<article>
+			<article style="padding-top:2px;">
+				<div class="article-header" style="padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
+					<h4>{$oDocument->getTitle()|noescape}</h4>
+					<ul class="icon-list">
+						<li class="user">작성자: {$oDocument->getNickName()}</li>
+						<li class="user">조회수: {$oDocument->get('readed_count')}</li>
+						<!---li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li--->
+						<li class="comment">댓글: {$oDocument->getCommentCount()}</li>
+						<li class="date">작성일: {$oDocument->getRegdate('Y.m.d H:i')}</li>
+					</ul>
+				</div>
+				<div class="article-content" style="padding-top:10px; min-height:150px;">
+					<div class="view-content">
+						<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='preface'">
+						<p>
+							<preface>﻿{$val->getValueHTML()}</preface>
+						</p>
+						</block>
+						{$oDocument->getContent(false)|noescape}
+					</div>
+				</div>
 				<div class="article-header">
-					<figure class="story_content">
-						<div class="story-row previewwrap">
-							<div class="story-col-xs-12 article_previewwrap" id="inBodyForm">
-								<p>
-									<!---subtitle> Care </subtitle--->
-									<maintitle>{$oDocument->getTitle()|noescape}</maintitle>
-								</p>
-								<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='preface'">
-								<p>
-									<preface>﻿{$val->getValueHTML()}</preface>
-								</p>
-								</block>
-								{$oDocument->getContent(false)|noescape}
-							</div>
-						</div>
-					</figure>
 					<hr>
 					<include target="_read_cmd_btn.html" />
 					<include target="_read_recommended_article.html" />

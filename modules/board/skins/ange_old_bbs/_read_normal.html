@@ -16,7 +16,7 @@
 </style>
 
 <!-- Content Start -->
-<div class="___sub-content" style="padding-top: 0px; padding-left: 0px;">
+<div style="padding-top: 0px; padding-left: 0px;">
 	<section class="community-view">
 		<!---h2 class="sub-title">수다방 <small>(관리자:<span id="COMM_MG_NM">앙쥬</span>)</small></h2--->
 		<div class="section-content">
@@ -24,12 +24,13 @@
 				<div class="article-header">
 					<a href="{$oDocument->getPermanentUrl()}"><h3>{$oDocument->getTitle()|noescape}</h3></a>
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<ul class="infor-list">
-								<li class="user"><i class="icon-user"></i>{$oDocument->getNickName()}</li>
-								<li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li>
-								<li class="comment"><i class="icon-comment"></i>{$oDocument->getCommentCount()}</li>
-								<li class="date"><i class="icon-calendar-1"></i>{$oDocument->getRegdate('Y.m.d H:i')}</li>
+								<li class="user">작성자: {$oDocument->getNickName()}</li>
+								<li class="user">조회수: {$oDocument->get('readed_count')}</li>
+								<!---li class="like"><i class="icon-heart-filled"></i>{$oDocument->get('voted_count')!=0?$document->get('voted_count'):'0'}</li--->
+								<li class="comment">댓글: {$oDocument->getCommentCount()}</li>
+								<li class="date">작성일: {$oDocument->getRegdate('Y.m.d H:i')}</li>
 							</ul>
 						</div>
 						<!---div class="col-xs-6">
