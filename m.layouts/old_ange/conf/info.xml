@@ -12,27 +12,24 @@
 			<title xml:lang="ko">기본 설정</title>
 			<var name="GTM_CONTAINER_ID" type="text">
 				<title xml:lang="ko">Google Tag Mgr Container ID</title>
-				<title xml:lang="en">Google Tag Mgr Container ID</title>
+			</var>
+			<var name="GOPT_CONTAINER_ID" type="text">
+				<title xml:lang="ko">Google Optimizer Container ID</title>
 			</var>
 			<var name="GAv3_ID" type="text">
 				<title xml:lang="ko">google analytics v3 ID</title>
-				<title xml:lang="en">google analytics v3 ID</title>
 			</var>
 			<var name="GAv4_ID" type="text">
 				<title xml:lang="ko">google analytics v4 ID</title>
-				<title xml:lang="en">google analytics v4 ID</title>
 			</var>
 			<var name="GOOGLE_ADWORDS_CONV_ID" type="text">
 				<title xml:lang="ko">google Adwords Conversion ID</title>
-				<title xml:lang="en">google Adwords Conversion ID</title>
 			</var>
 			<var name="FB_PIXEL_ID" type="text">
 				<title xml:lang="ko">Facebook Pixel ID</title>
-				<title xml:lang="en">Facebook Pixel ID</title>
 			</var>
 			<var name="WCS_ID" type="text">
 				<title xml:lang="ko">네이버 프리미엄 로그 ID</title>
-				<title xml:lang="en">Naver Premium Log Analytics ID</title>
 			</var>
 		</group>
 		<group>

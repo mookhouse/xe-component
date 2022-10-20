@@ -53,6 +53,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   gaectkHeader.init(['{$layout_info->GAv3_ID}', '{$layout_info->GAv4_ID}']);
 </script>
 
+<block cond="$layout_info->GOPT_CONTAINER_ID">
+<script src="https://www.googleoptimize.com/optimize.js?id={$layout_info->GOPT_CONTAINER_ID}"></script>
+</block>
+
 {@
 if($mid == 'index')
 	$sBodyCssClassId = '';

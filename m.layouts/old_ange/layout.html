@@ -27,6 +27,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 gaectkHeader.init(['{$layout_info->GAv3_ID}', '{$layout_info->GAv4_ID}']);
 </script>
 
+<block cond="$layout_info->GOPT_CONTAINER_ID">
+<script src="https://www.googleoptimize.com/optimize.js?id={$layout_info->GOPT_CONTAINER_ID}"></script>
+</block>
+
 <link href="//fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 <link href="/m.layouts/old_ange/css/bootstrap.min.css" rel="stylesheet">
