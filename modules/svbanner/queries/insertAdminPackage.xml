@@ -1,0 +1,12 @@
+<query id="insertAdminPackage" action="insert">
+	<tables>
+		<table name="svbanner_package" />
+	</tables>
+	<columns>
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="client_srl" var="client_srl" notnull="notnull" />
+		<column name="landing_url" var="landing_url" notnull="notnull" />
+        <column name="description" var="description" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

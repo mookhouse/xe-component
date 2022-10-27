@@ -1,0 +1,15 @@
+<table name="svbanner_contract">
+	<column name="contract_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl_active" />
+	<column name="package_srl" type="number" size="11" default="0" notnull="notnull" index="idx_package_srl" />
+	<column name="client_srl" type="number" size="11" notnull="notnull" index="idx_client_srl" />
+	<!-- 계약 생성자 srl -->
+	<column name="member_srl" type="number" size="11" notnull="notnull" />
+	<column name="budget_amnt" type="number" size="11" default="0" notnull="notnull" />
+	<column name="memo" type="varchar" size="1000" />
+	<column name="begin_date" type="date" notnull="notnull" />
+	<column name="end_date" type="date" notnull="notnull" />
+	<column name="is_active" type="char" size="1" notnull="notnull" default="N" index="idx_module_srl_active" />
+	<column name="history" type="text" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

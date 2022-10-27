@@ -1,0 +1,20 @@
+<include target="_header.html" />
+
+<!-- Content -->
+<div class="admin_content">
+	{@$inc=strtolower($act)}
+	{@$inc=preg_replace('/dispsvbanneradmin/','',$inc)}
+
+	<div cond="$XE_VALIDATOR_MESSAGE && $inc != 'skininfo'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<include target="config" cond="$inc=='config'" />
+	<include target="mid_list" cond="$inc=='listmid'" />
+	<include target="mid_insert" cond="$inc=='insertmid'" />
+	<include target="mid_insert" cond="$inc=='updatemid'" />
+	<include target="pkg_list" cond="$inc=='listpkgbymid'" />
+	<include target="pkg_insert" cond="$inc=='insertpkg'" />
+	<include target="pkg_insert" cond="$inc=='updatepkg'" />
+	<include target="contract_insert" cond="$inc=='insertcontract'" />
+</div><!-- Content -->

@@ -1,0 +1,15 @@
+<query id="updateImpLog" action="update">
+	<tables>
+		<table name="svbanner_impression" />
+	</tables>
+	<columns>
+        <column name="member_srl" var="member_srl" />
+        <column name="ua" var="ua" notnull="notnull" />
+		<column name="uuid" var="uuid" notnull="notnull" />
+        <column name="page_url" var="page_url" notnull="notnull" />
+		<column name="is_viewed" var="is_viewed" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="imp_srl" var="imp_srl" notnull="notnull" />
+	</conditions>
+</query>

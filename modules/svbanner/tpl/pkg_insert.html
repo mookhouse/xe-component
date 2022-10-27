@@ -1,0 +1,149 @@
+<style>
+	.x_controls ul { list-style:none; margin:0; padding:0; }
+	.x_controls ul li { float:left; margin-right:10px;}
+	.x_control-group .x_controls select.category { min-width:140px; }
+</style>
+
+<section class="section">
+	<h1>{$lang->title_package_info}</h1>
+	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
+		<input name="module" type="hidden" value="{$module}" />
+		<input name="act" type="hidden" value="procSvbannerAdminInsertPkg" />
+		<input name="module_srl" type="hidden" value="{$module_srl}" />
+		<input name="package_srl" type="hidden" value="{$package_srl}" />
+		<input name="contract_srl" type="hidden" value="{$contract_srl}" />
+	
+		<div class="x_control-group">
+			<label class="x_control-label" for="pkg_description">{$lang->banner_pkg_description}</label>
+			<div class="x_controls">
+				<textarea name="pkg_description">{$oPackageInfo->description}</textarea>
+				<a href="#pkg_description_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="pkg_description_help" class="x_help-block" hidden>{$lang->about_banner_pkg_description}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="client_srl">{$lang->banner_client}</label>
+			<div class="x_controls">
+				<select name="client_srl">
+					<option loop="$aClientInfo=>$nClientSrl,$sClientName" value="{$nClientSrl}" selected="selected"|cond="$oPackageInfo->client_srl==$nClientSrl">{$sClientName}</option>
+				</select>
+				<a href="#client_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="client_srl_help" class="x_help-block" hidden>{$lang->about_banner_client}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->banner_landing_url}</label>
+			<div class="x_controls">
+				<input type="text" name="landing_url" value="{htmlspecialchars($oPackageInfo->landing_url)}" />
+				<a href="#banner_landing_url_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_landing_url_help" class="x_help-block" hidden>{$lang->about_banner_landing_url}</p>
+			</div>
+		</div>
+		<div cond="$oMidConfig->banner_dimension_1" class="x_control-group">
+			<label class="x_control-label" for="banner_img_1">{$lang->banner_dimension} {$oMidConfig->banner_dimension_1}</label>
+			<div class="x_controls">
+	{@
+	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_1]->nFileSrl;
+	}
+			<block cond="$nFileSrl">
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+			</block>
+				<input type="file" name="banner_img_1" />
+				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
+			</div>
+		</div>
+		<div cond="$oMidConfig->banner_dimension_2" class="x_control-group">
+			<label class="x_control-label" for="banner_img_2">{$lang->banner_dimension} {$oMidConfig->banner_dimension_2}</label>
+			<div class="x_controls">
+	{@
+	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_2]->nFileSrl;
+	}
+			<block cond="$nFileSrl">
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+			</block>
+				<input type="file" name="banner_img_2" />
+				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
+			</div>
+		</div>
+		<div cond="$oMidConfig->banner_dimension_3" class="x_control-group">
+			<label class="x_control-label" for="banner_img_3">{$lang->banner_dimension} {$oMidConfig->banner_dimension_3}</label>
+			<div class="x_controls">
+	{@
+	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_3]->nFileSrl;
+	}
+			<block cond="$nFileSrl">
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+			</block>
+				<input type="file" name="banner_img_3" />
+				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
+			</div>
+		</div>
+		<div cond="$oMidConfig->banner_dimension_4" class="x_control-group">
+			<label class="x_control-label" for="banner_img_4">{$lang->banner_dimension} {$oMidConfig->banner_dimension_4}</label>
+			<div class="x_controls">
+	{@
+	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_4]->nFileSrl;
+	}
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<input type="file" name="banner_img_4" />
+				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
+			</div>
+		</div>
+		<div cond="$oMidConfig->banner_dimension_5" class="x_control-group">
+			<label class="x_control-label" for="banner_img_5">{$lang->banner_dimension} {$oMidConfig->banner_dimension_5}</label>
+			<div class="x_controls">
+	{@
+	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_5]->nFileSrl;
+	}
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<input type="file" name="banner_img_5" />
+				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label" for="release">{$lang->release}</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="release" value="N" checked="checked" />{$lang->on}</label>
+				<label class="x_inline"><input type="radio" name="release" value="Y" />{$lang->off}</label>
+				<a href="#release_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="release_help" class="x_help-block" hidden>{$lang->about_release}</p>
+			</div>
+		</div>
+		<div class="x_clearfix btnArea">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+		</div>
+	</form>
+</section>
+
+<section class="section">
+	<h1>{$lang->title_contract_info}</h1>
+	<table class="x_table">
+		<tr>
+			<th>{$lang->contract_srl}</th>
+			<th>{$lang->budget_amnt}</th>
+			<th>{$lang->is_active}</th>
+			<th>{$lang->memo}</th>
+			<th>{$lang->begin_date}</th>
+			<th>{$lang->end_date}</th>
+			<th>{$lang->cmd_modify}</th>
+		</tr>
+		<tr loop="$aContractList=>$nIdx,$oSingleContract">
+			<td>{$oSingleContract->contract_srl}</td>
+			<td>{$oSingleContract->budget_amnt}</td>
+			<td>{$oSingleContract->is_active}</td>
+			<td><textarea cols='60'>{$oSingleContract->memo}</textarea></td>
+			<td>{zdate($oSingleContract->begin_date, 'Y-m-d')}</td>
+			<td>{zdate($oSingleContract->end_date, 'Y-m-d')}</td>
+			<td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_modify}</button></td>
+		</tr>
+	</table>
+	<div class="x_clearfix btnArea">
+		<button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', '')}';">{$lang->cmd_contract_add}</button>
+	</div>
+</section>

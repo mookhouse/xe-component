@@ -1,0 +1,67 @@
+<style>
+	.x_controls ul { list-style:none; margin:0; padding:0; }
+	.x_controls ul li { float:left; margin-right:10px;}
+	.x_control-group .x_controls select.category { min-width:140px; }
+</style>
+
+<section class="section">
+	<h1>[{$oPackageInfo->sClientName}]의 [{$oPackageInfo->description}] {$lang->title_contract_info}</h1>
+	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
+		<input name="module" type="hidden" value="{$module}" />
+		<input name="act" type="hidden" value="procSvbannerAdminInsertContract" />
+		<input name="module_srl" type="hidden" value="{$module_srl}" />
+		<input name="package_srl" type="hidden" value="{$package_srl}" />
+		<input name="contract_srl" type="hidden" value="{$contract_srl}" />
+		<div class="x_control-group">
+			<label class="x_control-label" for="budget_amnt">{$lang->budget_amnt}</label>
+			<div class="x_controls">
+				<input type="text" name="budget_amnt" value="{$oContractInfo->budget_amnt}" />
+				<a href="#budget_amnt_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="budget_amnt_help" class="x_help-block" hidden>{$lang->about_budget_amnt}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="release">{$lang->release}</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="release" value="Y" checked="checked"|cond="$oContractInfo->is_active=='Y' || $oContractInfo->is_active==''" />{$lang->on}</label>
+				<label class="x_inline"><input type="radio" name="release" value="N" checked="checked"|cond="$oContractInfo->is_active=='N'"/>{$lang->off}</label>
+				<a href="#release_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="release_help" class="x_help-block" hidden>{$lang->about_release}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="client_srl">{$lang->memo}</label>
+			<div class="x_controls">
+				<textarea name="memo" id="memo">{$oContractInfo->memo}</textarea>
+                <a href="#contract_memo_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+                <p id="contract_memo_help" class="x_help-block" hidden>{$lang->about_contract_memo}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="begin_date">{$lang->begin_date}</label>
+			<div class="x_controls">
+				<input type="text" name="begin_date" value="{zdate($oContractInfo->begin_date, 'Y-m-d')}" />
+				<a href="#contract_begin_date_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="contract_begin_date_help" class="x_help-block" hidden>{$lang->about_contract_begin_date}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->end_date}</label>
+			<div class="x_controls">
+				<input type="text" name="end_date" value="{zdate($oContractInfo->end_date, 'Y-m-d')}" />
+				<a href="#contract_end_date_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="contract_end_date_help" class="x_help-block" hidden>{$lang->about_contract_end_date}</p>
+			</div>
+		</div>
+        <div class="x_control-group" cond="$contract_srl">
+			<label class="x_control-label" for="browser_title">{$lang->history}</label>
+			<div class="x_controls">
+                {$oContractInfo->user_id}가 {zdate($oContractInfo->regdate, 'Y-m-d H:i:s')}에 생성함
+			</div>
+		</div>
+
+		<div class="x_clearfix btnArea">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+		</div>
+	</form>
+</section>

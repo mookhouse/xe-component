@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispSvbannerAdminListMid" type="view" />
+		<action name="dispSvbannerAdminInsertMid" type="view" />
+		<action name="dispSvbannerAdminUpdateMid" type="view" />
+		<action name="dispSvbannerAdminListPkgByMid" type="view" />
+		<action name="dispSvbannerAdminInsertPkg" type="view" />
+		<action name="dispSvbannerAdminUpdatePkg" type="view" />
+		<action name="dispSvbannerAdminInsertContract" type="view" />
+		<action name="dispSvbannerAdminConfig" type="view" />
+
+		<action name="procSvbannerAdminInsertMid" type="controller" />
+		<action name="procSvbannerAdminInsertPkg" type="controller" />
+		<action name="procSvbannerAdminInsertContract" type="controller" />
+		<action name="procSvbannerAdminConfig" type="controller" />
+
+		<action name="dispSvbannerIndex" type="view" index="true" />
+		
+		<action name="procSvbannerPatchImp" type="controller" />
+		<action name="procSvbannerPatchClk" type="controller" />
+	</actions>
+</module>

@@ -1,0 +1,15 @@
+<query id="updateAdminContract" action="update">
+	<tables>
+		<table name="svbanner_contract" />
+	</tables>
+	<columns>
+        <column name="budget_amnt" var="budget_amnt" notnull="notnull" />
+        <column name="is_active" var="is_active" notnull="notnull" />
+        <column name="memo" var="memo" />
+        <column name="begin_date" var="begin_date" notnull="notnull" />
+        <column name="end_date" var="end_date" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="contract_srl" var="contract_srl" notnull="notnull" />
+	</conditions>
+</query>

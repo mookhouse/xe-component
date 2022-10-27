@@ -1,0 +1,17 @@
+<query id="getImpLogByBannerSpecSrl" action="select">
+	<tables>
+		<table name="svbanner_impression" />
+	</tables>
+	<columns>
+		<column name="imp_srl" />
+		<column name="banner_srl" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="img_width" var="img_width" notnull="notnull"/>
+        <condition operation="equal" column="img_height" var="img_height" notnull="notnull" pipe="and" />
+	</conditions>
+    <navigation>
+		<index var="sort_index" default="imp_srl" order="desc" />
+		<list_count var="list_count" default="1" />
+	</navigation>
+</query>

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="internal_banner_management">
+		<value xml:lang="ko"><![CDATA[내부 배너 관리]]></value>
+	</item>
+	<item name="about_svbanner">
+		<value xml:lang="ko"><![CDATA[홈페이지의 내부 배너를 관리합니다.]]></value>
+	</item>
+	<item name="banner_mid_list">
+		<value xml:lang="ko"><![CDATA[배너 상품 목록]]></value>
+	</item>
+	<item name="banner_mid_creation">
+		<value xml:lang="ko"><![CDATA[배너 상품 생성]]></value>
+	</item>
+	<item name="banner_mid_setting">
+		<value xml:lang="ko"><![CDATA[배너 상품 설정]]></value>
+	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+	</item>
+	<item name="banner_mid_description">
+		<value xml:lang="ko"><![CDATA[배너 상품 설명]]></value>
+	</item>
+	<item name="banner_dimension">
+		<value xml:lang="ko"><![CDATA[배너 규격]]></value>
+	</item>
+	<item name="about_banner_dimension">
+		<value xml:lang="ko"><![CDATA[px 단위의 배너 규격을 가로x세로 형식으로 입력합니다. ex) 230x340]]></value>
+	</item>
+	<item name="package_list">
+		<value xml:lang="ko"><![CDATA[배너 패키지 목록]]></value>
+	</item>
+	<item name="package_name">
+		<value xml:lang="ko"><![CDATA[배너 패키지명]]></value>
+	</item>
+	<item name="package_add">
+		<value xml:lang="ko"><![CDATA[배너 패키지 추가]]></value>
+	</item>
+	<item name="title_package_info">
+		<value xml:lang="ko"><![CDATA[배너 패키지 정보]]></value>
+	</item>
+	<item name="package_update">
+		<value xml:lang="ko"><![CDATA[배너 패키지 수정]]></value>
+	</item>
+	<item name="banner_pkg_description">
+		<value xml:lang="ko"><![CDATA[배너 패키지 설명]]></value>
+	</item>
+	<item name="banner_client">
+		<value xml:lang="ko"><![CDATA[배너 광고주]]></value>
+	</item>
+	<item name="banner_landing_url">
+		<value xml:lang="ko"><![CDATA[배너 랜딩 URL]]></value>
+	</item>
+	<item name="about_banner_landing_url">
+		<value xml:lang="ko"><![CDATA[배너 이미지를 클릭하면 이동할 최종 URL을 입력합니다.]]></value>
+	</item>
+	<item name="about_banner_client">
+		<value xml:lang="ko"><![CDATA[배너 광고주 정보를 입력합니다.]]></value>
+	</item>
+	<item name="about_banner_pkg_description">
+		<value xml:lang="ko"><![CDATA[배너 패키지를 식별할 수 있는 설명을 입력합니다.]]></value>
+	</item>
+	<item name="release">
+		<value xml:lang="ko"><![CDATA[배너 배포]]></value>
+	</item>
+	<item name="client_name">
+		<value xml:lang="ko"><![CDATA[광고주명]]></value>
+	</item>
+	<item name="about_banner_img">
+		<value xml:lang="ko"><![CDATA[지정된 규격의 배너 이미지를 업로드합니다.]]></value>
+	</item>
+	<item name="title_contract_info">
+		<value xml:lang="ko"><![CDATA[계약 정보]]></value>
+	</item>
+	<item name="contract_srl">
+		<value xml:lang="ko"><![CDATA[계약 고유 번호]]></value>
+	</item>
+	<item name="budget_amnt">
+		<value xml:lang="ko"><![CDATA[계약 금액]]></value>
+	</item>
+	<item name="memo">
+		<value xml:lang="ko"><![CDATA[특이 사항]]></value>
+	</item>
+	<item name="begin_date">
+		<value xml:lang="ko"><![CDATA[광고 시작일]]></value>
+	</item>
+	<item name="about_contract_begin_date">
+		<value xml:lang="ko"><![CDATA[YYYY-MM-DD 형식의 광고 시작일을 입력하세요. 해당일의 0시로 자동 설정됩니다.]]></value>
+	</item>
+	<item name="end_date">
+		<value xml:lang="ko"><![CDATA[광고 종료일]]></value>
+	</item>
+	<item name="history">
+		<value xml:lang="ko"><![CDATA[계약 이력]]></value>
+	</item>
+	<item name="about_contract_end_date">
+		<value xml:lang="ko"><![CDATA[YYYY-MM-DD 형식의 광고 종료일을 입력하세요. 해당일의 23시 59분 59초로 자동 설정됩니다.]]></value>
+	</item>
+	<item name="cmd_contract_add">
+		<value xml:lang="ko"><![CDATA[광고 계약 추가]]></value>
+	</item>
+</lang>
