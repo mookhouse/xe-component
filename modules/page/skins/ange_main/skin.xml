@@ -10,6 +10,13 @@
 		<name xml:lang="ko">singleview.co.kr</name>
 	</author>
 	<extra_vars>
+        <group>
+			<title xml:lang="ko">성과 배너 연결</title>
+			<var name="svbanner_mid_url" type="text">
+				<title xml:lang="ko">svbanner 모듈 ID와 URL</title>
+				<description xml:lang="ko">PC 메인 페이지의 svbanner 모듈을 연결합니다. 예)/banner_basic?dim=1200x1200</description>
+			</var>
+		</group>
 		<group>
 			<title xml:lang="ko">롤링 배너 설정</title>
 			<var name="rolling_banner_1" type="image">
