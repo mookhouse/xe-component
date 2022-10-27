@@ -46,7 +46,7 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_1]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
 			</block>
 				<input type="file" name="banner_img_1" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -60,7 +60,7 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_2]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
 			</block>
 				<input type="file" name="banner_img_2" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -74,7 +74,7 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_3]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
 			</block>
 				<input type="file" name="banner_img_3" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -87,7 +87,7 @@
 	{@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_4]->nFileSrl;
 	}
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
 				<input type="file" name="banner_img_4" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
@@ -99,7 +99,7 @@
 	{@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_5]->nFileSrl;
 	}
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 100)}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
 				<input type="file" name="banner_img_5" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>

@@ -417,6 +417,16 @@ class svbannerAdminController extends svbanner
 		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminConfig','module_srl',Context::get('module_srl')));
 	}
 /**
+ * @brief validate yyyy-mm-dd string
+ **/	
+    private function _validateYyyymmdd($sYyyymmdd) 
+    {
+        if(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$sYyyymmdd)) 
+            return true;
+        else 
+            return false;
+    }
+/**
 * @brief update mid level config
 **/
 	private function _updateMidLevelConfig($oArgs)
