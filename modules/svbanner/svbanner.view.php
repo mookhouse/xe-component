@@ -125,8 +125,6 @@ class svbannerView extends svbanner
 		$oNewImpArg->banner_srl = $oCurBanner->banner_srl;
 		$oNewImpArg->package_srl = $oCurBanner->package_srl;
 		$oImpressionAddRst = executeQueryArray('svbanner.insertImpLog', $oNewImpArg);
-        // var_Dump($oImpressionAddRst);
-        // exit;
 		unset($oNewImpArg);
 		if(!$oImpressionAddRst->toBool())
 			return $oImpressionAddRst;
