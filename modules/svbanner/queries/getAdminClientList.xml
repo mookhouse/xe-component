@@ -1,9 +1,0 @@
-<query id="getAdminClientList" action="select">
-	<tables>
-		<table name="svbanner_client" />
-	</tables>
-	<columns>
-		<column name="client_srl" />
-        <column name="client_name" />
-	</columns>
-</query>

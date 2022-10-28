@@ -1,0 +1,17 @@
+<query id="getAdminClientListFull" action="select">
+	<tables>
+		<table name="svbanner_client" />
+	</tables>
+	<columns>
+		<column name="client_srl" />
+        <column name="client_name" />
+		<column name="is_active" />
+        <column name="regdate" />
+	</columns>
+    <navigation>
+		<index var="sort_index" default="client_srl" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

@@ -8,6 +8,8 @@
 		<action name="dispSvbannerAdminListMid" type="view" />
 		<action name="dispSvbannerAdminInsertMid" type="view" />
 		<action name="dispSvbannerAdminUpdateMid" type="view" />
+		<action name="dispSvbannerAdminListClient" type="view" />
+		<action name="dispSvbannerAdminInsertClient" type="view" />
 		<action name="dispSvbannerAdminListPkgByMid" type="view" />
 		<action name="dispSvbannerAdminInsertPkg" type="view" />
 		<action name="dispSvbannerAdminUpdatePkg" type="view" />
@@ -15,6 +17,7 @@
 		<action name="dispSvbannerAdminConfig" type="view" />
 
 		<action name="procSvbannerAdminInsertMid" type="controller" />
+		<action name="procSvbannerAdminInsertClient" type="controller" />
 		<action name="procSvbannerAdminInsertPkg" type="controller" />
 		<action name="procSvbannerAdminInsertContract" type="controller" />
 		<action name="procSvbannerAdminConfig" type="controller" />

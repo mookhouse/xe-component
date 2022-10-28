@@ -12,6 +12,12 @@
 	<item name="banner_mid_creation">
 		<value xml:lang="ko"><![CDATA[배너 상품 생성]]></value>
 	</item>
+	<item name="banner_client_list">
+		<value xml:lang="ko"><![CDATA[배너 광고주 목록]]></value>
+	</item>
+	<item name="about_is_active">
+		<value xml:lang="ko"><![CDATA[표시 혹은 활성 상태를 정합니다.]]></value>
+	</item>
 	<item name="banner_mid_setting">
 		<value xml:lang="ko"><![CDATA[배너 상품 설정]]></value>
 	</item>

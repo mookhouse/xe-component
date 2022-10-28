@@ -26,8 +26,9 @@ class svbannerAdminController extends svbanner
 	{
 		$oArgs = Context::getRequestVars();
 		$oArgs->module = 'svbanner';
+		$nModuleSrl = $oArgs->module_srl;
 		// module_srl의 값에 따라 insert
-		if(!$oArgs->module_srl) 
+		if(!$nModuleSrl) 
 		{
 			$oModuleController = &getController('module');
 			$oRst = $oModuleController->insertModule($oArgs);
@@ -37,7 +38,6 @@ class svbannerAdminController extends svbanner
 		else //update
 		{
 			$oRst = $this->_updateMidLevelConfig($oArgs);
-			$nModuleSrl = $oArgs->module_srl;
 			$sMsgCode = 'success_updated';
 		}
 		if(!$oRst->toBool())
@@ -45,10 +45,86 @@ class svbannerAdminController extends svbanner
 		
 		unset($oRst);
 		unset($oArgs);
-		$this->add('module_srl', $nModuleSrl);
+		// $this->add('module_srl', $nModuleSrl);
 		$this->setMessage($sMsgCode);
 		$sReturnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminInsertMid','module_srl',$nModuleSrl);
 		$this->setRedirectUrl($sReturnUrl);
+	}
+/**
+ * @brief 광고주 생성
+ **/
+	public function procSvbannerAdminInsertClient()
+	{
+		$oArgs = Context::getRequestVars();
+		$oArgs->module = 'svbanner';
+		$nClientSrl = $oArgs->client_srl;
+		// client_srl의 값에 따라 insert
+		if(!$nClientSrl) 
+		{
+			$oRst = $this->_insertClient($oArgs);
+			$nClientSrl = $oRst->get('nClientSrl');
+			$sMsgCode = 'success_updated';
+		}
+		else //update
+		{
+			$oRst = $this->_updateClient($oArgs);
+			$sMsgCode = 'success_updated';
+		}
+		if(!$oRst->toBool())
+			return $oRst;
+		
+		unset($oRst);
+		unset($oArgs);
+		$this->setMessage($sMsgCode);
+		$sReturnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminInsertClient','client_srl', $nClientSrl);
+		$this->setRedirectUrl($sReturnUrl);
+	}
+/**
+ * @brief 
+ **/
+	private function _insertClient($oArgs)
+	{
+		$oClientArgs = new stdClass();
+		$oLoggedInfo = Context::get('logged_info');
+		$oClientArgs->member_srl = $oLoggedInfo->member_srl;
+		unset($oLoggedInfo);
+		$oClientArgs->client_name = $oArgs->client_name;
+		$oClientRst = executeQuery('svbanner.insertAdminClient', $oClientArgs);
+		if(!$oClientRst->toBool()) 
+		{
+			unset($oClientArgs);
+			return $oClientRst;
+		}
+		unset($oClientArgs);
+		unset($oClientRst);	
+		// set $nClientSrl
+		$oDB = DB::getInstance();
+		$nClientSrl = $oDB->db_insert_id();
+		$oRst = new BaseObject(0, 'success_registed');
+		$oRst->add('nClientSrl', $nClientSrl);
+		return $oRst;
+	}
+/**
+ * @brief 
+ **/
+	private function _updateClient($oArgs)
+	{
+		$oClientArgs = new stdClass();
+		$oLoggedInfo = Context::get('logged_info');
+		$oClientArgs->member_srl = $oLoggedInfo->member_srl;
+		unset($oLoggedInfo);
+		$oClientArgs->client_srl = $oArgs->client_srl;
+		$oClientArgs->is_active = $oArgs->is_active;
+		$oClientRst = executeQuery('svbanner.updateAdminClient', $oClientArgs);
+		if(!$oClientRst->toBool()) 
+		{
+			unset($oClientArgs);
+			return $oClientRst;
+		}
+		unset($oClientArgs);
+		unset($oClientRst);	
+		$oRst = new BaseObject(0, 'success_registed');
+		return $oRst;
 	}
 /**
  * @brief 

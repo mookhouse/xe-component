@@ -1,0 +1,61 @@
+<section class="section">
+	<h1>{$lang->title_package_info}</h1>
+	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
+		<input name="module" type="hidden" value="{$module}" />
+        <input name="client_srl" type="hidden" value="{$client_srl}" />
+		<input name="act" type="hidden" value="procSvbannerAdminInsertClient" />
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->client_name}</label>
+			<div class="x_controls">
+				<input type="text" name="client_name" value="{$oClientInfo->client_name}" />
+				<a href="#client_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="client_name_help" class="x_help-block" hidden>{$lang->about_client_name}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="is_active">{$lang->is_active}</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="is_active" value="Y" checked="checked"|cond="$oClientInfo->is_active=='Y' || $oClientInfo->is_active==''" />{$lang->on}</label>
+				<label class="x_inline"><input type="radio" name="is_active" value="N" checked="checked"|cond="$oClientInfo->is_active=='N'"/>{$lang->off}</label>
+				<a href="#is_active_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="is_active_help" class="x_help-block" hidden>{$lang->about_is_active}</p>
+			</div>
+		</div>
+        <div class="x_control-group" cond="$client_srl">
+			<label class="x_control-label" for="browser_title">{$lang->history}</label>
+			<div class="x_controls">
+                {$oClientInfo->user_id}가 {zdate($oClientInfo->regdate, 'Y-m-d H:i:s')}에 생성함
+			</div>
+		</div>
+		<div class="x_clearfix btnArea">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+		</div>
+	</form>
+</section>
+
+<section class="section">
+	<h1>{$lang->title_contract_info}</h1>
+	<table class="x_table">
+		<tr>
+			<th>{$lang->contract_srl}</th>
+			<th>{$lang->budget_amnt}</th>
+			<th>{$lang->is_active}</th>
+			<th>{$lang->memo}</th>
+			<th>{$lang->begin_date}</th>
+			<th>{$lang->end_date}</th>
+			<th>{$lang->cmd_modify}</th>
+		</tr>
+		<tr loop="$aContractList=>$nIdx,$oSingleContract">
+			<td>{$oSingleContract->contract_srl}</td>
+			<td>{$oSingleContract->budget_amnt}</td>
+			<td>{$oSingleContract->is_active}</td>
+			<td><textarea cols='60'>{$oSingleContract->memo}</textarea></td>
+			<td>{zdate($oSingleContract->begin_date, 'Y-m-d')}</td>
+			<td>{zdate($oSingleContract->end_date, 'Y-m-d')}</td>
+			<td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_modify}</button></td>
+		</tr>
+	</table>
+	<div class="x_clearfix btnArea">
+		<button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', '')}';">{$lang->cmd_contract_add}</button>
+	</div>
+</section>

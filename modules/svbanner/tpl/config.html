@@ -42,16 +42,6 @@
 				<p id="naver_ep_help" class="x_help-block" hidden>{$lang->about_naver_ep}</p>
 			</div>
 		</div>
-		<div class="x_control-group">
-			<label class="x_control-label">{$lang->naver_ep_extract_module}</label>
-			<div class="x_controls">
-<block loop="$svitem_mod_list=>$key,$val">
-				<label class="x_inline" for="extract_svitem_{$val->module_srl}"><input type="checkbox" name="naver_ep_extract_svitem[]" id="naver_ep_extract_svitem[]" value="{$val->module_srl}" checked="checked"|cond="$config->naver_ep_extract_svitem[$val->module_srl] == 'extract'" /> {$val->mid}</label>
-</block>
-				<a href="#naver_ep_extract_mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="naver_ep_extract_mid_help" class="x_help-block" hidden>{$lang->about_naver_ep_extract_mid}</p>
-			</div>
-		</div>
 	</section>
 	<section class="section">
 		<h1>{$lang->daum_ep_setting}</h1>
@@ -62,16 +52,6 @@
 				<label class="x_inline" for="daum_ep_use"><input type="radio" name="daum_ep_use" id="daum_ep_use" value="N" checked="checked"|cond="$config->daum_ep_use=='N'"/>{$lang->daum_ep_off}</label>
 				<a href="#daum_ep_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="daum_ep_help" class="x_help-block" hidden>{$lang->about_daum_ep}</p>
-			</div>
-		</div>
-		<div class="x_control-group">
-			<label class="x_control-label">{$lang->daum_ep_extract_module}</label>
-			<div class="x_controls">
-<block loop="$svitem_mod_list=>$key,$val">
-				<label class="x_inline" for="extract_svitem_{$val->module_srl}"><input type="checkbox" name="daum_ep_extract_svitem[]" id="daum_ep_extract_svitem[]" value="{$val->module_srl}" checked="checked"|cond="$config->daum_ep_extract_svitem[$val->module_srl] == 'extract'" /> {$val->mid}</label>
-</block>
-				<a href="#daum_ep_extract_mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="daum_ep_extract_mid_help" class="x_help-block" hidden>{$lang->about_daum_ep_extract_mid}</p>
 			</div>
 		</div>
 	</section>
@@ -110,5 +90,4 @@
 	<div class="btnArea">
 		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
 	</div>
-
 </form>

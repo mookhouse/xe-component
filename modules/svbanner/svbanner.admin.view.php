@@ -78,6 +78,8 @@ class svbannerAdminView extends svbanner
 		$oArgs->s_module_category_srl = Context::get('module_category_srl');
 		$oSvbannerModel = &getAdminModel('svbanner');
 		$oRst = $oSvbannerModel->getMidList($oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
 		unset($oArgs);
 		unset($oSvbannerModel);
 		Context::set('total_count', $oRst->total_count);
@@ -110,6 +112,45 @@ class svbannerAdminView extends svbanner
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 		unset($oModuleModel);
+	}
+/**
+ * @brief 
+ */
+	public function dispSvbannerAdminListClient() 
+	{
+		$oSvbannerAdminModel = &getAdminModel('svbanner');
+		$oRst = $oSvbannerAdminModel->getClientListFull();
+		if(!$oRst->toBool())
+			return $oRst;
+		unset($oSvbannerModel);
+		Context::set('total_count', $oRst->total_count);
+		Context::set('total_page', $oRst->total_page);
+		Context::set('page', $oRst->page);
+		Context::set('page_navigation', $oRst->page_navigation);
+		Context::set('client_list', $oRst->data);
+		unset($oRst);
+		// 스킨은 $this->init()와 index.html에서 처리
+	}
+/**
+ * @brief 
+ */
+	public function dispSvbannerAdminInsertClient() 
+	{
+		$nClientSrl = (int)Context::get('client_srl');
+		$oSvbannerAdminModel = &getAdminModel('svbanner');
+		$oRst = $oSvbannerAdminModel->getClientInfoBySrl($nClientSrl);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('oClientInfo', $oRst->data);
+		
+		if($nClientSrl)
+		{
+			$aContractList = $oSvbannerAdminModel->getContractListByClientSrl($nClientSrl);
+			Context::set('aContractList', $aContractList);
+			unset($aContractList);
+		}
+		unset($oSvbannerAdminModel);
+		// 스킨은 $this->init()와 index.html에서 처리
 	}
 /**
  * @brief admin view for baner package list
@@ -167,19 +208,16 @@ class svbannerAdminView extends svbanner
 		unset($oSvbannerModel);
 
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
-		$aClientInfo = $oSvbannerAdminModel->getClientInfo();
+		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui($isActiveOnly=true);
 		Context::set('aClientInfo', $aClientInfo);
 		unset($aClientInfo);
-
 		$nPackageSrl = (int)Context::get('package_srl');
 		if($nPackageSrl)
 		{
 			$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
 			Context::set('oPackageInfo', $oPackageInfo);
 			unset($oPackageInfo);
-
 			$aContractList = $oSvbannerAdminModel->getContractListByPkgSrl($nPackageSrl);
-			// var_dump($aContractList);
 			Context::set('aContractList', $aContractList);
 			unset($aContractList);
 		}
@@ -204,7 +242,7 @@ class svbannerAdminView extends svbanner
 			return new BaseObject(-1, 'msg_invalid_request');
 
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
-		$aClientInfo = $oSvbannerAdminModel->getClientInfo();
+		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui();
 		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
 		$oPackageInfo->sClientName = $aClientInfo[$oPackageInfo->client_srl];
 		Context::set('oPackageInfo', $oPackageInfo);
@@ -218,12 +256,6 @@ class svbannerAdminView extends svbanner
 			$oContractInfo = $oSvbannerAdminModel->getContractSingle($nContractSrl);
 			if($nPackageSrl != $oContractInfo->package_srl)
 				return new BaseObject(-1, 'msg_invalid_request');
-
-			$oMemberModel = &getModel('member');
-			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oContractInfo->member_srl);
-			$oContractInfo->user_id = $oMemberInfo->user_id;
-			unset($oMemberInfo);
-			unset($oMemboMemberModelerInfo);
 			// var_dump($oMemberInfo->user_id);
 			Context::set('oContractInfo', $oContractInfo);
 			// var_dump($oContractInfo->member_srl);

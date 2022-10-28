@@ -25,6 +25,7 @@
 			<label class="x_control-label" for="client_srl">{$lang->banner_client}</label>
 			<div class="x_controls">
 				<select name="client_srl">
+					<option value="0" selected="selected"|cond="!$oPackageInfo->client_srl">광고주를 선택하세요</option>
 					<option loop="$aClientInfo=>$nClientSrl,$sClientName" value="{$nClientSrl}" selected="selected"|cond="$oPackageInfo->client_srl==$nClientSrl">{$sClientName}</option>
 				</select>
 				<a href="#client_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>

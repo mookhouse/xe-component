@@ -1,0 +1,18 @@
+<query id="getAdminContractList" action="select">
+	<tables>
+		<table name="svbanner_contract" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="package_srl" var="package_srl" />
+		<condition operation="equal" column="client_srl" var="client_srl" pipe="and"/>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="contract_srl" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

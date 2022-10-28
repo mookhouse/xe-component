@@ -38,17 +38,47 @@ class svbannerAdminModel extends svbanner
 		return $oRst;
 	}
 /**
- * @brief get client list
+ * @brief get client list from db
  **/
-	public function getClientInfo()
+	public function getClientListFull()
 	{
-		$oRst = executeQueryArray('svbanner.getAdminClientList');
+		$oRst = executeQueryArray('svbanner.getAdminClientListFull');
+		return $oRst;
+	}
+/**
+ * @brief get client list for ui
+ **/
+	public function getClientInfo4Ui($isActiveOnly=false)
+	{
+		$oArg = new stdClass();
+		if($isActiveOnly)
+			$oArg->is_active = 'Y';
+		$oRst = executeQueryArray('svbanner.getAdminClientList4Ui', $oArg);
+		unset($oArg);
 		$aClientInfo = [];
-		$aClientInfo[0] = '광고주를 선택하세요';
 		foreach($oRst->data as $nIdx=>$oClient)
 			$aClientInfo[$oClient->client_srl] = $oClient->client_name;
 		unset($oRst);
 		return $aClientInfo;
+	}
+/**
+ * @brief get single client info
+ **/
+	public function getClientInfoBySrl($nClientSrl)
+	{
+		$oArg = new stdClass();
+		$oArg->client_srl = $nClientSrl;
+		$oRst = executeQuery('svbanner.getAdminClientBySrl', $oArg);
+		unset($oArg);
+		if(isset($oRst->data->member_srl))
+		{
+			$oMemberModel = &getModel('member');
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl);
+			$oRst->data->user_id = $oMemberInfo->user_id;
+			unset($oMemberInfo);
+			unset($oMemberModel);
+		}
+		return $oRst;
 	}
 /**
  * @brief get package info 
@@ -63,7 +93,7 @@ class svbannerAdminModel extends svbanner
 		$aBanner = [];
 		if(count($oBannerRst->data))
 		{
-            $aClientInfo = $this->getClientInfo();
+            $aClientInfo = $this->getClientInfo4Ui();
 			foreach($oBannerRst->data as $nIdx=>$oBanner)
 			{
                 $aBanner[$oBanner->img_width.'x'.$oBanner->img_height] = new stdClass();
@@ -85,9 +115,28 @@ class svbannerAdminModel extends svbanner
 		$oArg = new stdClass();
 		$oArg->contract_srl = $nContractSrl;
 		$oContractRst = executeQuery('svbanner.getAdminContractInfoBySrl', $oArg);
+		if(isset($oContractRst->data->member_srl))
+		{
+			$oMemberModel = &getModel('member');
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oContractRst->data->member_srl);
+			$oContractRst->data->user_id = $oMemberInfo->user_id;
+			unset($oMemberInfo);
+			unset($oMemberModel);
+		}
 		unset($oArg);
 		return $oContractRst->data;
 	}
+/**
+* @brief get contract list by client_srl 
+**/
+public function getContractListByClientSrl($nClientSrl)
+{
+	$oArg = new stdClass();
+	$oArg->client_srl = $nClientSrl;
+	$oContractRst = executeQueryArray('svbanner.getAdminContractList', $oArg);
+	unset($oArg);
+	return $oContractRst->data;
+}
 /**
 * @brief get contract list by package_srl 
 **/
@@ -95,7 +144,7 @@ class svbannerAdminModel extends svbanner
 	{
 		$oArg = new stdClass();
 		$oArg->package_srl = $nPkgSrl;
-		$oContractRst = executeQueryArray('svbanner.getAdminContractListByPkgSrl', $oArg);
+		$oContractRst = executeQueryArray('svbanner.getAdminContractList', $oArg);
 		unset($oArg);
 		return $oContractRst->data;
 	}
@@ -165,7 +214,7 @@ class svbannerAdminModel extends svbanner
 		unset($oArg);
 		if(count((Array)$oRst->data))
 		{
-			$aClientInfo = $this->getClientInfo();
+			$aClientInfo = $this->getClientInfo4Ui();
 			foreach($oRst->data as $nIdx=>$oPkg)
 				$oPkg->sClientName = $aClientInfo[$oPkg->client_srl];
 		}
