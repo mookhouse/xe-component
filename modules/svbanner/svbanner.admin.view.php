@@ -236,31 +236,24 @@ class svbannerAdminView extends svbanner
  */
 	public function dispSvbannerAdminInsertContract() 
 	{
-		$nModuleSrl = (int)Context::get('module_srl');
-		$nPackageSrl = (int)Context::get('package_srl');
-		if(!$nModuleSrl || !$nPackageSrl)
-			return new BaseObject(-1, 'msg_invalid_request');
-
+		$nContractSrl = (int)Context::get('contract_srl');
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
+		if($nContractSrl)
+		{
+			$oContractInfo = $oSvbannerAdminModel->getContractSingle($nContractSrl);
+			Context::set('oContractInfo', $oContractInfo);
+			$nPackageSrl = (int)$oContractInfo->package_srl;
+			unset($oContrctInfo);
+		}
+		if(!$nPackageSrl)
+			$nPackageSrl = (int)Context::get('package_srl');
+
 		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui();
 		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
 		$oPackageInfo->sClientName = $aClientInfo[$oPackageInfo->client_srl];
 		Context::set('oPackageInfo', $oPackageInfo);
 		unset($oPackageInfo);
 		unset($aClientInfo);
-
-		$nContractSrl = (int)Context::get('contract_srl');
-		// var_dump($nContractSrl);
-		if($nContractSrl)
-		{
-			$oContractInfo = $oSvbannerAdminModel->getContractSingle($nContractSrl);
-			if($nPackageSrl != $oContractInfo->package_srl)
-				return new BaseObject(-1, 'msg_invalid_request');
-			// var_dump($oMemberInfo->user_id);
-			Context::set('oContractInfo', $oContractInfo);
-			// var_dump($oContractInfo->member_srl);
-			unset($oContrctInfo);
-		}
 		unset($oSvbannerAdminModel);
 		// 스킨은 $this->init()와 index.html에서 처리
 	}

@@ -1,0 +1,20 @@
+<table class="x_table"> 
+    <tr>
+        <th>{$lang->contract_srl}</th>
+        <th>{$lang->budget_amnt}</th>
+        <th>{$lang->is_active}</th>
+        <th>{$lang->memo}</th>
+        <th>{$lang->begin_date}</th>
+        <th>{$lang->end_date}</th>
+        <th>{$lang->cmd_modify}</th>
+    </tr>
+    <tr loop="$aContractList=>$nIdx,$oSingleContract">
+        <td>{$oSingleContract->contract_srl}</td>
+        <td>{$oSingleContract->budget_amnt}</td>
+        <td>{$oSingleContract->is_active}</td>
+        <td><textarea cols='60'>{$oSingleContract->memo}</textarea></td>
+        <td>{zdate($oSingleContract->begin_date, 'Y-m-d')}</td>
+        <td>{zdate($oSingleContract->end_date, 'Y-m-d')}</td>
+        <td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_modify}</button></td>
+    </tr>
+</table>
