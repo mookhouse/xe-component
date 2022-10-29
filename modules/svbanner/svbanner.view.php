@@ -83,8 +83,8 @@ class svbannerView extends svbanner
 		$oCll->reset();
 		$aBannerScheduleByBannerSrl = [];
 		// construct serialzed circular linked list
-		for($j = 0; $j <= $nBannerCnt; $j++) 
-		{
+		for($j = 1; $j <= $nBannerCnt; $j++) 
+		{		
 			$oCurSingleBanner = $oCll->getCurrent();
 			$aBannerScheduleByBannerSrl[$oCurSingleBanner->nBannerSrl] = new stdClass();
 			$aBannerScheduleByBannerSrl[$oCurSingleBanner->nBannerSrl]->banner_srl = $oCurSingleBanner->nBannerSrl;
