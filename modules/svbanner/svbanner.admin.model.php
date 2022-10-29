@@ -219,7 +219,7 @@ public function getContractListByClientSrl($nClientSrl)
 		unset($oParams);
 		// calculated array merge with cache array
 		$aMergedDailyLog = [];
-		if(count($oCacheRst->aCalcDailyLog))
+		if(count((array)$oCacheRst->aCalcDailyLog))
 		{
 			foreach($oCacheRst->aCalcDailyLog as $sDateIdx => $oLog)
 				$aMergedDailyLog[$sDateIdx] = $oLog;

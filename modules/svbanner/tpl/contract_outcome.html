@@ -54,7 +54,7 @@ $aDayName = ["일","월","화","수","목","금","토"];
 					<td>{number_format($oLog->nClk)}</td>
 					<td>{number_format($oLog->nCtr*100,2)}%</td>
 				</tr>
-				<tr cond="!count($list)">
+				<tr cond="!count($aDailyLog)">
 					<td colspan="12">{$lang->msg_no_daily_log}</td>
 				</tr>
 			</tbody>
