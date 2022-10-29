@@ -7,6 +7,7 @@
 class svbanner extends ModuleObject
 {
 	var $_g_DailyLogCachePath = './files/cache/svbanner/log';
+	var $_g_DailyScheduleCachePath = './files/cache/svbanner/schedule';
 /**
  * @brief 
  **/
