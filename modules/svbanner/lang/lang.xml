@@ -78,6 +78,9 @@
 	<item name="title_contract_info">
 		<value xml:lang="ko"><![CDATA[계약 정보]]></value>
 	</item>
+	<item name="cmd_view_contract_outcome">
+		<value xml:lang="ko"><![CDATA[계약 성과 보기]]></value>
+	</item>
 	<item name="contract_srl">
 		<value xml:lang="ko"><![CDATA[계약 고유 번호]]></value>
 	</item>
@@ -104,5 +107,17 @@
 	</item>
 	<item name="cmd_contract_add">
 		<value xml:lang="ko"><![CDATA[광고 계약 추가]]></value>
+	</item>
+	<item name="banner_date">
+		<value xml:lang="ko"><![CDATA[개재일]]></value>
+	</item>
+	<item name="impression">
+		<value xml:lang="ko"><![CDATA[노출수]]></value>
+	</item>
+	<item name="click">
+		<value xml:lang="ko"><![CDATA[클릭수]]></value>
+	</item>
+	<item name="ctr">
+		<value xml:lang="ko"><![CDATA[클릭율]]></value>
 	</item>
 </lang>

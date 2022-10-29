@@ -149,6 +149,102 @@ public function getContractListByClientSrl($nClientSrl)
 		return $oContractRst->data;
 	}
 /**
+* @brief get imp click daily log by contract_srl 
+**/
+	public function getContractPerformance($nContractSrl, $nPackageSrl, $sBeginDate, $sEndDate)
+	{
+		date_default_timezone_set('Asia/Seoul');
+		$dtToday = date_create(date('Ymd'));	
+		$dtStart = date_create(substr($sBeginDate, 0, 8));
+		$dtEnd = date_create(substr($sEndDate, 0, 8));
+		$dtDays = date_diff($dtStart, $dtEnd);
+		$nDaysCnt = $dtDays->days;
+		unset($dtEnd);
+		unset($dtEnd);
+		// construct loggin schedule
+		$aDaysToLog = [];
+		for($i = 0; $i <= $nDaysCnt; $i++)
+		{
+			$dtDaysToToday = date_diff($dtStart, $dtToday);
+			if($dtDaysToToday->invert == 1)  // means future
+				break;
+			$aDaysToLog[$dtStart->format('Ymd')] = 1;  // request to retrieve
+			$nDaysToToday = $dtDaysToToday->days;
+			if($nDaysToToday==1)
+				break;
+			$dtStart->modify('+1 day');
+		}
+		unset($dtToday);
+		unset($dtStart);
+		$nGrossImp = 0;
+		$nGrossClk = 0;
+		$nGrossCtr = 0.0;
+		// load log cache if exists
+		$sLogCacheFilePathAbs = $this->_g_DailyLogCachePath.'/'.$nContractSrl.'.cache.php';
+		$sContractDailyLogCacheFile = FileHandler::readFile($sLogCacheFilePathAbs);
+		if($sContractDailyLogCacheFile)
+		{
+			$oCacheRst = unserialize($sContractDailyLogCacheFile);
+			$nGrossImp = $oCacheRst->nGrossImp;
+			$nGrossClk = $oCacheRst->nGrossClk;
+		}
+		// toggle already-cached date to minimize DB workload
+		foreach($oCacheRst->aCalcDailyLog as $nDateIdx=>$oDailyLog)
+		{
+			$aDaysToLog[$nDateIdx] = 0;
+		}
+		// retrieve new daily log of period from DB
+		$aCalcDailyLog = [];
+		$oParams = new stdClass();
+		$oParams->package_srl = $nPackageSrl;
+		foreach($aDaysToLog as $sDateIdx=>$bToggle)
+		{
+			if(!$bToggle)
+				continue;
+			$dtStart = date_create($sDateIdx);
+// echo $sDateIdx.' has been proced<BR>';
+			$oParams->begin_date = $sDateIdx.'000000';
+			$dtStart->modify('+1 day');
+			$oParams->end_date = $dtStart->format('Ymd000000');
+			$oContractPerfRst = executeQuery('svbanner.getAdminContractPerformance', $oParams);
+			$nGrossImp += (int)$oContractPerfRst->data->gross_impression;
+			$nGrossClk += (int)$oContractPerfRst->data->gross_click;
+			$aCalcDailyLog[$sDateIdx] = new stdClass();
+			$aCalcDailyLog[$sDateIdx]->nImp = (int)($oContractPerfRst->data->gross_impression ? $oContractPerfRst->data->gross_impression : 0);
+			$aCalcDailyLog[$sDateIdx]->nClk = (int)($oContractPerfRst->data->gross_click ? $oContractPerfRst->data->gross_click : 0);
+			$aCalcDailyLog[$sDateIdx]->nCtr = $oContractPerfRst->data->gross_impression ? $oContractPerfRst->data->gross_click / $oContractPerfRst->data->gross_impression : 0.0;
+			unset($oContractPerfRst);
+		}
+		unset($dtStart);
+		unset($oParams);
+		// calculated array merge with cache array
+		$aMergedDailyLog = [];
+		if(count($oCacheRst->aCalcDailyLog))
+		{
+			foreach($oCacheRst->aCalcDailyLog as $sDateIdx => $oLog)
+				$aMergedDailyLog[$sDateIdx] = $oLog;
+		}
+		foreach($aCalcDailyLog as $sDateIdx => $oLog)
+			$aMergedDailyLog[$sDateIdx] = $oLog;
+
+		unset($oCacheRst);
+		unset($aCalcDailyLog);
+		$oRst = new stdClass();
+		$oRst->nGrossImp = $nGrossImp;
+		$oRst->nGrossClk = $nGrossClk;
+		$oRst->nGrossCtr = $nGrossImp ? $nGrossClk / $nGrossImp : 0.0;
+		$oRst->aCalcDailyLog = $aMergedDailyLog;
+		// foreach([20221025,20221026,20221027,20221028] as $_=>$nDateIdx)
+		// {
+		// 	unset($oRst->aCalcDailyLog[$nDateIdx]);
+		// }
+		// exit;
+		$sSerializedRst = serialize($oRst);
+		FileHandler::writeFile($sLogCacheFilePathAbs, $sSerializedRst);
+		// exit;
+		return $oRst;
+	}
+/**
  * @brief get module level config
  * @return 
  **/

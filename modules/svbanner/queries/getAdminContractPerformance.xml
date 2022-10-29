@@ -1,0 +1,14 @@
+<query id="getAdminContractPerformance" action="select">
+    <tables>
+        <table name="svbanner_impression" />
+    </tables>
+    <columns>
+        <column name="sum(is_viewed)" alias="gross_impression" />
+        <column name="sum(is_clicked)" alias="gross_click" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="package_srl" var="package_srl" default="0" />
+        <condition operation="more" column="logdate" var="begin_date" notnull="notnull" pipe="and" />
+        <condition operation="less" column="logdate" var="end_date" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

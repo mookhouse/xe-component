@@ -258,6 +258,39 @@ class svbannerAdminView extends svbanner
 		// 스킨은 $this->init()와 index.html에서 처리
 	}
 /**
+ * @brief 
+ */
+	public function dispSvbannerAdminContractOutcome() 
+	{
+		$nContractSrl = (int)Context::get('contract_srl');
+		if(!$nContractSrl)
+			return new BaseObject(-1, 'msg_invalid_request');
+
+		$oSvbannerAdminModel = &getAdminModel('svbanner');
+		$oContractInfo = $oSvbannerAdminModel->getContractSingle($nContractSrl);
+		Context::set('oContractInfo', $oContractInfo);
+		$nPackageSrl = (int)$oContractInfo->package_srl;
+		unset($oContrctInfo);
+		if(!$oContractInfo->package_srl || !$oContractInfo->begin_date || !$oContractInfo->end_date)
+			return new BaseObject(-1, 'msg_invalid_contract');
+	
+		$oDailyLog = $oSvbannerAdminModel->getContractPerformance($oContractInfo->contract_srl, $oContractInfo->package_srl, 
+																$oContractInfo->begin_date, $oContractInfo->end_date);
+		Context::set('nGrossImp', $oDailyLog->nGrossImp);
+		Context::set('nGrossClk', $oDailyLog->nGrossClk);
+		Context::set('nGrossCtr', $oDailyLog->nGrossCtr);
+		Context::set('aDailyLog', $oDailyLog->aCalcDailyLog);
+
+		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui();
+		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
+		$oPackageInfo->sClientName = $aClientInfo[$oPackageInfo->client_srl];
+		Context::set('oPackageInfo', $oPackageInfo);
+		unset($oPackageInfo);
+		unset($aClientInfo);
+		unset($oSvbannerAdminModel);
+		// 스킨은 $this->init()와 index.html에서 처리
+	}
+/**
  * @brief svitem 스킨에서 호출하는 메쏘드
  */	
 	public static function dispBannerImgUrl($nThumbFileSrl, $nWidth = 80, $nHeight = 0, $sThumbnailType = 'crop')

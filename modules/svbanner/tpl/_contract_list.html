@@ -1,6 +1,7 @@
 <table class="x_table"> 
     <tr>
         <th>{$lang->contract_srl}</th>
+        <th>{$lang->cmd_view_contract_outcome}</th>
         <th>{$lang->budget_amnt}</th>
         <th>{$lang->is_active}</th>
         <th>{$lang->memo}</th>
@@ -10,6 +11,7 @@
     </tr>
     <tr loop="$aContractList=>$nIdx,$oSingleContract">
         <td>{$oSingleContract->contract_srl}</td>
+        <td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminContractOutcome', 'package_srl', '', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_view_contract_outcome}</button></td>
         <td>{$oSingleContract->budget_amnt}</td>
         <td>{$oSingleContract->is_active}</td>
         <td><textarea cols='60'>{$oSingleContract->memo}</textarea></td>
