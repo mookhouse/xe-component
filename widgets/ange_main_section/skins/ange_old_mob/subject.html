@@ -1,8 +1,13 @@
 {@ $idx=1}
 <ul class="row scon" id="subject_list_tab1">
 	<li class="col-xs-4" loop="$wi->document_list=>$item">
+{@
+$sImgUrl = $item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type);
+if(!$sImgUrl)
+	$sImgUrl = '/widgets/ange_main_section/skins/ange_old_mob/img/_blank.gif';
+}
 		<a href="{$item->getPermanentUrl()}">
-			<img sv-attr='mob_main_subject_thumb{$idx}' src="/widgets/ange_main_section/skins/ange_old_mob/img/_blank.gif" alt="{$item->getTitle($wi->subject_cut_size)}" style="width: 100%;background-size: cover;background-position: center center;background-image: url({$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)});">
+			<img sv-attr='mob_main_subject_thumb{$idx}' src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width: 100%;background-size: cover;background-position: center center;">
 			<figcaption sv-attr="mob_main_subject_title{$idx++}">{$item->getTitle($wi->subject_cut_size)}</figcaption>
 		</a>
 	</li>

@@ -1,22 +1,27 @@
 {@ $idx=0}
 <div class="gallery-list">
 <block loop="$wi->document_list=>$item">
-<block cond="$idx%2==0">
-	<ul class="movie-ul">
-</block>
-		<li>
-			<a href="{$item->getPermanentUrl()}">
-				<figure>
-				<img sv-attr="pc_main_brandstory_thumb{$idx}" src="/widgets/ange_main_section/skins/ange_old_pc/img/_blank.gif" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:145px;height:110px;background-image:url('{$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');background-size:cover;background-position:center center;">
-				<figcaption>
-				<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
-				</figcaption>
-				</figure>
-			</a>
-		</li>
-<block cond="$idx>1 && $idx%2==1">
-	</ul>
-</block>
+{@
+$sImgUrl = $item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type);
+if(!$sImgUrl)
+	$sImgUrl = '/widgets/ange_main_section/skins/ange_old_pc/img/_blank.gif';
+}
+	<block cond="$idx%2==0">
+		<ul class="movie-ul">
+	</block>
+			<li>
+				<a href="{$item->getPermanentUrl()}">
+					<figure>
+					<img sv-attr="pc_main_brandstory_thumb{$idx}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:145px;height:110px;background-size:cover;background-position:center center;">
+					<figcaption>
+					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
+					</figcaption>
+					</figure>
+				</a>
+			</li>
+	<block cond="$idx>1 && $idx%2==1">
+		</ul>
+	</block>
 {@ $idx++}
 </block>
 </div>

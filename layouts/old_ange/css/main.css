@@ -459,7 +459,7 @@ article {
   .brand-news a {
     padding: 20px 30px;
     display: block;
-    background-image: url(../images/main/bg_brand_news.jpg);
+    /*background-image: url(../images/main/bg_brand_news.jpg);*/
     background-repeat: no-repeat;
     background-position: 100% 50%; }
     .brand-news a strong {

@@ -1,5 +1,10 @@
+{@
+$sImgUrl = $wi->document_list[0]->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type);
+if(!$sImgUrl)
+	$sImgUrl = '/widgets/ange_main_section/skins/ange_old_mob/img/_blank.gif';
+}
 <figure>
-	<a href="{$wi->document_list[0]->getPermanentUrl()}"><img sv-attr="mob_main_QNA_thumb1" src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url('{$wi->document_list[0]->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');"></a>
+	<a href="{$wi->document_list[0]->getPermanentUrl()}"><img sv-attr="mob_main_QNA_thumb1" src="{$sImgUrl}" alt="" style="width: 100%;background-size: cover;background-position: center center;"></a>
 </figure>
 {@
 unset($wi->document_list[0]);
