@@ -4,7 +4,6 @@
  * @author singleview(root@singleview.co.kr)
  * @brief  svbannerView
  */
-require_once(_XE_PATH_.'modules/svbanner/CircularLinkedList.class.php');
 class svbannerView extends svbanner
 {
 	public function init()
@@ -20,13 +19,12 @@ class svbannerView extends svbanner
 	public function dispSvbannerIndex() 
 	{
 		$sScriptPath = $this->module_path.'tpl/skin.js/';
-		Context::addJsFile($sScriptPath.'sv_banner.js');
+		Context::addJsFile($sScriptPath.'sv_banner_iframe.js');
 		Context::addJsFile($sScriptPath.'jquery.cookie.js');
 
 		$aBannerDim = explode('x', trim(Context::get('dim')));
 		$oSvbannerModel = &getModel('svbanner');
 		$oRst = $oSvbannerModel->getCurrentBanner($this->module_info->module_srl, $aBannerDim);
-		// $oRst = $this->_getCurrentBanner();
 		unset($oSvbannerModel);
 		Context::set('nImpSrl', $oRst->nImpLogSrl);
 		Context::set('nSelectedBannerSrl', $oRst->nBannerSrl);

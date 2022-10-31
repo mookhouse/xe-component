@@ -4,6 +4,7 @@
  * @author singleview(root@singleview.co.kr)
  * @brief  svbannerModel
  */
+require_once(_XE_PATH_.'modules/svbanner/CircularLinkedList.class.php');
 class svbannerModel extends svbanner
 {
 /**
@@ -44,7 +45,33 @@ class svbannerModel extends svbanner
 * @brief get current banner info
 * @return 
 **/
-public function getCurrentBanner($nModuleSrl, $aBannerDim) 
+	public function getCurrentBannerImgUrl($nModuleSrl, $aBannerDim)
+	{
+		$sScriptPath = '/modules/svbanner/tpl';
+		Context::addJsFile($sScriptPath.'/skin.js/sv_banner_internal.js');
+		Context::addJsFile($sScriptPath.'/skin.js/jquery.cookie.js');
+
+		if(count($aBanne1rDim) != 2)
+		{
+			$oRst = new stdClass();
+			$oRst->nImpLogSrl = 0;
+			$oRst->nBannerSrl = 0;
+			$oRst->sBannerImgUrl = Context::getRequestUri().$sScriptPath.'/img/no_img_80x80.jpg';
+			$oRst->sUniqId = uniqid();
+			$oRst->sLandingUrl = '#';
+			return $oRst;
+		}
+		$oSvbannerModel = &getModel('svbanner');
+		$oRst = $oSvbannerModel->getCurrentBanner($nModuleSrl, $aBannerDim);
+		$oRst->sUniqId = uniqid();
+		unset($oSvbannerModel);
+		return $oRst;
+	}
+/**
+* @brief get current banner info
+* @return 
+**/
+	public function getCurrentBanner($nModuleSrl, $aBannerDim) 
 	{
 		$aBannerScheduleByBannerSrl = $this->_getBannerScheduleToday($nModuleSrl, $aBannerDim);
 		
@@ -55,6 +82,7 @@ public function getCurrentBanner($nModuleSrl, $aBannerDim)
 		unset($oImpArg);
 		if(!$oImpressionRst->toBool())
 			return $oImpressionRst;
+			
 		// retrieve banner
 		if(!count((array)$oImpressionRst->data))  // get head of displaying schedule
 			$oCurBanner = reset($aBannerScheduleByBannerSrl);
@@ -64,7 +92,6 @@ public function getCurrentBanner($nModuleSrl, $aBannerDim)
 			$nNextBannerSrl = $aBannerScheduleByBannerSrl[$nBannerSrl]->next_banner_srl;
 			$oCurBanner = $aBannerScheduleByBannerSrl[$nNextBannerSrl];
 		}
-
 		if(!$oCurBanner)  // if daily schedule has been changed
 			$oCurBanner = reset($aBannerScheduleByBannerSrl);
 
@@ -77,7 +104,7 @@ public function getCurrentBanner($nModuleSrl, $aBannerDim)
 		unset($oNewImpArg);
 		if(!$oImpressionAddRst->toBool())
 			return $oImpressionAddRst;
-		
+
 		$oDB = DB::getInstance();
 		$nImpLogSrl = $oDB->db_insert_id();
 		unset($oDB);

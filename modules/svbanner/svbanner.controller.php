@@ -15,17 +15,17 @@ class svbannerController extends svbanner
 		$oLoggedInfo = Context::get('logged_info');
 
 		$oImpArgs = new stdClass();
-		$oImpArgs->imp_srl = $oArgs->imp_srl;
 		$oImpArgs->member_srl = $oLoggedInfo->member_srl;
+		unset($oLoggedInfo);
+		$oImpArgs->imp_srl = $oArgs->imp_srl;
 		$oImpArgs->ua = $oArgs->ua;
 		$oImpArgs->uuid = $oArgs->uuid;
 		// 내부 배너면 도메인 주소 제거하여 DB 용량 최소화
 		$oImpArgs->page_url = str_replace($_SERVER['REQUEST_SCHEME'].'://'. $_SERVER['SERVER_NAME'],'', $oArgs->page_url);
 		$oImpArgs->is_viewed = 1;
-		executeQuery('svbanner.updateImpLog', $oImpArgs);
+		$oRst = executeQuery('svbanner.updateImpLog', $oImpArgs);
 		unset($oImpArgs);
 		unset($oArgs);
-		unset($oLoggedInfo);
 		$this->add('nRst', 0);
 	}
 /**
