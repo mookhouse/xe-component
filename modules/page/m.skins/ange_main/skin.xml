@@ -12,9 +12,13 @@
 	<extra_vars>
         <group>
 			<title xml:lang="ko">성과 배너 연결</title>
-			<var name="svbanner_mid_url" type="text">
-				<title xml:lang="ko">svbanner 모듈 ID와 URL</title>
-				<description xml:lang="ko">PC 메인 페이지의 svbanner 모듈을 연결합니다. 예)/banner_basic?dim=1200x1200</description>
+			<var name="svbanner_mid_srl" type="text">
+				<title xml:lang="ko">svbanner 모듈 ID</title>
+				<description xml:lang="ko">PC 메인 페이지에 표시할 svbanner 모듈 고유 번호를 입력합니다.. 예)/banner_basic?dim=1200x1200</description>
+			</var>
+			<var name="svbanner_dimension" type="text">
+				<title xml:lang="ko">호출할 배너 규격</title>
+				<description xml:lang="ko">호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
 			</var>
 		</group>
 		<group>

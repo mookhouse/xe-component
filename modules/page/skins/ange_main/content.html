@@ -26,9 +26,8 @@ $(document).ready(function(){
 			<!-- main slider -->
 			<div class="jumbo">
 {@
-$oBannerRst = svbannerModel::getCurrentBannerImgUrl(158, [1470, 430], 'ratio');
-//var_dump($oBannerRst);
-//exit;
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
 }
 <script>
 getUuid();
@@ -49,10 +48,7 @@ $(window, window.document).scroll(function () {
     }
 });
 </script>    
-                <li>
-                    <figure><img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;"></figure>
-                </li>            
-                
+                <img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;">
 				<!-- <ul class="jumbo-slider">
 					<li>
 						<a href="{$module_info->rolling_banner_1_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure></a>
