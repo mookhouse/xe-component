@@ -68,6 +68,10 @@ $(window, window.document).scroll(function () {
 	<div class="section">
 		<div class="column column-8">
 			<div class="brand-news">
+{@
+if(!$module_info->fixed_left_banner_img)
+        $module_info->fixed_left_banner_img = '/modules/page/skins/ange_main/imgs/img_sample_list_none.png';
+}                
 				<a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" s1tyle="background-image:url('{$module_info->fixed_left_banner_img}')">
 					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
 					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
