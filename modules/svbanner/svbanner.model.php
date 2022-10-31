@@ -51,7 +51,7 @@ class svbannerModel extends svbanner
 		Context::addJsFile($sScriptPath.'/skin.js/sv_banner_internal.js');
 		Context::addJsFile($sScriptPath.'/skin.js/jquery.cookie.js');
 
-		if(count($aBanne1rDim) != 2)
+		if(count($aBannerDim) != 2)
 		{
 			$oRst = new stdClass();
 			$oRst->nImpLogSrl = 0;
