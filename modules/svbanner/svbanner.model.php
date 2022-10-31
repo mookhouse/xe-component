@@ -45,7 +45,7 @@ class svbannerModel extends svbanner
 * @brief get current banner info
 * @return 
 **/
-	public function getCurrentBannerImgUrl($nModuleSrl, $aBannerDim)
+	public static function getCurrentBannerImgUrl($nModuleSrl, $aBannerDim)
 	{
 		$sScriptPath = '/modules/svbanner/tpl';
 		Context::addJsFile($sScriptPath.'/skin.js/sv_banner_internal.js');

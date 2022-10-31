@@ -25,7 +25,34 @@ $(document).ready(function(){
 		<div class="column column-12">
 			<!-- main slider -->
 			<div class="jumbo">
-                <iframe src="{$module_info->svbanner_mid_url}" width="1170" height="340" scrolling="no" style="border:none"></iframe>
+{@
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl(158, [1470, 430], 'ratio');
+//var_dump($oBannerRst);
+//exit;
+}
+<script>
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>    
+                <li>
+                    <figure><img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;"></figure>
+                </li>            
+                
 				<!-- <ul class="jumbo-slider">
 					<li>
 						<a href="{$module_info->rolling_banner_1_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure></a>
@@ -41,7 +68,7 @@ $(document).ready(function(){
 	<div class="section">
 		<div class="column column-8">
 			<div class="brand-news">
-				<a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url({$module_info->fixed_left_banner_img})">
+				<a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" s1tyle="background-image:url('{$module_info->fixed_left_banner_img}')">
 					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
 					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
 					<p sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_desc}</p>

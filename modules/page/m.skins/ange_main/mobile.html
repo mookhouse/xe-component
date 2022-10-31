@@ -32,9 +32,33 @@ function calcHeight(){
 }
 </script>
 <!-- main slider --->
+{@
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl(158, [1470, 430], 'ratio');
+//exit;
+}
+<script>
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script> 
 <div class="jumbo" style="padding-bottom:2px;">
 	<div class="container">
-        <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe>
+        <!-- <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe> -->
+        <img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' class="img-responsive">
 		<!-- <ul>
 			<li>
 				<a href="{$module_info->rolling_banner_1_out_link}">
