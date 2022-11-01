@@ -157,6 +157,7 @@ class svbannerAdminController extends svbanner
 				$aBannerPolicy[$nPolicyIdx]->bPassed = false;
 			}
 		}
+		$this->_resetCacheSchedule();
 		// package_srl + img_width + img_height uniqueness
 		$nReqPackageSrl = (int)Context::get('package_srl');
 		if($nReqPackageSrl)
@@ -208,7 +209,7 @@ class svbannerAdminController extends svbanner
 
 		Context::set('begin_date', $aBeginDate[0].$aBeginDate[1].$aBeginDate[2].'000000');
 		Context::set('end_date', $aEndDate[0].$aEndDate[1].$aEndDate[2].'235959');
-
+		$this->_resetCacheSchedule();
 		$nReqContractSrl = (int)Context::get('contract_srl');
 		if($nReqContractSrl)
 			$oRst = $this->_updateContract();
@@ -532,11 +533,11 @@ class svbannerAdminController extends svbanner
 		return $oModuleControll->insertModuleConfig('svbanner', $oConfig);
 	}
 /**
- * @brief  update event 발생하면 ./files/cache/svbanner/ 폴더 비우기
+ * @brief  update event 발생하면 ./files/cache/svbanner/schedule/ 폴더 비우기
  **/
-	private function _resetCache()
+	private function _resetCacheSchedule()
 	{
-		FileHandler::removeFilesInDir('./files/cache/svbanner/');
+		FileHandler::removeFilesInDir('./files/cache/svbanner/schedule/');
 	}
 /**
  * @brief validate yyyy-mm-dd string
