@@ -1,4 +1,3 @@
-<!--%import("js/script.js")-->
 <include target="_header.html" />
 
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
@@ -7,86 +6,19 @@
 
 <form action="./" method="post" class="form" enctype="multipart/form-data">
 	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="procSvitemAdminConfig" />
-
-	<fieldset class="section">
-		<h1>{$lang->connect_external_stock_server}</h1>
-		<ul>
-			<li>
-				<p class="q">{$lang->select_server}</p>
-				<p class="a">
-					<select name="external_server_type">
-						<option value='' selected="selected"|cond="$config->external_server_type==''">{$lang->connect_internal_stock_server}</option>
-						<option value='ecaso' selected="selected"|cond="$config->external_server_type=='ecaso'">ecaso</option>
-					</select>
-				</p>
-				<p class="desc">{$lang->about_select_server}</p>
-			</li>
-			<li>
-				<p class="q">{$lang->default_safe_stock}</p>
-				<p class="a">
-					<input type="text" name="default_safe_stock" value="{$config->default_safe_stock}" />
-				</p>
-				<p class="desc">{$lang->about_default_safe_stock}</p>
-			</li>
-		</ul>
-	</fieldset>
+	<input type="hidden" name="act" value="procSvbannerAdminConfig" />
 	<section class="section">
-		<h1>{$lang->naver_ep_setting}</h1>
+		<h1>{$lang->default_setting}</h1>
 		<div class="x_control-group">
-			<label class="x_control-label" for="naver_ep_use">{$lang->naver_ep_use}</label>
-			<div class="x_controls">{$lang->naver_ep_use_htaccess}<BR>
-				<label class="x_inline" for="naver_ep_use"><input type="radio" name="naver_ep_use" id="naver_ep_use" value="Y" checked="checked"|cond="$config->naver_ep_use=='Y'" />{$lang->naver_ep_on}</label>
-				<label class="x_inline" for="naver_ep_use"><input type="radio" name="naver_ep_use" id="naver_ep_use" value="N" checked="checked"|cond="$config->naver_ep_use=='N'"/>{$lang->naver_ep_off}</label>
-				<a href="#naver_ep_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="naver_ep_help" class="x_help-block" hidden>{$lang->about_naver_ep}</p>
+			<label class="x_control-label" for="duplicated_click_limit_day">{$lang->duplicated_click_limit_day}</label>
+			<div class="x_controls">
+				<input type="text" name="duplicated_click_limit_day" value="{$oConfig->duplicated_click_limit_day}" />
+				<a href="#duplicated_click_limit_day_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="duplicated_click_limit_day_help" class="x_help-block" hidden>{$lang->about_duplicated_click_limit_day}</p>
 			</div>
 		</div>
 	</section>
-	<section class="section">
-		<h1>{$lang->daum_ep_setting}</h1>
-		<div class="x_control-group">
-			<label class="x_control-label" for="mlayout_srl">{$lang->daum_ep_use}</label>
-			<div class="x_controls">{$lang->daum_ep_use_htaccess}<BR>
-				<label class="x_inline" for="daum_ep_use"><input type="radio" name="daum_ep_use" id="daum_ep_use" value="Y" checked="checked"|cond="$config->daum_ep_use=='Y'" />{$lang->daum_ep_on}</label>
-				<label class="x_inline" for="daum_ep_use"><input type="radio" name="daum_ep_use" id="daum_ep_use" value="N" checked="checked"|cond="$config->daum_ep_use=='N'"/>{$lang->daum_ep_off}</label>
-				<a href="#daum_ep_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="daum_ep_help" class="x_help-block" hidden>{$lang->about_daum_ep}</p>
-			</div>
-		</div>
-	</section>
-	<fieldset class="section">
-		<h1>{$lang->currency_settings}</h1>
-		<ul>
-			<li>
-				<p class="q">{$lang->select_currency}</p>
-				<p class="a">
-					<select name="currency">
-						<option loop="$lang->currency_list=>$code,$val" value="{$code}" selected="selected"|cond="$config->currency==$code">{$val}</option>
-					</select>
-				</p>
-				<p class="desc">{$lang->about_select_currency}</p>
-			</li>
-			<li>
-			<p class="q">{$lang->currency_format}</p>
-				<p class="a">
-					<select name="as_sign">
-						<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
-						<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
-					</select>
-				</p>
-				<p class="desc">{$lang->about_currency_format}</p>
-			</li>
-			<li>
-				<p class="q">{$lang->decimal_place}</p>
-				<p class="a">
-					<input type="text" name="decimals" value="{$config->decimals}" />
-				</p>
-				<p class="desc">{$lang->about_decimal_place}</p>
-			</li>
-		</ul>
-	</fieldset>
-
+	
 	<div class="btnArea">
 		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
 	</div>

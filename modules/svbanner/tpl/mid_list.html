@@ -1,15 +1,3 @@
-<load target="js/modinstlist.js" />
-
-<form cond="0" action="./" method="get" onsubmit="return doChangeCategory(this);" id="fo_list">
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-	<select name="module_category_srl">
-		<option value="">{$lang->module_category}</option>
-		<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_category_srl==$key">{$val->title}</option>
-	</select>
-	<input type="submit" name="go_button" id="go_button" value="GO" class="buttonTypeGo" />
-</form>
-
 <table class="x_table">
 	<thead>
 		<tr>
@@ -44,7 +32,7 @@
 
 <form action="./" class="x_modal" method="post" id="deleteInstance">
 	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="procSvitemAdminDeleteModInst" />
+	<input type="hidden" name="act" value="procSvbannerAdminDeleteModInst" />
 	<div class="x_modal-header">
 		<h1>{$lang->display_page} : {$lang->delete}</h1>
 	</div>

@@ -70,13 +70,18 @@ function checkDisplayed(sObjId, nImpSrl) {
 	}
 }
 
-function checkClicked(nImpSrl, nBannerSrl) {
+function checkClicked(nImpSrl, nBannerSrl, fDuplicatedClickLimitDay) {
 	var sBannerClkId = nBannerSrl + '_clked';
 	// $.removeCookie(sBannerClkId);
 	sBannerClicked = $.cookie(sBannerClkId);
-	console.log('dsfsd ' + sBannerClicked);
+	console.log(sBannerClicked + ' banner clicked');
+	fDuplicatedClickLimitDay = parseFloat(fDuplicatedClickLimitDay);
+	if (isNaN(fDuplicatedClickLimitDay)) { // 값이 없어서 NaN값이 나올 경우
+		fDuplicatedClickLimitDay = 0.0;
+	}
 	if(!sBannerClicked){
-		$.cookie(sBannerClkId, 1, {expires: 0.0104, path: '/'});  // 0.0104=15/1440 means 15 min, 2/24 means expires in 2 hrs
+		console.log('click won\'t be reported until ' + fDuplicatedClickLimitDay + ' days');
+		$.cookie(sBannerClkId, 1, {expires: fDuplicatedClickLimitDay, path: '/'});  // 0.0104=15/1440 means 15 min, 2/24 means expires in 2 hrs
 		sBannerClicked = $.cookie(sBannerClkId);
 		var bClicked = false;
 	}
@@ -87,9 +92,6 @@ function checkClicked(nImpSrl, nBannerSrl) {
 		console.log('banner click patch');
 		var params = new Array();
 		params['imp_srl'] = nImpSrl;
-		// params['ua'] = _g_sUa;
-		// params['uuid'] = _g_sUuid;
-		// params['page_url'] = _g_sParentUrl;
 		var respons = [];
 		exec_xml('svbanner', 'procSvbannerPatchClk', params, function(ret_obj) {
 			console.log('click patched');

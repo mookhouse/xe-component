@@ -25,14 +25,17 @@ class svbannerView extends svbanner
 		$aBannerDim = explode('x', trim(Context::get('dim')));
 		$oSvbannerModel = &getModel('svbanner');
 		$oRst = $oSvbannerModel->getCurrentBanner($this->module_info->module_srl, $aBannerDim);
-		unset($oSvbannerModel);
 		Context::set('nImpSrl', $oRst->nImpLogSrl);
 		Context::set('nSelectedBannerSrl', $oRst->nBannerSrl);
 		Context::set('sBannerImgUrl', $oRst->sBannerImgUrl);
 		Context::set('sBannerLandingUrl', $oRst->sLandingUrl);
 		unset($oRst);
+		$oConfig = $oSvbannerModel->getModuleConfig();
+		Context::set('fDuplicatedClickLimitDay', $oConfig->duplicated_click_limit_day);
+		unset($oConfig);
+		unset($oSvbannerModel);
 		Context::set('sUniqId', uniqid());
-		$this->setTemplateFile('index');
+		$this->setTemplateFile('index_iframe');
 	}
 }
 /* End of file svbanner.view.php */

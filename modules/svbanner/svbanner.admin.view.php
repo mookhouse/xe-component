@@ -332,23 +332,23 @@ class svbannerAdminView extends svbanner
 	public function dispSvbannerAdminConfig() 
 	{
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
-		$config = $oSvbannerAdminModel->getModuleConfig();
-		
-		Context::set('config',$config);	
-		$oSvbannerModules = array();
-		$oModuleModel = &getModel('module');
-		$oModules = $oModuleModel->getMidList();
-		foreach($oModules as $key=>$val)
-		{
-			if($val->module == 'svbanner')
-			{
-                if(is_null($oSvbannerModules[$nIdx]))
-                    $oSvbannerModules[$nIdx] = new stdClass();
-				$oSvbannerModules[$nIdx]->module_srl = $val->module_srl;
-				$oSvbannerModules[$nIdx++]->mid = $val->mid;
-			}
-		}
-		Context::set('svbanner_mod_list', $oSvbannerModules);
+		$oConfig = $oSvbannerAdminModel->getModuleConfig();
+		Context::set('oConfig',$oConfig);
+		unset($oConfig);
+		// $oSvbannerModules = array();
+		// $oModuleModel = &getModel('module');
+		// $oModules = $oModuleModel->getMidList();
+		// foreach($oModules as $key=>$val)
+		// {
+		// 	if($val->module == 'svbanner')
+		// 	{
+        //         if(is_null($oSvbannerModules[$nIdx]))
+        //             $oSvbannerModules[$nIdx] = new stdClass();
+		// 		$oSvbannerModules[$nIdx]->module_srl = $val->module_srl;
+		// 		$oSvbannerModules[$nIdx++]->mid = $val->mid;
+		// 	}
+		// }
+		// Context::set('svbanner_mod_list', $oSvbannerModules);
 		$this->setTemplateFile('config');
 	}
 /**

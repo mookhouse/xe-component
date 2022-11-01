@@ -251,7 +251,9 @@ public function getContractListByClientSrl($nClientSrl)
 	public function getModuleConfig()
 	{
 		$oSvbannerModel = &getModel('svbanner');
-		return $oSvbannerModel->getModuleConfig();
+		$oRst = $oSvbannerModel->getModuleConfig();
+		unset($oSvbannerModel);
+		return $oRst;
 	}
 /**
  * @brief 

@@ -24,10 +24,8 @@ class svbannerModel extends svbanner
 		$oConfig = $oModuleModel->getModuleConfig('svbanner');
 		if(is_null($oConfig))
 			$oConfig = new stdClass();
-		// if(!$oConfig->cart_thumbnail_width) $oConfig->cart_thumbnail_width = 100;
-		// if(!$oConfig->cart_thumbnail_height) $oConfig->cart_thumbnail_height = 100;
-
-		// $oConfig->currency = 'KRW';
+		if(!$oConfig->duplicated_click_limit_day) 
+			$oConfig->duplicated_click_limit_day = '0.0104';  // 0.0104=15/1440 means 15 min
 		return $oConfig;
 	}
 /**
@@ -51,20 +49,26 @@ class svbannerModel extends svbanner
 		Context::addJsFile($sScriptPath.'/skin.js/sv_banner_internal.js');
 		Context::addJsFile($sScriptPath.'/skin.js/jquery.cookie.js');
 
+		// Unable to use $this as not in object context
+		$oSvbannerModel = &getModel('svbanner');
 		if(count($aBannerDim) != 2)
 		{
 			$oRst = new stdClass();
 			$oRst->nImpLogSrl = 0;
 			$oRst->nBannerSrl = 0;
 			$oRst->sBannerImgUrl = Context::getRequestUri().$sScriptPath.'/img/no_img_80x80.jpg';
-			$oRst->sUniqId = uniqid();
+			// $oRst->sUniqId = uniqid();
 			$oRst->sLandingUrl = '#';
-			return $oRst;
+			// return $oRst;
 		}
-		$oSvbannerModel = &getModel('svbanner');
-		$oRst = $oSvbannerModel->getCurrentBanner($nModuleSrl, $aBannerDim);
+		else
+			$oRst = $oSvbannerModel->getCurrentBanner($nModuleSrl, $aBannerDim);
+	
 		$oRst->sUniqId = uniqid();
+		$oConfig = $oSvbannerModel->getModuleConfig();
+		$oRst->fDuplicatedClickLimitDay = $oConfig->duplicated_click_limit_day;
 		unset($oSvbannerModel);
+		unset($oConfig);
 		return $oRst;
 	}
 /**

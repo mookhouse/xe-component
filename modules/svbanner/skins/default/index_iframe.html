@@ -1,0 +1,24 @@
+<img id="banner_{$sUniqId}" src='{$sBannerImgUrl}' width="100%" style="cursor: pointer;">
+<script>
+$(window).load(function() {
+    // console.log('page is loaded');
+    getUuid();
+    // var bDisplayed = checkImpression(jQuery('#banner_{$sUniqId}'));//, window.parent.document));
+    if(checkImpression(jQuery('#banner_{$sUniqId}'))) {
+        checkDisplayed('banner_{$sUniqId}', '{$nImpSrl}');
+	}
+});
+
+$(window.parent, window.parent.document).scroll(function () {
+	// console.log('parent scrolled');
+    if(checkImpression(jQuery('#banner_{$sUniqId}'))) {
+        checkDisplayed('banner_{$sUniqId}', '{$nImpSrl}');
+	}
+});
+
+$('#banner_{$sUniqId}').click(function() {
+    // console.log('banner clicked');
+    checkClicked('{$nImpSrl}', '{$nSelectedBannerSrl}', '{$fDuplicatedClickLimitDay}');
+    parent.location.href='{$sBannerLandingUrl}';
+});
+</script>

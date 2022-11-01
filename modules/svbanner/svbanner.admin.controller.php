@@ -482,26 +482,16 @@ class svbannerAdminController extends svbanner
 	public function procSvbannerAdminConfig() 
 	{
 		$oArgs = Context::getRequestVars();
-		if(is_null($oArgs->external_server_type))
-			$oArgs->external_server_type = '';
-		
+
+		if(is_null($oArgs->duplicated_click_limit_day))
+			$oArgs->duplicated_click_limit_day = '0.0104';  // 0.0104=15/1440 means 15 min
 		$output = $this->_saveModuleConfig($oArgs);
 		if(!$output->toBool())
 			$this->setMessage('error_occured');
 		else
 			$this->setMessage('success_updated');
-		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminConfig','module_srl',Context::get('module_srl')));
+		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminConfig','module_srl',''));
 	}
-/**
- * @brief validate yyyy-mm-dd string
- **/	
-    private function _validateYyyymmdd($sYyyymmdd) 
-    {
-        if(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$sYyyymmdd)) 
-            return true;
-        else 
-            return false;
-    }
 /**
 * @brief update mid level config
 **/
@@ -529,13 +519,17 @@ class svbannerAdminController extends svbanner
 **/
 	private function _saveModuleConfig($oArgs)
 	{
-		$oSvitemAdminModel = &getAdminModel('svitem');
+		$oSvitemAdminModel = &getAdminModel('svbanner');
 		$oConfig = $oSvitemAdminModel->getModuleConfig();
-		foreach( $oArgs as $key=>$val)
+		foreach($oArgs as $key=>$val)
 			$oConfig->{$key} = $val;
 
+		// remove unneccesary args
+		unset($oConfig->error_return_url);
+		unset($oConfig->module);
+		unset($oConfig->act);
 		$oModuleControll = getController('module');
-		return $oModuleControll->insertModuleConfig('svitem', $oConfig);
+		return $oModuleControll->insertModuleConfig('svbanner', $oConfig);
 	}
 /**
  * @brief  update event 발생하면 ./files/cache/svbanner/ 폴더 비우기
@@ -543,6 +537,16 @@ class svbannerAdminController extends svbanner
 	private function _resetCache()
 	{
 		FileHandler::removeFilesInDir('./files/cache/svbanner/');
+	}
+/**
+ * @brief validate yyyy-mm-dd string
+ **/	
+	private function _validateYyyymmdd($sYyyymmdd) 
+	{
+		if(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$sYyyymmdd)) 
+			return true;
+		else 
+			return false;
 	}
 }
 /* End of file svbanner.admin.controller.php */

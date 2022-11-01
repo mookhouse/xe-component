@@ -10,7 +10,7 @@
 	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminItemListByModule','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
 	<!-- <li class="x_active"|cond="$act=='dispSvbannerAdminInsertMid' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminInsertMid')}">{$lang->banner_mid_creation}</a></li> -->
 	<li class="x_active"|cond="$act=='dispSvbannerAdminListClient' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminListClient')}">{$lang->banner_client_list}</a></li>
-	<!-- <li class="x_active"|cond="$act=='dispSvbannerAdminConfig'"><a href="{getUrl('','module',$module, 'act','dispSvbannerAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li> -->
+	<li class="x_active"|cond="$act=='dispSvbannerAdminConfig'"><a href="{getUrl('','module',$module, 'act','dispSvbannerAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li>
 </ul>
 <ul cond="$module_srl" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispSvbannerAdminListPkgByMid'"><a href="{getUrl('act','dispSvbannerAdminListPkgByMid')}">{$lang->package_list}</a></li>

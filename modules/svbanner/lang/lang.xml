@@ -120,4 +120,14 @@
 	<item name="ctr">
 		<value xml:lang="ko"><![CDATA[클릭율]]></value>
 	</item>
+	<item name="default_setting">
+		<value xml:lang="ko"><![CDATA[기본설정]]></value>
+	</item>
+	<item name="duplicated_click_limit_day">
+		<value xml:lang="ko"><![CDATA[중복 클릭 방지 일]]></value>
+	</item>
+	<item name="about_duplicated_click_limit_day">
+		<value xml:lang="ko"><![CDATA[중복 클릭 방지를 위한 쿠키 유효 시간을 일 단위로 입력합니다. 공란이면 15분으로 설정됩니다.<BR>예) 1은 하루간 중복 클릭 방지, 0.0104=15/1440 15분간, 0.0833 = 2/24는 2시간]]></value>
+	</item>
+	
 </lang>
