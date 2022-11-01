@@ -148,7 +148,10 @@ class svbannerModel extends svbanner
 		unset($oContractRst);
 
 		$oArg = new stdClass();
-		$oArg->package_srl = implode(',', $aCorrespondingPkg);
+		if(count($aCorrespondingPkg))
+			$oArg->package_srl = implode(',', $aCorrespondingPkg);
+		else
+			$oArg->package_srl = -123;  // search unavailable
 		unset($aCorrespondingPkg);
 		$oArg->img_width = $aBannerDim[0];
 		$oArg->img_height = $aBannerDim[1];
