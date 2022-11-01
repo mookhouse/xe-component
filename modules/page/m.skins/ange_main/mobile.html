@@ -44,7 +44,7 @@ $(window).load(function() {
     }
     $('#banner_{$oBannerRst->sUniqId}').click(function() {
         // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
         window.location.href='{$oBannerRst->sLandingUrl}';
     });
 });

@@ -57,9 +57,7 @@ class svbannerModel extends svbanner
 			$oRst->nImpLogSrl = 0;
 			$oRst->nBannerSrl = 0;
 			$oRst->sBannerImgUrl = Context::getRequestUri().$sScriptPath.'/img/no_img_80x80.jpg';
-			// $oRst->sUniqId = uniqid();
 			$oRst->sLandingUrl = '#';
-			// return $oRst;
 		}
 		else
 			$oRst = $oSvbannerModel->getCurrentBanner($nModuleSrl, $aBannerDim);
