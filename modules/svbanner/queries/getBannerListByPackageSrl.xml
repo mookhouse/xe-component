@@ -1,0 +1,17 @@
+<query id="getBannerListByPackageSrl" action="select">
+	<tables>
+		<table name="svbanner_banner" />
+	</tables>
+	<columns>
+		<column name="banner_srl" />
+		<column name="package_srl" />
+        <column name="img_width" />
+        <column name="img_height" />
+        <column name="img_file_srl" />
+	</columns>
+    <conditions>
+        <condition operation="in" column="package_srl" var="package_srl" notnull="notnull" />
+		<condition operation="equal" column="img_width" var="img_width" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="img_height" var="img_height" notnull="notnull" pipe="and" />
+	</conditions>
+</query>

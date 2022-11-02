@@ -1,0 +1,39 @@
+<section class="section">
+	<h1>{$lang->title_package_info}</h1>
+	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
+		<input name="module" type="hidden" value="{$module}" />
+        <input name="client_srl" type="hidden" value="{$client_srl}" />
+		<input name="act" type="hidden" value="procSvbannerAdminInsertClient" />
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->client_name}</label>
+			<div class="x_controls">
+				<input type="text" name="client_name" value="{$oClientInfo->client_name}" />
+				<a href="#client_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="client_name_help" class="x_help-block" hidden>{$lang->about_client_name}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="is_active">{$lang->is_active}</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="is_active" value="Y" checked="checked"|cond="$oClientInfo->is_active=='Y' || $oClientInfo->is_active==''" />{$lang->on}</label>
+				<label class="x_inline"><input type="radio" name="is_active" value="N" checked="checked"|cond="$oClientInfo->is_active=='N'"/>{$lang->off}</label>
+				<a href="#is_active_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="is_active_help" class="x_help-block" hidden>{$lang->about_is_active}</p>
+			</div>
+		</div>
+        <div class="x_control-group" cond="$client_srl">
+			<label class="x_control-label" for="browser_title">{$lang->history}</label>
+			<div class="x_controls">
+                {$oClientInfo->user_id}가 {zdate($oClientInfo->regdate, 'Y-m-d H:i:s')}에 생성함
+			</div>
+		</div>
+		<div class="x_clearfix btnArea">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+		</div>
+	</form>
+</section>
+
+<section class="section">
+	<h1>{$lang->title_contract_info}</h1>
+	<include target="_contract_list"/>
+</section>

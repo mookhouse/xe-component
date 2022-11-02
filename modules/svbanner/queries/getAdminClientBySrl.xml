@@ -1,0 +1,11 @@
+<query id="getAdminClientBySrl" action="select">
+	<tables>
+		<table name="svbanner_client" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+        <condition operation="equal" column="client_srl" var="client_srl" notnull="notnull" />
+	</conditions>
+</query>

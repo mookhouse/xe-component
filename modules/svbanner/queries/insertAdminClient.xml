@@ -1,0 +1,10 @@
+<query id="insertAdminClient" action="insert">
+	<tables>
+		<table name="svbanner_client" />
+	</tables>
+	<columns>
+        <column name="member_srl" var="member_srl" notnull="notnull" />
+        <column name="client_name" var="client_name" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

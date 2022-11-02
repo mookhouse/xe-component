@@ -1,0 +1,25 @@
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procSvbannerAdminConfig" />
+	<section class="section">
+		<h1>{$lang->default_setting}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="duplicated_click_limit_day">{$lang->duplicated_click_limit_day}</label>
+			<div class="x_controls">
+				<input type="text" name="duplicated_click_limit_day" value="{$oConfig->duplicated_click_limit_day}" />
+				<a href="#duplicated_click_limit_day_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="duplicated_click_limit_day_help" class="x_help-block" hidden>{$lang->about_duplicated_click_limit_day}</p>
+			</div>
+		</div>
+	</section>
+	
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
+	</div>
+</form>

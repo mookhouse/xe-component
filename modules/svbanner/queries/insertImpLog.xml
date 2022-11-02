@@ -1,0 +1,13 @@
+<query id="insertImpLog" action="insert">
+	<tables>
+		<table name="svbanner_impression" />
+	</tables>
+	<columns>
+		<column name="img_width" var="img_width" notnull="notnull" />
+        <column name="img_height" var="img_height" notnull="notnull" />
+        <column name="banner_srl" var="banner_srl" notnull="notnull" />
+        <column name="package_srl" var="package_srl" notnull="notnull" />
+        <column name="uuid" type="varchar" size="10" />
+		<column name="logdate" var="logdate" default="curdate()" />
+	</columns>
+</query>

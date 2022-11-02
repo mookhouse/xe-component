@@ -1,0 +1,15 @@
+<query id="getAdminPackageInfoBySrl" action="select">
+	<tables>
+		<table name="svbanner_package" />
+	</tables>
+	<columns>
+		<column name="client_srl" />
+		<column name="module_srl" />
+		<column name="landing_url" />
+        <column name="description" />
+        <column name="regdate" />
+	</columns>
+	<conditions>
+        <condition operation="equal" column="package_srl" var="package_srl" notnull="notnull" />
+	</conditions>
+</query>

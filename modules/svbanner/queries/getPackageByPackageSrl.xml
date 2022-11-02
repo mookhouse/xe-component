@@ -1,0 +1,11 @@
+<query id="getPackageByPackageSrl" action="select">
+	<tables>
+		<table name="svbanner_package" />
+	</tables>
+	<columns>
+		<column name="landing_url" />
+	</columns>
+	<conditions>
+        <condition operation="equal" column="package_srl" var="package_srl" notnull="notnull" />
+	</conditions>
+</query>

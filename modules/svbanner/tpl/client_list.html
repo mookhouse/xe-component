@@ -1,0 +1,80 @@
+<div class="table event easyList">
+	<table>
+		<thead>
+			<tr>
+				<th><input type="checkbox" name="cart" value="" /></th>
+				<th>{$lang->client_name}</th>
+				<th>{$lang->is_active}</th>
+                <th>{$lang->regdate}</th>
+				<th>{$lang->cmd_modify}</th>
+			</tr>
+		</thead>
+		<tbody id="itemlistorder">
+			<tr loop="$client_list=>$no,$val" id="record_{$val->package_srl}">
+				<td><input type="hidden" name="package_srls[]" value="{$val->package_srl}" /><input type="checkbox" name="cart" value="{$val->package_srl}" /></td>
+				<td>{$val->client_name}</td>
+                <td>{$val->is_active}</td>
+				<td>{zdate($val->regdate, 'Y-m-d H:i:s')}</td>
+				<td><a href="{getUrl('act','dispSvbannerAdminInsertClient','client_srl',$val->client_srl)}">{$lang->cmd_modify}</a></td>
+			</tr>
+			<tr cond="!count($client_list)">
+				<td colspan="12">{$lang->msg_no_registered_items}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="search">
+	<form id="searchForm" action="./" method="post" class="x_input-append" >
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<select name="search_key">
+			<option value="">{$lang->search_target}</option>
+			<option value="item_name" selected="selected"|cond="$search_key==''">{$lang->item_name}</option>
+			{@$lang->search_target_list = array_merge($lang->search_target_list, (array)$usedIdentifiers)}
+			<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+		</select>
+		<input type="text" name="search_item_name" value="{htmlspecialchars($search_item_name)}" />
+		<span class="btn"><button type="submit">{$lang->cmd_search}</button></span>
+		<a href="{getUrl('module','svshopmaster', 'module_srl', $module_srl, 'search_key', '', 'search_item_name', '')}" class="x_btn">{$lang->cmd_cancel}</a>
+        <a class="x_btn x_pull-right" href="{getUrl('act','dispSvbannerAdminInsertClient')}">{$lang->cmd_make}</a>
+	</form>
+</div>
+<div class="pagenation">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+</div>

@@ -1,0 +1,63 @@
+
+<section class="section">
+	<h1>[{$oPackageInfo->sClientName}]의 [{$oPackageInfo->description}] {$lang->title_contract_info}</h1>
+	<div class="table event easyList">
+		<table>
+			<thead>
+				<tr>
+					<th>{$lang->contract_srl}</th>
+					<th>{$lang->is_active}</th>
+					<th>{$lang->budget_amnt}</th>
+					<th>{$lang->memo}</th>
+					<th>{$lang->begin_date}</th>
+					<th>{$lang->end_date}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$oContractInfo->contract_srl}</td>
+					<td>{$oContractInfo->is_active}</td>
+					<td>{number_format($oContractInfo->budget_amnt)}원</td>
+					<td><textarea>{htmlspecialchars($oContractInfo->memo)}</textarea></td>
+					<td>{zdate($oContractInfo->begin_date,"Y-m-d H:i:s")}</td>
+					<td>{zdate($oContractInfo->end_date,"Y-m-d H:i:s")}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+{@
+$aDayName = ["일","월","화","수","목","금","토"];
+}
+<section class="section">
+	<h1>일별 개재 성과</h1>
+	<div class="table event easyList">
+		<table>
+			<thead>
+				<tr>
+					<th>{$lang->banner_date}</th>
+					<th>{$lang->impression}</th>
+					<th>{$lang->click}</th>
+					<th>{$lang->ctr}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>총합</td>
+					<td>{number_format($nGrossImp)}</td>
+					<td>{number_format($nGrossClk)}</td>
+					<td>{number_format($nGrossCtr*100,2)}%</td>
+				</tr>
+				<tr loop="$aDailyLog=>$sLogDate,$oLog">
+					<td>{$sLogDate}  ({$aDayName[date('w', strtotime($sLogDate))]})</td>
+					<td>{number_format($oLog->nImp)}</td>
+					<td>{number_format($oLog->nClk)}</td>
+					<td>{number_format($oLog->nCtr*100,2)}%</td>
+				</tr>
+				<tr cond="!count($aDailyLog)">
+					<td colspan="12">{$lang->msg_no_daily_log}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

@@ -2,10 +2,15 @@
 <div class="gallery-list">
 	<ul>
 <block loop="$wi->document_list=>$item">
+{@
+$sImgUrl = $item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type);
+if(!$sImgUrl)
+	$sImgUrl = '/widgets/ange_main_section/skins/ange_old_pc/img/_blank.gif';
+}
 		<li>
 			<a href="{$item->getPermanentUrl()}">
 				<figure>
-					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="/widgets/ange_main_section/skins/ange_old_pc/img/_blank.gif" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:170px;height:155px;background-image:url('{$item->getThumbnail($wi->thumbnail_width,$wi->thumbnail_height,$wi->thumbnail_type)}');background-size:cover;background-position:center center;">
+					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:170px;height:155px;background-size:cover;background-position:center center;">
 				</figure>
 			</a>
 		</li>
