@@ -126,7 +126,7 @@ class svbannerModel extends svbanner
 	{
 		$sTodayYyyymmdd = Date('Ymd');
 		// load schedule cache and return, if exists
-		$sScheduleCacheFilePathAbs = $this->_g_DailyScheduleCachePath.'/'.$nModuleSrl.'_'.$sTodayYyyymmdd.'.cache.php';
+		$sScheduleCacheFilePathAbs = $this->_g_DailyScheduleCachePath.'/'.$nModuleSrl.'_'.$aBannerDim[0].'_'.$aBannerDim[1].'_'.$sTodayYyyymmdd.'.cache.php';
 		$sTodayScheduleCacheFile = FileHandler::readFile($sScheduleCacheFilePathAbs);
 		if($sTodayScheduleCacheFile)
 			return unserialize($sTodayScheduleCacheFile);

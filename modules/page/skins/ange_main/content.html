@@ -26,11 +26,11 @@ $(document).ready(function(){
 			<!-- main slider -->
 			<div class="jumbo">
 {@
-//$aDim = explode('x', $module_info->svbanner_dimension);
-//$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
 }
 <script>
-/*getUuid();
+getUuid();
 $(window).load(function() {
     if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
         checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
@@ -46,10 +46,10 @@ $(window, window.document).scroll(function () {
     if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
         checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
     }
-});*/
+});
 </script>    
-                <!---img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;"--->
-				<ul class="jumbo-slider">
+                <img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;">
+				<!---ul class="jumbo-slider">
 					<li>
 						<a href="{$module_info->rolling_banner_1_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure></a>
 					</li>
@@ -57,7 +57,7 @@ $(window, window.document).scroll(function () {
 						<a href="{$module_info->rolling_banner_2_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner1' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure>
 						</a>
 					</li>
-				</ul>
+				</ul--->
 			</div>
 		</div>
 	</div>

@@ -33,11 +33,11 @@ function calcHeight(){
 </script>
 <!-- main slider --->
 {@
-//$aDim = explode('x', $module_info->svbanner_dimension);
-//$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
 }
 <script>
-/*getUuid();
+getUuid();
 $(window).load(function() {
     if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
         checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
@@ -53,13 +53,13 @@ $(window, window.document).scroll(function () {
     if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
         checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
     }
-});*/
+});
 </script> 
 <div class="jumbo" style="padding-bottom:2px;">
 	<div class="container">
         <!-- <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe> -->
-        <!---img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' class="img-responsive"--->
-		<ul>
+        <img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' class="img-responsive">
+		<!-- <ul>
 			<li>
 				<a href="{$module_info->rolling_banner_1_out_link}">
 					<img sv-attr='mob_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
@@ -70,7 +70,7 @@ $(window, window.document).scroll(function () {
 					<img sv-attr='mob_main_mainbanner1' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
 				</a>
 			</li>
-		</ul>
+		</ul> -->
 	</div>
 </div>
 <div class="container">
