@@ -20,9 +20,13 @@ class svbannerController extends svbanner
 		$oImpArgs->imp_srl = $oArgs->imp_srl;
 		$oImpArgs->ua = $oArgs->ua;
 		$oImpArgs->uuid = $oArgs->uuid;
-		// 내부 배너면 도메인 주소 제거하여 DB 용량 최소화
-		$oImpArgs->page_url = str_replace($_SERVER['REQUEST_SCHEME'].'://'. $_SERVER['SERVER_NAME'],'', $oArgs->page_url);
 		$oImpArgs->is_viewed = 1;
+        // 내부 배너면 도메인 주소 제거하여 DB 용량 최소화
+		$sStrippedUrl = str_replace($_SERVER['REQUEST_SCHEME'].'://'. $_SERVER['SERVER_NAME'],'', $oArgs->page_url);
+        // url 쿼리 제거하여 DB 용량 최소화
+        $aStrippedUrl = explode('?', $sStrippedUrl);
+        $oImpArgs->page_url = $aStrippedUrl[0];
+        unset($aStrippedUrl);
 		$oRst = executeQuery('svbanner.updateImpLog', $oImpArgs);
 		unset($oImpArgs);
 		unset($oArgs);
