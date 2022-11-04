@@ -13,12 +13,36 @@
         <group>
 			<title xml:lang="ko">성과 배너 연결</title>
 			<var name="svbanner_mid_srl" type="text">
-				<title xml:lang="ko">svbanner 모듈 ID</title>
-				<description xml:lang="ko">PC 메인 페이지에 표시할 svbanner 모듈 고유 번호를 입력합니다.. 예)/banner_basic?dim=1200x1200</description>
+				<title xml:lang="ko">최상단 svbanner 모듈 ID</title>
+				<description xml:lang="ko">PC 메인 페이지에 표시할 최상단 svbanner 모듈 고유 번호를 입력합니다.</description>
 			</var>
 			<var name="svbanner_dimension" type="text">
-				<title xml:lang="ko">호출할 배너 규격</title>
-				<description xml:lang="ko">호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
+				<title xml:lang="ko">최상단 호출할 배너 규격</title>
+				<description xml:lang="ko">최상단 호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
+			</var>
+            <var name="svbanner_dimension_middle_left_srl" type="text">
+				<title xml:lang="ko">중간 좌측 svbanner 모듈 ID</title>
+				<description xml:lang="ko">PC 메인 페이지에 표시할 중간 좌측 svbanner 모듈 고유 번호를 입력합니다.</description>
+			</var>
+			<var name="svbanner_dimension_middle_left" type="text">
+				<title xml:lang="ko">중간 좌측 호출할 배너 규격</title>
+				<description xml:lang="ko">중간 좌측 호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
+			</var>
+            <var name="svbanner_dimension_middle_right_srl" type="text">
+				<title xml:lang="ko">중간 우측 svbanner 모듈 ID</title>
+				<description xml:lang="ko">PC 메인 페이지에 표시할 중간 우측 svbanner 모듈 고유 번호를 입력합니다.</description>
+			</var>
+			<var name="svbanner_dimension_middle_right" type="text">
+				<title xml:lang="ko">중간 우측 호출할 배너 규격</title>
+				<description xml:lang="ko">중간 우측 호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
+			</var>
+            <var name="svbanner_dimension_section_bottom_srl" type="text">
+				<title xml:lang="ko">섹션 하단 svbanner 모듈 ID</title>
+				<description xml:lang="ko">PC 메인 페이지에 표시할 섹션 하단 svbanner 모듈 고유 번호를 입력합니다.</description>
+			</var>
+			<var name="svbanner_dimension_section_bottom" type="text">
+				<title xml:lang="ko">섹션 하단 호출할 배너 규격</title>
+				<description xml:lang="ko">섹션 하단 호출할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
 			</var>
 		</group>
 		<group>

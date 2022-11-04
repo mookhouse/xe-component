@@ -7,16 +7,16 @@
 
 <script type="text/javascript">
 // main slider
-$(document).ready(function(){
-	$('.top-banner > ul').bxSlider({
-		touchEnabled:(navigator.maxTouchPoints > 0),
-		auto: true,
-		pager: false,
-		controls: false
-		// prevText: '<i class="icon-left-dir-1"><span class="sr-only">이전</span></i>',
-		// nextText: '<i class="icon-right-dir-1"><span class="sr-only">다음</span></i>'
-	});
-});
+// $(document).ready(function(){
+// 	$('.top-banner > ul').bxSlider({
+// 		touchEnabled:(navigator.maxTouchPoints > 0),
+// 		auto: true,
+// 		pager: false,
+// 		controls: false
+// 		// prevText: '<i class="icon-left-dir-1"><span class="sr-only">이전</span></i>',
+// 		// nextText: '<i class="icon-right-dir-1"><span class="sr-only">다음</span></i>'
+// 	});
+// });
 </script>	
 
 <!--- 메인 페이지 최소 높이 /main.css #content --->
@@ -28,8 +28,9 @@ $(document).ready(function(){
 {@
 $aDim = explode('x', $module_info->svbanner_dimension);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+unset($aDim);
 }
-<script>
+<script type="text/javascript">
 getUuid();
 $(window).load(function() {
     if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
@@ -63,21 +64,76 @@ $(window, window.document).scroll(function () {
 	</div>
 	<div class="section">
 		<div class="column column-8">
-			<div class="brand-news">
+
 {@
-if(!$module_info->fixed_left_banner_img)
-        $module_info->fixed_left_banner_img = '/modules/page/skins/ange_main/imgs/img_sample_list_none.png';
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_left);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script> 
+            <div class="banner-item">
+				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:790px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
+			</div>
+{@
+//if(!$module_info->fixed_left_banner_img)
+//        $module_info->fixed_left_banner_img = '/modules/page/skins/ange_main/imgs/img_sample_list_none.png';
 }                
-				<a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" s1tyle="background-image:url('{$module_info->fixed_left_banner_img}')">
+            <!-- <div class="brand-news">
+                <a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url('{$module_info->fixed_left_banner_img}')">
 					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
 					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
 					<p sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_desc}</p>
 				</a>
-			</div>
+			</div> -->
 		</div>
-		<div class="column column-4">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_right);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>
+        <div class="column column-4">
 			<div class="banner-item">
-				<a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='pc_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></a>
+                <!-- <a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='pc_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></a> -->
+				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
 			</div>
 		</div>
 	</div>
@@ -103,11 +159,41 @@ if(!$module_info->fixed_left_banner_img)
 					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="45" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
 				</div>
 				<BR>
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>
+
 				<div class="brand-banner">
-					<a href="{$module_info->fixed_bottom_banner_out_link}">
+                    <figure><img sv-attr="pc_main_qna_bottombanner" id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
+					<!-- <a href="{$module_info->fixed_bottom_banner_out_link}">
 					<figure><img sv-attr="pc_main_qna_bottombanner" src="{$module_info->fixed_bottom_banner_img}" alt="" style="width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
-					</a>
+					</a> -->
 				</div>
+{@
+unset($oBannerRst);
+}                
 			</article>
 		</div>
 		<div class="column column-4">

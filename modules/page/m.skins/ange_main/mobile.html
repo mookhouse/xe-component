@@ -35,6 +35,7 @@ function calcHeight(){
 {@
 $aDim = explode('x', $module_info->svbanner_dimension);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+unset($aDim);
 }
 <script>
 getUuid();
@@ -110,7 +111,33 @@ $(window, window.document).scroll(function () {
 	<article class="brand-banner">
 		<div class="row">
 			<div class="col-xs-6">
-				<div class="brand-news">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_left);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>
+                <img sv-attr='mob_main_brandnews' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">             
+				<!-- <div class="brand-news">
 					<figure>
 						<img sv-attr='mob_main_brandnews' src="{$module_info->fixed_left_banner_img}" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' alt="brand news" class="img-responsive">
 					</figure>
@@ -121,11 +148,37 @@ $(window, window.document).scroll(function () {
 							<p sv-attr='mob_main_brandnews' class="summary">{$module_info->fixed_left_banner_desc}</p>
 						</div>
 					</a>
-				</div>
+				</div> -->
 			</div>
 			<div class="col-xs-6">
-				<div class="banner-item">
-					<a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='mob_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive"></a>
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_right);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>
+                <div class="banner-item">
+                    <img sv-attr='mob_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">
+					<!-- <a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='mob_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive"></a> -->
 				</div>
 			</div>
 		</div>
@@ -211,11 +264,40 @@ $(window, window.document).scroll(function () {
 		</div>
 		<div class="article-content">
 			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->brandstory_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="8" subject_cut_size="13" thumbnail_width="275" thumbnail_height="275" thumbnail_type="crop"/>
-			<div class="story-banner">
-				<a href="{$module_info->fixed_bottom_banner_out_link}">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
+unset($aDim);
+}
+<script type="text/javascript">
+getUuid();
+$(window).load(function() {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+    $('#banner_{$oBannerRst->sUniqId}').click(function() {
+        // console.log('banner clicked');
+        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
+        window.location.href='{$oBannerRst->sLandingUrl}';
+    });
+});
+
+$(window, window.document).scroll(function () {
+    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
+        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
+    }
+});
+</script>
+            <div class="story-banner">
+                <img sv-attr='mob_main_brandstory_bannerbottom' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
+				<!-- <a href="{$module_info->fixed_bottom_banner_out_link}">
 					<img sv-attr='mob_main_brandstory_bannerbottom' src="{$module_info->fixed_bottom_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
-				</a>
+				</a> -->
 			</div>
+{@
+unset($oBannerRst);
+}            
 		</div>
 	</article>
 </div>
