@@ -182,7 +182,7 @@ class svbannerModel extends svbanner
 		if($nBannerCnt)
 		{
 			$oFileModel = &getModel('file');
-			$sServerUrl = Context::getRequestUri();
+			$sServerUrl = Context::getDefaultUrl();
 			// construct serialzed circular linked list
 			for($j = 1; $j <= $nBannerCnt; $j++) 
 			{
