@@ -5,7 +5,7 @@
 </style>
 
 <section class="section">
-	<h1>{$lang->title_package_info}</h1>
+	<h1>[{$oPackageInfo->sClientName}]의 [{cut_str($oPackageInfo->description, 30, '...')}] {$lang->title_package_info} </h1>
 	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
 		<input name="module" type="hidden" value="{$module}" />
 		<input name="act" type="hidden" value="procSvbannerAdminInsertPkg" />
@@ -47,7 +47,8 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_1]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" />
+				<label for="del_img_{$nFileSrl}" style="padding:8px 0 0 0"><input type="checkbox" name="del_img_{$nFileSrl}" value="Y" id="del_img_{$nFileSrl}" class="checkbox" /> 삭제</label>
 			</block>
 				<input type="file" name="banner_img_1" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -61,7 +62,8 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_2]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" />
+				<label for="del_img_{$nFileSrl}" style="padding:8px 0 0 0"><input type="checkbox" name="del_img_{$nFileSrl}" value="Y" id="del_img_{$nFileSrl}" class="checkbox" /> 삭제</label>
 			</block>
 				<input type="file" name="banner_img_2" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -75,7 +77,8 @@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_3]->nFileSrl;
 	}
 			<block cond="$nFileSrl">
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" />
+				<label for="del_img_{$nFileSrl}" style="padding:8px 0 0 0"><input type="checkbox" name="del_img_{$nFileSrl}" value="Y" id="del_img_{$nFileSrl}" class="checkbox" /> 삭제</label>
 			</block>
 				<input type="file" name="banner_img_3" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -88,7 +91,8 @@
 	{@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_4]->nFileSrl;
 	}
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" />
+				<label for="del_img_{$nFileSrl}" style="padding:8px 0 0 0"><input type="checkbox" name="del_img_{$nFileSrl}" value="Y" id="del_img_{$nFileSrl}" class="checkbox" /> 삭제</label>
 				<input type="file" name="banner_img_4" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
@@ -100,7 +104,8 @@
 	{@
 	$nFileSrl = $oPackageInfo->aBannerList[$oMidConfig->banner_dimension_5]->nFileSrl;
 	}
-				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" /><BR>
+				<img src="{svbannerAdminView::dispBannerImgUrl($nFileSrl, 150, 0, 'ratio')}" />
+				<label for="del_img_{$nFileSrl}" style="padding:8px 0 0 0"><input type="checkbox" name="del_img_{$nFileSrl}" value="Y" id="del_img_{$nFileSrl}" class="checkbox" /> 삭제</label>
 				<input type="file" name="banner_img_5" />
 				<a href="#banner_img_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="banner_img_help" class="x_help-block" hidden>{$lang->about_banner_img}</p>
@@ -122,9 +127,12 @@
 	</form>
 </section>
 
+<include target="contract_insert" cond="$package_srl" />
+
+
 <section class="section">
 	<include target="_contract_list"/>
-	<div class="x_clearfix btnArea">
+	<!-- <div class="x_clearfix btnArea">
 		<button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', '')}';">{$lang->cmd_contract_add}</button>
-	</div>
+	</div> -->
 </section>

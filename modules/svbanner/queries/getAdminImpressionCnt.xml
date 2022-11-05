@@ -1,0 +1,8 @@
+<query id="getAdminImpressionCnt" action="select">
+    <tables>
+      <table name="svbanner_impression" />
+    </tables>
+    <columns>
+      <column name="count(*)" alias="total_count" />
+    </columns>
+</query>

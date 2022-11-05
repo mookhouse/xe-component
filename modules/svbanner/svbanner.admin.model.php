@@ -90,6 +90,9 @@ class svbannerAdminModel extends svbanner
 		$oPkgRst = executeQuery('svbanner.getAdminPackageInfoBySrl', $oArg);
 		$oBannerRst = executeQueryArray('svbanner.getAdminBannerListByPkgSrl', $oArg);
 		unset($oArg);
+		$aClientInfo = $this->getClientInfo4Ui();
+		$oPkgRst->data->sClientName = $aClientInfo[$oPkgRst->data->client_srl];
+		unset($aClientInfo);
 		$aBanner = [];
 		if(count($oBannerRst->data))
 		{
@@ -243,6 +246,19 @@ public function getContractListByClientSrl($nClientSrl)
 		FileHandler::writeFile($sLogCacheFilePathAbs, $sSerializedRst);
 		// exit;
 		return $oRst;
+	}
+/**
+* @brief calculate impression log garbage ratio
+**/
+	public function getImpressionLogGarbageRatio()
+	{
+		$oImpRst = executeQuery('svbanner.getAdminImpressionCnt');
+		$nTotalLogCnt = (int)$oImpRst->data->total_count;
+		unset($oImpRst);
+		$oImpRst = executeQuery('svbanner.getAdminGarbageImpressionCnt');
+		$nGarbageLogCnt = (int)$oImpRst->data->total_count;
+		unset($oImpRst);
+		return $nGarbageLogCnt / $nTotalLogCnt;
 	}
 /**
  * @brief get module level config

@@ -4,6 +4,6 @@
 	<column name="package_srl" type="number" size="11" default="0" notnull="notnull" index="idx_package_srl"/>
 	<column name="img_width" type="number" size="11" default="150" notnull="notnull" index="idx_module_srl_img_width_height" />
 	<column name="img_height" type="number" size="11" default="150" notnull="notnull" index="idx_module_srl_img_width_height" />
-	<column name="img_file_srl" type="number" size="11" default="0" notnull="notnull" />
+	<column name="img_file_srl" type="number" size="11" default="0" notnull="notnull" index="idx_img_file_srl" />
 	<column name="regdate" type="date" notnull="notnull" />
 </table>

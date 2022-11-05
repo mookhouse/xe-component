@@ -4,7 +4,10 @@
         <th>{$lang->cmd_view_contract_outcome}</th>
         <th>{$lang->budget_amnt}</th>
         <th>{$lang->is_active}</th>
-        <th>{$lang->memo}</th>
+        <th>{$lang->impression}</th>
+        <th>{$lang->click}</th>
+        <th>{$lang->ctr}</th>
+        <!-- <th>{$lang->memo}</th> -->
         <th>{$lang->begin_date}</th>
         <th>{$lang->end_date}</th>
         <th>{$lang->cmd_modify}</th>
@@ -12,9 +15,24 @@
     <tr loop="$aContractList=>$nIdx,$oSingleContract">
         <td>{$oSingleContract->contract_srl}</td>
         <td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminContractOutcome', 'package_srl', '', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_view_contract_outcome}</button></td>
-        <td>{$oSingleContract->budget_amnt}</td>
+        <td>{number_format($oSingleContract->budget_amnt)}원</td>
         <td>{$oSingleContract->is_active}</td>
-        <td><textarea cols='60'>{$oSingleContract->memo}</textarea></td>
+        <td>
+            <block cond="$oSingleContract->nGrossImp">
+                {number_format($oSingleContract->nGrossImp)}
+            </block>					
+        </td>
+        <td>
+            <block cond="$oSingleContract->nGrossClk">
+                {number_format($oSingleContract->nGrossClk)}
+            </block>
+        </td>
+        <td>
+            <block cond="$oSingleContract->nGrossCtr">
+                {number_format($oSingleContract->nGrossCtr*100,2)}%
+            </block>
+        </td>
+        <!-- <td><textarea cols='60'>{$oSingleContract->memo}</textarea></td> -->
         <td>{zdate($oSingleContract->begin_date, 'Y-m-d')}</td>
         <td>{zdate($oSingleContract->end_date, 'Y-m-d')}</td>
         <td><button type="button" class="x_btn x_btn-primary" onClick="location.href='{getUrl('act','dispSvbannerAdminInsertContract', 'contract_srl', $oSingleContract->contract_srl)}';">{$lang->cmd_modify}</button></td>

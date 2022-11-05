@@ -186,6 +186,25 @@ class svbannerAdminController extends svbanner
 /**
  * @brief 
  **/
+	private function _getDaysBetween($date_from, $date_to)
+	{
+		$arr_days = [];
+		$day_passed = ($date_to - $date_from); //seconds
+		$day_passed = ($day_passed/86400); //days
+		$counter = 1;
+		$day_to_display = $date_from;
+		$arr_days[date('omd',$day_to_display)] = 1;
+		while($counter < $day_passed)
+		{
+			$day_to_display += 86400;
+			$arr_days[date('omd',$day_to_display)] = 1;
+			$counter++;
+		}
+		return $arr_days;
+	}
+/**
+ * @brief 
+ **/
 	public function procSvbannerAdminInsertContract() 
 	{
 		$nReqModuleSrl = (int)Context::get('module_srl');
@@ -193,6 +212,7 @@ class svbannerAdminController extends svbanner
 		if(!$nReqModuleSrl || !$nReqPackageSrl)
 			return new BaseObject(-1, 'msg_invalid_request');
 		
+		$nReqContractSrl = (int)Context::get('contract_srl');
 		$sBeginDate = trim(Context::get('begin_date'));
 		$sEndDate = trim(Context::get('end_date'));
 		
@@ -201,16 +221,56 @@ class svbannerAdminController extends svbanner
 		$aBeginDate = explode('-', $sBeginDate);
 		$aEndDate = explode('-', $sEndDate);
 		
+		// begin - validate contract period
 		if(!checkdate($aBeginDate[1], $aBeginDate[2], $aBeginDate[0]) || !checkdate($aEndDate[1], $aEndDate[2], $aEndDate[0]))
 			return new BaseObject(-1, 'msg_invalid_contract_date');
 		
-		if((int)($aBeginDate[0].$aBeginDate[1].$aBeginDate[2]) > (int)($aEndDate[0].$aEndDate[1].$aEndDate[2]))
-			return new BaseObject(-1, 'msg_invalid_contract_period');
+		$sContractBeginDate = $aBeginDate[0].$aBeginDate[1].$aBeginDate[2];
+		$sContractEndDate = $aEndDate[0].$aEndDate[1].$aEndDate[2];
 
-		Context::set('begin_date', $aBeginDate[0].$aBeginDate[1].$aBeginDate[2].'000000');
-		Context::set('end_date', $aEndDate[0].$aEndDate[1].$aEndDate[2].'235959');
+		if((int)date('Ymd') > (int)$sContractBeginDate)
+			return new BaseObject(-1, 'msg_expired_begin_date');
+
+		if((int)$sContractBeginDate > (int)$sContractEndDate)
+			return new BaseObject(-1, 'msg_invalid_contract_period');
+		// end - validate contract period
+
+		// begin - check if duplicated period exists
+		$dtNewContractFrom = strtotime($sContractBeginDate.'000000');
+		$dtNewContractTo = strtotime($sContractEndDate.'235959');
+		$aNewContractBetweenDate = $this->_getDaysBetween($dtNewContractFrom, $dtNewContractTo);
+		$aEarliestContractDate = [];
+		$aLatestContractDate = [];
+		$oSvbannerAdminModel = &getAdminModel('svbanner');
+		$aContractByPkg = $oSvbannerAdminModel->getContractListByPkgSrl($nReqPackageSrl);
+		foreach($aContractByPkg as $nIdx=>$oContract)
+		{
+			if($oContract->contract_srl != $nReqContractSrl)  // allow to update contract period
+			{
+				$aEarliestContractDate[] = $oContract->begin_date;
+				$aLatestContractDate[] = $oContract->end_date;
+			}
+		}
+		unset($aContractByPkg);
+		unset($oSvbannerModel);
+		$dtOldContractFrom = strtotime(max($aEarliestContractDate));
+		$dtOldContractTo = strtotime(max($aLatestContractDate));
+		unset($aEarliestContractDate);
+		unset($aLatestContractDate);
+		$aOldContractBetweenDate = $this->_getDaysBetween($dtOldContractFrom, $dtOldContractTo);
+		unset($dtOldContractFrom);
+		unset($dtOldContractTo);
+		foreach($aNewContractBetweenDate as $nDate=>$_)
+		{
+			if($aOldContractBetweenDate[$nDate])
+				return new BaseObject(-1, 'msg_duplicated_contract_date');
+		}
+		// end - check if duplicated period exists
+
+		Context::set('begin_date', $sContractBeginDate.'000000');
+		Context::set('end_date', $sContractEndDate.'235959');
 		$this->_resetCacheSchedule();
-		$nReqContractSrl = (int)Context::get('contract_srl');
+		// $nReqContractSrl = (int)Context::get('contract_srl');
 		if($nReqContractSrl)
 			$oRst = $this->_updateContract();
 		else
@@ -257,7 +317,7 @@ class svbannerAdminController extends svbanner
 	private function _insertContract()
 	{
 		$oArgs = Context::getRequestVars();
-		
+
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
 		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($oArgs->package_srl);
 		unset($oSvbannerModel);
@@ -296,6 +356,7 @@ class svbannerAdminController extends svbanner
 	private function _updatePkg($aBannerPolicy) 
 	{
 		$oArgs = Context::getRequestVars();
+
 		$oPkgArgs = new stdClass();
 		$oPkgArgs->package_srl = $oArgs->package_srl;
 		$oPkgArgs->client_srl = $oArgs->client_srl;
@@ -306,6 +367,30 @@ class svbannerAdminController extends svbanner
 		if(!$oPkgRst->toBool()) 
 			return $oPkgRst;
 		unset($oPkgRst);
+
+		// remove requested banner imgs
+		$oFileController = &getController('file');
+		foreach($oArgs as $sName=>$sVal)
+		{
+			if (strpos($sName, "del_img_") === 0)
+			{
+				if($sVal == 'Y')
+				{
+					$nImgFileSrl = str_replace('del_img_' , '', $sName);
+					$oFileRst = $oFileController->deleteFile($nImgFileSrl);
+					$sThumbnailPath = 'files/cache/thumbnails/'.getNumberingPath($nImgFileSrl, 3);
+					FileHandler::removeDir($sThumbnailPath); // remove the thumbnail cache folder
+					$oBannerArgs = new stdClass();
+					$oBannerArgs->img_file_srl = $nImgFileSrl;
+					$oBannerRst = executeQuery('svbanner.deleteAdminBanner', $oBannerArgs);
+					if(!$oBannerRst->toBool()) 
+						return $oBannerRst;
+					unset($oBannerArgs);
+					unset($oBannerRst);
+				}
+			}
+		}
+
 		// save banners
 		foreach($aBannerPolicy as $nIdx=>$oBannerPolicy)
 		{
@@ -339,7 +424,7 @@ class svbannerAdminController extends svbanner
 			return new BaseObject(-1, $sErrMsg);
 		$nModuleSrl = $oArgs->module_srl;
 		$nPackageSrl = $oArgs->package_srl;
-		$oFileController = &getController('file');
+		// $oFileController = &getController('file');
 		foreach($aBannerPolicy as $nIdx=>$oBannerPolicy)
 		{
 			$sBannerImgIdx = 'banner_img_'.$nIdx;
@@ -493,6 +578,16 @@ class svbannerAdminController extends svbanner
 			$this->setMessage('success_updated');
 		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminConfig','module_srl',''));
 	}
+/**
+ * @brief 관리자 - 배너 노출수 테이블의 무효 로그 청소
+ **/
+	public function procSvbannerAdminCleanupImpGarbage() 
+	{
+		$oImpRst = executeQuery('svbanner.deleteAdminGarbageImpression');
+		$this->setMessage('success_updated');
+		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispSvbannerAdminConfig','module_srl',''));
+	}
+	
 /**
 * @brief update mid level config
 **/

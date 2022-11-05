@@ -183,6 +183,39 @@ class svbannerAdminView extends svbanner
 		$oArgs->sort_index = $sSortIdx;
 		$oArgs->order_type = $sOrderType;
 		$oRst = $oSvbannerAdminModel->getSvbannerAdminPkgList($oArgs);
+		foreach($oRst->data as $nIdx=>$oSinglePkg)
+		{
+			$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($oSinglePkg->package_srl);
+			// get representative banner thumbnail
+			if(isset($oPackageInfo->aBannerList))
+			{
+				$oFirstBannerImg = array_pop($oPackageInfo->aBannerList);
+				$oSinglePkg->nImgFileSrl = $oFirstBannerImg->nFileSrl;
+				unset($oFirstBannerImg);
+			}
+			// get display period
+			$aContractList = $oSvbannerAdminModel->getContractListByPkgSrl($oSinglePkg->package_srl);
+			if(isset($aContractList))
+			{
+				foreach($aContractList as $nIdx=>$oContract)
+				{
+					if($oContract->is_active) // retrieve single final active contract only
+					{
+						$oSinglePkg->sBeginDate = $oContract->begin_date;
+						$oSinglePkg->sEndDate = $oContract->end_date;
+						$oContractDailyLog = $oSvbannerAdminModel->getContractPerformance($oContract->contract_srl, $oContract->package_srl, 
+																						$oContract->begin_date, $oContract->end_date);
+						$oSinglePkg->nGrossImp = $oContractDailyLog->nGrossImp;
+						$oSinglePkg->nGrossClk = $oContractDailyLog->nGrossClk;
+						$oSinglePkg->nGrossCtr = $oContractDailyLog->nGrossCtr;
+						unset($oContractDailyLog);
+						break;
+					}
+				}
+			}
+			unset($aContractList);
+			unset($oPackageInfo);
+		}
 		unset($oArgs);
 		unset($oSvbannerAdminModel);
 		if(!$oRst->toBool())
@@ -218,7 +251,20 @@ class svbannerAdminView extends svbanner
 			Context::set('oPackageInfo', $oPackageInfo);
 			unset($oPackageInfo);
 			$aContractList = $oSvbannerAdminModel->getContractListByPkgSrl($nPackageSrl);
-			Context::set('aContractList', $aContractList);
+			// retrieve imp, clk, ctr per a contract
+			foreach($aContractList as $nIdx=>$oContract)
+			{
+				if($oContract->is_active)
+				{
+					$oContractDailyLog = $oSvbannerAdminModel->getContractPerformance($oContract->contract_srl, $oContract->package_srl, 
+																					$oContract->begin_date, $oContract->end_date);
+					$oContract->nGrossImp = $oContractDailyLog->nGrossImp;
+					$oContract->nGrossClk = $oContractDailyLog->nGrossClk;
+					$oContract->nGrossCtr = $oContractDailyLog->nGrossCtr;
+					unset($oContractDailyLog);
+				}
+			}
+			Context::set('aContractList', $aContractList);			
 			unset($aContractList);
 		}
 		unset($oSvbannerAdminModel);
@@ -241,6 +287,7 @@ class svbannerAdminView extends svbanner
 		if($nContractSrl)
 		{
 			$oContractInfo = $oSvbannerAdminModel->getContractSingle($nContractSrl);
+			$oContractInfo->end_date = $oContractInfo->end_date - 10000;  // zdate() converts yyyymmdd235959 to next day
 			Context::set('oContractInfo', $oContractInfo);
 			$nPackageSrl = (int)$oContractInfo->package_srl;
 			unset($oContrctInfo);
@@ -248,9 +295,7 @@ class svbannerAdminView extends svbanner
 		if(!$nPackageSrl)
 			$nPackageSrl = (int)Context::get('package_srl');
 
-		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui();
 		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
-		$oPackageInfo->sClientName = $aClientInfo[$oPackageInfo->client_srl];
 		Context::set('oPackageInfo', $oPackageInfo);
 		unset($oPackageInfo);
 		unset($aClientInfo);
@@ -281,9 +326,7 @@ class svbannerAdminView extends svbanner
 		Context::set('nGrossCtr', $oDailyLog->nGrossCtr);
 		Context::set('aDailyLog', $oDailyLog->aCalcDailyLog);
 
-		$aClientInfo = $oSvbannerAdminModel->getClientInfo4Ui();
 		$oPackageInfo = $oSvbannerAdminModel->getPackageInfo($nPackageSrl);
-		$oPackageInfo->sClientName = $aClientInfo[$oPackageInfo->client_srl];
 		Context::set('oPackageInfo', $oPackageInfo);
 		unset($oPackageInfo);
 		unset($aClientInfo);
@@ -335,20 +378,8 @@ class svbannerAdminView extends svbanner
 		$oConfig = $oSvbannerAdminModel->getModuleConfig();
 		Context::set('oConfig',$oConfig);
 		unset($oConfig);
-		// $oSvbannerModules = array();
-		// $oModuleModel = &getModel('module');
-		// $oModules = $oModuleModel->getMidList();
-		// foreach($oModules as $key=>$val)
-		// {
-		// 	if($val->module == 'svbanner')
-		// 	{
-        //         if(is_null($oSvbannerModules[$nIdx]))
-        //             $oSvbannerModules[$nIdx] = new stdClass();
-		// 		$oSvbannerModules[$nIdx]->module_srl = $val->module_srl;
-		// 		$oSvbannerModules[$nIdx++]->mid = $val->mid;
-		// 	}
-		// }
-		// Context::set('svbanner_mod_list', $oSvbannerModules);
+		Context::set('fImpGarbageRatio', $oSvbannerAdminModel->getImpressionLogGarbageRatio());
+		unset($oSvbannerAdminModel);
 		$this->setTemplateFile('config');
 	}
 /**

@@ -72,6 +72,9 @@
 	<item name="client_name">
 		<value xml:lang="ko"><![CDATA[광고주명]]></value>
 	</item>
+	<item name="final_contract_period">
+		<value xml:lang="ko"><![CDATA[최종 계약 기간]]></value>
+	</item>
 	<item name="about_banner_img">
 		<value xml:lang="ko"><![CDATA[지정된 규격의 배너 이미지를 업로드합니다.]]></value>
 	</item>
@@ -79,7 +82,13 @@
 		<value xml:lang="ko"><![CDATA[계약 정보]]></value>
 	</item>
 	<item name="cmd_view_contract_outcome">
-		<value xml:lang="ko"><![CDATA[계약 성과 보기]]></value>
+		<value xml:lang="ko"><![CDATA[일별 성과 보기]]></value>
+	</item>
+	<item name="msg_expired_begin_date">
+		<value xml:lang="ko"><![CDATA[오늘 이전의 시작일은 입력할 수 없습니다.]]></value>
+	</item>
+	<item name="msg_invalid_contract_period">
+		<value xml:lang="ko"><![CDATA[잘못된 계약 기간입니다.]]></value>
 	</item>
 	<item name="contract_srl">
 		<value xml:lang="ko"><![CDATA[계약 고유 번호]]></value>
@@ -99,14 +108,20 @@
 	<item name="end_date">
 		<value xml:lang="ko"><![CDATA[광고 종료일]]></value>
 	</item>
-	<item name="history">
-		<value xml:lang="ko"><![CDATA[계약 이력]]></value>
-	</item>
 	<item name="about_contract_end_date">
 		<value xml:lang="ko"><![CDATA[YYYY-MM-DD 형식의 광고 종료일을 입력하세요. 해당일의 23시 59분 59초로 자동 설정됩니다.]]></value>
 	</item>
+	<item name="history">
+		<value xml:lang="ko"><![CDATA[계약 이력]]></value>
+	</item>
+	<item name="cmd_back_to_package">
+		<value xml:lang="ko"><![CDATA[패키지로 돌아가기]]></value>
+	</item>
 	<item name="cmd_contract_add">
 		<value xml:lang="ko"><![CDATA[광고 계약 추가]]></value>
+	</item>
+	<item name="cmd_contract_update">
+		<value xml:lang="ko"><![CDATA[광고 계약 수정]]></value>
 	</item>
 	<item name="banner_date">
 		<value xml:lang="ko"><![CDATA[개재일]]></value>
@@ -129,5 +144,19 @@
 	<item name="about_duplicated_click_limit_day">
 		<value xml:lang="ko"><![CDATA[중복 클릭 방지를 위한 쿠키 유효 시간을 일 단위로 입력합니다. 공란이면 15분으로 설정됩니다.<BR>예) 1은 하루간 중복 클릭 방지, 0.0104=15/1440 15분간, 0.0833 = 2/24는 2시간]]></value>
 	</item>
-	
+	<item name="msg_duplicated_contract_date">
+		<value xml:lang="ko"><![CDATA[기존 계약 기간과 중복됩니다.]]></value>
+	</item>
+	<item name="title_impression_garbage_cleanup">
+		<value xml:lang="ko"><![CDATA[노출수 로그의 무효값 정리]]></value>
+	</item>	
+	<item name="impression_garbage_ratio">
+		<value xml:lang="ko"><![CDATA[무효 로그의 비율]]></value>
+	</item>
+	<item name="about_impression_garbage_cleanup">
+		<value xml:lang="ko"><![CDATA[배너 노출수 측정 과정에서 발생한 무효 로그를 자주 청소하면 성과 측정 속도가 향상됩니다.]]></value>
+	</item>
+	<item name="cmd_garbage_cleanup">
+		<value xml:lang="ko"><![CDATA[무효 로그 청소]]></value>
+	</item>
 </lang>

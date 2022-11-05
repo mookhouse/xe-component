@@ -3,16 +3,46 @@
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="cart" value="" /></th>
+				<th>썸네일</th>
 				<th>{$lang->package_name}</th>
 				<th>{$lang->client_name}</th>
+				<th>{$lang->final_contract_period}</th>
+				<th>{$lang->impression}</th>
+				<th>{$lang->click}</th>
+				<th>{$lang->ctr}</th>
 				<th>{$lang->cmd_modify}</th>
 			</tr>
 		</thead>
 		<tbody id="itemlistorder">
 			<tr loop="$list=>$no,$val" id="record_{$val->package_srl}">
 				<td><input type="hidden" name="package_srls[]" value="{$val->package_srl}" /><input type="checkbox" name="cart" value="{$val->package_srl}" /></td>
+				<td>
+					<block cond="$val->nImgFileSrl">
+						<img src="{svbannerAdminView::dispBannerImgUrl($val->nImgFileSrl, 120, 0, 'ratio')}" />
+					</block>
+				</td>
 				<td>{$val->description}</td>
 				<td>{$val->sClientName}</td>
+				<td>
+					<block cond="$val->sBeginDate && $val->sEndDate">
+						{zdate($val->sBeginDate, 'Y-m-d')}~{zdate($val->sEndDate, 'Y-m-d')}
+					</block>					
+				</td>
+				<td>
+					<block cond="$val->nGrossImp">
+						{number_format($val->nGrossImp)}
+					</block>					
+				</td>
+				<td>
+					<block cond="$val->nGrossClk">
+						{number_format($val->nGrossClk)}
+					</block>
+				</td>
+				<td>
+					<block cond="$val->nGrossCtr">
+						{number_format($val->nGrossCtr*100,2)}%
+					</block>
+				</td>
 				<td><a href="{getUrl('act','dispSvbannerAdminUpdatePkg','package_srl',$val->package_srl, 'contract_srl', '')}">{$lang->cmd_modify}</a></td>
 			</tr>
 			<tr cond="!count($list)">

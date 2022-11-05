@@ -1,0 +1,8 @@
+<query id="deleteAdminBanner" action="delete">
+    <tables>
+        <table name="svbanner_banner" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="img_file_srl" var="img_file_srl" filter="number" />
+    </conditions>
+</query>

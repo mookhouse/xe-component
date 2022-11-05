@@ -1,9 +1,3 @@
-<style>
-	.x_controls ul { list-style:none; margin:0; padding:0; }
-	.x_controls ul li { float:left; margin-right:10px;}
-	.x_control-group .x_controls select.category { min-width:140px; }
-</style>
-
 <section class="section">
 	<h1>[{$oPackageInfo->sClientName}]의 [{$oPackageInfo->description}] {$lang->title_contract_info}</h1>
 	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
@@ -60,8 +54,12 @@
 			</div>
 		</div>
 
-		<div class="x_clearfix btnArea">
-			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+		<div class="x_clearfix btnArea" cond="$contract_srl">
+			<a href="{getUrl('act','dispSvbannerAdminUpdatePkg','package_srl',$package_srl, 'contract_srl', '')}" class="x_btn" >{$lang->cmd_back_to_package}</a>
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_contract_update}</button>
+		</div>
+		<div class="x_clearfix btnArea" cond="!$contract_srl">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_contract_add}</button>
 		</div>
 	</form>
 </section>

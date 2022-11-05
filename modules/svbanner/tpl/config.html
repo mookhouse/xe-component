@@ -18,8 +18,26 @@
 			</div>
 		</div>
 	</section>
-	
 	<div class="btnArea">
 		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
+	</div>
+</form>
+
+<form action="./" method="post" class="form" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procSvbannerAdminCleanupImpGarbage" />
+	<section class="section">
+		<h1>{$lang->title_impression_garbage_cleanup}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="duplicated_click_limit_day">{$lang->impression_garbage_ratio}</label>
+			<div class="x_controls">
+				<input type="text" readonly value="{number_format($fImpGarbageRatio*100,2)}%" />
+				<a href="#impression_garbage_cleanup_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="impression_garbage_cleanup_help" class="x_help-block" hidden>{$lang->about_impression_garbage_cleanup}</p>
+			</div>
+		</div>
+	</section>
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_garbage_cleanup}</button>
 	</div>
 </form>

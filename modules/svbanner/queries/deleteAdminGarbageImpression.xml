@@ -1,0 +1,8 @@
+<query id="deleteAdminGarbageImpression" action="delete">
+    <tables>
+        <table name="svbanner_impression" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="is_viewed" var="is_viewed" default="0" filter="number" />
+    </conditions>
+</query>
