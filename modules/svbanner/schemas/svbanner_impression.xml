@@ -11,5 +11,4 @@
 	<column name="is_clicked" type="char" size="1" notnull="notnull" default="0" />
 	<column name="ua" type="char" size="1" />
 	<column name="logdate" type="date" notnull="notnull" index="idx_package_srl_logdate" />
-	<column name="clickdate" type="date" index="idx_clickdate" />
 </table>

@@ -4,7 +4,6 @@
 	</tables>
 	<columns>
 		<column name="is_clicked" var="is_clicked" notnull="notnull" />
-        <column name="clickdate" var="clickdate" default="curdate()" />
 	</columns>
 	<conditions>
 		<condition operation="equal" column="imp_srl" var="imp_srl" notnull="notnull" />
