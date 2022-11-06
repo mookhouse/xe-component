@@ -236,35 +236,40 @@ class svbannerAdminController extends svbanner
 		// end - validate contract period
 
 		// begin - check if duplicated period exists
-		$dtNewContractFrom = strtotime($sContractBeginDate.'000000');
-		$dtNewContractTo = strtotime($sContractEndDate.'235959');
-		$aNewContractBetweenDate = $this->_getDaysBetween($dtNewContractFrom, $dtNewContractTo);
-		$aEarliestContractDate = [];
-		$aLatestContractDate = [];
 		$oSvbannerAdminModel = &getAdminModel('svbanner');
 		$aContractByPkg = $oSvbannerAdminModel->getContractListByPkgSrl($nReqPackageSrl);
-		foreach($aContractByPkg as $nIdx=>$oContract)
+		if(count($aContractByPkg ))
 		{
-			if($oContract->contract_srl != $nReqContractSrl)  // allow to update contract period
+			$dtNewContractFrom = strtotime($sContractBeginDate.'000000');
+			$dtNewContractTo = strtotime($sContractEndDate.'235959');
+			$aNewContractBetweenDate = $this->_getDaysBetween($dtNewContractFrom, $dtNewContractTo);
+			$aEarliestContractDate = [];
+			$aLatestContractDate = [];
+			foreach($aContractByPkg as $nIdx=>$oContract)
 			{
-				$aEarliestContractDate[] = $oContract->begin_date;
-				$aLatestContractDate[] = $oContract->end_date;
+				if($oContract->contract_srl != $nReqContractSrl)  // allow to update contract period
+				{
+					$aEarliestContractDate[] = $oContract->begin_date;
+					$aLatestContractDate[] = $oContract->end_date;
+				}
+			}
+			unset($aContractByPkg);
+			unset($oSvbannerModel);
+			$dtOldContractFrom = strtotime(max($aEarliestContractDate));
+			$dtOldContractTo = strtotime(max($aLatestContractDate));
+			unset($aEarliestContractDate);
+			unset($aLatestContractDate);
+			$aOldContractBetweenDate = $this->_getDaysBetween($dtOldContractFrom, $dtOldContractTo);
+			unset($dtOldContractFrom);
+			unset($dtOldContractTo);
+			foreach($aNewContractBetweenDate as $nDate=>$_)
+			{
+				if($aOldContractBetweenDate[$nDate])
+					return new BaseObject(-1, 'msg_duplicated_contract_date');
 			}
 		}
 		unset($aContractByPkg);
-		unset($oSvbannerModel);
-		$dtOldContractFrom = strtotime(max($aEarliestContractDate));
-		$dtOldContractTo = strtotime(max($aLatestContractDate));
-		unset($aEarliestContractDate);
-		unset($aLatestContractDate);
-		$aOldContractBetweenDate = $this->_getDaysBetween($dtOldContractFrom, $dtOldContractTo);
-		unset($dtOldContractFrom);
-		unset($dtOldContractTo);
-		foreach($aNewContractBetweenDate as $nDate=>$_)
-		{
-			if($aOldContractBetweenDate[$nDate])
-				return new BaseObject(-1, 'msg_duplicated_contract_date');
-		}
+		unset($oSvbannerAdminModel);
 		// end - check if duplicated period exists
 
 		Context::set('begin_date', $sContractBeginDate.'000000');

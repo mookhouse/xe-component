@@ -5,7 +5,8 @@
 </style>
 
 <section class="section">
-	<h1>[{$oPackageInfo->sClientName}]의 [{cut_str($oPackageInfo->description, 30, '...')}] {$lang->title_package_info} </h1>
+	<h1 cond="$package_srl">[{$oPackageInfo->sClientName}]의 [{cut_str($oPackageInfo->description, 30, '...')}] {$lang->title_package_info} {$lang->cmd_update}</h1>
+	<h1 cond="!$package_srl">{$lang->title_package_info} {$lang->cmd_add}</h1>
 	<form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
 		<input name="module" type="hidden" value="{$module}" />
 		<input name="act" type="hidden" value="procSvbannerAdminInsertPkg" />

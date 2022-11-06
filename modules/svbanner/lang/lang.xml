@@ -24,9 +24,6 @@
 	<item name="basic_settings">
 		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
 	</item>
-	<item name="banner_mid_description">
-		<value xml:lang="ko"><![CDATA[배너 상품 설명]]></value>
-	</item>
 	<item name="banner_dimension">
 		<value xml:lang="ko"><![CDATA[배너 규격]]></value>
 	</item>

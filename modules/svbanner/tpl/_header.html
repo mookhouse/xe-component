@@ -7,12 +7,9 @@
 <p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_svbanner}</p>
 <ul cond="$module_info" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispSvbannerAdminListMid'"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminListMid')}">{$lang->banner_mid_list}</a></li>
-	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminItemListByModule','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
-	<!-- <li class="x_active"|cond="$act=='dispSvbannerAdminInsertMid' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminInsertMid')}">{$lang->banner_mid_creation}</a></li> -->
 	<li class="x_active"|cond="$act=='dispSvbannerAdminListClient' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispSvbannerAdminListClient')}">{$lang->banner_client_list}</a></li>
 	<li class="x_active"|cond="$act=='dispSvbannerAdminConfig'"><a href="{getUrl('','module',$module, 'act','dispSvbannerAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li>
 </ul>
 <ul cond="$module_srl" class="x_nav x_nav-tabs">
-	<li class="x_active"|cond="$act=='dispSvbannerAdminListPkgByMid'"><a href="{getUrl('act','dispSvbannerAdminListPkgByMid')}">{$lang->package_list}</a></li>
-	<li cond="$act=='dispSvitemAdminUpdateItem'" class="x_active"><a href="{getUrl('act','dispSvitemAdminUpdatePackage')}">{$lang->package_update}</a></li>
+	<li class="x_active"|cond="$act=='dispSvbannerAdminListPkgByMid'"><a href="{getUrl('act','dispSvbannerAdminListPkgByMid')}">{$module_info->mid}의 {$lang->package_list}</a></li>
 </ul>
