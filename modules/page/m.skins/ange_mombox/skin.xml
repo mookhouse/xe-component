@@ -53,6 +53,15 @@
 				<title xml:lang="ko">우측 출산맘 링크 URL</title>
 				<description xml:lang="ko">우측 출산맘 신청 배너 이미지 클릭하면 이동할 페이지 주소</description>
 			</var>
+			<var name="svbanner_srl_bottom" type="text">
+				<title xml:lang="ko">하단 svbanner 모듈 ID</title>
+				<description xml:lang="ko">맘박스 메인 페이지에 하단에 표시할 svbanner 모듈 고유 번호를 입력합니다.</description>
+			</var>
+			<var name="svbanner_dimension_bottom" type="text">
+				<title xml:lang="ko">섹션 하단 호출할 svbanner 배너 규격</title>
+				<description xml:lang="ko">맘박스 메인 페이지에 하단에 표시할 배너의 규격 [가로px]x[세로px] 형식으로 입력합니다. 예) 1200x1200</description>
+			</var>
+
 			<var name="bottom_banner_img" type="image">
 				<title xml:lang="ko">하단 배너 이미지</title>
 				<description xml:lang="ko">하단 배너 이미지로 사용할 수 있습니다.</description>
