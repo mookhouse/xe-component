@@ -12,26 +12,8 @@
 $aDim = explode('x', $module_info->svbanner_dimension_bottom);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_srl_bottom, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
 <div class="article-content">
 	<div class="banner ">
 		<img sv-attr='pc_mombox_bottombanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:100%;">

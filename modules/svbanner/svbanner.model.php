@@ -41,13 +41,13 @@ class svbannerModel extends svbanner
 	}
 /**
 * @brief get current banner info
-* @return 
+* @return $oRst->sUniqId, $oRst->sBannerImgUrl, $oRst->sScript
 **/
 	public static function getCurrentBannerImgUrl($nModuleSrl, $aBannerDim)
 	{
-		$sScriptPath = '/modules/svbanner/tpl';
-		Context::addJsFile($sScriptPath.'/skin.js/sv_banner_internal.js');
-		Context::addJsFile($sScriptPath.'/skin.js/jquery.cookie.js');
+		$sModuleTplPath = '/modules/svbanner/tpl';
+		Context::addJsFile($sModuleTplPath.'/skin.js/sv_banner_internal.js');
+		Context::addJsFile($sModuleTplPath.'/skin.js/jquery.cookie.js');
 
 		// Unable to use $this as not in object context
 		$oSvbannerModel = &getModel('svbanner');
@@ -56,17 +56,29 @@ class svbannerModel extends svbanner
 			$oRst = new stdClass();
 			$oRst->nImpLogSrl = 0;
 			$oRst->nBannerSrl = 0;
-			$oRst->sBannerImgUrl = Context::getRequestUri().$sScriptPath.'/img/no_img_80x80.jpg';
+			$oRst->sBannerImgUrl = Context::getRequestUri().$sModuleTplPath.'/img/no_img_80x80.jpg';
 			$oRst->sLandingUrl = '#';
 		}
 		else
 			$oRst = $oSvbannerModel->getCurrentBanner($nModuleSrl, $aBannerDim);
-	
+
+		// 여기서 정상 배너 이미지 소재가 없으면 기본 이미지로 교체
 		$oRst->sUniqId = uniqid();
 		$oConfig = $oSvbannerModel->getModuleConfig();
-		$oRst->fDuplicatedClickLimitDay = $oConfig->duplicated_click_limit_day;
 		unset($oSvbannerModel);
-		unset($oConfig);
+
+		$sScript = FileHandler::readFile(_XE_PATH_.'modules/svbanner/tpl/skin.js/internal_script.tpl');
+		$sScript = str_replace('$%sUniqId$%', $oRst->sUniqId, $sScript);
+		$sScript = str_replace('$%nImpLogSrl$%', $oRst->nImpLogSrl, $sScript);
+		$sScript = str_replace('$%nBannerSrl$%', $oRst->nBannerSrl, $sScript);
+		$sScript = str_replace('$%fDuplicatedClickLimitDay$%', $oConfig->fDuplicatedClickLimitDay, $sScript);
+        $sScript = str_replace('$%sLandingUrl$%', $oRst->sLandingUrl, $sScript);
+		$oRst->sScript = $sScript;
+        unset($oRst->nImpLogSrl);
+        unset($oRst->nImpLogSrl);
+        unset($oRst->nBannerSrl);
+        unset($oRst->sLandingUrl);
+        unset($oConfig);
 		return $oRst;
 	}
 /**

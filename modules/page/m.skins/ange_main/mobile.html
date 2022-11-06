@@ -1,61 +1,36 @@
 <script src="//cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 <script>
-(function($) {
-	// top 배너 슬라이드 부분
-	$('.top-banner ul').bxSlider({
-		touchEnabled:(navigator.maxTouchPoints > 0),
-		controls: false,
-		pager: false,
-		auto: true
-	});
-	// 메인슬라이드
-	$(document).ready(function(){
-		$('.jumbo .container > ul').bxSlider({
-			controls: true,
-			auto: true,
-			prevText: '<img src="/modules/page/m.skins/ange_main/images/left_btn.png" alt="">',
-			nextText: '<img src="/modules/page/m.skins/ange_main/images/right_btn.png" alt="">'
-		});
-	});
-})(jQuery);
+// (function($) {
+// 	// top 배너 슬라이드 부분
+// 	$('.top-banner ul').bxSlider({
+// 		touchEnabled:(navigator.maxTouchPoints > 0),
+// 		controls: false,
+// 		pager: false,
+// 		auto: true
+// 	});
+// 	// 메인슬라이드
+// 	$(document).ready(function(){
+// 		$('.jumbo .container > ul').bxSlider({
+// 			controls: true,
+// 			auto: true,
+// 			prevText: '<img src="/modules/page/m.skins/ange_main/images/left_btn.png" alt="">',
+// 			nextText: '<img src="/modules/page/m.skins/ange_main/images/right_btn.png" alt="">'
+// 		});
+// 	});
+// })(jQuery);
 </script>
 <!---div class="hot-issue">
 	<div class="container">
 	</div>
 </div--->
-<script type="text/javascript"> 
-function calcHeight(){
-    var nHeight = document.getElementById('the_iframe').contentWindow.document.body.scrollHeight;
-    document.getElementById('the_iframe').height= nHeight;
-    document.getElementById('the_iframe').style.overflow = "hidden";
-}
-</script>
 <!-- main slider --->
 {@
 $aDim = explode('x', $module_info->svbanner_dimension);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script>
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script> 
 <div class="jumbo" style="padding-bottom:2px;">
 	<div class="container">
         <!-- <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe> -->
@@ -116,27 +91,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_middle_left);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
-                
 				<div class="brand-news">
 					<img sv-attr='mob_main_brandnews' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">             
 				<!-- 	<figure>
@@ -157,26 +113,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_middle_right);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
                 <div class="brand-news">
                     <img sv-attr='mob_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">
 					<!-- <a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='mob_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive"></a> -->
@@ -270,26 +208,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
             <div class="story-banner">
                 <img sv-attr='mob_main_brandstory_bannerbottom' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
 				<!-- <a href="{$module_info->fixed_bottom_banner_out_link}">

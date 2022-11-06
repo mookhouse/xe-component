@@ -29,26 +29,8 @@
 $aDim = explode('x', $module_info->svbanner_dimension);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>    
                 <img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;">
 				<!---ul class="jumbo-slider">
 					<li>
@@ -70,26 +52,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_middle_left);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script> 
             <div class="banner-item">
 				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:790px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
 			</div>
@@ -110,26 +74,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_middle_right);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
         <div class="column column-4">
 			<div class="banner-item">
                 <!-- <a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='pc_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></a> -->
@@ -164,27 +110,8 @@ unset($oBannerRst);
 $aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
 $oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
 unset($aDim);
+echo $oBannerRst->sScript;
 }
-<script type="text/javascript">
-getUuid();
-$(window).load(function() {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-    $('#banner_{$oBannerRst->sUniqId}').click(function() {
-        // console.log('banner clicked');
-        checkClicked('{$oBannerRst->nImpLogSrl}', '{$oBannerRst->nBannerSrl}', '{$oBannerRst->fDuplicatedClickLimitDay}');
-        window.location.href='{$oBannerRst->sLandingUrl}';
-    });
-});
-
-$(window, window.document).scroll(function () {
-    if(checkImpression(jQuery('#banner_{$oBannerRst->sUniqId}'))) {
-        checkDisplayed('banner_{$oBannerRst->sUniqId}', '{$oBannerRst->nImpLogSrl}');
-    }
-});
-</script>
-
 				<div class="brand-banner">
                     <figure><img sv-attr="pc_main_qna_bottombanner" id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
 					<!-- <a href="{$module_info->fixed_bottom_banner_out_link}">
