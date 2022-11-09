@@ -1,29 +1,10 @@
 <block cond="$oDocument">
-<link href="/modules/page/skins/ange_main/js/scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
-<script src="/modules/page/skins/ange_main/js/scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
-<script src="/modules/page/skins/ange_main/js/main.js"></script> 
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script src="/modules/page/skins/ange_main/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-// main slider
-// $(document).ready(function(){
-// 	$('.top-banner > ul').bxSlider({
-// 		touchEnabled:(navigator.maxTouchPoints > 0),
-// 		auto: true,
-// 		pager: false,
-// 		controls: false
-// 		// prevText: '<i class="icon-left-dir-1"><span class="sr-only">이전</span></i>',
-// 		// nextText: '<i class="icon-right-dir-1"><span class="sr-only">다음</span></i>'
-// 	});
-// });
-</script>	
 
 <!--- 메인 페이지 최소 높이 /main.css #content --->
 <div class="container">
 	<div class="section">
 		<div class="column column-12">
-			<!-- main slider -->
 			<div class="jumbo">
 {@
 $aDim = explode('x', $module_info->svbanner_dimension);
@@ -32,15 +13,6 @@ unset($aDim);
 echo $oBannerRst->sScript;
 }
                 <img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;">
-				<!---ul class="jumbo-slider">
-					<li>
-						<a href="{$module_info->rolling_banner_1_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner0' src="{$module_info->rolling_banner_1}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure></a>
-					</li>
-					<li>
-						<a href="{$module_info->rolling_banner_2_out_link}" target='_blank'><figure><img sv-attr='pc_main_mainbanner1' src="{$module_info->rolling_banner_2}" alt="" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="width:1170px;height:340px;"></figure>
-						</a>
-					</li>
-				</ul--->
 			</div>
 		</div>
 	</div>
@@ -57,17 +29,6 @@ echo $oBannerRst->sScript;
             <div class="banner-item">
 				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:790px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
 			</div>
-{@
-//if(!$module_info->fixed_left_banner_img)
-//        $module_info->fixed_left_banner_img = '/modules/page/skins/ange_main/imgs/img_sample_list_none.png';
-}                
-            <!-- <div class="brand-news">
-                <a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url('{$module_info->fixed_left_banner_img}')">
-					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
-					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
-					<p sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_desc}</p>
-				</a>
-			</div> -->
 		</div>
 {@
 unset($oBannerRst);
@@ -78,7 +39,6 @@ echo $oBannerRst->sScript;
 }
         <div class="column column-4">
 			<div class="banner-item">
-                <!-- <a href="{$module_info->fixed_right_banner_out_link}"><img sv-attr='pc_main_brandnews_right' src="{$module_info->fixed_right_banner_img}" alt="" style="width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></a> -->
 				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
 			</div>
 		</div>
@@ -114,9 +74,6 @@ echo $oBannerRst->sScript;
 }
 				<div class="brand-banner">
                     <figure><img sv-attr="pc_main_qna_bottombanner" id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
-					<!-- <a href="{$module_info->fixed_bottom_banner_out_link}">
-					<figure><img sv-attr="pc_main_qna_bottombanner" src="{$module_info->fixed_bottom_banner_img}" alt="" style="width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
-					</a> -->
 				</div>
 {@
 unset($oBannerRst);
@@ -143,11 +100,6 @@ unset($oBannerRst);
 				<div class="article-content">
 					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->brandstory_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="18" thumbnail_width="145" thumbnail_height="110" thumbnail_type="crop"/>
 				</div>
-				<!---div class="brand-banner">
-					<a sv-attr="pc_main_brandstory_bannerbottom30" href="{$module_info->fixed_bottom_banner_out_link}">
-					<figure><img src="{$module_info->fixed_bottom_banner_img}" alt="" style="width:310px;height:110px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
-					</a>
-				</div--->
 			</article>
 		</div>
 	</div>

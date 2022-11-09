@@ -46,60 +46,6 @@
 			</var>
 		</group>
 		<group>
-			<title xml:lang="ko">롤링 배너 설정</title>
-			<var name="rolling_banner_1" type="image">
-				<title xml:lang="ko">배너 1 이미지</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="rolling_banner_1_out_link" type="text">
-				<title xml:lang="ko">배너 1 아웃링크 주소</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="rolling_banner_2" type="image">
-				<title xml:lang="ko">배너 2 이미지</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="rolling_banner_2_out_link" type="text">
-				<title xml:lang="ko">배너 2 아웃링크 주소</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-		</group>
-		<group>
-			<title xml:lang="ko">고정 배너 설정</title>
-			<var name="fixed_left_banner_img" type="image">
-				<title xml:lang="ko">좌배너 배경 이미지</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_left_banner_out_link" type="text">
-				<title xml:lang="ko">좌배너 아웃링크 주소</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_left_banner_title" type="text">
-				<title xml:lang="ko">좌배너 제목</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_left_banner_desc" type="text">
-				<title xml:lang="ko">좌배너 설명</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_right_banner_img" type="image">
-				<title xml:lang="ko">우배너 이미지</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_right_banner_out_link" type="text">
-				<title xml:lang="ko">우배너 아웃링크 주소</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-			<var name="fixed_bottom_banner_img" type="image">
-				<title xml:lang="ko">브랜드 스토리 하단 고정 이미지</title>
-				<description xml:lang="ko">640 x 227</description>
-			</var>
-			<var name="fixed_bottom_banner_out_link" type="text">
-				<title xml:lang="ko">브랜드 스토리 하단 고정 아웃링크 주소</title>
-				<description xml:lang="ko">PC 메인 페이지의 배너 이미지로 사용할 수 있습니다.</description>
-			</var>
-		</group>
-		<group>
 			<title xml:lang="ko">전문가 QNA 섹션 설정</title>
 			<var name="expert_qna_module_srl" type="text">
 				<title xml:lang="ko">전문가 QNA 연결 게시판 모듈 srl</title>
