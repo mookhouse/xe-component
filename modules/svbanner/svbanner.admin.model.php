@@ -169,6 +169,8 @@ public function getContractListByClientSrl($nClientSrl)
 		for($i = 0; $i <= $nDaysCnt; $i++)
 		{
 			$dtDaysToToday = date_diff($dtStart, $dtToday);
+			if($dtDaysToToday->d == 0)  // means today
+				break;
 			if($dtDaysToToday->invert == 1)  // means future
 				break;
 			$aDaysToLog[$dtStart->format('Ymd')] = 1;  // request to retrieve
