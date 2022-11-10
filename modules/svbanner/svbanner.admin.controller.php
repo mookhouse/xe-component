@@ -228,7 +228,7 @@ class svbannerAdminController extends svbanner
 		$sContractBeginDate = $aBeginDate[0].$aBeginDate[1].$aBeginDate[2];
 		$sContractEndDate = $aEndDate[0].$aEndDate[1].$aEndDate[2];
 
-		if((int)date('Ymd') > (int)$sContractBeginDate)
+		if(!$nReqContractSrl && (int)date('Ymd') > (int)$sContractBeginDate)
 			return new BaseObject(-1, 'msg_expired_begin_date');
 
 		if((int)$sContractBeginDate > (int)$sContractEndDate)
@@ -255,17 +255,21 @@ class svbannerAdminController extends svbanner
 			}
 			unset($aContractByPkg);
 			unset($oSvbannerModel);
-			$dtOldContractFrom = strtotime(max($aEarliestContractDate));
-			$dtOldContractTo = strtotime(max($aLatestContractDate));
-			unset($aEarliestContractDate);
-			unset($aLatestContractDate);
-			$aOldContractBetweenDate = $this->_getDaysBetween($dtOldContractFrom, $dtOldContractTo);
-			unset($dtOldContractFrom);
-			unset($dtOldContractTo);
-			foreach($aNewContractBetweenDate as $nDate=>$_)
+			if(count($aEarliestContractDate) && count($aLatestContractDate))  // ignore duplication if update contract of a single-contract-packgae
 			{
-				if($aOldContractBetweenDate[$nDate])
-					return new BaseObject(-1, 'msg_duplicated_contract_date');
+				$dtOldContractFrom = strtotime(max($aEarliestContractDate));
+				$dtOldContractTo = strtotime(max($aLatestContractDate));
+				unset($aEarliestContractDate);
+				unset($aLatestContractDate);
+				$aOldContractBetweenDate = $this->_getDaysBetween($dtOldContractFrom, $dtOldContractTo);
+				unset($dtOldContractFrom);
+				unset($dtOldContractTo);
+				foreach($aNewContractBetweenDate as $nDate=>$_)
+				{
+					if($aOldContractBetweenDate[$nDate])
+						$this->setMessage('msg_duplicated_contract_date');
+						// return new BaseObject(-1, 'msg_duplicated_contract_date');
+				}
 			}
 		}
 		unset($aContractByPkg);
