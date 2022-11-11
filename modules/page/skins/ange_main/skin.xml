@@ -51,6 +51,16 @@
 				<title xml:lang="ko">전문가 QNA 연결 게시판 모듈 srl</title>
 				<description xml:lang="ko">...</description>
 			</var>
+			<var name="expert_qna_curation_cookie" type="radio">
+				<title xml:lang="ko">전문가 QNA 큐레이션 쿠키 사용</title>
+				<description xml:lang="ko">출산예정일, 임신준비 큐레이션 사용</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">미사용</title>
+				</options>
+			</var>
 			<var name="expert_qna_section_title" type="text">
 				<title xml:lang="ko">전문가 QNA 섹션 제목</title>
 				<description xml:lang="ko">...</description>
@@ -66,6 +76,16 @@
 				<title xml:lang="ko">브랜드 스토리 연결 게시판 모듈 srl</title>
 				<description xml:lang="ko">...</description>
 			</var>
+			<var name="brandstory_curation_cookie" type="radio">
+				<title xml:lang="ko">브랜드 스토리 큐레이션 쿠키 사용</title>
+				<description xml:lang="ko">출산예정일, 임신준비 큐레이션 사용</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">미사용</title>
+				</options>
+			</var>
 			<var name="brandstory_section_title" type="text">
 				<title xml:lang="ko">브랜드 스토리 섹션 제목</title>
 				<description xml:lang="ko">...</description>
@@ -80,6 +100,16 @@
 			<var name="subject_module_srl" type="text">
 				<title xml:lang="ko">주제별 컨텐츠 연결 게시판 모듈 srl</title>
 				<description xml:lang="ko">...</description>
+			</var>
+			<var name="subject_curation_cookie" type="radio">
+				<title xml:lang="ko">주제별 섹션 큐레이션 쿠키 사용</title>
+				<description xml:lang="ko">출산예정일, 임신준비 큐레이션 사용</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">미사용</title>
+				</options>
 			</var>
 			<var name="subject_section_title" type="text">
 				<title xml:lang="ko">주제별 컨텐츠 섹션 제목</title>

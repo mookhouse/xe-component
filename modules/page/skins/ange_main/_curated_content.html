@@ -1,0 +1,199 @@
+<!--- 메인 페이지 최소 높이 /main.css #content --->
+<div class="container">
+	<div class="section">
+		<div class="column column-12">
+			<!-- main slider -->
+			<div class="jumbo">
+{@
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+                <img sv-attr='pc_main_mainbanner' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' style="cursor: pointer; width:1170px;height:340px;">
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="column column-8">
+			<article class="expert-qna">
+				<div class="article-header"> <!--- style='height: 150px;'--->
+					<h3>{$module_info->expert_qna_section_title}</h3>
+					<div class="btn-controls">
+						<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+						<i sv-attr="pc_main_QNA_prev" class="icon-left-circle">
+						<span class="sr-only">이전</span>
+						</i>
+						</a--->
+						<a href="{$module_info->expert_qna_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+							<i sv-attr="pc_main_QNA_next" class="icon-right-circle">
+							<span class="sr-only">다음</span>
+							</i>
+						</a>
+					</div>
+				</div>
+				<div class="article-content">
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->expert_qna_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="45" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
+				</div>
+			</article>
+		</div>
+		<div class="column column-4" >
+			<article class="parenting-learn" style='height: 261px;'>
+{@
+// cookie sets via /modules/page/skins/ange_main/js/ange_delivery_expect_due.js
+$bDueRegistered = false;
+$bPreparationRegistered = false;
+$sPreparationCookieName = 'pregnant_preparation';
+$sPregrantCookieName = 'delivery_expected_due';
+if(isset($_COOKIE[$sPregrantCookieName]))
+	$bDueRegistered = true;
+elseif(isset($_COOKIE[$sPreparationCookieName]))
+	$bPreparationRegistered = true;
+
+//var_dump($_COOKIE[$sPreparationCookieName]);
+}
+<block cond="!$bDueRegistered && !$bPreparationRegistered">
+				<div class="article-header">
+					<h3>회원 가입없이 필요한 출산, 육아, 제품 정보만!</h3>
+				</div>
+				<div class="article-content">
+					<p style="font-size: small;">등록하시면 지금 필요한 정보만 보여드려요!</p>
+					<div class="form-group">
+						<input sv-attr="pc_main_delivery_due_input" type="text" id="delivery_due_yyyymmdd" class="form-control" placeholder='YYYYMMDD'>
+						<label for="delivery_due_yyyymmdd" class="sr-only">출산 예정일 입력</label>
+					</div>
+					<div class="btn-area">
+						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="setDeliveryDue(); return false;">출산예정일 등록</button>
+						<!---&nbsp;&nbsp;&nbsp;<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:45%;' onclick="setBirthday(); return false;">아기 생일 등록</button--->
+					</div>
+					<HR>
+					<div class="btn-area">
+						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="setPreparation(); return false;">임신 준비 중 등록</button>
+					</div>
+</block>
+<block cond="$bDueRegistered">
+				<div class="article-header">
+					<h3>출산 예정일을 {zdate($_COOKIE[$sPregrantCookieName], 'Y-m-d')}로 기억합니다!</h3>
+				</div>
+				<div class="article-content">
+					<p style="font-size: small;">입력하신 지 30일 후에 자동 삭제되고<BR>그 전에도 언제든지 지울 수 있어요!</p>
+					<BR>
+					<div class="btn-area">
+						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="unsetCookie();">출산 예정일 지우기</button>
+					</div>
+					<BR><BR>
+</block>
+<block cond="$bPreparationRegistered">
+				<div class="article-header">
+					<h3>반가운 손님을 맞이하시려는 노력을<BR>앙쥬가 응원합니다.</h3>
+				</div>
+				<div class="article-content">
+					<p style="font-size: small;">입력하신 지 30일 후에 자동 삭제되고<BR>그 전에도 언제든지 지울 수 있어요!</p>
+					<BR>
+					<div class="btn-area">
+						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="unsetCookie();">임신 준비 상태 지우기</button>
+					</div>
+					<BR><BR>
+</block>
+				</div>
+			</article>
+		</div>
+	</div>
+	<div class="section">
+		<div class="column column-8">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_left);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+            <div class="banner-item">
+				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:790px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
+			</div>
+{@
+//if(!$module_info->fixed_left_banner_img)
+//        $module_info->fixed_left_banner_img = '/modules/page/skins/ange_main/imgs/img_sample_list_none.png';
+}                
+            <!-- <div class="brand-news">
+                <a sv-attr='pc_main_brandnews' href="{$module_info->fixed_left_banner_out_link}" style="background-image:url('{$module_info->fixed_left_banner_img}')">
+					<strong sv-attr='pc_main_brandnews'>BRAND NEWS</strong>
+					<h3 sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_title}</h3>
+					<p sv-attr='pc_main_brand-news'>{$module_info->fixed_left_banner_desc}</p>
+				</a>
+			</div> -->
+		</div>
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_right);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+        <div class="column column-4">
+			<div class="banner-item">
+				<img sv-attr='pc_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:370px;height:115px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="column column-8">
+			<article class="expert-qna">
+				<div class="article-header"> <!--- style='height: 150px;'--->
+					<h3>{$module_info->expert_qna_section_title}</h3>
+					<div class="btn-controls">
+						<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+						<i sv-attr="pc_main_QNA_prev" class="icon-left-circle">
+						<span class="sr-only">이전</span>
+						</i>
+						</a--->
+						<a href="{$module_info->expert_qna_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+							<i sv-attr="pc_main_QNA_next" class="icon-right-circle">
+							<span class="sr-only">다음</span>
+							</i>
+						</a>
+					</div>
+				</div>
+				<div class="article-content">
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->brandstory_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="45" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
+				</div>
+				<BR>
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+				<div class="brand-banner">
+                    <figure><img sv-attr="pc_main_qna_bottombanner" id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" style="cursor: pointer; width:730px;height:105px;" onerror='this.src="/modules/page/skins/ange_main/imgs/img_none_review_view.jpg"'></figure>
+				</div>
+{@
+unset($oBannerRst);
+}                
+			</article>
+		</div>
+		<div class="column column-4">
+			<article class="parenting-learn" style='height: 380px;'>
+				<div class="article-header">
+					<h3>{$module_info->brandstory_section_title}</h3>
+					<div class="btn-controls">
+						<!---a href="javascript:;" class="btn btn-prev movie-btn" role="button" data-type="prev">
+							<i sv-attr="pc_main_video_prev" class="icon-left-circle">
+							<span class="sr-only">이전</span>
+							</i>
+						</a--->
+						<a href="{$module_info->brandstory_section_link_more}" class="btn btn-next movie-btn" role="button" data-type="next">
+							<i sv-attr="pc_main_brandstory_next" class="icon-right-circle">
+							<span class="sr-only">다음</span>
+							</i>
+						</a>
+					</div>
+				</div>
+				<div class="article-content">
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->brandstory_module_srl}" curation_cookie_use="{$module_info->subject_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="18" thumbnail_width="145" thumbnail_height="110" thumbnail_type="crop"/>
+				</div>
+			</article>
+		</div>
+	</div>
+</div>

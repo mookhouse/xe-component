@@ -61,91 +61,35 @@
 				<name xml:lang="ko">출력형태</name>
 				<description xml:lang="ko">출력하실 형태를 설정합니다.</description>
 				<options>
-					<value>normal</value>
-					<name xml:lang="ko">목록형</name>
+					<value>expert_qna</value>
+					<name xml:lang="ko">전문가QNA</name>
 				</options>
 				<options>
-					<value>webzine</value>
-					<name xml:lang="ko">웹진형</name>
+					<value>subject</value>
+					<name xml:lang="ko">주제별</name>
 				</options>			
 				<options>
-					<value>gallery</value>
-					<name xml:lang="ko">블로그형</name>
-				</options>				
+					<value>brandstory</value>
+					<name xml:lang="ko">브랜드스토리</name>
+				</options>					
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">컨텐츠 큐레이션</title>
+			<var id="curation_cookie_use" type="select">
+				<name xml:lang="ko">큐레이션 쿠키 사용</name>
 				<options>
-					<value>scroll</value>
-					<name xml:lang="ko">스크롤 갤러리형</name>
-				</options>				
+					<value>N</value>
+					<name xml:lang="ko">OFF</name>
+				</options>
+				<options>
+					<value>Y</value>
+					<name xml:lang="ko">ON</name>
+				</options>
 			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">출력 항목</title>
-			<var id="show_thumbnail" type="select">
-				<name xml:lang="ko">썸네일 표시</name>				
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-			</var>
-			<var id="show_category_title" type="select">
-				<name xml:lang="ko">분류명 표시</name>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>
-			<var id="show_title" type="select">
-				<name xml:lang="ko">제목 표시</name>				
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-			</var>
-			<var id="show_content" type="select">
-				<name xml:lang="ko">내용 표시</name>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>
-			<var id="show_regdate" type="select">
-				<name xml:lang="ko">등록일 표시</name>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>
-			<var id="show_nickname" type="select">
-				<name xml:lang="ko">닉네임 표시</name>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>			
 			<var id="show_readed_count" type="select">
 				<name xml:lang="ko">조회 수 표시</name>
 				<options>
@@ -168,17 +112,6 @@
 					<name xml:lang="ko">ON</name>
 				</options>
 			</var>
-			<var id="show_icon" type="select">
-				<name xml:lang="ko">아이콘 표시</name>				
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">썸네일 설정</title>
@@ -190,171 +123,6 @@
 				<name xml:lang="ko">썸네일 세로크기</name>
 				<description xml:lang="ko">썸네일 이미지의 세로 크기를 정합니다. (기본 320)</description>
 			</var>
-		</group>		
-		<group>
-			<title xml:lang="ko">웹진형 설정</title>
-			<var id="col_webzine" type="select">
-				<name xml:lang="ko">웹진형 이미지 출력 비율</name>
-				<description xml:lang="ko">웹진형인 경우 이미지와 텍스트의 출력 비율을 설정합니다.</description>
-				<options>					
-					<value>4</value>
-					<name xml:lang="ko">20:80</name>
-				</options>
-				<options>
-					<value>3</value>
-					<name xml:lang="ko">30:70</name>
-				</options>				
-				<options>
-					<value>2</value>
-					<name xml:lang="ko">40:60</name>
-				</options>
-				<options>
-					<value>1</value>
-					<name xml:lang="ko">50:50</name>
-				</options>				
-			</var>	
-		</group>
-		<group>
-			<title xml:lang="ko">갤러리형 설정</title>
-			<var id="col_count" type="select" defualt="3">
-				<name xml:lang="ko">가로 출력 수</name>
-				<description xml:lang="ko">PC에서 가로로 출력할 개수를 정하실 수 있습니다. (기본 3)</description>			
-				<options>
-					<value>2</value>
-					<name xml:lang="ko">2개</name>
-				</options>
-				<options>
-					<value>3</value>
-					<name xml:lang="ko">3개</name>
-				</options>
-				<options>
-					<value>4</value>
-					<name xml:lang="ko">4개</name>
-				</options>
-				<options>
-					<value>6</value>
-					<name xml:lang="ko">6개</name>
-				</options>
-			</var>	
-			<var id="caption_align" type="select">
-				<name xml:lang="ko">제목 및 내용 정렬</name>
-				<description xml:lang="ko">제목 및 내용등의 정렬을 선택합니다.</description>
-				<options>
-					<value>center</value>
-					<name xml:lang="ko">Center</name>
-				</options>
-				<options>
-					<value>left</value>
-					<name xml:lang="ko">Left</name>
-				</options>
-			</var>	
-			<var id="lightbox" type="select">
-				<name xml:lang="ko">라이트박스 사용</name>
-				<description xml:lang="ko">썸네일 클릭 시 원본 이미지를 라이트박스 갤러리 형태로 볼 수 있습니다.</description>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>	
-		</group>
-		<group>
-			<title xml:lang="ko">스크롤 갤러리형 설정</title>
-			<var id="scroll_col_count" type="select">
-				<name xml:lang="ko">가로 출력 수</name>
-				<description xml:lang="ko">가로 출력 개수를 정하실 수 있습니다. (기본 3)</description>	
-				<options>
-					<value>2</value>
-					<name xml:lang="ko">2개</name>
-				</options>			
-				<options>
-					<value>3</value>
-					<name xml:lang="ko">3개</name>
-				</options>				
-				<options>
-					<value>4</value>
-					<name xml:lang="ko">4개</name>
-				</options>
-				<options>
-					<value>6</value>
-					<name xml:lang="ko">6개</name>
-				</options>
-			</var>	
-			<var id="scroll_per_column" type="select">
-				<name xml:lang="ko">세로 출력 수</name>
-				<description xml:lang="ko">세로 출력 개수를 정하실 수 있습니다. (기본 1)</description>	
-				<options>
-					<value>1</value>
-					<name xml:lang="ko">1개</name>
-				</options>			
-				<options>
-					<value>2</value>
-					<name xml:lang="ko">2개</name>
-				</options>				
-				<options>
-					<value>3</value>
-					<name xml:lang="ko">3개</name>
-				</options>
-				<options>
-					<value>4</value>
-					<name xml:lang="ko">4개</name>
-				</options>
-			</var>	
-			<var id="scroll_play_time" type="text">
-				<name xml:lang="ko">AUTO SCROLL</name>
-				<description xml:lang="ko">오토스크롤을 사용하려면 스크롤 시간을 초 단위로 입력합니다.(1초 = 1 단위로 숫자만 입력)</description>
-			</var>
-			<var id="scroll_pagination" type="select">
-				<name xml:lang="ko">페이지네이션</name>
-				<description xml:lang="ko">하단에 페이지네이션 스타일을 선택합니다. (모바일에서는 bullets 으로 표시)</description>
-				<options>
-					<value>fraction</value>
-					<name xml:lang="ko">fraction(숫자로 표시)</name>
-				</options>
-				<options>
-					<value>bullets</value>
-					<name xml:lang="ko">bullets(점으로 표시)</name>
-				</options>
-			</var>	
-			<var id="scroll_nav_arrow" type="select">
-				<name xml:lang="ko">좌,우 버튼 네비게이션</name>
-				<description xml:lang="ko">하단에 네비게이션을 표시합니다. (페이지네이션이 점인경우와 모바일 뷰에서는 숨김)</description>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-			</var>	
-			<var id="scroll_caption_align" type="select">
-				<name xml:lang="ko">제목 및 내용 정렬</name>
-				<description xml:lang="ko">제목 및 내용등의 정렬을 선택합니다.</description>
-				<options>
-					<value>center</value>
-					<name xml:lang="ko">Center</name>
-				</options>
-				<options>
-					<value>left</value>
-					<name xml:lang="ko">Left</name>
-				</options>
-			</var>	
-			<var id="scroll_lightbox" type="select">
-				<name xml:lang="ko">라이트박스 사용</name>
-				<description xml:lang="ko">썸네일 클릭 시 원본 이미지를 라이트박스 갤러리 형태로 볼 수 있습니다.</description>
-				<options>
-					<value>N</value>
-					<name xml:lang="ko">OFF</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">ON</name>
-				</options>
-			</var>	
 		</group>
 		<group>
 			<title xml:lang="ko">공통 설정</title>	
@@ -362,59 +130,10 @@
 				<name xml:lang="ko">출력 수</name>
 				<description xml:lang="ko">출력될 목록의 수를 정하실 수 있습니다. (기본 6개)</description>
 			</var>			
-			<var id="duration_new" type="text">
-				<name xml:lang="ko">new 표시 시간</name>
-				<description xml:lang="ko">게시물의 new 표시시간을 정할 수 있습니다. (기본 24)</description>
-			</var>
+			
 			<var id="subject_cut_size" type="text">
 			  <name xml:lang="ko">제목 글자수</name>
 			  <description xml:lang="ko">제목 글자수를 지정할 수 있습니다. (비워주시면 자르지 않습니다)</description>
-			</var>
-			<var id="content_cut_size" type="text">
-				<name xml:lang="ko">내용 글자수</name>
-				<description xml:lang="ko">내용 글자수를 지정할 수 있습니다. (기본 300)</description>		    
-			</var>
-			<var id="nickname_cut_size" type="text">
-				<name xml:lang="ko">닉네임 글자 수</name>
-				<description xml:lang="ko">닉네임의 글자 수를 설정합니다.(비워주시면 자르지 않습니다)</description>
-			</var>
-			<var id="new_window" type="select">
-                <name xml:lang="ko">링크</name>
-				<options>
-					<value></value>
-					<name xml:lang="ko">현재창에서 열기</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">새창에서 열기</name>
-				</options>
-            </var>		
-			<var id="view_secret_document" type="select">
-				<name xml:lang="ko">비밀글 표시 방법</name>
-				<description xml:lang="ko">비밀글에 대해서 표시할 방법을 선택합니다.</description>
-				<options>
-					<value>all_user</value>
-					<name xml:lang="ko">모든 사용자에게 출력</name>
-				</options>
-				<options>
-					<value>use_permission</value>
-					<name xml:lang="ko">해당글 권한이 있을때만 출력</name>
-				</options>
-				<options>
-					<value>not_show</value>
-					<name xml:lang="ko">출력안함</name>
-				</options>				
-			</var>
-		</group>
-		<group>
-			<title xml:lang="ko">MORE 버튼 설정</title>	
-			<var id="more_link" type="text">
-				<name xml:lang="ko">MORE 버튼 링크</name>
-				<description xml:lang="ko">MORE 버튼을 사용하시려면 링크주소를 입력합니다.</description>
-			</var>			
-			<var id="more_text" type="text">
-				<name xml:lang="ko">MORE 버튼 텍스트</name>
-				<description xml:lang="ko">MORE 버튼으로 사용 할 텍스트를 입력합니다.</description>
 			</var>
 		</group>
     </extra_vars>
