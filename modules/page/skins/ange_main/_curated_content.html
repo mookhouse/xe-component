@@ -16,16 +16,16 @@ echo $oBannerRst->sScript;
 	</div>
 	<div class="section">
 		<div class="column column-8">
-			<article class="expert-qna">
+			<article class="parenting-learn">
 				<div class="article-header"> <!--- style='height: 150px;'--->
-					<h3>{$module_info->expert_qna_section_title}</h3>
+					<h3>{$module_info->subject_section_title} </h3>
 					<div class="btn-controls">
 						<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
 						<i sv-attr="pc_main_QNA_prev" class="icon-left-circle">
 						<span class="sr-only">이전</span>
 						</i>
 						</a--->
-						<a href="{$module_info->expert_qna_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+						<a href="{$module_info->subject_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
 							<i sv-attr="pc_main_QNA_next" class="icon-right-circle">
 							<span class="sr-only">다음</span>
 							</i>
@@ -33,12 +33,12 @@ echo $oBannerRst->sScript;
 					</div>
 				</div>
 				<div class="article-content">
-					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->expert_qna_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="45" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->subject_module_srl}" curation_cookie_use="Y" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna_curated" list_count="4" subject_cut_size="20" thumbnail_width="160" thumbnail_height="145" thumbnail_type="crop"/>
 				</div>
 			</article>
 		</div>
 		<div class="column column-4" >
-			<article class="parenting-learn" style='height: 261px;'>
+			<article class="parenting-learn" style='height: 287px;'>
 {@
 // cookie sets via /modules/page/skins/ange_main/js/ange_delivery_expect_due.js
 $bDueRegistered = false;
@@ -138,9 +138,9 @@ echo $oBannerRst->sScript;
 	</div>
 	<div class="section">
 		<div class="column column-8">
-			<article class="expert-qna">
+			<article class="parenting-learn">
 				<div class="article-header"> <!--- style='height: 150px;'--->
-					<h3>{$module_info->expert_qna_section_title}</h3>
+					<h3>{$module_info->brandstory_section_title}</h3>
 					<div class="btn-controls">
 						<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
 						<i sv-attr="pc_main_QNA_prev" class="icon-left-circle">
@@ -155,7 +155,7 @@ echo $oBannerRst->sScript;
 					</div>
 				</div>
 				<div class="article-content">
-					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->brandstory_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="7" subject_cut_size="45" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->brandstory_module_srl}" curation_cookie_use="{$module_info->brandstory_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="4" subject_cut_size="20" thumbnail_width="170" thumbnail_height="155" thumbnail_type="crop"/>
 				</div>
 				<BR>
 {@
@@ -174,9 +174,9 @@ unset($oBannerRst);
 			</article>
 		</div>
 		<div class="column column-4">
-			<article class="parenting-learn" style='height: 380px;'>
+			<article class="parenting-learn" style='height: 407px;'>
 				<div class="article-header">
-					<h3>{$module_info->brandstory_section_title}</h3>
+					<h3>{$module_info->expert_qna_section_title}</h3>
 					<div class="btn-controls">
 						<!---a href="javascript:;" class="btn btn-prev movie-btn" role="button" data-type="prev">
 							<i sv-attr="pc_main_video_prev" class="icon-left-circle">
@@ -191,7 +191,7 @@ unset($oBannerRst);
 					</div>
 				</div>
 				<div class="article-content">
-					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->brandstory_module_srl}" curation_cookie_use="{$module_info->subject_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="18" thumbnail_width="145" thumbnail_height="110" thumbnail_type="crop"/>
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->expert_qna_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="18" thumbnail_width="145" thumbnail_height="110" thumbnail_type="crop"/>
 				</div>
 			</article>
 		</div>

@@ -11,6 +11,9 @@ if(!$sImgUrl)
 			<a href="{$item->getPermanentUrl()}">
 				<figure>
 					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:160px;height:145px;background-size:cover;background-position:center center;">
+					<figcaption>
+					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
+					</figcaption>
 				</figure>
 			</a>
 		</li>

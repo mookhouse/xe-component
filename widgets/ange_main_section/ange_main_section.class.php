@@ -20,6 +20,7 @@ class ange_main_section extends WidgetHandler
 		$sOrderTarget = $oArgs->order_target;
 		if(!in_array($sOrderTarget, ['list_order','update_order','rand()'])) 
 			$sOrderTarget = 'list_order';
+
 		// 정렬 순서
 		$sOrderType = $oArgs->order_type;
 		if(!in_array($sOrderType, ['asc','desc'])) 
@@ -126,6 +127,7 @@ class ange_main_section extends WidgetHandler
 		elseif($_COOKIE[$this->_g_sPreparationCookieName])
 			$oArgs->s_tags = '임신준비';
 
+		Context::set('sCurationTag', $oArgs->s_tags);
 		$oTagRst = executeQueryArray('document.getDocumentListWithinTag', $oArgs);
 		unset($oArgs);
 		if(!$oTagRst->toBool()||!count($oTagRst->data)) 
@@ -138,7 +140,7 @@ class ange_main_section extends WidgetHandler
 		}
 		$oTgtArgs = new stdClass();
 		$oTgtArgs->document_srls = implode(',', $aTargetSrls);
-		$oArgs->sort_index = 'documents.'.$oArgs->sort_index;
+		$oTgtArgs->sort_index = 'documents.'.$oArgs->sort_index;
 		$oTgtArgs->order_type = $oArgs->order_type;
 		$oTgtArgs->list_count = $oArgs->nListCount;
 		$oTgtArgs->page = 1;
