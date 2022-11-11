@@ -33,7 +33,7 @@ echo $oBannerRst->sScript;
 					</div>
 				</div>
 				<div class="article-content">
-					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->subject_module_srl}" curation_cookie_use="Y" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna_curated" list_count="4" subject_cut_size="20" thumbnail_width="160" thumbnail_height="145" thumbnail_type="crop"/>
+					<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_pc" colorset="default" module_srls="{$module_info->subject_module_srl}" curation_cookie_use="{$module_info->subject_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="curation" list_count="4" subject_cut_size="20" thumbnail_width="160" thumbnail_height="145" thumbnail_type="crop"/>
 				</div>
 			</article>
 		</div>
@@ -54,7 +54,7 @@ elseif(isset($_COOKIE[$sPreparationCookieName]))
 }
 <block cond="!$bDueRegistered && !$bPreparationRegistered">
 				<div class="article-header">
-					<h3>회원 가입없이 필요한 출산, 육아, 제품 정보만!</h3>
+					<h3>회원 가입없이 필요한 출산, 제품, 육아 정보만!</h3>
 				</div>
 				<div class="article-content">
 					<p style="font-size: small;">등록하시면 지금 필요한 정보만 보여드려요!</p>
@@ -64,11 +64,11 @@ elseif(isset($_COOKIE[$sPreparationCookieName]))
 					</div>
 					<div class="btn-area">
 						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="setDeliveryDue(); return false;">출산예정일 등록</button>
-						<!---&nbsp;&nbsp;&nbsp;<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:45%;' onclick="setBirthday(); return false;">아기 생일 등록</button--->
+						<!---&nbsp;&nbsp;&nbsp;<button type="button" sv-attr="pc_main_childcare_btn" class="btn btn-lg btn-blue" style='width:45%;' onclick="setBirthday(); return false;">아기 생일 등록</button--->
 					</div>
 					<HR>
 					<div class="btn-area">
-						<button type="button" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="setPreparation(); return false;">임신 준비 중 등록</button>
+						<button type="button" sv-attr="pc_main_preg_prepare_btn" class="btn btn-lg btn-blue" style='width:100%;' onclick="setPreparation(); return false;">임신 준비 중 등록</button>
 					</div>
 </block>
 <block cond="$bDueRegistered">
@@ -85,7 +85,7 @@ elseif(isset($_COOKIE[$sPreparationCookieName]))
 </block>
 <block cond="$bPreparationRegistered">
 				<div class="article-header">
-					<h3>반가운 손님을 맞이하시려는 노력을<BR>앙쥬가 응원합니다.</h3>
+					<h3>반가운 손님을 맞이하시는 동안<BR>앙쥬가 응원합니다.</h3>
 				</div>
 				<div class="article-content">
 					<p style="font-size: small;">입력하신 지 30일 후에 자동 삭제되고<BR>그 전에도 언제든지 지울 수 있어요!</p>

@@ -1,0 +1,218 @@
+{@
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+<div class="jumbo" style="padding-bottom:2px;">
+	<div class="container">
+        <!-- <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe> -->
+        <img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' class="img-responsive">
+	</div>
+</div>
+<div class="container">
+	<section>
+{@
+// cookie sets via /modules/page/skins/ange_main/js/ange_delivery_expect_due.js
+$bDueRegistered = false;
+$bPreparationRegistered = false;
+$sPreparationCookieName = 'pregnant_preparation';
+$sPregrantCookieName = 'delivery_expected_due';
+if(isset($_COOKIE[$sPregrantCookieName]))
+	$bDueRegistered = true;
+elseif(isset($_COOKIE[$sPreparationCookieName]))
+	$bPreparationRegistered = true;
+
+//var_dump($_COOKIE[$sPregrantCookieName]);
+}
+<block cond="!$bDueRegistered && !$bPreparationRegistered">
+		<h3 class="section-title">회원 가입없이 필요한 출산, 제품, 육아 정보만</h3>
+		<article class="join-form">
+			<div class="table-wrap">
+				<table class="table table-bordered type-1">
+					<tbody>
+						<tr>
+							<th><label for="USER_ID">출산예정일</label></th>
+							<td class="overlap-confirm usr-id">
+								<div class="form-group">
+									<input sv-attr="mob_main_delivery_due_input" type="text" id="delivery_due_yyyymmdd" class="form-control" placeholder='YYYYMMDD'>
+								</div>
+								<p class="overlap-confirm" id="confirm_id">등록하시면 지금 필요한 정보만 보여드려요!</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-area box-contents">
+					<p class="before-info"  data-target="before-info" >
+						<a href="#" sv-attr="mob_main_delivery_due_btn" class="btn btn-lg btn-pink" role="button" style="margin-bottom:10px;" onclick="setDeliveryDue(); return false;">출산예정일 등록</a>
+						<a href="#" sv-attr="mob_main_preg_prepare_btn" class="btn btn-lg btn-gray" role="button" onclick="setPreparation(); return false;">임신 준비 중 등록</a>
+					</p>
+				</div>
+			</div>
+		</article>
+</block>
+<block cond="$bDueRegistered">
+		<h3 class="section-title">출산 예정일을 {zdate($_COOKIE[$sPregrantCookieName], 'Y-m-d')}로 기억합니다!</h3>
+		<article class="join-form">
+			<div class="table-wrap">
+				<table class="table table-bordered type-1">
+					<tbody>
+						<tr>
+							<th><label for="USER_ID">정보</label></th>
+							<td class="overlap-confirm usr-id">
+								<p class="overlap-confirm" id="confirm_id">입력하신 지 30일 후에 자동 삭제되고<BR>그 전에도 언제든지 지울 수 있어요!</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-area box-contents">
+					<p>
+						<a href="#" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-gray" role="button" style="margin-top:10px;" onclick="unsetCookie(); return false;">출산 예정일 지우기</a>
+					</p>
+				</div>
+			</div>
+		</article>
+</block>
+<block cond="$bPreparationRegistered">
+		<h3 class="section-title">반가운 손님을 맞이하시는 동안 앙쥬가 응원합니다.</h3>
+		<article class="join-form">
+			<div class="table-wrap">
+				<table class="table table-bordered type-1">
+					<tbody>
+						<tr>
+							<th><label for="USER_ID">정보</label></th>
+							<td class="overlap-confirm usr-id">
+								<p class="overlap-confirm" id="confirm_id">입력하신 지 30일 후에 자동 삭제되고<BR>그 전에도 언제든지 지울 수 있어요!</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-area box-contents">
+					<p>
+						<a href="#" sv-attr="pc_main_delivery_due_btn" class="btn btn-lg btn-gray" role="button" style="margin-top:10px;" onclick="unsetCookie(); return false;">임신 준비 상태 지우기</a>
+					</p>
+				</div>
+			</div>
+		</article>
+</block>
+	</section>
+	<article class="brand-banner">
+		<div class="row">
+			<div class="col-xs-6">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_left);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+				<div class="brand-news">
+					<img sv-attr='mob_main_brandnews' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">             
+				</div>
+			</div>
+			<div class="col-xs-6">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_right);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+                <div class="brand-news">
+                    <img sv-attr='mob_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">
+				</div>
+			</div>
+		</div>
+	</article>
+	<article class="subject-content">
+		<div class="article-header" style="padding-bottom: 0px;">
+			<h3>{$module_info->subject_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+				<i sv-attr='mob_rev2_main_QNA_prev' class="icon-left-circle">
+				<span class="sr-only">이전</span>
+				</i>
+				</a--->
+				<a href="{$module_info->subject_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_subject_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-header" style="padding-top: 5px; padding-bottom: 5px;">
+			<ul>
+				<li class="stab active" cond="$module_info->subject_section_tab_title_1"><a sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_1}'>{$module_info->subject_section_tab_title_1}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_2"><a href="{$module_info->subject_section_tab_link_2}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_2}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_2}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_3"><a href="{$module_info->subject_section_tab_link_3}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_3}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_3}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_4"><a href="{$module_info->subject_section_tab_link_4}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_4}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_4}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_5"><a href="{$module_info->subject_section_tab_link_5}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_5}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_5}</a></li>
+			</ul>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->subject_module_srl}" curation_cookie_use="{$module_info->subject_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="curation" list_count="3" subject_cut_size="40" thumbnail_width="375" thumbnail_height="375" thumbnail_type="crop"/>
+		</div>
+	</article>
+	<article class="brand-strory">
+		<div class="article-header">
+			<h3>{$module_info->brandstory_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev brand-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_brandstory_prev' class="icon-left-circle">
+					<span class="sr-only">이전</span>
+					</i>
+				</a--->
+				<a href="{$module_info->brandstory_section_link_more}" class="btn btn-next brand-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_brandstory_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->brandstory_module_srl}" curation_cookie_use="{$module_info->brandstory_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="13" thumbnail_width="275" thumbnail_height="275" thumbnail_type="crop"/>
+{@
+unset($oBannerRst);
+}            
+		</div>
+	</article>
+	<article class="brand-banner">
+		<div class="row">
+			<div class="col-xs-12">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+				<div class="brand-news">
+					<img sv-attr='mob_main_brandstory_bannerbottom' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">             
+				</div>
+			</div>
+{@
+unset($oBannerRst);
+}           
+		</div>
+	</article>
+	<article class="brand-strory">
+		<div class="article-header">
+			<h3>{$module_info->expert_qna_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev brand-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_brandstory_prev' class="icon-left-circle">
+					<span class="sr-only">이전</span>
+					</i>
+				</a--->
+				<a href="{$module_info->expert_qna_section_link_more}" class="btn btn-next brand-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_QNA_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" curation_cookie_use="{$module_info->expert_qna_curation_cookie}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="4" subject_cut_size="13" thumbnail_width="275" thumbnail_height="275" thumbnail_type="crop"/>
+		</div>
+	</article>
+</div>

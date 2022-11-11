@@ -1,0 +1,157 @@
+{@
+$aDim = explode('x', $module_info->svbanner_dimension);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_mid_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+<div class="jumbo" style="padding-bottom:2px;">
+	<div class="container">
+        <!-- <iframe src="{$module_info->svbanner_mid_url}" id="the_iframe" onload="calcHeight();" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:30px;"></iframe> -->
+        <img sv-attr='pc_main_mainbanner0' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/skins/ange_main/imgs/img_sample_list_none.png"' class="img-responsive">
+	</div>
+</div>
+<div class="container">
+	<!--article class="parenting-learn">
+		<div class="article-header">
+			<h3>영상으로 배우는 육아</h3>
+		
+			<div class="btn-controls">
+				<a href="javascript:;" class="btn btn-prev movie-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_video_prev' class="icon-left-circle">
+						<span class="sr-only">이전</span>
+					</i>
+				</a>
+				<a href="javascript:;" class="btn btn-next movie-btn" role="button" data-type="next">
+					<i sv-attr='mob_rev2_main_video_next' class="icon-right-circle">
+						<span class="sr-only">다음</span>
+					</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<ul class="row movie-ul"-->
+	<!--li class="col-xs-4">
+		<a href="/mobile?menu=story603&submenu=story_detail&NO="-->
+	<!--figure--->
+	<!--img sv-attr='mob_rev2_main_video6' src="https://ange.co.kr/mobile/_assets/images/_blank.gif" alt="" style="width: 100%;background-size: cover;background-position: center center;background-image: url();">
+		<figcaption-->
+	<!--em>영상으로 배우는 육아</em-->
+	<!--p sv-attr='mob_rev2_main_video6' ></p-->
+	<!--/figcaption-->
+	<!--/figure--->
+	<!--/a>
+		</li-->
+	<!--/ul>
+		</div>
+		</article-->
+	<article class="brand-banner">
+		<div class="row">
+			<div class="col-xs-6">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_left);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_left_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+				<div class="brand-news">
+					<img sv-attr='mob_main_brandnews' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">             
+				</div>
+			</div>
+			<div class="col-xs-6">
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_middle_right);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_middle_right_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+                <div class="brand-news">
+                    <img sv-attr='mob_main_brandnews_right' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" class="img-responsive">
+				</div>
+			</div>
+		</div>
+	</article>
+	<article class="qna-list">
+		<div class="article-header">
+			<h3>{$module_info->expert_qna_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+				<i sv-attr='mob_rev2_main_QNA_prev' class="icon-left-circle">
+				<span class="sr-only">이전</span>
+				</i>
+				</a--->
+				<a href="{$module_info->expert_qna_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_QNA_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->expert_qna_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="expert_qna" list_count="5" subject_cut_size="40" thumbnail_width="90" thumbnail_height="90" thumbnail_type="crop"/>
+		</div>
+	</article>
+	<article class="subject-content">
+		<div class="article-header" style="padding-bottom: 0px;">
+			<h3>{$module_info->subject_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev qna-btn" role="button" data-type="prev">
+				<i sv-attr='mob_rev2_main_QNA_prev' class="icon-left-circle">
+				<span class="sr-only">이전</span>
+				</i>
+				</a--->
+				<a href="{$module_info->subject_section_link_more}" class="btn btn-next qna-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_subject_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-header" style="padding-top: 5px; padding-bottom: 5px;">
+			<ul>
+				<li class="stab active" cond="$module_info->subject_section_tab_title_1"><a sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_1}'>{$module_info->subject_section_tab_title_1}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_2"><a href="{$module_info->subject_section_tab_link_2}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_2}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_2}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_3"><a href="{$module_info->subject_section_tab_link_3}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_3}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_3}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_4"><a href="{$module_info->subject_section_tab_link_4}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_4}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_4}</a></li>
+				<li class="stab" cond="$module_info->subject_section_tab_title_5"><a href="{$module_info->subject_section_tab_link_5}" sv-attr='mob_main_subject_{$module_info->subject_section_tab_title_5}' class="stab_btn" data-tab="2">{$module_info->subject_section_tab_title_5}</a></li>
+			</ul>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->subject_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="subject" list_count="9" subject_cut_size="40" thumbnail_width="375" thumbnail_height="375" thumbnail_type="crop"/>
+		</div>
+	</article>
+	<article class="brand-strory">
+		<div class="article-header">
+			<h3>{$module_info->brandstory_section_title}</h3>
+			<div class="btn-controls">
+				<!--a href="javascript:;" class="btn btn-prev brand-btn" role="button" data-type="prev">
+					<i sv-attr='mob_rev2_main_brandstory_prev' class="icon-left-circle">
+					<span class="sr-only">이전</span>
+					</i>
+				</a--->
+				<a href="{$module_info->brandstory_section_link_more}" class="btn btn-next brand-btn" role="button" data-type="next">
+				<i sv-attr='mob_main_brandstory_next' class="icon-right-circle">
+				<span class="sr-only">다음</span>
+				</i>
+				</a>
+			</div>
+		</div>
+		<div class="article-content">
+			<img class="zbxe_widget_output" widget="ange_main_section" skin="ange_old_mob" colorset="default" module_srls="{$module_info->brandstory_module_srl}" content_type="document" order_target="update_order" order_type="desc" list_type="brandstory" list_count="8" subject_cut_size="13" thumbnail_width="275" thumbnail_height="275" thumbnail_type="crop"/>
+{@
+unset($oBannerRst);
+$aDim = explode('x', $module_info->svbanner_dimension_section_bottom);
+$oBannerRst = svbannerModel::getCurrentBannerImgUrl($module_info->svbanner_dimension_section_bottom_srl, $aDim, 'ratio');
+unset($aDim);
+echo $oBannerRst->sScript;
+}
+            <div class="story-banner">
+                <img sv-attr='mob_main_brandstory_bannerbottom' id="banner_{$oBannerRst->sUniqId}" src="{$oBannerRst->sBannerImgUrl}" onerror='this.src="/modules/page/m.skins/ange_main/images/board_none_img.jpg"' class="img-responsive">
+			</div>
+{@
+unset($oBannerRst);
+}            
+		</div>
+	</article>
+</div>

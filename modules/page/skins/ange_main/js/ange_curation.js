@@ -16,7 +16,7 @@ function setDeliveryDue() {
 	// https://stackoverflow.com/questions/33232270/jquery-cookie-expiry-time
 	unsetCookie();
 	_g_sDeliveryDueYyyymmdd = $('#delivery_due_yyyymmdd').val().trim().replaceAll('-', '');
-	if(_validateDate() && _isComingDate())
+	if(_g_sDeliveryDueYyyymmdd.length && _validateDate() && _isComingDate())
 	{
 		$.cookie(_g_sDeliveryDueCookieName, _g_sDeliveryDueYyyymmdd, {expires: 30, path: '/'});
 		_g_sDeliveryDueYyyymmdd = $.cookie(_g_sDeliveryDueCookieName);

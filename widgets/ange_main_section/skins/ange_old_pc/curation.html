@@ -1,32 +1,3 @@
-<style>
-.background-wrap {
-  background-image: url('https://image.freepik.com/free-photo/wall-wallpaper-concrete-colored-painted-textured-concept_53876-31799.jpg');
-  background-size: 272px 196px;
-  width: 272px;
-  height: 196px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
-.content span {
-  color: white;
-}
-
-.content span:nth-child(1) {
-  
-}
-
-.content span:nth-child(2) {
-  font-size: 20px;
-}
-</style>
-
 {@ $idx=0}
 <div class="gallery-list">
 	<ul>
@@ -40,8 +11,7 @@ if(!$sImgUrl)
 			<a href="{$item->getPermanentUrl()}">
 				<figure>
 					<div sv-attr="pc_main_QNA_thumb{$idx+1}" style="background-image: url('{$sImgUrl}'); width:160px;height:145px;background-size:cover;background-position:center;">
-					<p style="font-size: 15px; font-weight: bold; background-color:white; opacity: 0.8;">[{$sCurationTag}]</p>
-					<!--img sv-attr="pc_main_QNA_thumb{$idx+1}" src="{$sImgUrl}" alt="{$item->getTitle}" style="width:160px;height:145px;background-size:cover;background-position:center center;"-->
+					<p cond="$sCurationTag" style="font-size: 15px; font-weight: bold; background-color:white; opacity: 0.8;">[{$sCurationTag}]</p>
 				</figure>
 				<figcaption style="font-size: 13px; color: #666; line-height: 18px;margin-top: 10px;">
 					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
