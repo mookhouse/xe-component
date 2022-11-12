@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget version="0.2">
+     <title xml:lang="ko">앙쥬 메인 페이지 전용 위젯</title>
+    <description xml:lang="ko">본 위젯은 (구)앙쥬 레이아웃에서만 사용할 수 있습니다.</description>
+	<version>0.0.1</version>
+    <date>2022-09-04</date>
+    <author email_address="root@singleview.co.kr" link="singleview.co.kr">
+        <name xml:lang="ko">singleview.co.kr</name>
+    </author>
+
+    <extra_vars>
+		<group>
+            <title xml:lang="ko">대상 설정</title>
+            <var id="module_srls" type="module_srl_list">
+				<name xml:lang="ko">대상 모듈</name>
+				<description xml:lang="ko">선택하신 모듈에 등록된 글을 대상으로 합니다.</description>
+			</var>
+			<var id="content_type" type="select">
+				<name xml:lang="ko">추출대상</name>
+				<options>
+					<value>document</value>
+					<name xml:lang="ko">공지 제외</name>
+				</options>
+				<options>
+					<value>document_notice</value>
+					<name xml:lang="ko">공지 포함</name>
+				</options>				
+			</var>
+		   <var id="order_target"  type="select">
+				<name xml:lang="ko">정렬 순서</name>
+				<description xml:lang="ko">등록된 순서 또는 변경된 순서로 정렬을 할 수 있습니다.</description>
+				<options>
+					<value>list_order</value>
+					<name xml:lang="ko">최신 등록순</name>
+				</options>
+				<options>
+					<value>update_order</value>
+					<name xml:lang="ko">최근 변경순</name>
+				</options>
+				<options>
+					<value>rand()</value>
+					<name xml:lang="ko">랜덤순</name>
+				</options>
+			</var>
+			<var id="order_type" type="select">
+				<name xml:lang="ko">정렬 방법</name>
+				<description xml:lang="ko">정렬대상을 내림차순 또는 올림차순으로 정렬할 수 있습니다.</description>
+				<options>
+					<value>desc</value>
+					<name xml:lang="ko">내림차순</name>
+				</options>
+				<options>
+					<value>asc</value>
+					<name xml:lang="ko">올림차순</name>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">컨텐츠 큐레이션</title>
+			<var id="curation_cookie_use" type="select">
+				<name xml:lang="ko">큐레이션 쿠키 사용</name>
+				<options>
+					<value>N</value>
+					<name xml:lang="ko">OFF</name>
+				</options>
+				<options>
+					<value>Y</value>
+					<name xml:lang="ko">ON</name>
+				</options>
+			</var>
+		</group>
+    </extra_vars>
+</widget>

@@ -28,13 +28,19 @@
 			</var>
 		</group>
 		<group>
-		<title xml:lang="ko">예제 설정1</title>
-			<var name="sub_title" type="text">
-				<title xml:lang="ko">게시판 부제목</title>
+			<title xml:lang="ko">추천글 위젯 설정</title>
+			<var name="bbs_module_srl" type="text">
+				<title xml:lang="ko">추천글 위젯이 추출할 게시판 srl</title>
 			</var>
-			<var name="title_img" type="image">
-				<title xml:lang="ko">게시판 제목에 이미지 사용</title>
-				<description xml:lang="ko">게시판 제목을 이 항목에 등록한 이미지로 사용할 수 있습니다.</description>
+			<var name="curation_cookie_use" type="radio">
+				<title xml:lang="ko">큐레이션 쿠키 사용</title>
+				<description xml:lang="ko">출산예정일, 임신준비 큐레이션 사용</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">미사용</title>
+				</options>
 			</var>
 		</group>
     </extra_vars>

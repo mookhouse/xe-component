@@ -1,0 +1,22 @@
+{@ $wi = $widget_info;}
+<block cond="count($wi->document_list)">
+지금 당신에게 필요한 소식!<BR><BR>
+</block>
+<table class="table table-bordered">
+	<tbody>
+		<tr loop="$wi->document_list=>$item">
+			<th cond="!$sCurationTag">[추천글]</th>
+			<th cond="$sCurationTag">[{$sCurationTag}]</th>
+			<td><a sv-attr='pc_content_article_relatedlist1' href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a>({$item->getCommentCount()})</td>
+		</tr>
+		<!---tr>
+			<th>5개월 [202203]</th>
+			<td>
+				<a sv-attr='pc_content_article_relatedlist5' href="#">
+					신간 소식 외
+				</a>
+				(0)
+			</td>
+		</tr--->
+	</tbody>
+</table>

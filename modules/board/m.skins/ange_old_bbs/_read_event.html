@@ -365,6 +365,14 @@ $nRemainingDay = -$dtExpired->diff($dtToday)->format("%r%a");
 	</div--->
 </div>
 
+{@ $tag_list = $oDocument->get('tag_list') }
+<span class="tags" cond="count((array)$tag_list)">
+<BR># 
+	<!--@for($i=0;$i<count((array)$tag_list);$i++)-->
+		{@ $tag = $tag_list[$i]; }
+		<a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a><span>,</span>
+	<!--@end-->
+</span>
 <include target="_read_cmd_btn.html" />
 <include target="_comment.html" />
 

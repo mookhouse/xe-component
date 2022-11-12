@@ -1,0 +1,15 @@
+{@ $wi = $widget_info;}
+<block cond="count($wi->document_list)">
+지금 당신에게 필요한 소식!<BR><BR>
+</block>
+<table class="table table-bordered">
+	<tbody>
+		<tr loop="$wi->document_list=>$item">
+			<td>
+			<block cond="!$sCurationTag">[추천글]</block>
+			<block cond="$sCurationTag">[{$sCurationTag}]</block> &nbsp;&nbsp;
+			<a href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a>&nbsp;&nbsp;({$item->getCommentCount()})
+			</td>
+		</tr>
+	</tbody>
+</table>

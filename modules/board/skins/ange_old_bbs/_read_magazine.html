@@ -86,11 +86,11 @@
 				</div>
 			</div>
 		</figure>
-		<div class="btn-ebook">
+		<!--div class="btn-ebook">
 			<p>
 				<a href='javascript:$scope.click_eBookOpen("http://ebook.ange.co.kr/ebook/ecatalog.php?Dir=312");' class="btn btn-pink btn-more" role="button">e-book 보기</a>
 			</p>
-		</div>
+		</div--->
 		<!--div class="table-wrap">
 			<table class="table table-bordered">
 				<tbody>
@@ -115,6 +115,14 @@
 				</p>
 			</div--->
 		<!---/div--->
+		{@ $tag_list = $oDocument->get('tag_list') }
+		<span class="tags" cond="count((array)$tag_list)">
+		# 
+			<!--@for($i=0;$i<count((array)$tag_list);$i++)-->
+				{@ $tag = $tag_list[$i]; }
+				<a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a><span>,</span>
+			<!--@end-->
+		</span>
 		<include target="_read_cmd_btn.html" />
 		<include target="_read_recommended_article.html" />	
 	</div>
