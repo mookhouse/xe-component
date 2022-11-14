@@ -10,17 +10,26 @@ if(!$sImgUrl)
 		<li>
 			<a href="{$item->getPermanentUrl()}">
 				<figure>
-					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:160px;height:145px;background-size:cover;background-position:center center;">
-					<figcaption>
-					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
-					</figcaption>
+					<img sv-attr="pc_main_QNA_thumb{$idx+1}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:170px;height:155px;background-size:cover;background-position:center center;">
 				</figure>
 			</a>
 		</li>
 {@ $idx++}
-<!--@if($idx == 4)-->
+<!--@if($idx == 2)-->
 {@ break;}
 <!--@end-->
+</block>
+	</ul>
+</div>
+<div class="qna-list">
+	<ul class="qna-ul">
+{@ $idx2=0}
+<block loop="$wi->document_list=>$item">
+{@ $idx2++}
+<!--@if($idx2 <= 2)-->
+{@ continue;}
+<!--@end-->
+		<li><a sv-attr="pc_main_QNA_list{$idx2}" href="{$item->getPermanentUrl()}">{$item->getTitle($wi->subject_cut_size)}</a></li>
 </block>
 	</ul>
 </div>

@@ -12,9 +12,9 @@ if(!$sImgUrl)
 			<li>
 				<a href="{$item->getPermanentUrl()}">
 					<figure>
-					<img sv-attr="pc_main_brandstory_thumb{$idx}" src="{$sImgUrl}" alt="{$item->getTitle($wi->subject_cut_size)}" style="width:145px;height:110px;background-size:cover;background-position:center center;">
+					<img sv-attr="pc_main_brandstory_thumb{$idx}" src="{$sImgUrl}" alt="{$item->getTitle()}" style="width:145px;height:110px;background-size:cover;background-position:center center;">
 					<figcaption>
-					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px;">{$item->getTitle($wi->subject_cut_size)}</p>
+					<p sv-attr="pc_main_brandstory_title{$idx}" style="max-width:145px; padding-bottom:15px;">{$item->getTitle($wi->subject_cut_size)}</p>
 					</figcaption>
 					</figure>
 				</a>

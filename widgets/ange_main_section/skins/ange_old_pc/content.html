@@ -1,6 +1,8 @@
 {@ $wi = $widget_info;}
 <!--@if($wi->list_type=='expert_qna')-->
     <include target="expert_qna.html" />
+<!--@elseif($wi->list_type=='expert_qna_4_img')-->
+    <include target="expert_qna_4_img.html" />
 <!--@elseif($wi->list_type=='curation')-->
     <include target="curation.html" />
 <!--@elseif($wi->list_type=='brandstory')-->
