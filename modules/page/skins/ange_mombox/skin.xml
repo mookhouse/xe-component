@@ -64,6 +64,10 @@
 		</group>
 		<group>
 			<title xml:lang="ko">임신맘 박스 페이지 설정</title>
+			<var name="before_mombox_gift_slide_img" type="textarea">
+				<title xml:lang="ko">임신맘박스 구성 슬라이드 이미지 목록</title>
+				<description xml:lang="ko">이미지URL;설명</description>
+			</var>
 			<var name="before_mombox_img" type="image">
 				<title xml:lang="ko">임신맘박스 구성 이미지</title>
 				<description xml:lang="ko">..</description>
