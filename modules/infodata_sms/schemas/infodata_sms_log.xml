@@ -1,0 +1,9 @@
+<table name="infodata_sms_log">
+	<column name="log_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
+	<column name="msg_id" type="varchar" size="32" notnull="notnull" />
+	<column name="to_cid" type="varchar" size="13" notnull="notnull" />
+	<column name="status" type="varchar" size="6" notnull="notnull" />
+	<column name="message" type="varchar" size="255" notnull="notnull" />
+	<column name="error_text" type="varchar" size="255" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

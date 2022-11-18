@@ -1,0 +1,14 @@
+<div class="x_page-header">
+	<h1>Infodata SMS</h1>
+</div>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div>
+	<ul class="x_nav x_nav-tabs">
+		<li class="x_active"|cond="$act == 'dispInfodata_smsAdminConfig'"><a href="{getUrl('act','dispInfodata_smsAdminConfig')}">기본 설정</a></li>
+		<li class="x_active"|cond="$act == 'dispInfodata_smsAdminListLog'"><a href="{getUrl('act','dispInfodata_smsAdminListLog')}">발송 내역</a></li>
+	</ul>
+</div>

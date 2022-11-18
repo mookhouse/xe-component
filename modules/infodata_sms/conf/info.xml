@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">인포데이터 SMS</title>
+	<description xml:lang="ko">인포데이터 SMS API를 관리합니다.</description>
+	<version>0.0.1</version>
+	<date>2022-11-17</date>
+	<category>service</category>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+        <name xml:lang="ko">Singleview.co.kr</name>
+    </author>
+</module>

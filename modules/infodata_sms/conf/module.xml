@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+	<permissions />
+	<actions>
+		<action name="dispInfodata_smsAdminConfig" type="view" menu_name="setting" menu_index="true" admin_index="true" />
+		<action name="dispInfodata_smsAdminListLog" type="view" />
+		<action name="procInfodata_smsAdminConfig" type="controller" />
+	</actions>
+</module>

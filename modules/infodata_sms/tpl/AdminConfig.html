@@ -1,0 +1,49 @@
+<include target="_AdminHeader.html" />
+
+<form action="./" class="x_form-horizontal" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="admin" />
+	<input type="hidden" name="act" value="procInfodata_smsAdminConfig" />
+	<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+
+	<section class="section">
+		<h1>API 정보</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="api_id">API ID</label>
+			<div class="x_controls">
+				<input type="text" name="api_id" id="api_id" value="{$oConfig->api_id}" class="x_input-xxlarge" />
+				<p class="x_help-block">API ID from infodata</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="api_pw">API PW</label>
+			<div class="x_controls">
+				<input type="text" name="api_pw" id="api_pw" value="{$oConfig->api_pw}" class="x_input-xxlarge" />
+				<p class="x_help-block">API PW from infodata</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<h1>발신 정보</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="callback_no">발신자 번호</label>
+			<div class="x_controls">
+				<input type="text" name="callback_no" id="callback_no" value="{$oConfig->callback_no}" class="x_input-xxlarge" />
+				<p class="x_help-block">ex) 021234567</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="sms_title">SMS 제목</label>
+			<div class="x_controls">
+				<input type="text" name="sms_title" id="sms_title" value="{$oConfig->sms_title}" class="x_input-xxlarge" />
+				<p class="x_help-block">인포데이터에서 요구하지만 SMS에 표시되지 않음</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_save}</button>
+		</div>
+	</div>
+</form>

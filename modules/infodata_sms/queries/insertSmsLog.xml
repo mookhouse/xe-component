@@ -1,0 +1,13 @@
+<query id="insertSmsLog" action="insert">
+	<tables>
+		<table name="infodata_sms_log" />
+	</tables>
+	<columns>
+		<column name="msg_id" var="msg_id" notnull="notnull" />
+		<column name="to_cid" var="to_cid" notnull="notnull" />
+        <column name="status" var="status" notnull="notnull" />
+		<column name="message" var="message" notnull="notnull" />
+		<column name="error_text" var="error_text" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

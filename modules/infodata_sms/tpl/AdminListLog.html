@@ -1,0 +1,32 @@
+<include target="_AdminHeader.html" />
+
+<div class="table even easyList">
+    <table class="rowTable">
+        <thead style="clear:both;">
+            <tr>
+                <th scope="col">{$lang->no}</th>
+                <th scope="col">{$lang->recipient_no}</th>
+                <th scope="col">{$lang->message}</th>
+                <th scope="col">{$lang->status}</th>
+                <th scope="col">{$lang->error_text}</th>
+                <th scope="col">{$lang->regdate}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--@foreach($aSmsList as $no => $oRec)-->
+            <tr class="row{$cycle_idx}">
+                <td>{$oRec->msg_id}</td>
+                <td>{$oRec->to_cid}</td>
+                <td title="{$oRec->message}">{cut_str(strip_tags($oRec->message), 15, '...')}</td>
+                <td>{$oRec->status}</td>
+                <td title="{$oRec->error_text}">{cut_str(strip_tags($oRec->error_text), 15, '...')}</td>
+                <td>{zdate($oRec->regdate, "Y-m-d H:i:s")}</td>
+            </tr>
+            <!--@end-->
+        </tbody>
+    </table>
+    <!-- 페이지 네비게이션 -->
+    <div class="x_clearfix">
+		<include target="_page_navigation.html" />
+	</div>
+</div>

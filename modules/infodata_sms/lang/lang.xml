@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="recipient_no">
+		<value xml:lang="ko"><![CDATA[수신번호]]></value>
+	</item>
+	<item name="message">
+		<value xml:lang="ko"><![CDATA[발송메시지]]></value>
+	</item>
+	<item name="error_text">
+		<value xml:lang="ko"><![CDATA[오류메시지]]></value>
+	</item>
+</lang>
