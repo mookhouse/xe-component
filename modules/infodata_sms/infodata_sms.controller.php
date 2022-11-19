@@ -3,20 +3,30 @@ class infodata_smsController extends infodata_sms
 {
 /**
 * @brief 
+* params ["country_code"]=>  int(82)
+  ["clue"]=>  string(11) "01012345678"
+  ["authcode"]=>  string(5) "75279"
+  ["ipaddress"]=>  string(12) "192.168.0.56"
+  ["recipient_no"]=>  string(11) "01012345678"
+  ["sender_no"]=>  string(9) "02123456"
+  ["content"]=>  string(74) "[핸드폰인증] 75279 ☜ 인증번호를 정확히 입력해 주세요.
 * file appending
 *     curl -X POST -H "Authorization:Basic eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzbXMiOiJZIiwiYXVkIjoiYW5nZV9yZXN0IiwibW1zIjoiWSIsImV4cCI6MTY0NTY4MTY1NCwicmVwIjoiTiJ9.wMrBeXOSIgXvYLMqXPNo_plBtHxI-7BOrJky2JgkGtE" -H "Content-Type: multipart/form-data; boundary='something'" -H "Accept: application/json" -F fileData=/home/w9721066/htdocs/xe-core-sv/layouts/default/visual.sub.jpg https://file.supersms.co:7010/sms/v3/file
 * simple msg transmission
 *     curl -X POST -H "Authorization:Basic eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzbXMiOiJZIiwiYXVkIjoiYW5nZV9yZXN0IiwibW1zIjoiWSIsImV4cCI6MTY1NDY3NTQ4NCwicmVwIjoiTiJ9.Ks3HCAPqHAmIEYMO1gll6X1BRiBSroC2cHw9rZywGdo" -H "Accept: application/json" -H "content-type: application/json" -d '{"title":"title1","from":"023334650","text":"info data SMS test text1","fileKey":"","destinations":[{"to":"+821012345678","replaceWord1":"","replaceWord2":"","replaceWord3":"","replaceWord4":"","replaceWord5":""}],"ref":"ref1","ttl":"100","paymentCode":"1","clientSubId":"1"}' https://sms.supersms.co:7020/sms/v3/multiple-destinations 
 **/
-	public function sendMessage($sCallbackNo, $sSmsBody, $sDestNo)
+	public function sendMessage($oInArgs)
 	{
 		$oModuleModel = getModel('module');
 		$oConfig = $oModuleModel->getModuleConfig('infodata_sms');
 		unset($oModuleModel);
+
+		$sCallbackNo = $oInArgs->sender_no;
 		if(!$sCallbackNo)
 			$sCallbackNo = $oConfig->callback_no;
-		// $sSmsBody = "info data SMS test text1";
-		// $sDestNo = "01012345678";
+
+		$sSmsBody = $oInArgs->content;
+		$sDestNo = $oInArgs->recipient_no;
 		
 		$aRst = $this->_validateRestfulApiAccessToken($oConfig);
 		if($aRst['b_err'] or strlen($aRst['s_access_token'])==0)
@@ -27,7 +37,7 @@ class infodata_smsController extends infodata_sms
 
 		if($sDestNo[0] == '0') // 핸폰 번호 맨앞의 0을 지움
 			$sDestNo = mb_substr($sDestNo, 1);
-		$sDestNo = '+82'.$sDestNo;
+		$sDestNo = '+'.$oInArgs->country_code.$sDestNo;  // +821012345678
 		
 		$oCh = curl_init();
 		curl_setopt($oCh, CURLOPT_URL, $this->_g_sRestfulServerUrl);
@@ -72,11 +82,24 @@ class infodata_smsController extends infodata_sms
 		$oLogArgs->msg_id = $aRst['destinations'][0]['messageId'];
 		$oLogArgs->to_cid = $aRst['destinations'][0]['to'];
 		$oLogArgs->status = $aRst['destinations'][0]['status'];
+		$oLogArgs->ipaddress = $oInArgs->ipaddress; // requested IP referral
 		$oLogArgs->message = $sSmsBody;
 		$oLogArgs->error_text = $aRst['destinations'][0]['errorText'];
 		executeQuery('infodata_sms.insertSmsLog', $oLogArgs);
 		unset($oLogArgs);
-		return true;
+		
+		// aligned with coolsms return
+		$oRst = new BaseObject();
+		if($aRst['destinations'][0]['status'] != 'R000')
+		{
+			$oRst->add('error_code', $aRst['destinations'][0]['status']);
+			$oRst->add('failure_count', 1);
+		}
+		else
+			$oRst->add('failure_count', 0);
+		$oRst->add('success_count', $aRst['toCount']);
+		$oRst->add('group_id', $aRst['groupId']);
+		return $oRst;
 	}
 /**
 * @brief 

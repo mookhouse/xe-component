@@ -8,6 +8,7 @@
         <column name="status" var="status" notnull="notnull" />
 		<column name="message" var="message" notnull="notnull" />
 		<column name="error_text" var="error_text" />
+		<column name="ipaddress" var="ipaddress" notnull="notnull" />
 		<column name="regdate" var="regdate" default="curdate()" />
 	</columns>
 </query>

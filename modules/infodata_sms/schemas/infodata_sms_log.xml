@@ -5,5 +5,6 @@
 	<column name="status" type="varchar" size="6" notnull="notnull" />
 	<column name="message" type="varchar" size="255" notnull="notnull" />
 	<column name="error_text" type="varchar" size="255" />
+	<column name="ipaddress" type="varchar" size="30" />
 	<column name="regdate" type="date" notnull="notnull" />
 </table>
