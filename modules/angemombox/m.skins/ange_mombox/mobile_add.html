@@ -1,0 +1,29 @@
+{@
+$aPreMomNo = Array('05'=>'138', '06'=>'139', '07'=>'140', '08'=>'141', '09'=>'142', '10'=>'143', '11'=>'144', '12'=>'145');
+$aPostMomNo = Array('05'=>'16', '06'=>'17', '07'=>'18', '08'=>'19', '09'=>'20', '10'=>'21', '11'=>'22', '12'=>'23');
+$sMonth = date("m", time());
+$sYearMonth = date("Y년 m월 ", time());
+}
+
+<link href="/modules/svdocs/m.skins/ange_mombox/css/samplepack.css" rel="stylesheet">
+
+<div class="container">
+	<section>
+<!--@if($module_info->default_style=='before')-->
+	<include target="_before_old.html" cond="$mode!='slide'"/>
+	<include target="_before_slide.html" cond="$mode=='slide'"/>
+<!--@elseif($module_info->default_style=='after')-->
+	<include target="_after.html" />
+<!--@end-->
+	</section>
+</div>
+
+<script type="text/javascript" src="../../tpl/skin.js/countdown_timer.js"></script>
+<script>
+<block cond="$teaser_open=='Y'">
+initializeClock('clockdiv', '{$module_info->open_datetime}', {$remaining_applicants});
+</block>
+<block cond="$teaser_open!='Y'">
+initializeClock('clockdiv', '{$module_info->due_datetime}', {$remaining_applicants});
+</block>
+</script>

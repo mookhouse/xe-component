@@ -1,0 +1,122 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="./modules/svdocs/tpl/skin.css/countdown_timer.css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.bxslider').bxSlider({
+		touchEnabled: true,
+		controls: true,
+		pager: true,
+		captions: true,
+		auto: true,
+		speed: 500,
+		pagerType: 'short',
+	});
+});
+</script>
+
+<div class="section-header">
+	<h2 class="sub-title">20개 이상의 알찬 선물로 구성된 앙쥬 예비맘박스 신청!</h2>
+</div>
+
+<center>
+<table width="732" border="0" cellpadding="0" cellspacing="0">
+	<TR ID='countdown_timer'>
+		<td align='CENTER'>
+			 <div id="clockdiv">
+				<div>
+					<span class="days"></span>일
+				</div>
+				<div>
+					<span class="hours"></span>시
+				</div>
+				<div>
+					<span class="minutes"></span>분
+				</div>
+				<div>
+					<span class="seconds"></span>초
+				</div> 남았습니다!
+			</div>
+		</td>
+	</TR>
+</table>
+
+<BR>
+
+<ul class="bxslider">
+{@
+$aImg = explode(PHP_EOL, $module_info->before_mombox_gift_slide_img);
+}
+	<li loop="$aImg=>$key,$sVal">
+{@
+$aImgInfo = explode(';', $sVal);
+}	
+		<img title='{$aImgInfo[1]}' src="{$aImgInfo[0]}" style="width:300px;height:300px;"/>
+	</li>
+</ul>
+</center>
+
+<div class="article-content">
+	<div class="info-wrap box-contents" style="width:100%">
+		<!-- ## 앙쥬 맘박스 예비맘 : 상단 이미지, 월호수, 차수, 응모기간 매월 변경 ##-->
+		<div class="member-info new-member before-info">
+			<h5>앙쥬맘박스(예비맘) {$aPreMomNo[$sMonth]}차 {$sMonth}월호</h5>
+			<div class="details">
+				<div class="btn-area">
+					<p>
+						<a sv-attr='pc_mombox_pregnant_register' href="{$module_info->before_mombox_submit_link}" role="button" class="btn btn-pink">앙쥬맘박스 예비맘 신청하기</a>	&nbsp;&nbsp;&nbsp;
+						<a sv-attr='pc_mombox_pregnant_review' href="https://ange.co.kr/usr?menu=samplereview&submenu=" role="button" class="btn btn-gray">앙쥬맘박스 후기보기</a>
+					</p>
+				</div>
+				<HR>
+				<dl>
+					<dt>응모기간</dt>
+					<dd>{$sYearMonth} 1일 ~ {$sYearMonth} 25일</dd>
+					<dt>응모조건</dt>
+					<dd>임신확인 후 ~ 출산 전까지</dd>
+					<dt>당첨인원</dt>
+					<dd class="text-pink">
+						500명 추첨
+					</dd>
+					<dt>신청방법</dt>
+					<dd>
+						<ol>
+							<li>1. 회원가입 &gt; 로그인 &gt; 앙쥬맘박스 &gt; 앙쥬맘박스 예비맘 신청하기</li>
+							<li>2. 출산예정일/태동느낌/증빙자료 첨부 후 신청버튼 클릭</li>
+						</ol>
+					</dd>
+					<dt>당첨TIP</dt>
+					<dd>
+						앙쥬 공식 SNS 팔로우한 개인 SNS 계정을 남기면 당첨 UP!
+						<ol>
+							<li>1. 앙쥬 인스타그램 팔로워하기
+								<a href="https://www.instagram.com/angemoms/" target="_blank" class="insta" rel="noopener">
+								<img src="/modules/page/skins/ange_mombox/imgs/img_insta.png" alt="">
+								</a>
+							</li>
+							<li>2. 앙쥬 포스트 팔로워하기
+								<a href="https://post.naver.com/my.nhn?memberNo=541939" target="_blank" class="" rel="noopener">
+								<img src="/modules/page/skins/ange_mombox/imgs/img_post.jpg" alt="" width="15" height="15" align="absmiddle">
+								</a>
+							</li>
+							<li>3. 앙쥬 유튜브 팔로워하기 
+								<a href="https://www.youtube.com/channel/UCWyXmO0AP0nW0sFCxzyCyig" target="_blank" class="" rel="noopener">
+								<img src="/modules/page/skins/ange_mombox/imgs/img_yutube.jpg" alt="" width="15" height="15" align="absmiddle">
+								</a>
+							</li>
+						</ol>
+					</dd>
+					<dt>발송비용</dt>
+					<dd>무료배송</dd>
+					<dt>발송일정</dt>
+					<dd>당첨자발표 내 일정안내</dd>
+					<dt>당첨자발표</dt>
+					<dd>매월 말 당첨자발표 게시판</dd>
+				</dl>
+				<p class="point_msg">※ 앙쥬(무크하우스)는 보험 및 금융상품 가입 권유 전화를 하지 않습니다.</p>
+			</div>
+		</div>
+	</div>
+</div>

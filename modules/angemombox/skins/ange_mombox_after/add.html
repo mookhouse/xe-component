@@ -1,0 +1,269 @@
+{@
+$aPreMomNo = Array('05'=>'138', '06'=>'139', '07'=>'140', '08'=>'141', '09'=>'142', '10'=>'143', '11'=>'144', '12'=>'145');
+$aPostMomNo = Array('05'=>'16', '06'=>'17', '07'=>'18', '08'=>'19', '09'=>'20', '10'=>'21', '11'=>'22', '12'=>'23');
+$sMonth = date("m", time());
+$sYearMonth = date("Y년 m월 ", time());
+}
+
+<link href="/modules/angemombox/skins/ange_mombox_before/css/samplepack.css" rel="stylesheet">
+
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<h2 class="nav-title">앙쥬맘박스</h2>
+			<ul id="lnb-list">
+				<li class="active"><a href='/usr/?menu=sample_pack_11&submenu='>앙쥬맘박스 신청하기</a></li>
+				<li class=""><a href='/usr/?menu=samplereview&submenu='>앙쥬맘박스 후기</a></li>
+			</ul>
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+			<section class="sample-write">
+				<h2 class="sub-title">앙쥬맘박스</h2>
+				<div class="section-content">
+					<article class="user-info">
+						<form action="#" name="writeFrm" id="writeFrm">
+							<div class="table-wrap">
+								<table class="table table-bordered">
+									<caption>
+										<h3>앙쥬맘박스 신청자 정보</h3>
+										<div class="modify-btn">
+											<p class="attention">회원정보가 다른가요?</p>
+											<p>
+												<a href="{getUrl('act','dispMemberInfo')}" class="btn btn-white" role="button">회원정보 수정</a>
+											</p>
+										</div>
+									</caption>
+									<tbody>
+										<tr>
+											<th class="necessary"><label for="u-name">신청자명</label></th>
+											<td>
+												<div class="form-group basic-group">관리자</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="necessary"><label for="u-phone">핸드폰 번호</label></th>
+											<td>
+												<div class="form-group basic-group">07050052810</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="necessary"><label for="u-addr">받으실 곳</label></th>
+											<td>
+												<div class="form-group">
+													서울 마포구 독막로 155 (창전동, 무크하우스) 5층														
+												</div>
+											</td>
+										</tr>
+										<tr id="file_tr" style="display:none;">
+											<th class="v-top"><label for="feel">아이이름 </label></th>
+											<td>
+												<div class="form-group">
+													<input type="text" id="CHILDNAME" name="CHILDNAME" class="form-control">
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="necessary">
+												출산예정일													
+											</th>
+											<td>
+												<div class="form-group basic-group">
+													<select class="form-control" id="YEAR" name="YEAR">
+														<option value="">년도</option>
+														<option value="2022">2022</option>
+														<option value="2023">2023</option>
+													</select>
+													<select class="form-control" id="MONTH" name="MONTH">
+														<option value="">월</option>
+														<option value="01">01</option>
+														<option value="02">02</option>
+														<option value="03">03</option>
+														<option value="04">04</option>
+														<option value="05">05</option>
+														<option value="06">06</option>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09">09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+													<select class="form-control" id="DAY" name="DAY">
+														<option value="">일</option>
+														<option value="01">01</option>
+														<option value="02">02</option>
+														<option value="03">03</option>
+														<option value="04">04</option>
+														<option value="05">05</option>
+														<option value="06">06</option>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09">09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+														<option value="25">25</option>
+														<option value="26">26</option>
+														<option value="27">27</option>
+														<option value="28">28</option>
+														<option value="29">29</option>
+														<option value="30">30</option>
+														<option value="31">31</option>
+													</select>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="necessary">
+												증빙자료<br>(임신확인서)													
+											</th>
+											<td class="file-search">
+												<div class="form-group">
+													<input type="file" name="files[]" id="uploadedfile" data-url="/service/upload/" style="display:none"/>
+													<span id="uploadedfileName"></span>
+													<label for="u-file" class="file-btn" onclick='$("#uploadedfile").click();'>찾아보기</label>
+													<p> 2MB 미만으로 첨부가능합니다.</p>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="necessary v-top">
+												태동느낌													
+											</th>
+											<td>
+												<div class="form-group">
+													<textarea id="REASON" name="REASON" class="form-control"></textarea>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="v-top"><label for="feel">SNS아이디 </label></th>
+											<td>
+												<div class="form-group">
+													<input type="text" id="SNS" name="SNS" class="form-control">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="btn-area">
+								<p>
+									<button type="submit" class="btn btn-pink">신청하기</button>
+									<a href="javascript:history.back();" class="btn btn-white" role="button">취소하기</a>
+								</p>
+							</div>
+						</form>
+					</article>
+					<div class="attention-box" id="before_attention">
+						<h5>앙쥬맘박스(예비맘) 주의사항</h5>
+						<ol>
+							<li><b class="text-pink">앙쥬맘박스(예비맘) 당첨은 첫째, 둘째 상관없이 단 1회만 가능합니다.</b> (*많은 회원님들께 기회를 드리기 위함입니다)</li>
+							<li>반드시 <b class="text-blue">임신부 본인만 응모</b>하세요<b class="text-black">(남자회원 신청불가)</b></li>
+							<li>회원정보에 <b class="text-blue">출산예정일이 등록되어 있어야 합니다.</b></li>
+							<li><b class="text-blue">임신증빙자료를 첨부</b>해주셔야 합니다. (2M이하)<br />(* 임신부 이름과 출산예정일(년/월/일)이 보이는 임신확인서 및 산모수첩만 가능 / 초음파사진은 불가합니다.)</li>
+							<li>당첨자 발표 후 별도 주소확인은 하지 않으며 주소가 불분명 할 경우 선물은 발송되지 않습니다. </li>
+							<li>회원 탈퇴 후 재가입하여 신청하더라도 신청기록은 남기 때문에 앙쥬맘박스(예비맘) 선정에서 제외됩니다.</li>
+							<li>앙쥬맘박스의 구성과 수량은 사진과 다를 수 있으며, 업체 사정으로 공지 없이 변경될 수 있습니다. 이로 인한 재발송은 하지 않습니다.</li>
+							<li>앙쥬맘박스(출산맘)에 당첨되신 분도 앙쥬맘박스(예비맘)에 응모가능합니다.</li>
+							<li>사진과 함께 앙쥬맘박스 후기를 남기시고, <b class="text-pink">앙쥬맘박스 후기 이벤트에 응모하시면 추첨을 통해 선물을 드립니다.</b></li>
+							<li>반드시 응모방법 및 주의사항을 숙지하시기 바랍니다.</li>
+						</ol>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../../tpl/skin.js/countdown_timer.js"></script>
+<script>
+initializeClock('clockdiv', '{$module_info->due_datetime}', {$remaining_applicants});
+
+jQuery.loadScript = function (url, callback) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'script',
+        success: callback,
+        async: true
+    });
+}
+
+// regarding no layout case
+if(typeof _g_sGaectkVersion == 'undefined') 
+	jQuery.loadScript('https://svapi.co.kr:5018/gaectk.js', function(){
+    //Stuff to do after someScript has loaded
+	//console.log(_g_sGaectkVersion);
+});
+
+if(typeof wcs == 'undefined') 
+	jQuery.loadScript('//wcs.naver.net/wcslog.js', function(){
+    //Stuff to do after someScript has loaded
+	//console.log(wcs);
+});
+
+if(typeof fbq == 'undefined') 
+{
+	!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+	n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+	document,'script','https://connect.facebook.net/en_US/fbevents.js');
+	//console.log(fbq);
+}
+
+<block cond="$teaser_open=='Y'">
+initializeClock('clockdiv', '{$module_info->open_datetime}', {$remaining_applicants});
+</block>
+<block cond="$teaser_open!='Y'">
+initializeClock('clockdiv', '{$module_info->due_datetime}', {$remaining_applicants});
+</block>
+<block cond="!Mobile::isMobileCheckByAgent()">
+var _g_sVirtualConversionPrefix = 'thankyou_{$module_info->module_srl}_pc';
+</block>
+<block cond="Mobile::isMobileCheckByAgent()">
+var _g_sVirtualConversionPrefix = 'thankyou_{$module_info->module_srl}_mob';
+</block>
+
+function _doPreRegistration()
+{
+<block cond="$config->nvad_conv_id">
+	var _nasa={};
+	_nasa["cnv"] = wcs.cnv("4","500"); // 전환유형, 전환가치 설정해야함. 설치매뉴얼 참고
+</block>
+<block cond="$config->facebook_pixel_id">
+	fbq('track', 'CompleteRegistration');
+</block>
+	//var aUri = getUrlVars();
+	//if(aUri['test'] == 'a' )
+	//	jQuery('input[id="page_type"]').val('disinfection');
+	doRegistration( _g_sVirtualConversionPrefix );
+}
+
+function _doPreCertified()
+{
+<block cond="$config->nvad_conv_id">
+	var _nasa={};
+	_nasa["cnv"] = wcs.cnv("4","500"); // 전환유형, 전환가치 설정해야함. 설치매뉴얼 참고
+</block>
+<block cond="$config->facebook_pixel_id">
+	fbq('track', 'CompleteRegistration');
+</block>
+	doCertified( _g_sVirtualConversionPrefix );
+}
+</script>

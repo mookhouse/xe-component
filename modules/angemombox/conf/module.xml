@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+    </permissions>
+	<actions>
+		<action name="dispAngemomboxAdminIndex" type="view" admin_index="true" menu_name="angemombox" menu_index="true" />
+		<action name="dispAngemomboxAdminInsertModInst" type="view" />
+		<action name="dispAngemomboxAdminInfo" type="view" />
+		<action name="dispAngemomboxAdminGrantInfo" type="view" />
+		<action name="dispAngemomboxAdminSkinInfo" type="view" />
+		<action name="dispAngemomboxAdminMobileSkinInfo" type="view" />
+		<action name="dispAngemomboxAdminDelete" type="view" />
+		<action name="dispAngemomboxAdminApplicantsList" type="view" />
+		<action name="dispAngemomboxAdminDocDetail" type="view" />
+		<action name="dispAngemomboxAdminWinnerList" type="view" />
+		<action name="dispAngemomboxAdminTermsPrivacyUsage" type="view" />
+		<action name="dispAngemomboxAdminTermsPrivacyShr" type="view" />
+
+		<action name="getAngemomboxAdminDeleteDoc" type="model" />
+		
+		<action name="dispAngemomboxIndex" type="view" index="true" />
+		<action name="dispAngemomboxUpdate" type="view" />
+				
+		<action name="procAngemomboxAdminUpdate" type="controller" ruleset="updatePage" />
+		<action name="procAngemomboxAdminInsertConfig" type="controller" />
+		<action name="procAngemomboxAdminAddWinner" type="controller" />
+		<action name="procAngemomboxAdminTermPrivacyUsageUpdate" type="controller" />
+		<action name="procAngemomboxAdminTermPrivacyShrUpdate" type="controller" />
+		<action name="procAngemomboxAdminDelete" type="controller" />
+		<action name="procAngemomboxAdminDeleteDoc" type="controller" />
+		<action name="procAngemomboxAdminCSVDownloadByModule" type="controller" />
+
+		<action name="procAngemomboxAdminApproveApplicant" type="controller" />
+
+		<action name="procAngemomboxRegistration" type="controller" />
+		<action name="procAngemomboxUpdate" type="controller" />
+	</actions>
+	<menus>
+	</menus>
+</module>

@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="about_angemombox">
+		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 정보를 관리할 수 있습니다. /addons/svtracker가 필수입니다.]]></value>
+	</item>
+	<item name="angemombox_management">
+		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 관리]]></value>
+	</item>
+	<item name="member_id">
+		<value xml:lang="ko"><![CDATA[회원 ID]]></value>
+	</item>
+	<item name="doc_srl">
+		<value xml:lang="ko"><![CDATA[신청서 번호]]></value>
+	</item>
+	<item name="applicant_name">
+		<value xml:lang="ko"><![CDATA[회원 이름]]></value>
+	</item>
+	<item name="applicant_phone">
+		<value xml:lang="ko"><![CDATA[회원 핸드폰]]></value>
+	</item>
+	<item name="sns_id">
+		<value xml:lang="ko"><![CDATA[응모자 sns id]]></value>
+	</item>
+	<item name="connected_board_srl">
+		<value xml:lang="ko"><![CDATA[응모 내용을 연결할 게시판 srl]]></value>
+	</item>
+	<item name="about_connected_board_srl">
+		<value xml:lang="ko"><![CDATA[응모자가 입력한 내용을 복제할 게시판 모듈 srl 번호를 적으세요.]]></value>
+	</item>
+	<item name="member_addr_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 배송 주소 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_addr_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 배송 주소 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_give_birth_date_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 출산일 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_give_birth_date_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 출산일 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_sns_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 SNS 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_sns_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 SNS 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="title_prefix">
+		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리]]></value>
+	</item>
+	<item name="about_title_prefix">
+		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리를 입력하세요.]]></value>
+	</item>
+	<item name="title_cut_size">
+		<value xml:lang="ko"><![CDATA[게시판 제목 최대 글자수]]></value>
+	</item>
+	<item name="about_title_cut_size">
+		<value xml:lang="ko"><![CDATA[신청서에 입력한 본문을 잘라서 게시판 제목으로 등록할 때 최대 글자수를 입력하세요.]]></value>
+	</item>
+	<item name="mombox_module_srl_field">
+		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 모듈 srl]]></value>
+	</item>
+	<item name="about_mombox_module_srl_field">
+		<value xml:lang="ko"><![CDATA[게시판에 이미 추가한 사용자 정의 맘박스 모듈 srl 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="mombox_application_srl_field">
+		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 신청서 srl]]></value>
+	</item>
+	<item name="about_mombox_application_srl_field">
+		<value xml:lang="ko"><![CDATA[게시판에 이미 추가한 사용자 정의 맘박스 신청서 srl 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="user_agent">
+		<value xml:lang="ko"><![CDATA[접속기기]]></value>
+	</item>
+	<item name="init_referral">
+		<value xml:lang="ko"><![CDATA[진입 Referral]]></value>
+	</item>
+	<item name="utm_source">
+		<value xml:lang="ko"><![CDATA[광고 소스]]></value>
+	</item>
+	<item name="utm_medium">
+		<value xml:lang="ko"><![CDATA[광고 매체]]></value>
+	</item>
+	<item name="utm_campaign">
+		<value xml:lang="ko"><![CDATA[광고 캠페인]]></value>
+	</item>
+	<item name="utm_term">
+		<value xml:lang="ko"><![CDATA[광고 키워드]]></value>
+	</item>
+	<item name="yr_mo">
+		<value xml:lang="ko"><![CDATA[신청 연월]]></value>
+	</item>
+	<item name="monthly_due_day">
+		<value xml:lang="ko"><![CDATA[매월 마지막 응모일]]></value>
+	</item>
+	<item name="about_monthly_due_day">
+		<value xml:lang="ko"><![CDATA[예를 들어, 25를 입력하면 응모는 26일 0시부터 31일까지 폐쇄됩니다.]]></value>
+	</item>
+	<item name="cmd_winner_info">
+		<value xml:lang="ko"><![CDATA[당첨자 선정]]></value>
+	</item>
+	<item name="cmd_manage_term_privacy_usage">
+		<value xml:lang="ko"><![CDATA[개인정보 수집,이용 약관]]></value>
+	</item>
+	<item name="cmd_manage_term_privacy_shr">
+		<value xml:lang="ko"><![CDATA[개인정보 3자 제공 약관]]></value>
+	</item>
+	<item name="msg_error_already_winned">
+		<value xml:lang="ko"><![CDATA[이미 당첨되셨습니다.]]></value>
+	</item>
+	<item name="msg_already_registered">
+		<value xml:lang="ko"><![CDATA[이미 응모하셨습니다.]]></value>
+	</item>
+	<item name="is_hide_privacy_shr_term">
+		<value xml:lang="ko"><![CDATA[개인정보3자제공약관 숨기기]]></value>
+	</item>
+	<item name="hide">
+		<value xml:lang="ko"><![CDATA[숨기기]]></value>
+	</item>
+	<item name="win_status">
+		<value xml:lang="ko"><![CDATA[당첨]]></value>
+	</item>
+	<item name="applicants_approval">
+		<value xml:lang="ko"><![CDATA[이 응모자를 승인]]></value>
+	</item>
+	<item name="msg_not_opened_yet">
+		<value xml:lang="ko"><![CDATA[%s 응모를 기다려 주세요.<BR>%s 응모는<BR>%s에 종료되었습니다.]]></value>
+	</item>
+	<item name="about_is_hide_privacy_shr_term">
+		<value xml:lang="ko"><![CDATA[입력양식에 개인정보 3자 제공 약관을 숨길지 선택합니다.]]></value>
+	</item>
+	<item name="cmd_detail">
+		<value xml:lang="ko"><![CDATA[자세히]]></value>
+	</item>
+	<item name="cmd_applicants_info">
+		<value xml:lang="ko"><![CDATA[응모자 정보]]></value>
+	</item>
+	<item name="cmd_download_docs">
+		<value xml:lang="ko"><![CDATA[다운로드]]></value>
+	</item>
+	<item name="angemombox_delete_warning">
+		<value xml:lang="ko"><![CDATA[신청서를 삭제합니다.]]></value>
+	</item>
+	<item name="msg_error_angemombox_db_query">
+		<value xml:lang="ko"><![CDATA[angemombox DB에 문제가 있습니다. 사이트 관리자에게 문의하세요.]]></value>
+	</item>
+	<item name="msg_not_selected_doc">
+		<value xml:lang="ko"><![CDATA[선택된 신청서가 없습니다.]]></value>
+	</item>
+	<item name="msg_invalid_module_srl">
+		<value xml:lang="ko"><![CDATA[잘못된 모듈 번호입니다.]]></value>
+	</item>
+	<item name="title_doc_delete">
+		<value xml:lang="ko"><![CDATA[신청서 삭제]]></value>
+	</item>
+</lang>

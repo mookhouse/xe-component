@@ -1,0 +1,25 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->angemombox_management}
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}</a><block cond="$module_info->is_default=='Y'">({$lang->is_default})</block>
+		</span>
+		<a href="#aboutAngemombox" class="x_icon-question-sign" data-toggle cond="!$module_info->mid"></a>
+	</h1>
+</div>
+<p id="aboutAngemombox" class="x_alert x_alert-info" cond="!$module_info->mid" hidden>{nl2br($lang->about_angemombox)}</p>
+<ul class="x_nav x_nav-tabs" cond="$act != 'dispAngemomboxAdminDelete' && $module_info">
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminIndex'"><a href="{getUrl('act','dispAngemomboxAdminIndex','module_srl','', 'rcpt_no','')}">{$lang->cmd_list}</a></li>
+<block cond="$module_srl">
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminInfo'"><a href="{getUrl('act','dispAngemomboxAdminInfo', 'rcpt_no','')}">{$lang->module_info}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminGrantInfo'"><a href="{getUrl('act','dispAngemomboxAdminGrantInfo', 'rcpt_no','')}">{$lang->cmd_manage_grant}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminSkinInfo'"><a href="{getUrl('act','dispAngemomboxAdminSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_skin}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminMobileSkinInfo'"><a href="{getUrl('act','dispAngemomboxAdminMobileSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_mobile_skin}</a></li>
+</block>
+</ul>
+<ul class="x_nav x_nav-tabs" cond="$module_srl">
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminApplicantsList'"><a href="{getUrl('act','dispAngemomboxAdminApplicantsList','page','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_applicants_info}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminWinnerList'"><a href="{getUrl('act','dispAngemomboxAdminWinnerList','winner_yr_mo','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_winner_info}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminTermsPrivacyUsage'"><a href="{getUrl('act','dispAngemomboxAdminTermsPrivacyUsage', 'rcpt_no','')}">{$lang->cmd_manage_term_privacy_usage}</a></li>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminTermsPrivacyShr'"><a href="{getUrl('act','dispAngemomboxAdminTermsPrivacyShr', 'rcpt_no','')}">{$lang->cmd_manage_term_privacy_shr}</a></li>
+</ul>

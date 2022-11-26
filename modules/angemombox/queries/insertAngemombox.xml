@@ -1,0 +1,23 @@
+<query id="insertAngemombox" action="insert">
+	<tables>
+		<table name="angemombox" />
+	</tables>
+	<columns>
+		<column name="module_srl" var="module_srl" filter="number" default="0" />
+		<column name="yr_mo" var="yr_mo" />
+		<column name="member_srl" var="member_srl" filter="number" default="0" />
+		<column name="user_agent" var="user_agent" />
+		<column name="content" var="content" />
+		<column name="ipaddress" var="ipaddress" default="ipaddress()" />
+		<column name="privacy_collection" var="privacy_collection" />
+		<column name="privacy_sharing" var="privacy_sharing" />
+		<column name="upload_target_srl" var="upload_target_srl" />
+		<column name="is_mobile" var="is_mobile" />
+		<column name="init_referral" var="init_referral" />
+		<column name="utm_source" var="utm_source" />
+		<column name="utm_medium" var="utm_medium" />
+		<column name="utm_campaign" var="utm_campaign" />
+		<column name="utm_term" var="utm_term" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>
