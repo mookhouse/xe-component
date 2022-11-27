@@ -62,6 +62,8 @@ if($mid == 'index')
 	$sBodyCssClassId = '';
 elseif($mid == 'media_kit' || $mid == 'clients' || $mid == 'inquiry')
 	$sBodyCssClassId = 'sub introduction';
+elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
+	$sBodyCssClassId = 'sub samplepack';
 else
 	$sBodyCssClassId = 'sub e_magazine';
 
@@ -90,6 +92,8 @@ elseif($mid == 'event' && $document_srl)
 
 if($mid == 'mombox' || $mid == 'mombox_before' || $mid == 'mombox_after')
 	$sMainCssClassId = 'sample-explain';
+elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
+	$sMainCssClassId = 'sample-apply';
 elseif($mid == 'clients')
 	$sMainCssClassId = 'cooperative';
 elseif($act == 'dispMemberSignUpForm')
@@ -170,12 +174,15 @@ if(!$layout_info->LOGO_IMG)
 						<div class="member">
 							<ul>
 								<!--li><a sv-attr='pc_main_홈으로' href="/">홈으로</a></li--->
+{@
+$sServerUrl = Context::getRequestUri();
+}
 <!--@if($is_logged)-->
 								<li><a sv-attr='pc_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a></li>
 								<li><a sv-attr='pc_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
 <!--@else-->
-								<!---li><a sv-attr='pc_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a></li--->
-								<li><a sv-attr='pc_main_login' href="https://ange.co.kr">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
+								<li cond="$sServerUrl=='http://beta.ange.co.kr/'"><a sv-attr='pc_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
+								<li cond="$sServerUrl!='http://beta.ange.co.kr/'"><a sv-attr='pc_main_login' href="https://ange.co.kr">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
 <!--@end-->
 								<!---li><a sv-attr='pc_main_고객센터' href="#">고객센터</a></li--->
 							</ul>

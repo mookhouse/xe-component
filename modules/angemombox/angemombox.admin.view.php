@@ -209,8 +209,6 @@ class angemomboxAdminView extends angemombox
 	public function dispAngemomboxAdminInfo()
 	{
 		$nModuleSrl = Context::get('module_srl');
-		if(!$nModuleSrl) 
-			return new BaseObject(-1, 'msg_invalid_module_srl');
 
 		$oAngemomboxAdminModel = &getAdminModel('angemombox');
 		$module_info = $oAngemomboxAdminModel->getModuleConfig($nModuleSrl);

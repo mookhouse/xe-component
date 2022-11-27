@@ -1,6 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 
+<link rel="stylesheet" href="/modules/page/skins/ange_mombox/css/countdown_timer.css" />
+<script type="text/javascript" src="/modules/page/skins/ange_mombox/js/countdown_timer.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.bxslider').bxSlider({
@@ -20,6 +23,33 @@ $(document).ready(function(){
 </div>
 
 <center>
+<table width="732" border="0" cellpadding="0" cellspacing="0">
+	<TR ID='countdown_timer'>
+		<td align='CENTER'>
+			 <div id="clockdiv">
+				<div>
+					<span class="days"></span>일
+				</div>
+				<div>
+					<span class="hours"></span>시
+				</div>
+				<div>
+					<span class="minutes"></span>분
+				</div>
+				<div>
+					<span class="seconds"></span>초
+				</div> 남았습니다!
+			</div>
+		</td>
+	</TR>
+</table>
+
+<script type="text/javascript">
+initializeClock('clockdiv', 'Nov 30 2022 23:59:59');
+</script>
+
+<BR>
+
 <ul class="bxslider">
 {@
 $aImg = explode(PHP_EOL, $module_info->before_mombox_gift_slide_img);
