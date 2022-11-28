@@ -50,6 +50,8 @@ if($mid == 'event')
 	$sBodyCssClassId = 'sub event';
 elseif($mid == 'media_kit' || $mid == 'clients' || $mid == 'inquiry')
 	$sBodyCssClassId = 'sub introduction';
+elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
+	$sBodyCssClassId = 'sub samplepack';
 else
 	$sBodyCssClassId = '';
 
@@ -65,6 +67,8 @@ else
 
 if($mid == 'mombox' || $mid == 'mombox_before' || $mid == 'mombox_after')
 	$sMainCssClassId = 'sample-explain';
+elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
+	$sMainCssClassId = 'sample-apply';
 elseif($mid == 'media_kit')
 	$sMainCssClassId = 'introduce';
 if($act == 'dispMemberSignUpForm')

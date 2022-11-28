@@ -24,54 +24,58 @@ class angemomboxMobile extends angemomboxView
 	 */
 	function dispAngemomboxIndex()
 	{
-		$nOpenTimestamp = strtotime( $this->module_info->open_datetime);
-		if( time() < $nOpenTimestamp )
-		{
-			if( $this->module_info->use_teaser_mode == 'Y' )
-				Context::set('teaser_open', 'Y');
-			else
-				return new BaseObject(1, sprintf(Context::getLang('msg_svodcs_not_opened_yet'), date('Y-m-d h:i:s', $nOpenTimestamp) )); 
-		}
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
 
-		// ��� ���� �������� svauth plugin �ԷµǾ� ������ svauth ȣ��
-		$nSvauthPluginSrl = (int)$this->module_info->svauth_plugin_srl;
-		if( $nSvauthPluginSrl )
-		{
-			$oSvauthModel = &getModel('svauth');
-			$oPluginInfo = $oSvauthModel->getPlugin($nSvauthPluginSrl);
-			Context::set('svauth_on', 'Y');
-			Context::set('sms_auth_agreement', nl2br($oPluginInfo->_g_oPluginInfo->sms_auth_agreement) );
-		}
+		Context::set('oLoggedInfo', $oLoggedInfo);
+
+		$bAllowSubmit = true;
+		if(!$oLoggedInfo->mobile)
+			$bAllowSubmit = false;
+		Context::set('bAllowSubmit', $bAllowSubmit);
+
+		$oAngemomboxModel = &getModel('angemombox');
+
+		$oOpenRst = $oAngemomboxModel->checkOpenDay($this->module_srl);
+		if(!$oOpenRst->toBool())
+			return $oOpenRst;
+		unset($oOpenRst);
+			
+		$nYrMo = date('Ym');
+		$oWinnerRst = $oAngemomboxModel->checkDuplicatedApply($this->module_srl, $oLoggedInfo->member_srl, $nYrMo);
+		if(!$oWinnerRst->toBool())
+			return $oWinnerRst;
+
+		//Context::set('privacy_usage_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_usage_term'));
+		//Context::set('privacy_shr_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_shr_term'));
+		unset($oAngemomboxModel);
 
 		if($this->module_srl) 
 			Context::set('module_srl', $this->module_srl);
 
-		$oAngemomboxModel = &getModel('angemombox');
-		$oDocInfo = $oAngemomboxModel->getDocInfo( $this->module_srl );
-		$sPrivacyUsageTerm = $oAngemomboxModel->getPrivacyTerm($this->module_srl,'privacy_usage_term');
-		$sPrivacyShrTerm = $oAngemomboxModel->getPrivacyTerm($this->module_srl,'privacy_shr_term');
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert.xml');
 
-		$this->module_info->privacy_usage_term = $sPrivacyUsageTerm;
-		$this->module_info->privacy_shr_term = $sPrivacyShrTerm;
-		//$this->module_info->slide_img_urls_mob = explode("\n",	$this->module_info->slide_img_urls_mob);
-
-		Context::set('remaining_applicants', $oDocInfo->nRemainingApplicants );
-		Context::set('module_info', $this->module_info);
-
-		$extra_keys = $oAngemomboxModel->getExtraKeys($this->module_srl);
-		foreach($extra_keys as $key=>$val)
-		{
-			if( $val->type == 'checkbox' )
-				$val->name .= Context::getLang('title_multiple_choice');
-		}
-		Context::set('extra_keys', $extra_keys);
-		$oDefaultConfig = $oAngemomboxModel->getModuleConfig();
-		Context::set('config', $oDefaultConfig);
-
-		$output = $oAngemomboxModel->getDocList($this->module_srl);
-		Context::set('applicant_list', $output->data);
-
-		$this->setTemplateFile('mobile_add');
+		$nFileSrl = getNextSequence();
+		Context::set('nFileSrl', $nFileSrl);
+		// gallery image editor
+		$oEditorModel = &getModel('editor');
+		$oOption = new stdClass();
+		//$oOption->disable_html = true;
+		//$oOption->enable_default_component = true;
+		//$oOption->enable_component = true;
+		//$oOption->module_type = 'document';
+		//$oOption->skin = 'ckeditor';
+		//$oOption->content_style = 'ckeditor_light';
+		$oOption->content_key_name = 'null';
+		$oOption->height = 1;
+		$oOption->allow_fileupload = true;
+		$oOption->primary_key_name = 'document_srl';
+		//Context::set('gallery_editor', $oEditorModel->getEditor($nFileSrl , $oOption)); // 갤러리 첨부파일 로드하기 위한 hidden 객체
+		$oEditorModel->getEditor($nFileSrl , $oOption);
+		unset($oOption);
+		unset($oEditorModel);
+		$this->setTemplateFile('add');
 	}
 }
 /* End of file Angemombox.mobile.php */

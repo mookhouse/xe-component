@@ -1,11 +1,56 @@
-{@
-$aPreMomNo = Array('05'=>'138', '06'=>'139', '07'=>'140', '08'=>'141', '09'=>'142', '10'=>'143', '11'=>'144', '12'=>'145');
-$aPostMomNo = Array('05'=>'16', '06'=>'17', '07'=>'18', '08'=>'19', '09'=>'20', '10'=>'21', '11'=>'22', '12'=>'23');
-$sMonth = date("m", time());
-$sYearMonth = date("Y년 m월 ", time());
-}
-
 <link href="/modules/angemombox/skins/ange_mombox_before/css/samplepack.css" rel="stylesheet">
+
+<script src="/modules/angemombox/tpl/js/mombox.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function sample6_execDaumPostcode() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var addr = ''; // 주소 변수
+			var extraAddr = ''; // 참고항목 변수
+
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				addr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				addr = data.jibunAddress;
+			}
+
+			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			if(data.userSelectedType === 'R'){
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+					extraAddr += data.bname;
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if(data.buildingName !== '' && data.apartment === 'Y'){
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if(extraAddr !== ''){
+					extraAddr = ' (' + extraAddr + ')';
+				}
+				// 조합된 참고항목을 해당 필드에 넣는다.
+				document.getElementById("extraAddress").value = extraAddr;
+			
+			} else {
+				document.getElementById("extraAddress").value = '';
+			}
+
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			document.getElementById('postcode').value = data.zonecode;
+			document.getElementById("address").value = addr;
+			// 커서를 상세주소 필드로 이동한다.
+			document.getElementById("detailAddress").focus();
+		}
+	}).open();
+}
+</script>
 
 <div class="container">
 	<div class="sub-wrapper">
@@ -13,8 +58,8 @@ $sYearMonth = date("Y년 m월 ", time());
 		<nav class="nav-lnb">
 			<h2 class="nav-title">앙쥬맘박스</h2>
 			<ul id="lnb-list">
-				<li class="active"><a href='/usr/?menu=sample_pack_11&submenu='>앙쥬맘박스 신청하기</a></li>
-				<li class=""><a href='/usr/?menu=samplereview&submenu='>앙쥬맘박스 후기</a></li>
+				<li class="active"><a href='#'>앙쥬맘박스 신청하기</a></li>
+				<li class=""><a href='#'>앙쥬맘박스 후기</a></li>
 			</ul>
 		</nav>
 		<!-- Content Start -->
@@ -23,7 +68,9 @@ $sYearMonth = date("Y년 m월 ", time());
 				<h2 class="sub-title">앙쥬맘박스</h2>
 				<div class="section-content">
 					<article class="user-info">
-						<form action="#" name="writeFrm" id="writeFrm">
+						<form method="post" action="./" onsubmit="return procFilter(this, window.insert)" class="x_form-horizontal" enctype="multipart/form-data">
+							<input type="hidden" name="module_srl" id="module_srl" value="{$module_srl}">
+							<input name="upload_target_srl" type="hidden" value="{$nFileSrl}" /> <!--- multi editor의 첨부파일 표시 용도 --->
 							<div class="table-wrap">
 								<table class="table table-bordered">
 									<caption>
@@ -39,20 +86,30 @@ $sYearMonth = date("Y년 m월 ", time());
 										<tr>
 											<th class="necessary"><label for="u-name">신청자명</label></th>
 											<td>
-												<div class="form-group basic-group">관리자</div>
+												<div class="form-group basic-group">{$oLoggedInfo->user_name}</div>
 											</td>
 										</tr>
 										<tr>
 											<th class="necessary"><label for="u-phone">핸드폰 번호</label></th>
 											<td>
-												<div class="form-group basic-group">07050052810</div>
+												<div class="form-group basic-group" cond="$oLoggedInfo->mobile">{$oLoggedInfo->mobile}</div>
+												<div class="form-group basic-group" cond="!$oLoggedInfo->mobile">등록된 핸드폰 번호가 확인되지 않아서 신청하실 수 없습니다.</div>
 											</td>
 										</tr>
 										<tr>
 											<th class="necessary"><label for="u-addr">받으실 곳</label></th>
 											<td>
-												<div class="form-group">
-													서울 마포구 독막로 155 (창전동, 무크하우스) 5층														
+												<div class="form-group basic-group">
+<block cond="$oLoggedInfo->address[0]">
+													{$oLoggedInfo->address[0]} {$oLoggedInfo->address[1]} {$oLoggedInfo->address[2]} {$oLoggedInfo->address[3]}
+</block>
+<block cond="!$oLoggedInfo->address[0]">
+													<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control" >
+													<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+													<input type="text" name="address" id="address" placeholder="주소" class="form-control" style='width:80%'><BR>
+													<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control" style='width:80%'><BR>
+													<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control" style='width:80%'>
+</block>
 												</div>
 											</td>
 										</tr>
@@ -70,8 +127,12 @@ $sYearMonth = date("Y년 m월 ", time());
 												<div class="form-group basic-group">
 													<select class="form-control" id="YEAR" name="YEAR">
 														<option value="">년도</option>
-														<option value="2022">2022</option>
-														<option value="2023">2023</option>
+{@
+$nTHisYr = date('Y');
+$nNextYr = date('Y', strtotime('+1 year'));
+}
+														<option value="{$nTHisYr}">{$nTHisYr}</option>
+														<option value="{$nNextYr}">{$nNextYr}</option>
 													</select>
 													<select class="form-control" id="MONTH" name="MONTH">
 														<option value="">월</option>
@@ -126,16 +187,80 @@ $sYearMonth = date("Y년 m월 ", time());
 											</td>
 										</tr>
 										<tr>
-											<th class="necessary">
-												증빙자료<br>(출생증명서)													
-											</th>
+											<th class="necessary">증빙자료<br>(출생증명서)</th>
 											<td class="file-search">
-												<div class="form-group">
-													<input type="file" name="files[]" id="uploadedfile" data-url="/service/upload/" style="display:none"/>
-													<span id="uploadedfileName"></span>
-													<label for="u-file" class="file-btn" onclick='$("#uploadedfile").click();'>찾아보기</label>
-													<p> 2MB 미만으로 첨부가능합니다.</p>
-												</div>
+
+					<div id="ckeditor_instance_{$nFileSrl}" data-editor-sequence="{$nFileSrl}" data-editor-primary-key-name="upload_target_srl" style="height:0; visibility:hidden;" ></div>
+					<!--#JSPLUGIN:jquery.fileupload--><!--#JSPLUGIN:jquery.finderSelect--><!--#JSPLUGIN:handlebars--><div id="xefu-container-{$nFileSrl}" class="xefu-container xe-clearfix" data-editor-sequence="{$nFileSrl}">
+					<div class="xefu-dropzone">
+						<span class="xefu-btn fileinput-button xefu-act-selectfile">
+							<span><i class="xi-icon xi-file-add"></i> 파일 첨부</span>
+							<input id="xe-fileupload" type="file" class="fileupload-processing " value="파일 첨부" name="Filedata" data-auto-upload="true" data-editor-sequence="{$nFileSrl}" multiple />
+						</span>
+						<p class="xefu-dropzone-message">여기에 파일을 끌어 놓거나 파일 첨부 버튼을 클릭하세요.</p>
+						<p class="upload_info">파일 크기 제한 : <span class="allowed_filesize">0MB</span> <span>(허용 확장자 : <span class="allowed_filetypes">*.*</span>)</span></p>
+						<p class="xefu-progress-status" style="display: none;">파일 업로드 중... (<span class="xefu-progress-percent">0%</span>)</p>
+						<div class="xefu-progressbar" style="display: none;"><div></div></div>
+					</div>
+					<div class="xefu-controll xe-clearfix">
+						<div style="float: left;">
+							<span class="file_count">0</span>개 첨부 됨 (<span class="attached_size"></span> / <span class="allowed_attach_size"></span>)
+						</div>
+						<div style="float: right">
+							<input type="button" class="xefu-btn xefu-act-delete-selected" style=" vertical-align: middle; vertical-align: middle;" value="선택 삭제">
+						</div>
+					</div>
+					<div class="xefu-list">
+						<div class="xefu-list-images">
+							<ul>
+							</ul>
+						</div>
+						<div class="xefu-list-files">
+							<ul>
+							</ul>
+						</div>
+					</div>
+				</div>
+<script>
+jQuery(function($){
+	// uploader
+	var setting = {
+		maxFileSize: 104857600,
+		limitMultiFileUploadSize: 104857600		
+	};
+	var uploader = $('#xefu-container-{$nFileSrl}').xeUploader(setting);
+	window.xe.msg_exceeds_limit_size = '허용된 용량을 초과하여 첨부가 되지 않았습니다.';
+	window.xe.msg_checked_file_is_deleted = '%d개의 첨부 파일이 삭제되었습니다.';
+	window.xe.msg_file_cart_is_null = '삭제할 파일을 선택해주세요.';
+	window.xe.msg_not_allowed_filetype = '업로드할 수 없는 파일 형식입니다.';
+	window.xe.msg_file_upload_error = '파일 업로드 중 에러가 발생하였습니다.';
+});
+(function($){
+	"use strict";
+	// editor
+	$(function(){
+		CKEDITOR.config.customConfig = '';
+		var settings = {
+			ckeconfig: {
+				height: '1',
+				skin: 'moono',
+				contentsCss: './modules/editor/styles/ckeditor_light/editor.css',
+				xe_editor_sequence: '{$nFileSrl}',
+				toolbarCanCollapse: true,
+				language: "ko"
+			},
+			loadXeComponent: true,
+			enableToolbar: true,
+			content_field: jQuery('[name=]')
+		};
+		settings.enableToolbar = false;
+		settings.ckeconfig.toolbarCanCollapse = false;
+		settings.loadXeComponent = false;
+		var ckeApp = $('#ckeditor_instance_{$nFileSrl}').XeCkEditor(settings);
+	});
+})(jQuery);
+</script>
+
 											</td>
 										</tr>
 										<tr>
@@ -159,7 +284,7 @@ $sYearMonth = date("Y년 m월 ", time());
 							</div>
 							<div class="btn-area">
 								<p>
-									<button type="submit" class="btn btn-pink">신청하기</button>
+									<button type="submit" class="btn btn-pink" disabled|cond="!$bAllowSubmit">신청하기</button>
 									<a href="javascript:history.back();" class="btn btn-white" role="button">취소하기</a>
 								</p>
 							</div>
@@ -186,81 +311,3 @@ $sYearMonth = date("Y년 m월 ", time());
 		</div>
 	</div>
 </div>
-
-
-<script type="text/javascript" src="../../tpl/skin.js/countdown_timer.js"></script>
-<script>
-initializeClock('clockdiv', '{$module_info->due_datetime}', {$remaining_applicants});
-
-jQuery.loadScript = function (url, callback) {
-    jQuery.ajax({
-        url: url,
-        dataType: 'script',
-        success: callback,
-        async: true
-    });
-}
-
-// regarding no layout case
-if(typeof _g_sGaectkVersion == 'undefined') 
-	jQuery.loadScript('https://svapi.co.kr:5018/gaectk.js', function(){
-    //Stuff to do after someScript has loaded
-	//console.log(_g_sGaectkVersion);
-});
-
-if(typeof wcs == 'undefined') 
-	jQuery.loadScript('//wcs.naver.net/wcslog.js', function(){
-    //Stuff to do after someScript has loaded
-	//console.log(wcs);
-});
-
-if(typeof fbq == 'undefined') 
-{
-	!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-	n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-	n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-	t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-	document,'script','https://connect.facebook.net/en_US/fbevents.js');
-	//console.log(fbq);
-}
-
-<block cond="$teaser_open=='Y'">
-initializeClock('clockdiv', '{$module_info->open_datetime}', {$remaining_applicants});
-</block>
-<block cond="$teaser_open!='Y'">
-initializeClock('clockdiv', '{$module_info->due_datetime}', {$remaining_applicants});
-</block>
-<block cond="!Mobile::isMobileCheckByAgent()">
-var _g_sVirtualConversionPrefix = 'thankyou_{$module_info->module_srl}_pc';
-</block>
-<block cond="Mobile::isMobileCheckByAgent()">
-var _g_sVirtualConversionPrefix = 'thankyou_{$module_info->module_srl}_mob';
-</block>
-
-function _doPreRegistration()
-{
-<block cond="$config->nvad_conv_id">
-	var _nasa={};
-	_nasa["cnv"] = wcs.cnv("4","500"); // 전환유형, 전환가치 설정해야함. 설치매뉴얼 참고
-</block>
-<block cond="$config->facebook_pixel_id">
-	fbq('track', 'CompleteRegistration');
-</block>
-	//var aUri = getUrlVars();
-	//if(aUri['test'] == 'a' )
-	//	jQuery('input[id="page_type"]').val('disinfection');
-	doRegistration( _g_sVirtualConversionPrefix );
-}
-
-function _doPreCertified()
-{
-<block cond="$config->nvad_conv_id">
-	var _nasa={};
-	_nasa["cnv"] = wcs.cnv("4","500"); // 전환유형, 전환가치 설정해야함. 설치매뉴얼 참고
-</block>
-<block cond="$config->facebook_pixel_id">
-	fbq('track', 'CompleteRegistration');
-</block>
-	doCertified( _g_sVirtualConversionPrefix );
-}
-</script>

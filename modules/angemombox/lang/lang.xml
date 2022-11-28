@@ -58,13 +58,13 @@
 		<value xml:lang="ko"><![CDATA[신청서에 입력한 본문을 잘라서 게시판 제목으로 등록할 때 최대 글자수를 입력하세요.]]></value>
 	</item>
 	<item name="mombox_module_srl_field">
-		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 모듈 srl]]></value>
+		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 모듈 srl 입력 필드명]]></value>
 	</item>
 	<item name="about_mombox_module_srl_field">
 		<value xml:lang="ko"><![CDATA[게시판에 이미 추가한 사용자 정의 맘박스 모듈 srl 필드명을 입력하세요.]]></value>
 	</item>
 	<item name="mombox_application_srl_field">
-		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 신청서 srl]]></value>
+		<value xml:lang="ko"><![CDATA[게시판에 입력할 맘박스 신청서 srl 입력 필드명]]></value>
 	</item>
 	<item name="about_mombox_application_srl_field">
 		<value xml:lang="ko"><![CDATA[게시판에 이미 추가한 사용자 정의 맘박스 신청서 srl 필드명을 입력하세요.]]></value>

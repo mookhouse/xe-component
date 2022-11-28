@@ -1,0 +1,278 @@
+@import url("../css/common.css");
+
+/* 샘플팩 설명 */
+.sample-explain section .section-header {
+    padding-bottom: 0;
+}
+.sample-explain section .section-header figure,banner {
+    padding-bottom: 30px;
+}
+
+.sample-explain section .section-header p.summary {
+    margin: 20px 0;
+    line-height: 19px;
+    color: #333;
+}
+.sample-explain section .section-header figure img {
+    width: 100%;
+}
+.sample-explain section .section-header .btn-area {
+    margin-top: 10px;
+}
+.sample-explain section .section-content .info-wrap h5 {
+    font-size: 15px;
+    padding-bottom: 10px;
+    font-weight: 500;
+}
+.sample-explain section .section-content .info-wrap .member-info {
+    /* margin-top: 30px; */
+}
+.sample-explain section .section-content .info-wrap .member-info.new-member h5 {
+    color: #ff7875;
+    border-bottom: 3px solid #ffd6d5;
+}
+.sample-explain section .section-content .info-wrap .member-info.member h5 {
+    color: #7da7d9;
+    border-bottom: 3px solid #d8e4f4;
+}
+.sample-explain section .section-content .info-wrap .member-info .details {
+    border-bottom: 1px solid #cecfd2;
+}
+
+.sample-explain section .section-content .info-wrap .member-info .details .point_msg {
+	color:#ff9a17; margin-bottom:30px; margin-left:10px; font-size:12px;
+}
+
+.sample-explain section .section-content .info-wrap .member-info.member .btn-area p .btn-gray {
+    background-color: #7da7d9;
+}
+
+/* 샘플팩 폰트 공통 */
+.samplepack b {
+    font-weight: 500;
+}
+.samplepack .text-pink {
+    color: #ff7875 !important;
+}
+.samplepack #content .text-blue {
+    color: #7da7d9 !important;
+}
+.samplepack #content .text-black {
+    color: #666 !important;
+}
+
+.sample-explain section .section-content .info-wrap .member-info .details dl {
+    overflow: hidden;
+    padding: 15px 10px;
+}
+.sample-explain section .section-content .info-wrap .member-info .details dl dt {
+    float: left;
+    clear: both;
+    width: 60px;
+    font-size: 12px;
+    line-height: 23px;
+    color: #333;
+}
+.sample-explain section .section-content .info-wrap .member-info .details dl dd {
+    float: left;
+    font-size: 12px;
+    line-height: 23px;
+    color: #666;
+    font-weight: 300;
+}
+.sample-explain section .section-content .info-wrap .member-info .details dl dd > ol > li > a {
+    margin-left: 5px;
+}
+.sample-explain section .section-content .info-wrap .member-info .btn-area {
+    margin-top: 15px;
+}
+.sample-explain section .section-content .banner {
+    margin-top: 30px;
+}
+.sample-explain section .section-content .banner a figure img {
+    width: 100%;
+}
+.sample-explain section .section-content .attention-box {
+    margin-top: 30px;
+}
+
+/* 샘플팩신청 */
+.sample-apply .table-wrap .table.type-1 {
+    margin-top: 15px;
+}
+.sample-apply .table-wrap .table.type-1 tbody tr td .form-group textarea {
+    height: 80px;
+}
+.sample-apply .table-wrap .btn-area {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: right;
+}
+.sample-apply .table-wrap .table {
+    table-layout: fixed;
+}
+.sample-apply .table-wrap .table tbody tr th {
+    width: 90px;
+}
+.sample-apply .table-wrap .table tbody tr td .form-group select {
+    width: 30%;
+    display: inline-block;
+    margin-right: 2%;
+}
+.sample-apply .table-wrap .table tbody tr td .form-group select:last-child {
+    margin-right: 0;   
+}
+
+
+
+/* 샘플팩후기 목록 */
+.sample-list section .section-header {
+    padding-bottom: 0;
+}
+.sample-list section .section-header .search-form {
+    margin: 15px 0;
+}
+
+.sample-list section .section-header .sample_banner {margin:15px 0 20px 0; text-align:left;}
+.sample-list section .section-header .sample_banner img {width:100%;}
+
+.sample-list section .section-content .board-type-1 .btn-area {
+    margin: 20px 0;
+    text-align: right;
+}
+.sample-list section .section-content .board-type-1 .btn-area p a.btn.btn-pink {
+    width: 90px;
+}
+
+/* 샘플팩후기 보기 */
+.sample-view .info figure img {
+    width: 100%;
+}
+.sample-view .info .details h3 {
+    font-size: 15px;
+    line-height: 20px;
+    color: #000;
+    margin: 15px 0;
+}
+.sample-view .info .details dl {
+    padding: 15px 10px;
+    border-top: 1px solid #cecfd2;
+    border-bottom: 1px solid #cecfd2;
+    overflow: hidden;
+}
+.sample-view .info .details dl dt {
+    float: left;
+    clear: both;
+    width: 70px;
+    line-height: 23px;
+    font-size: 12px;
+    color: #333;
+}
+.sample-view .info .details dl dd {
+    color: #666;
+    line-height: 24px;
+    font-size: 12px;
+}
+.sample-view .info .details dl dd a {
+    color: #666;
+    text-decoration: none;
+}
+.sample-view .info .btn-area {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.sample-view .info .btn-area p a .icon-heart {
+    color: #ff7875;
+    margin-right: 10px;
+}
+.sample-view .review-details figure img {
+    width: 100%;
+}
+.sample-view .review-details .btn-area {
+    margin: 20px 0;
+    overflow: hidden;
+}
+.sample-view .review-details .btn-area p .btn-xs.btn-white {
+    float: left;
+}
+.sample-view .review-details .btn-area p .btn-xs.btn-pink {
+    float: right;
+}
+.sample-view .review-details .page-link {
+    clear: both;
+}
+.sample-view .review-write {
+    margin-top: 20px;
+}
+.sample-view .review-write .article-content .review-list li .review-content .btn-more .btn-xs.btn-pink {
+    background-color: #ff7875;
+}
+.sample-view .review-write .article-content .paging {
+    margin-top: 20px;
+}
+.sample-view .review-write .write-content .review-list .btn-list .btn-xs {
+    display: inline-block;
+    font-size: 10px;
+    color: #fff;
+    padding: 0 10px;
+    font-weight: 300;
+    margin-right: 10px;
+    line-height: 20px;
+    border-radius: 30px;
+    background-color: #b3b3b3;
+}
+.sample-view .review-write .write-content .review-list .btn-list .btn-xs:last-child {
+    margin-right: 0;
+} 
+.sample-view .review-write .write-content .review-list .reply2 {
+    margin: 15px 0;
+}
+.sample-view .review-write .write-content .review-list .write .btn-write {
+    width: 100%;
+    font-size: 12px;
+    color: #333;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #f5f5f5;
+}
+.sample-view .review-write .write-content .review-list .reply .btn-list {
+    margin: 10px;
+}
+.sample-view .review-write .write-content .review-list .reply .form-group .btn-write {
+    width: 100%;
+    font-size: 10px;
+    color: #333;
+    line-height: 25px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #e1e1e1;
+}
+.sample-view .paging {
+    margin-top: 20px;
+}
+
+
+/* 샘플팩 후기 쓰기 */
+.sample-review section .section-title {
+    margin-bottom: 15px;
+}
+.sample-review section .table-wrap .btn-area {
+    margin-top: 30px;
+    text-align: right;
+}
+.sample-review section .table-wrap .btn-area .btn.btn-sm {
+    width: 90px;
+}
+
+.dnone {
+    display:none;
+}
+
+.box_wrap {
+    margin-bottom:20px;
+}
+
+.box-contents {
+    margin-bottom:30px;
+}

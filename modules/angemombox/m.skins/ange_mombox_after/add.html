@@ -1,0 +1,298 @@
+<link href="/modules/angemombox/m.skins/ange_mombox_after/css/samplepack.css" rel="stylesheet">
+
+<script src="/modules/angemombox/tpl/js/mombox.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function sample6_execDaumPostcode() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var addr = ''; // 주소 변수
+			var extraAddr = ''; // 참고항목 변수
+
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				addr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				addr = data.jibunAddress;
+			}
+
+			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			if(data.userSelectedType === 'R'){
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+					extraAddr += data.bname;
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if(data.buildingName !== '' && data.apartment === 'Y'){
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if(extraAddr !== ''){
+					extraAddr = ' (' + extraAddr + ')';
+				}
+				// 조합된 참고항목을 해당 필드에 넣는다.
+				document.getElementById("extraAddress").value = extraAddr;
+			
+			} else {
+				document.getElementById("extraAddress").value = '';
+			}
+
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			document.getElementById('postcode').value = data.zonecode;
+			document.getElementById("address").value = addr;
+			// 커서를 상세주소 필드로 이동한다.
+			document.getElementById("detailAddress").focus();
+		}
+	}).open();
+}
+</script>
+
+<div class="container">
+	<section>
+		<h3 class="section-title">앙쥬 출산맘박스 신청하기</h3>
+		<div class="table-wrap">
+			<form method="post" action="./" onsubmit="return procFilter(this, window.insert)" class="x_form-horizontal" enctype="multipart/form-data">
+				<input type="hidden" name="module_srl" id="module_srl" value="{$module_srl}">
+				<input name="upload_target_srl" type="hidden" value="{$nFileSrl}" /> <!--- multi editor의 첨부파일 표시 용도 --->
+				<table class="table type-1">
+					<caption>
+						<h4>앙쥬맘박스 신청자 정보</h4>
+						<div class="btn-link">
+							<a href="{getUrl('act','dispMemberInfo')}" class="btn btn-default" role="button">회원정보 수정</a>
+						</div>
+					</caption>
+					<tbody>
+						<tr>
+							<th class="essential"><label for="u-name">신청자명</label></th>
+							<td>
+								<div class="form-group basic-group">{$oLoggedInfo->user_name}</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="u-phone">핸드폰 번호</label></th>
+							<td>
+								<div class="form-group basic-group" cond="$oLoggedInfo->mobile">{$oLoggedInfo->mobile}</div>
+								<div class="form-group basic-group" cond="!$oLoggedInfo->mobile">등록된 핸드폰 번호가 확인되지 않아서 신청하실 수 없습니다.</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential"><label for="u-addr">받으실 곳</label></th>
+							<td>
+								<div class="form-group">
+<block cond="$oLoggedInfo->address[0]">
+									{$oLoggedInfo->address[0]} {$oLoggedInfo->address[1]} {$oLoggedInfo->address[2]} {$oLoggedInfo->address[3]}
+</block>
+<block cond="!$oLoggedInfo->address[0]">
+									<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control" style='width:80%'>
+									<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
+									<input type="text" name="address" id="address" placeholder="주소" class="form-control" style='width:80%'><BR>
+									<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control" style='width:80%'><BR>
+									<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control" style='width:80%'>
+</block>
+								</div>
+							</td>
+						</tr>
+						<tr id="file_tr" style="display:none;">
+							<th class="essential">아이이름</th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="CHILDNAME" name="CHILDNAME" class="form-control">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential">
+								아이생일
+							</th>
+							<td>
+								<div class="form-group basic-group">
+									<select class="form-control" id="YEAR" name="YEAR">
+										<option value="">년도</option>
+{@
+$nTHisYr = date('Y');
+$nNextYr = date('Y', strtotime('+1 year'));
+}
+										<option value="{$nTHisYr}">{$nTHisYr}</option>
+										<option value="{$nNextYr}">{$nNextYr}</option>
+									</select>
+									<select class="form-control" id="MONTH" name="MONTH">
+										<option value="">월</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
+										<option value="06">06</option>
+										<option value="07">07</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
+									<select class="form-control" id="DAY" name="DAY">
+										<option value="">일</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
+										<option value="06">06</option>
+										<option value="07">07</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential">증빙자료<br>(출생증명서)</th>
+							<td class="file">
+								<div class="form-group">
+									
+					<div id="ckeditor_instance_{$nFileSrl}" data-editor-sequence="{$nFileSrl}" data-editor-primary-key-name="upload_target_srl" style="height:0; visibility:hidden;" ></div>
+					<!--#JSPLUGIN:jquery.fileupload--><!--#JSPLUGIN:jquery.finderSelect--><!--#JSPLUGIN:handlebars--><div id="xefu-container-{$nFileSrl}" class="xefu-container xe-clearfix" data-editor-sequence="{$nFileSrl}">
+					<div class="xefu-dropzone">
+						<span class="xefu-btn fileinput-button xefu-act-selectfile">
+							<span><i class="xi-icon xi-file-add"></i> 파일 첨부</span>
+							<input id="xe-fileupload" type="file" class="fileupload-processing " value="파일 첨부" name="Filedata" data-auto-upload="true" data-editor-sequence="{$nFileSrl}" multiple />
+						</span>
+						<p class="xefu-dropzone-message">여기에 파일을 끌어 놓거나 파일 첨부 버튼을 클릭하세요.</p>
+						<p class="upload_info">파일 크기 제한 : <span class="allowed_filesize">0MB</span> <span>(허용 확장자 : <span class="allowed_filetypes">*.*</span>)</span></p>
+						<p class="xefu-progress-status" style="display: none;">파일 업로드 중... (<span class="xefu-progress-percent">0%</span>)</p>
+						<div class="xefu-progressbar" style="display: none;"><div></div></div>
+					</div>
+					<div class="xefu-controll xe-clearfix">
+						<div style="float: left;">
+							<span class="file_count">0</span>개 첨부 됨 (<span class="attached_size"></span> / <span class="allowed_attach_size"></span>)
+						</div>
+						<div style="float: right">
+							<input type="button" class="xefu-btn xefu-act-delete-selected" style=" vertical-align: middle; vertical-align: middle;" value="선택 삭제">
+						</div>
+					</div>
+					<div class="xefu-list">
+						<div class="xefu-list-images">
+							<ul>
+							</ul>
+						</div>
+						<div class="xefu-list-files">
+							<ul>
+							</ul>
+						</div>
+					</div>
+				</div>
+<script>
+jQuery(function($){
+	// uploader
+	var setting = {
+		maxFileSize: 104857600,
+		limitMultiFileUploadSize: 104857600		
+	};
+	var uploader = $('#xefu-container-{$nFileSrl}').xeUploader(setting);
+	window.xe.msg_exceeds_limit_size = '허용된 용량을 초과하여 첨부가 되지 않았습니다.';
+	window.xe.msg_checked_file_is_deleted = '%d개의 첨부 파일이 삭제되었습니다.';
+	window.xe.msg_file_cart_is_null = '삭제할 파일을 선택해주세요.';
+	window.xe.msg_not_allowed_filetype = '업로드할 수 없는 파일 형식입니다.';
+	window.xe.msg_file_upload_error = '파일 업로드 중 에러가 발생하였습니다.';
+});
+(function($){
+	"use strict";
+	// editor
+	$(function(){
+		CKEDITOR.config.customConfig = '';
+		var settings = {
+			ckeconfig: {
+				height: '1',
+				skin: 'moono',
+				contentsCss: './modules/editor/styles/ckeditor_light/editor.css',
+				xe_editor_sequence: '{$nFileSrl}',
+				toolbarCanCollapse: true,
+				language: "ko"
+			},
+			loadXeComponent: true,
+			enableToolbar: true,
+			content_field: jQuery('[name=]')
+		};
+		settings.enableToolbar = false;
+		settings.ckeconfig.toolbarCanCollapse = false;
+		settings.loadXeComponent = false;
+		var ckeApp = $('#ckeditor_instance_{$nFileSrl}').XeCkEditor(settings);
+	});
+})(jQuery);
+</script>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="essential">출산맘박스를<br>받고 싶은 이유</th>
+							<td>
+								<div class="form-group">
+									<textarea id="REASON" name="REASON" class="form-control"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class=""><label for="feel">SNS아이디</label></th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="SNS" name="SNS" class="form-control">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-area">
+					<p>
+						<button type="button" class="btn btn-sm btn-pink" disabled|cond="!$bAllowSubmit">신청</button>
+						<a href="javascript:history.back();" class="btn btn-sm btn-white" role="button">취소</a>
+					</p>
+				</div>
+			</form>
+		</div>
+		<div class="attention-box">
+			<strong>앙쥬맘박스(출산맘) 주의사항</strong>
+			<ol class="decimal-list">
+				<li><b class="text-pink">앙쥬맘박스(출산맘) 당첨은 첫째, 둘째 상관없이 단 1회만 가능합니다.</b> (*많은 회원님들께 기회를 드리기 위함입니다)</li>
+				<li>반드시 <b class="text-blue">출산 ~ 출산 후 1년이내 본인만 응모</b>하세요.<br /><b class="text-black">(남자회원 신청불가)</b></li>
+				<li>회원정보에 <b class="text-blue">아이생일이 등록되어 있어야 합니다.</b></li>
+				<li><b class="text-blue">출생증명서를 첨부</b>해주셔야 합니다. (2M이하)<br />
+					(* 출생일시(년/월/일), 출생아 모 성명과 회원명 동일해야함, 나머지 개인정보는 가려주세요.)
+				</li>
+				<li>당첨자 발표 후 별도 주소확인은 하지 않으며 주소가 불분명할 경우 선물은 발송되지 않습니다. (번지수가 없거나 아파트 동, 호수 없는 경우)</li>
+				<li>회원 탈퇴 후 재가입하여 신청하더라도 신청기록은 남기 때문에 앙쥬맘박스(출산맘) 선정에서 제외됩니다.</li>
+				<li>앙쥬맘박스의 구성와 수량은 사진과 다를 수 있으며, 업체 사정으로 공지없이 변경될 수 있습니다.</li>
+				<li>앙쥬맘박스(예비맘)에 당첨되신 분도 앙쥬맘박스(출산맘)에 응모가능합니다.</li>
+				<li>사진과 함께 앙쥬맘박스 후기를 남기시고, <b class="text-pink">앙쥬맘박스 후기 이벤트에 응모하시면 추첨을 통해 선물을 드립니다.</b></li>
+				<li>반드시 응모방법 및 주의사항을 숙지하시기 바랍니다.</li>
+			</ol>
+		</div>
+	</section>
+</div>

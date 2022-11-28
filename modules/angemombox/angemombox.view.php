@@ -32,6 +32,11 @@ class angemomboxView extends angemombox
 
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
+		$bAllowSubmit = true;
+		if(!$oLoggedInfo->mobile)
+			$bAllowSubmit = false;
+		Context::set('bAllowSubmit', $bAllowSubmit);
+
 		$oAngemomboxModel = &getModel('angemombox');
 
 		$oOpenRst = $oAngemomboxModel->checkOpenDay($this->module_srl);
@@ -44,8 +49,8 @@ class angemomboxView extends angemombox
 		if(!$oWinnerRst->toBool())
 			return $oWinnerRst;
 
-		Context::set('privacy_usage_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_usage_term'));
-		Context::set('privacy_shr_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_shr_term'));
+		//Context::set('privacy_usage_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_usage_term'));
+		//Context::set('privacy_shr_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_shr_term'));
 		unset($oAngemomboxModel);
 
 		if($this->module_srl) 
@@ -72,7 +77,6 @@ class angemomboxView extends angemombox
 		$oEditorModel->getEditor($nFileSrl , $oOption);
 		unset($oOption);
 		unset($oEditorModel);
-
 		$this->setTemplateFile('add');
 	}
 }

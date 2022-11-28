@@ -1,19 +1,8 @@
-{@
-$aPreMomNo = Array('05'=>'138', '06'=>'139', '07'=>'140', '08'=>'141', '09'=>'142', '10'=>'143', '11'=>'144', '12'=>'145');
-$aPostMomNo = Array('05'=>'16', '06'=>'17', '07'=>'18', '08'=>'19', '09'=>'20', '10'=>'21', '11'=>'22', '12'=>'23');
-$sMonth = date("m", time());
-$sYearMonth = date("Y년 m월 ", time());
-}
+<link href="/modules/angemombox/skins/ange_mombox_before/css/samplepack.css" rel="stylesheet">
 
 <script src="/modules/angemombox/tpl/js/mombox.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-/*const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const sErrMsg = urlParams.get('err_msg')
-if(sErrMsg)
-	alert(sErrMsg);*/
-
 function sample6_execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -63,8 +52,6 @@ function sample6_execDaumPostcode() {
 }
 </script>
 
-<link href="/modules/angemombox/skins/ange_mombox_before/css/samplepack.css" rel="stylesheet">
-
 <div class="container">
 	<div class="sub-wrapper">
 		<!-- 서브 lnb -->
@@ -82,13 +69,8 @@ function sample6_execDaumPostcode() {
 				<div class="section-content">
 					<article class="user-info">
 						<form method="post" action="./" onsubmit="return procFilter(this, window.insert)" class="x_form-horizontal" enctype="multipart/form-data">
-						<!---form method="post" action="./" class="x_form-horizontal" enctype="multipart/form-data">
-							<input name="module" type="hidden" value="angemombox" />
-							<input name="act" type="hidden" value="procAngemomboxRegistration"--->
 							<input type="hidden" name="module_srl" id="module_srl" value="{$module_srl}">
 							<input name="upload_target_srl" type="hidden" value="{$nFileSrl}" /> <!--- multi editor의 첨부파일 표시 용도 --->
-							<!---input name="gallery_doc_srl" type="hidden" value="{$nFileSrl}" /---> <!--- multi editor의 첨부파일 표시 용도 --->
-
 							<div class="table-wrap">
 								<table class="table table-bordered">
 									<caption>
@@ -110,31 +92,39 @@ function sample6_execDaumPostcode() {
 										<tr>
 											<th class="necessary"><label for="u-phone">핸드폰 번호</label></th>
 											<td>
-												<div class="form-group basic-group">{$oLoggedInfo->mobile}</div>
+												<div class="form-group basic-group" cond="$oLoggedInfo->mobile">{$oLoggedInfo->mobile}</div>
+												<div class="form-group basic-group" cond="!$oLoggedInfo->mobile">등록된 핸드폰 번호가 확인되지 않아서 신청하실 수 없습니다.</div>
 											</td>
 										</tr>
 										<tr>
 											<th class="necessary"><label for="u-addr">받으실 곳</label></th>
 											<td>
 												<div class="form-group basic-group">
+<block cond="$oLoggedInfo->address[0]">
+													{$oLoggedInfo->address[0]} {$oLoggedInfo->address[1]} {$oLoggedInfo->address[2]} {$oLoggedInfo->address[3]}
+</block>
+<block cond="!$oLoggedInfo->address[0]">
 													<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control" >
 													<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 													<input type="text" name="address" id="address" placeholder="주소" class="form-control" style='width:80%'><BR>
 													<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control" style='width:80%'><BR>
-													<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control" style='width:80%'>										
+													<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control" style='width:80%'>
+</block>
 												</div>
 											</td>
 										</tr>
 										<tr>
-											<th class="necessary">
-												출산예정일													
-											</th>
+											<th class="necessary">출산예정일</th>
 											<td>
 												<div class="form-group basic-group">
 													<select class="form-control" id="YEAR" name="YEAR">
 														<option value="">년도</option>
-														<option value="2022">2022</option>
-														<option value="2023">2023</option>
+{@
+$nTHisYr = date('Y');
+$nNextYr = date('Y', strtotime('+1 year'));
+}
+														<option value="{$nTHisYr}">{$nTHisYr}</option>
+														<option value="{$nNextYr}">{$nNextYr}</option>
 													</select>
 													<select class="form-control" id="MONTH" name="MONTH">
 														<option value="">월</option>
@@ -234,7 +224,6 @@ jQuery(function($){
 	window.xe.msg_exceeds_limit_size = '허용된 용량을 초과하여 첨부가 되지 않았습니다.';
 	window.xe.msg_checked_file_is_deleted = '%d개의 첨부 파일이 삭제되었습니다.';
 	window.xe.msg_file_cart_is_null = '삭제할 파일을 선택해주세요.';
-	window.xe.msg_checked_file_is_deleted = '%d개의 첨부 파일이 삭제되었습니다.';
 	window.xe.msg_not_allowed_filetype = '업로드할 수 없는 파일 형식입니다.';
 	window.xe.msg_file_upload_error = '파일 업로드 중 에러가 발생하였습니다.';
 });
@@ -301,7 +290,7 @@ jQuery(function($){
 	height:150px;
 }
 </style>
-										<tr>
+										<!---tr>
 											<th class="v-top"><label for="feel">개인정보 수집 및 이용에 대한 동의</label></th>
 											<td>
 												<div class="form-group">
@@ -318,14 +307,13 @@ jQuery(function($){
 												</div>
 												<p><input type="checkbox" name="privacy_sharing" id="privacy_sharing" value="Y" class="check" /> 위 개인정보 수집 및 이용에 대한 동의문을 모두 읽었으며, 동의합니다. </p>
 											</td>
-										</tr>
-
+										</tr--->
 									</tbody>
 								</table>
 							</div>
 							<div class="btn-area">
 								<p>
-									<button type="submit" class="btn btn-pink">신청하기</button>
+									<button type="submit" class="btn btn-pink" disabled|cond="!$bAllowSubmit">신청하기</button>
 									<a href="javascript:history.back();" class="btn btn-white" role="button">취소하기</a>
 								</p>
 							</div>
