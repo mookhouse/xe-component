@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">앙쥬 301 permanent move</title>
+    <description xml:lang="ko">
+        usr mobile mid에서 기존 컨텐츠의 URL을 감지하면 신규 URL로 영구 이동시키는 애드온입니다.
+    </description>
+    <version>0.1</version>
+    <date>2022-11-28</date>
+    <author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+        <name xml:lang="ko">singleview.co.kr</name>
+    </author>
+</addon>
