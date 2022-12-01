@@ -8,6 +8,7 @@
 		<column name="cc_area" var="_cc_area" />
 		<column name="cc_name" var="_cc_name" />
 		<column name="cc_phone" var="_cc_phone" />
+		<column name="cc_address" var="cc_address" />
 		<column name="ZONE_CODE" var="_zone_code" />
 		<column name="ADDR" var="_addr" />
 		<column name="ADDR_DETAIL" var="_addr_detail" />

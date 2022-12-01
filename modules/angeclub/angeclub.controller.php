@@ -48,7 +48,10 @@ class angeclubController extends angeclub
 		if((int)$oArgs->cc_idx > 0) // update
 			$oRst = executeQuery('angeclub.updateCenter', $oArgs);
 		else  // insert
+		{
+			$oArgs->cc_address = '';
 			$oRst = executeQuery('angeclub.insertCenter', $oArgs);
+		}
 		if(!$oRst->toBool())
 			return $oRst;
 		$this->add('bRst', 1);
