@@ -1,0 +1,13 @@
+<filter name="insert" module="angeclub" act="procAngeclubAddCenter">
+  <form>
+    <node target="reason" required="true" maxlength="1000" />
+	  <node target="privacy_collection" required="true" />
+	  <node target="privacy_sharing" required="true" />
+  </form>
+  <response callback_func="completeDocumentInserted">
+    <tag name="error" />
+    <tag name="message" />
+    <tag name="mid" />
+    <tag name="document_srl" />
+  </response>
+</filter>

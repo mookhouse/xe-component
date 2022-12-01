@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="about_angeclub">
+		<value xml:lang="ko"><![CDATA[앙쥬클럽을 관리할 수 있습니다.]]></value>
+	</item>
+	<item name="angeclub_management">
+		<value xml:lang="ko"><![CDATA[앙쥬클럽 관리]]></value>
+	</item>
+</lang>

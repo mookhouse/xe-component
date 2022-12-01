@@ -1,0 +1,24 @@
+<query id="updateCenter" action="update">
+	<tables>
+		<table name="angeclub_center" />
+	</tables>
+	<columns>
+		<column name="cu_id" var="_cu_id" default="0" />
+		<column name="cc_city" var="_cc_city" />
+		<column name="cc_area" var="_cc_area" />
+		<column name="cc_name" var="_cc_name" />
+		<column name="cc_phone" var="_cc_phone" />
+		<column name="ZONE_CODE" var="_zone_code" />
+		<column name="ADDR" var="_addr" />
+		<column name="ADDR_DETAIL" var="_addr_detail" />
+		<column name="cc_homepage" var="_cc_homepage" />
+		<column name="cc_owner" var="_cc_owner" />
+		<column name="cc_boss" var="_cc_boss" />
+		<column name="cc_report" var="_cc_report" />
+		<column name="cc_memo" var="_cc_memo" />
+		<column name="cc_state" var="_cc_state" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="cc_idx" var="cc_idx" />
+    </conditions>
+</query>

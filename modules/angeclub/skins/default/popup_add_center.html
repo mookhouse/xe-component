@@ -1,0 +1,207 @@
+<include target="_popup_header.html" />
+
+<script src="/modules/angeclub/tpl/js/add_club.js"></script>
+<section class="popup">
+	<script>
+		//교육장
+		var json_area = { {$sJsonAreaStringfy} }
+		function SetArea(t_city,t_init){
+			t_options = '';
+		
+			for( lkey in json_area){
+				if (json_area[lkey]['city']==t_city){
+					t_options = t_options + '<option value="'+json_area[lkey]['area']+'">'+json_area[lkey]['area']+'</option>';
+				}
+			}
+			$('#_cc_area').html(t_options);
+		
+			if (t_init){
+				t_area = '{$oCenterInfo->cc_area}';
+				if (t_area!='') {
+					setTimeout(function(){ $('#_cc_area').val('{$oCenterInfo->cc_area}')  },100);
+				}
+			}
+		}
+		
+		$( document ).ready(function() {
+			SetArea('{$oCenterInfo->cc_city}',true);
+		});
+		
+		// 다음 우편번호 사용자 선택 처리
+		   function zipcode_execDaumPostcode() {
+		       new daum.Postcode({
+		           oncomplete: function(data) {
+		               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+		               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		               var fullAddr = ''; // 최종 주소 변수
+		               var extraAddr = ''; // 조합형 주소 변수
+		
+		               // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		                   fullAddr = data.roadAddress;
+		
+		               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                   fullAddr = data.jibunAddress;
+		               }
+		
+		               // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+		               if(data.userSelectedType === 'R'){
+		                   //법정동명이 있을 경우 추가한다.
+		                   if(data.bname !== ''){
+		                       extraAddr += data.bname;
+		                   }
+		                   // 건물명이 있을 경우 추가한다.
+		                   if(data.buildingName !== ''){
+		                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                   }
+		                   // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+		                   fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+		               }
+		
+		               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		               document.getElementById("_ZONE_CODE").value = data.zonecode;
+		               document.getElementById("_ZIP_CODE").value = data.postcode1+data.postcode2;
+		               document.getElementById("_ADDR").value = fullAddr;
+		
+		               // 커서를 상세주소 필드로 이동한다.
+		               document.getElementById("_ADDR_DETAIL").focus();
+		           }
+		       }).open();
+		   }
+		// function deliveryChg(str){
+		// 	switch(str){
+		// 		case ''		: $('#_cc_delivery').val('0');	break;
+		// 		case '0'	: $('#_cc_delivery').val(str);	break;
+		// 		case '10'	: $('#_cc_delivery').val(str);	break;
+		// 		case '30'	: $('#_cc_delivery').val(str);	break;
+		// 		default : /*$('#_cc_delivery').attr('disabled',false);*/	$('#_cc_delivery1').val('00'); break;
+		// 	}
+		// }
+		// deliveryChg("");
+	</script>
+	<div class="section-header">
+		<h4 class="modal-title" id="popup-contentLabel"></h4>
+	</div>
+	<div class="section-content">
+		<article>
+			<div class="article-content">
+				<div class="article-header">
+					<!-- <h5>등록일 &nbsp; 2022-11-30</h5> -->
+					<h5>조리원 신규 등록</h5>
+				</div>
+				<div class="table-wrap write">
+					<form method="post" action="./" onsubmit="return procFilter(this, window.insert)" class="x_form-horizontal" enctype="multipart/form-data">
+						<input type="hidden" name="cc_idx" value="{$cc_idx}" />
+						<table class="table">
+							<tr>
+								<td class="label">담당자 {$oCenterInfo->cu_id}</td>
+								<td>
+									<select name="_cu_id" class="form-control" style="width: 230px; line-height: 2.6em;">
+										<option loop="$aUserInfo=>$sId,$sName" value="{$sId}" selected|cond="$sId==$oCenterInfo->cu_id">{$sName}</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">도시<b>*</b></td>
+								<td>
+									<select name="_cc_city" class="form-control" onChange="SetArea(this.value);"  style="width: 230px; line-height: 2.6em;">
+										<option loop="$aCity=>$sCity,$_" value="{$sCity}" selected|cond="$sCity==$oCenterInfo->cc_city">{$sCity}</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">지역<b>*</b></td>
+								<td>
+									<select name="_cc_area" id="_cc_area" class="form-control" title="지역" style="width: 230px; line-height: 2.6em;">
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">교육장명<b>*</b></td>
+								<td><input type="text" class="form-control" name="_cc_name" value="{$oCenterInfo->cc_name}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">전화<b></b></td>
+								<td><input type="text" class="form-control" name="_cc_phone" value="{$oCenterInfo->cc_phone}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">주소</td>
+								<td style="line-height: 38px;" class="phone">
+									<div class="form-group">
+										<style>
+											input.button_address { padding: 7px 10px !important; border-radius: 7px; background-color: #aaa; color: #fff; border: 0px; cursor: pointer; }
+											input.button_address:hover { background-color: #000; }
+										</style>
+										<input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" onClick="zipcode_execDaumPostcode();" readonly value="{$oCenterInfo->ZONE_CODE}" title="새우편번호"  style="width: 80px;">
+										<input type="text" class="form-control" name="_ZIP_CODE" id="_ZIP_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title="구우편번호"  style="width: 80px;">
+										<input type="button" value="우편번호 검색" onClick="zipcode_execDaumPostcode();" class="button_address" >
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" name="_ADDR" id="_ADDR" value="{$oCenterInfo->ADDR}" style="width: 400px;"><br/>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" name="_ADDR_DETAIL" id="_ADDR_DETAIL" value="{$oCenterInfo->ADDR_DETAIL}" style="width: 400px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">홈페이지<b></b></td>
+								<td><input type="text" class="form-control" name="_cc_homepage" value="{$oCenterInfo->cc_homepage}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">대표<b></b></td>
+								<td><input type="text" class="form-control" name="_cc_owner" value="{$oCenterInfo->cc_owner}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">원장<b></b></td>
+								<td><input type="text" class="form-control" name="_cc_boss" value="{$oCenterInfo->cc_boss}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">방갯수<b></b></td>
+								<td><input type="text" class="form-control" name="_cc_report" value="{$oCenterInfo->cc_report}" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td class="label">메모<b></b></td>
+								<td><textarea type="text" class="form-control" name="_cc_memo" style="width: 500px;">{$oCenterInfo->cc_memo}</textarea>
+								</td>
+							</tr>
+							<!-- <tr>
+								<td class="label">택배수량<b>*</b></td>
+								<td>
+									<select id="_cc_delivery1" class="form-control" title="단위기준" style="width: 100px;" onchange="deliveryChg(this.value);">
+										<option value="0"  >0</option>
+										<option value="10"  >10</option>
+										<option value="30"  >30</option>
+										<option value="00"  >직접입력</option>
+									</select>
+									<input type="text" class="form-control" name="_cc_delivery" id="_cc_delivery" value="" style="width: 100px;">
+								</td>
+							</tr> -->
+							<tr>
+								<td class="label">월평균디비수<b></b></td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td class="label">연평균디비수<b></b></td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td class="label">상태<b>*</b></td>
+								<td>
+									<select name="_cc_state" class="form-control" style="width: 130px; line-height: 2.6em;">
+										<option loop="$aCenterState=>$nIdx,$sState" value="{$nIdx}" selected|cond="$nIdx==$oCenterInfo->cc_state">{$sState}</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+						<div class="btn-area">
+							<p><input type="submit" class="btn btn-sm btn-gray" name="" value="등록하기" style="width: 100px;"></p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</article>
+	</div>
+</section>

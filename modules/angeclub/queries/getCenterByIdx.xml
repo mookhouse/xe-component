@@ -1,0 +1,41 @@
+<query id="getCenterByIdx" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+        <column name="cu_id" />
+        <column name="cc_city" />
+        <column name="cc_area" />
+        <column name="cc_name" />
+        <column name="cc_phone" />
+        <column name="ZONE_CODE" />
+        <column name="ADDR" />
+        <column name="ADDR_DETAIL" />
+        <column name="cc_owner" />
+        <column name="cc_boss" />
+        <column name="cc_report" />
+        <column name="cc_memo" />
+        <column name="cc_state" />
+        <column name="cc_homepage" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cc_idx" var="cc_idx" />
+    </conditions>
+</query>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

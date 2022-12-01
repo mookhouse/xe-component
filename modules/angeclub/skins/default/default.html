@@ -1,0 +1,222 @@
+<!-- 검색 영역 -->
+<div class="global-search">
+	<form action="?" method="get" name="searchFrm" id="searchFrm">
+		<input type="hidden" name="submenu"  value="home">
+		<h4>검색하기</h4>
+		<div class="form-group">
+			<select class="form-control" name="search_state">
+				<option value="">상태검색</option>
+				<option value="1" >활동</option>
+				<option value="2" >탈퇴</option>
+				<option value="3" >미승인</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" name="period_start" id="period_start" readonly  value="" placeholder="조회기간" style="width:150px">
+			<label for="period_start" class="sr-only">조회기간 시작일자</label>
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" name="period_end"   id="period_end"   readonly  value=""   placeholder="조회기간" style="width:150px">
+			<label for="period_end" class="sr-only">조회기간 종료일자</label>
+		</div>
+		<script>
+			$('#period_start').datetimepicker({
+			  timepicker:false,
+			  closeOnDateSelect:true,
+			  format:'ymd',
+			  style:'z-index: 101000;',
+			  lang: 'ko'
+			});
+			$('#period_end').datetimepicker({
+			  timepicker:false,
+			  closeOnDateSelect:true,
+			  format:'ymd',
+			  style:'z-index: 101000;',
+			  lang: 'ko'
+			});
+		</script>
+		<div class="btn-area">
+			<p>
+				<button type="submit" class="btn btn-blue btn-sm">검색하기</button>
+				<!--<a href="#" class="btn btn-green btn-sm" role="button">등록하기</a>-->
+			</p>
+		</div>
+	</form>
+</div>
+<div class="article-header">
+</div>
+<article>
+	<div class="article-header">
+		<h5>담당자별</h5>
+		<!--<small>Toral <span>145</span> item(s)</small>-->
+	</div>
+	<!-- list -->
+	<div class="table-wrap list">
+		<div class="btn-area" style="margin-top:0px;margin-bottom:10px;">
+			<p>
+				<a href="/adm/vm/club/logstate_export.svm.php?period_start=2022-11-01&period_end=2022-11-29&search_state=" target="_blank" class="btn btn-xs btn-gray" role="button">엑셀다운로드</a>
+			</p>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="subject none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst=cu_name&amp;sod=desc";'>
+						<a href="#">담당자
+						<span>
+						<i class="icon-up-micro"></i>
+						<i class="icon-down-micro"></i>
+						</span>
+						</a>
+					</th>
+					<th class="none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst=cu_zone&amp;sod=desc";'>
+						<a href="#">권역
+						<span>
+						<i class="icon-up-micro"></i>
+						<i class="icon-down-micro"></i>
+						</span>
+						</a>
+					</th>
+					<th>합계</th>
+					<th>등록</th>
+					<th>중복</th>
+					<th>조리원</th>
+					<th>기타</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>김경희</td>
+					<td>강남</td>
+					<td>180</td>
+					<td>179</td>
+					<td>0</td>
+					<td>1</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>남가은</td>
+					<td>강동</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>신명희</td>
+					<td>강북</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>김성경</td>
+					<td>강북</td>
+					<td>304</td>
+					<td>304</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>손미연</td>
+					<td>강서</td>
+					<td>358</td>
+					<td>356</td>
+					<td>1</td>
+					<td>1</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>이성숙</td>
+					<td>부산</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>신주현</td>
+					<td>부산</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+		</table>
+		</tbody>
+		</table>
+	</div>
+	<div class="article-header" style="padding-bottom:0px;padding-top:20px;">
+		<h5>지역별</h5>
+		<!--<small>Toral <span>145</span> item(s)</small>-->
+	</div>
+	<!-- list -->
+	<div class="table-wrap list" style="margin-top:20px;" id="tableList2">
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="subject none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst2=cc.cc_city&amp;sod2=desc#tableList2";'>
+						<a href="#">지역
+						<span>
+						<i class="icon-up-micro"></i>
+						<i class="icon-down-micro"></i>
+						</span>
+						</a>
+					</th>
+					<th>합계</th>
+					<th>등록</th>
+					<th>중복</th>
+					<th>조리원</th>
+					<th>기타</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>인천</td>
+					<td>59</td>
+					<td>59</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>서울</td>
+					<td>488</td>
+					<td>486</td>
+					<td>1</td>
+					<td>1</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>경기</td>
+					<td>295</td>
+					<td>294</td>
+					<td>0</td>
+					<td>1</td>
+					<td>0</td>
+				</tr>
+				<tr style="height: 5px; background-color: #D9F5FF;">
+					<td>합계</td>
+					<td>842</td>
+					<td>839</td>
+					<td>1</td>
+					<td>2</td>
+					<td>0</td>
+				</tr>
+		</table>
+		</tbody>
+		</table>
+	</div>
+</article>
+<script>
+	function fn_sort(sst ,sod){
+		$("#searchFrm").find("input[name='sst']").val(sst);
+		$("#searchFrm").find("input[name='sod']").val(sod);
+		$("#searchFrm").submit();
+	}
+</script> 

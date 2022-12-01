@@ -1,0 +1,24 @@
+<table name="angeclub_center">
+	<column name="cc_idx" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
+	<column name="cu_id" type="varchar" size="45" />
+	<column name="cc_city" type="varchar" size="20" />
+    <column name="cc_area" type="varchar" size="20" />
+    <column name="cc_name" type="varchar" size="45" notnull="notnull" />
+    <column name="cc_phone" type="varchar" size="20" notnull="notnull" />
+    <column name="cc_address" type="varchar" size="200" notnull="notnull" />
+    <column name="ZONE_CODE" type="char" size="5" />  <!-- 새 우편번호 -->
+    <column name="ZIP_CODE" type="char" size="6" />  <!-- 우편번호 -->
+    <column name="ADDR" type="varchar" size="100" />  <!-- 주소 -->
+    <column name="ADDR_DETAIL" type="varchar" size="100" />  <!-- 상세주소 -->
+    <column name="club_centercol" type="varchar" size="45" />
+    <column name="cc_owner" type="varchar" size="20" />
+    <column name="cc_boss" type="varchar" size="20" />
+    <column name="cc_report" type="text" />
+    <column name="cc_delivery" type="varchar" size="45" />
+    <column name="cc_memo" type="text" />
+    <column name="cc_boss" type="varchar" size="20" />
+    <column name="cc_state" type="number" size="11" notnull="notnull" default="1" />  <!-- 1:사용 9:교육중지 2:리모델링 3:기타 0:폐업 -->
+    <column name="cc_boss" type="varchar" size="20" />
+    <column name="cc_date_regi" type="date" />
+    <column name="cc_homepage" type="varchar" size="20" />
+</table>

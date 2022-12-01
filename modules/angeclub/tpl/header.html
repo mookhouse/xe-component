@@ -1,0 +1,19 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->angeclub_management}
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}</a><block cond="$module_info->is_default=='Y'">({$lang->is_default})</block>
+		</span>
+		<a href="#aboutAngeclub" class="x_icon-question-sign" data-toggle cond="!$module_info->mid"></a>
+	</h1>
+</div>
+<p id="aboutAngeclub" class="x_alert x_alert-info" cond="!$module_info->mid" hidden>{nl2br($lang->about_angeclub)}</p>
+<ul class="x_nav x_nav-tabs" cond="$act != 'dispAngeclubAdminDelete' && $module_info">
+	<li class="x_active"|cond="$act=='dispAngeclubAdminIndex'"><a href="{getUrl('act','dispAngeclubAdminIndex','module_srl','')}">{$lang->cmd_list}</a></li>
+<block cond="$module_srl">
+	<li class="x_active"|cond="$act=='dispAngeclubAdminInfo'"><a href="{getUrl('act','dispAngeclubAdminInfo')}">{$lang->module_info}</a></li>
+	<li class="x_active"|cond="$act=='dispAngeclubAdminGrantInfo'"><a href="{getUrl('act','dispAngeclubAdminGrantInfo', 'rcpt_no','')}">{$lang->cmd_manage_grant}</a></li>
+	<li class="x_active"|cond="$act=='dispAngeclubAdminSkinInfo'"><a href="{getUrl('act','dispAngeclubAdminSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_skin}</a></li>
+	<li class="x_active"|cond="$act=='dispAngeclubAdminMobileSkinInfo'"><a href="{getUrl('act','dispAngeclubAdminMobileSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_mobile_skin}</a></li>
+</block>
+</ul>

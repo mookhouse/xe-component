@@ -1,0 +1,13 @@
+<query id="getClubUser" action="select">
+    <tables>
+        <table name="angeclub_user" />
+    </tables>
+    <columns>
+        <column name="cu_id" />
+        <column name="cu_name" />
+    </columns>
+    <conditions>
+        <condition operation="notequal" column="cu_id" var="cu_id" notnull="notnull" />
+        <condition operation="notequal" column="cu_state" var="cu_state" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

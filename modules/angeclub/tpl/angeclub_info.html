@@ -1,0 +1,66 @@
+<!--#include("header.html")-->
+<load target="../../editor/tpl/js/editor_module_config.js" usecdn="true" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form ruleset="updatePage" action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal">
+<input type="hidden" name="module" value="angeclub" />
+<input type="hidden" name="act" value="procAngeclubAdminUpdate" />
+<input type="hidden" name="page" value="{$page}" />
+<input type="hidden" name="module_srl" value="{$module_srl}" />
+<section class="section">
+	<h1>페이지 기본 설정</h1>
+	<div class="x_control-group">
+		<label class="x_control-label" for="page_name">{$lang->mid}</label>
+		<div class="x_controls">
+			<input type="text" name="page_name" id="page_name" value="{$module_info->mid}" />
+			<a href="#aboutMid" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p class="x_help-block" id="aboutMid" hidden>{$lang->about_mid}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="module_category_srl">{$lang->module_category}</label>
+		<div class="x_controls">
+			<select name="module_category_srl" id="module_category_srl">
+				<option value="0">{$lang->notuse}</option>
+				<option loop="$module_category => $key, $val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+			</select>
+			<a href="#aboutCategory" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p class="x_help-block" id="aboutCategory" hidden>{$lang->about_module_category}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="lang_browser_title">{$lang->browser_title}</label>
+		<div class="x_controls">
+			<input type="text" name="browser_title" id="browser_title" value="<!--@if(strpos($module_info->browser_title, '$user_lang->') === false)-->{$module_info->browser_title}<!--@else-->{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}<!--@end-->" class="lang_code" />
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+		<div class="x_controls">
+			<select name="layout_srl" id="layout_srl" style="width:auto">
+				<option value="0">{$lang->notuse}</option>
+				<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl==$val->layout_srl">{$val->title}({$val->layout})</option>
+			</select>
+			<a href="#aboutLayout" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p class="x_help-block" id="aboutLayout" hidden>{$lang->about_layout}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="skin">{$lang->skin}</label>
+		<div class="x_controls">
+			<select name="skin" id="skin">
+				<option loop="$skin_list => $key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key ||(!$module_info->skin && $key=='default')">{$val->title}</option>
+			</select>
+			<a href="#aboutSkin" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p class="x_help-block" id="aboutSkin" hidden>{$lang->about_skin}</p>
+		</div>
+	</div>
+</section>
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+		</div>
+	</div>
+</form>

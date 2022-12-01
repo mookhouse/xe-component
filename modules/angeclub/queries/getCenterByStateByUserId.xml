@@ -1,0 +1,21 @@
+<query id="getCenterByStateByUserId" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cu_id" var="cu_id" notnull="notnull" />
+        <condition operation="equal" column="cc_city" var="cc_city" pipe="and" />
+        <condition operation="equal" column="cc_area" var="cc_area" pipe="and" />
+        <condition operation="like" column="cc_name" var="cc_name" pipe="and" />
+        <condition operation="equal" column="cc_state" var="cc_state" filter="number" notnull="notnull" pipe="and" />
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="cc_idx" order="desc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

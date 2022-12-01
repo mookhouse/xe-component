@@ -1,0 +1,5 @@
+<table name="angeclub_area">
+	<column name="ca_idx" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
+	<column name="ca_city" type="varchar" size="45" notnull="notnull" />
+	<column name="ca_area" type="varchar" size="45" notnull="notnull" />
+</table>

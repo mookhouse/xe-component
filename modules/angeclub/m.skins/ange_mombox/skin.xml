@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">Ange MOB 맘박스 Page Skin</title>
+	<description xml:lang="ko">
+		 Ange MOB 맘박스 페이지의 기본 스킨입니다.
+	</description>
+	<version>1.0</version>
+	<date>2022-09-05</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">전체 설정</title>
+			<var name="default_style" type="radio">
+				<title xml:lang="ko">페이지 종류</title>
+				<options value="before">
+					<title xml:lang="ko">임신맘</title>
+				</options>
+				<options value="after">
+					<title xml:lang="ko">출산맘</title>
+				</options>
+			</var>
+			<var name="side_nav_bar" type="radio">
+				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
+				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="CONTENTS_NAV">
+					<title xml:lang="ko">CONTENTS_NAV 메뉴</title>
+				</options>
+				<options value="COMMUNITY_NAV">
+					<title xml:lang="ko">COMMUNITY_NAV 메뉴</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">임신맘 박스 페이지 설정</title>
+			<var name="before_mombox_gift_slide_img" type="textarea">
+				<title xml:lang="ko">임신맘박스 구성 슬라이드 이미지 목록</title>
+				<description xml:lang="ko">이미지URL;설명</description>
+			</var>
+			<var name="before_mombox_img" type="image">
+				<title xml:lang="ko">임신맘박스 구성 이미지</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="before_mombox_detail_link" type="text">
+				<title xml:lang="ko">임신맘박스 구성 자세히 보기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="before_mombox_submit_link" type="text">
+				<title xml:lang="ko">임신맘박스 신청하기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">출산맘 박스 페이지 설정</title>
+			<var name="after_mombox_img" type="image">
+				<title xml:lang="ko">출산맘박스 구성 이미지</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="after_mombox_detail_link" type="text">
+				<title xml:lang="ko">출산맘박스 구성 자세히 보기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+			<var name="after_mombox_submit_link" type="text">
+				<title xml:lang="ko">출산맘박스 신청하기 URL</title>
+				<description xml:lang="ko">..</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

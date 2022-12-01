@@ -1,0 +1,8 @@
+<query id="getCenterAreaAll" action="select">
+    <tables>
+        <table name="angeclub_area" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+</query>
