@@ -182,29 +182,29 @@ class angemomboxAdminController extends angemombox
  */
 	private function _saveConfigByMid($oArgs)
 	{
-		$args = $oArgs;
-		if($args->module_srl)
+		$oInArgs = $oArgs;
+		if($oInArgs->module_srl)
 		{
 			$oModuleModel = getModel('module');
-			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
-			unset($module_info->is_skin_fix); // 기본 스킨 고정을 해제함
-			unset($module_info->is_mskin_fix); // 기본 스킨 고정을 해제함
-			if($module_info->module_srl != $args->module_srl)
-				unset($args->module_srl);
+			$oModuleInfo = $oModuleModel->getModuleInfoByModuleSrl($oInArgs->module_srl);
+			unset($oModuleInfo->is_skin_fix); // 기본 스킨 고정을 해제함
+			unset($oModuleInfo->is_mskin_fix); // 기본 스킨 고정을 해제함
+			if($oModuleInfo->module_srl != $oInArgs->module_srl)
+				unset($oInArgs->module_srl);
 			else
 			{
-				foreach($args as $key=>$val)
-					$module_info->{$key} = $val;
-				$args = $module_info;
+				foreach($oInArgs as $key=>$val)
+					$oModuleInfo->{$key} = $val;
+				$oInArgs = $oModuleInfo;
 			}
 		}
 		$oModuleController = getController('module');
-		// Insert/update depending on module_srl
-		if(!$args->module_srl)
-			$output = $oModuleController->insertModule($args);
+		if(!$oInArgs->module_srl)
+			$oRst = $oModuleController->insertModule($oInArgs);  // Insert
 		else
-			$output = $oModuleController->updateModule($args);
-		return $output;
+			$oRst = $oModuleController->updateModule($oInArgs);  // update
+		unset($oInArgs);
+        return $oRst;
 	}
 /**
  * @brief update privacy usage term
