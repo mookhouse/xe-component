@@ -90,6 +90,12 @@
 	<item name="yr_mo">
 		<value xml:lang="ko"><![CDATA[신청 연월]]></value>
 	</item>
+	<item name="angeclub_exclusive">
+		<value xml:lang="ko"><![CDATA[angeclub 전용 모듈]]></value>
+	</item>
+	<item name="about_angeclub_exclusive">
+		<value xml:lang="ko"><![CDATA[angeclub 전용 모듈은 angeclub에서 산모 정보를 수집하고 모든 disp act를 거부합니다.]]></value>
+	</item>
 	<item name="monthly_due_day">
 		<value xml:lang="ko"><![CDATA[매월 마지막 응모일]]></value>
 	</item>

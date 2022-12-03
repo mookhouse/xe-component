@@ -24,7 +24,6 @@
 		<action name="dispAngemomboxUpdate" type="view" />
 				
 		<action name="procAngemomboxAdminUpdate" type="controller" ruleset="updatePage" />
-		<action name="procAngemomboxAdminInsertConfig" type="controller" />
 		<action name="procAngemomboxAdminAddWinner" type="controller" />
 		<action name="procAngemomboxAdminTermPrivacyUsageUpdate" type="controller" />
 		<action name="procAngemomboxAdminTermPrivacyShrUpdate" type="controller" />

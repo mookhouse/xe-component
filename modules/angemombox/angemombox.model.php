@@ -77,7 +77,8 @@ class angemomboxModel extends module
 		$oDocInfo->mid = $oModuleInfo->mid;
 		$oDocInfo->monthly_due_day = $oModuleInfo->monthly_due_day ? (int)$oModuleInfo->monthly_due_day : 25;  // 매월 25일까지 접수가 기본
 		
-		$aParam = ['member_addr_field_name', 'member_give_birth_date_field_name', 'member_sns_field_name',  // 회원 연동 정보
+		$aParam = ['angeclub_exclusive',  // 앙쥬클럽에서 산모 정보 수집 전용 모듈
+					'member_addr_field_name', 'member_give_birth_date_field_name', 'member_sns_field_name',  // 회원 연동 정보
 					'connected_board_srl', 'title_prefix', 'title_cut_size', 'mombox_module_srl_field', 'mombox_application_srl_field'  // 게시판 연동 정보
 				  ];
 		foreach($oModuleInfo as $sTitle=>$sVal)

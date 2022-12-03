@@ -149,34 +149,6 @@ class angemomboxAdminController extends angemombox
 		return new BaseObject(0);
 	}
 /**
- * @brief 
- **/
-	public function procAngemomboxAdminInsertConfig()
-	{
-		$sGaV3TrackingId = Context::get('ga_v3_tracking_id');
-		if(strlen($sGaV3TrackingId))
-			$oArgs->ga_v3_tracking_id = $sGaV3TrackingId;
-		$oRst = $this->_saveModuleConfig($oArgs);
-		if(!$oRst->toBool())
-			$this->setMessage('error_occured');
-		else
-			$this->setMessage('success_updated');
-		$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispAngemomboxAdminConfig'));
-	}
-/**
- * @brief arrange and save module config
- **/
-	private function _saveModuleConfig($oArgs)
-	{
-		//$oAngemomboxAdminModel = &getAdminModel('angemombox');
-		//$oConfig = $oSvdocsAdminModel->getModuleConfig();
-		//foreach( $oArgs as $key=>$val)
-		//	$oConfig->{$key} = $val;
-		$oModuleControll = getController('module');
-		$oRst = $oModuleControll->insertModuleConfig('angemombox', $oArgs);
-		return $oRst;
-	}
-/**
  * @brief module module
  */
 	public function procAngemomboxAdminUpdate()
@@ -194,6 +166,8 @@ class angemomboxAdminController extends angemombox
 		unset($oArgs->page_name);
 		if($oArgs->use_mobile != 'Y') 
 			$oArgs->use_mobile = '';
+		if($oArgs->angeclub_exclusive != 'Y') 
+			$oArgs->angeclub_exclusive = '';
 		$oRst = $this->_saveConfigByMid($oArgs);
 		unset($oArgs);
 		if(!$oRst->toBool()) 
@@ -575,4 +549,32 @@ class angemomboxAdminController extends angemombox
 		}
 		exit(0);
 	}
+/**
+ * @brief 
+ **/
+	// public function procAngemomboxAdminInsertConfig()
+	// {
+	// 	$sGaV3TrackingId = Context::get('ga_v3_tracking_id');
+	// 	if(strlen($sGaV3TrackingId))
+	// 		$oArgs->ga_v3_tracking_id = $sGaV3TrackingId;
+	// 	$oRst = $this->_saveModuleConfig($oArgs);
+	// 	if(!$oRst->toBool())
+	// 		$this->setMessage('error_occured');
+	// 	else
+	// 		$this->setMessage('success_updated');
+	// 	$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispAngemomboxAdminConfig'));
+	// }
+/**
+ * @brief arrange and save module config
+ **/
+	// private function _saveModuleConfig($oArgs)
+	// {
+	// 	//$oAngemomboxAdminModel = &getAdminModel('angemombox');
+	// 	//$oConfig = $oSvdocsAdminModel->getModuleConfig();
+	// 	//foreach( $oArgs as $key=>$val)
+	// 	//	$oConfig->{$key} = $val;
+	// 	$oModuleControll = getController('module');
+	// 	$oRst = $oModuleControll->insertModuleConfig('angemombox', $oArgs);
+	// 	return $oRst;
+	// }
 }
