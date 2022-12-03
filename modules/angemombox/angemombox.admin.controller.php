@@ -76,29 +76,19 @@ class angemomboxAdminController extends angemombox
 		$this->add('nRst', 1);
 	}
 /**
- * @brief 
+ * @brief delete designated module
  */
 	public function procAngemomboxAdminDelete()
 	{
-		$module_srl = Context::get('module_srl');
-		// delete docs belongint to the module
-		$output = $this->_deleteAllDocsByModule( $module_srl );
-
-		if( !$output->toBool() )
-			return $output;
-
-		// delete designated module
-		
-		// Get an original
+		$nModuleSrl = Context::get('module_srl');
 		$oModuleController = getController('module');
-		$output = $oModuleController->deleteModule($module_srl);
-		if(!$output->toBool()) 
-			return $output;
-
+		$oRst = $oModuleController->deleteModule($nModuleSrl);
+		if(!$oRst->toBool()) 
+			return $oRst;
+        unset($oRst);
 		$this->add('module','page');
 		$this->add('page',Context::get('page'));
 		$this->setMessage('success_deleted');
-
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAngemomboxAdminIndex');
 		$this->setRedirectUrl($returnUrl);
 	}
@@ -134,18 +124,6 @@ class angemomboxAdminController extends angemombox
 			if(!$oRst->toBool())
 				return new BaseObject(-1, 'msg_error_angemombox_db_query');
 		}
-		return new BaseObject(0);
-	}	
-/**
- * @brief
- */
-	private function _deleteAllDocsByModule($nModuleSrl)
-	{
-		$oArgs = new stdClass();
-		$oArgs->module_srl = $nModuleSrl;
-		$oRst = executeQuery('angemombox.deleteAngemomboxGroup', $oArgs);
-		if(!$oRst->toBool())
-			return new BaseObject(-1, 'msg_error_angemombox_db_query');
 		return new BaseObject(0);
 	}
 /**
