@@ -111,7 +111,7 @@ class angeclubView extends angeclub
 
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
-		// Context::set('aCenterState', $this->_g_aCenterState);
+		Context::set('aBabyGender', $this->_g_aBabyGender);
 
 		// $oCenterInfo = new stdClass();
 		// $oCenterInfo->cc_city = '서울';  // for UX

@@ -14,6 +14,16 @@ class angeclubModel extends module
 	{
 	}
 /**
+ * @brief return baby gender list
+ **/
+    public function getBabyGender()
+    {
+        $oAngeclub = &getClass('angeclub');
+        $aBabyGenderList = $oAngeclub->_g_aBabyGender;
+        unset($oAngeclub);
+        return $aBabyGenderList;
+    }
+/**
  * @brief return club list
  **/
 	public function getClubEffectiveUser()

@@ -446,10 +446,7 @@ display: none;
                                                 </script>
                                             <select class="form-control" id="I_BABY_SEX_GB" name="I_BABY_SEX_GB" class="input01" title="아이 성별" style="width: 120px; margin-left: 10px;">
                                                 <option value="">성별 선택</option>
-                                                <option value="M"  >남</option>
-                                                <option value="F"  >여</option>
-                                                <option value="T"  >쌍둥이</option>
-                                                <option value="D"  >모름</option>
+                                                <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
                                             </select>
                                         </div>
                                     </td>
