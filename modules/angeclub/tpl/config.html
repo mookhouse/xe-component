@@ -1,0 +1,24 @@
+<include target="header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procAngeclubAdminConfig" />
+	<section class="section">
+		<h1>회원 정보 입력 설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_addr_field_name">{$lang->member_addr_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_addr_field_name" id="member_addr_field_name" value="{$oConfig->member_addr_field_name}" />
+				<a href="#aboutMemberAddrFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberAddrFieldName" hidden>{$lang->about_member_addr_field_name}</p>
+			</div>
+		</div>
+	</section>
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
+	</div>
+</form>

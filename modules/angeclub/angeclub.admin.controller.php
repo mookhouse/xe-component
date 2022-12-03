@@ -22,7 +22,6 @@ class angeclubAdminController extends angeclub
 		$module_srl = Context::get('module_srl');
 		// delete docs belongint to the module
 		$output = $this->_deleteAllDocsByModule( $module_srl );
-
 		if( !$output->toBool() )
 			return $output;
 
@@ -44,11 +43,11 @@ class angeclubAdminController extends angeclub
 /**
  * @brief 
  **/
-	public function procAngeclubAdminInsertConfig()
+	public function procAngeclubAdminConfig()
 	{
-		$sGaV3TrackingId = Context::get('ga_v3_tracking_id');
-		if(strlen($sGaV3TrackingId))
-			$oArgs->ga_v3_tracking_id = $sGaV3TrackingId;
+		$sMemberAddrFieldName = Context::get('member_addr_field_name');
+		if(strlen($sMemberAddrFieldName))
+			$oArgs->member_addr_field_name = $sMemberAddrFieldName;
 		$oRst = $this->_saveModuleConfig($oArgs);
 		if(!$oRst->toBool())
 			$this->setMessage('error_occured');
@@ -66,8 +65,7 @@ class angeclubAdminController extends angeclub
 		//foreach( $oArgs as $key=>$val)
 		//	$oConfig->{$key} = $val;
 		$oModuleControll = getController('module');
-		$oRst = $oModuleControll->insertModuleConfig('angemombox', $oArgs);
-		return $oRst;
+		return $oModuleControll->insertModuleConfig('angeclub', $oArgs);
 	}
 /**
  * @brief module module
@@ -94,28 +92,6 @@ class angeclubAdminController extends angeclub
 		$this->add("page", Context::get('page'));
 		$this->add('module_srl', $oRst->get('module_srl'));
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'module_srl', $oRst->get('module_srl'), 'act', 'dispAngeclubAdminModDetail');
-		$this->setRedirectUrl($returnUrl);
-	}
-/**
- * @brief 
- */
-	public function procAngemomboxAdminApproveApplicant()
-	{
-		$nModuleSrl = (int)Context::get('module_srl');
-		if(!$nModuleSrl)
-			return new BaseObject( -1, 'msg_error_invalid_module_srl');
-		$nDocSrl = (int)Context::get('doc_srl');
-		if(!$nDocSrl)
-			return new BaseObject( -1, 'msg_error_invalid_doc_srl');
-		$oArgs = new stdClass();
-		$oArgs->module_srl = $nModuleSrl;
-		$oArgs->doc_srl = $nDocSrl;
-		$oArgs->is_accepted = Context::get('approve');
-		$oRst = executeQuery('angemombox.updateAdminApproval', $oArgs);
-		unset($oArgs);
-		if(!$oRst->toBool()) 
-			return $oRst;
-		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'module_srl', $nModuleSrl,'doc_srl', $nDocSrl, 'act', 'dispAngemomboxAdminDocDetail');
 		$this->setRedirectUrl($returnUrl);
 	}
 /**
@@ -146,55 +122,6 @@ class angeclubAdminController extends angeclub
 		else
 			$output = $oModuleController->updateModule($args);
 		return $output;
-	}
-/**
- * @brief update privacy usage term
- */
-	function procAngemomboxAdminTermPrivacyUsageUpdate()
-	{
-		$nModuleSrl = Context::get('module_srl');
-		if( !$nModuleSrl )
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-
-		$sTerm = trim(strip_tags(Context::get('privacy_usage_term')));
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_privacy_usage_term_' . Context::get('lang_type') . '.txt';
-		if(!$sTerm)
-			FileHandler::removeFile($agreement_file);
-
-		// check agreement value exist
-		if($sTerm)
-			$output = FileHandler::writeFile($agreement_file, $sTerm);
-
-		$this->setRedirectUrl(Context::get('success_return_url'));
-	}
-/**
- * @brief update privacy share term
- */
-	function procAngemomboxAdminTermPrivacyShrUpdate()
-	{
-		$nModuleSrl = Context::get('module_srl');
-		if( !$nModuleSrl )
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-		
-		$bShowTerm = Context::get('is_hide_privacy_shr_term');
-		$args->module = 'angemombox';
-		$args->mid = Context::get('mid');
-		$args->module_srl = $nModuleSrl;
-		$args->is_hide_privacy_shr_term = $bShowTerm;
-		$output = $this->_saveConfigByMid($args);
-		if(!$output->toBool()) 
-			return $output;
-
-		$sTerm = trim(strip_tags(Context::get('privacy_shr_term')));
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_privacy_shr_term_' . Context::get('lang_type') . '.txt';
-		if(!$sTerm)
-			FileHandler::removeFile($agreement_file);
-
-		// check agreement value exist
-		if($sTerm)
-			$output = FileHandler::writeFile($agreement_file, $sTerm);
-
-		$this->setRedirectUrl(Context::get('success_return_url'));
 	}
 /**
  * @brief mask multibyte string
@@ -233,239 +160,5 @@ class angeclubAdminController extends angeclub
 		}
 
 		return $str_head.$str_body.$str_tail;
-	}
-/**
- * @brief 
- */	
-	function procAngemomboxAdminCSVDownloadByModule() 
-	{
-		$nModuleSrl = Context::get('module_srl');
-		if(!$nModuleSrl) 
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-		
-		//header( 'Content-Type: text/html; charset=UTF-8' );
-		header( 'Content-Type: Application/octet-stream; charset=UTF-8' );
-		header( "Content-Disposition: attachment; filename=\"angemombox_raw-".date('Ymd').".csv\"");
-		echo chr( hexdec( 'EF' ) );
-		echo chr( hexdec( 'BB' ) );
-		echo chr( hexdec( 'BF' ) );
-		
-		// 기본 컬럼 제목 설정 시작
-		$oDataConfig = Array( 'doc_srl','module_srl','member_srl','applicant_name','applicant_name_secured','applicant_phone','applicant_phone_secured','ipaddress','privacy_collection','privacy_sharing','user_agent','datetimestamp_entry','datetimestamp_final','duration_sec','init_referral','utm_source', 'utm_medium', 'utm_campaign', 'utm_term','is_mobile','is_accepted','regdate','member_id' );
-
-		foreach( $oDataConfig as $key => $val )
-			echo "\"".$val."\",";
-		// 기본 컬럼 제목 설정 끝
-		
-		// extra_vars의 컬럼 제목 설정 시작
-		$oAngemomboxModel = getModel('angemombox');
-		$extra_keys = $oAngemomboxModel->getExtraKeys($nModuleSrl);
-		
-		$aAddrEid = array();
-		$aCheckBoxEid = array();
-		$aCheckBoxAnswers = array();
-		$aTempAddrValue = array();
-		$nPhoneNumberLegnth = 0;
-		foreach( $extra_keys as $key=>$val)
-		{
-			switch( $val->type )
-			{
-				case 'kr_zip':
-					echo "\"post_code\",\"address\",";
-					$aAddrEid[] = $val->eid;
-					break;
-				case 'checkbox':
-					$aMultipleAnswer = explode( ',', $val->default);
-					foreach( $aMultipleAnswer as $key1=>$val1)
-						echo "\"".$val->name.'_'.$val1."\",";
-
-					$aCheckBoxAnswers[$val->eid] = $aMultipleAnswer;
-					$aCheckBoxEid[] = $val->eid;
-					break;
-				default:
-					echo "\"".$val->name."\",";
-					break;
-			}
-		}
-		// extra_vars의 컬럼 제목 설정 끝
-		// svauth 모듈이 있다면 실명인증 정보 추출
-		if( getClass('svauth') )
-		{
-			$oSvauthAdminModel = getAdminModel('svauth');
-			$oSvauthDataConfig = Array( '인증일시', '인증실명','인증생일','인증성별','인증국적','인증통신사','인증핸드폰' );
-			if( getClass('svcrm') )
-			{
-				$oSvcrmAdminModel = &getAdminModel('svcrm');
-				$oSvcrmConfig = $oSvcrmAdminModel->getModuleConfig();
-				$aPrivacyAccessPolicy = $oSvcrmConfig->privacy_access_policy;
-				unset($oSvcrmConfig);
-			}
-		}
-		// svauth 컬렘 제목 설정 시작
-		foreach( $oSvauthDataConfig as $key => $val )
-			echo "\"".$val."\",";
-		// svauth 컬렘 제목 설정 끝
-
-		echo "\r\n";
-		$oMemberModel = &getModel('member');
-		$oAngemomboxAdminModel = getAdminModel('angemombox');
-
-		$args->module_srl = $nModuleSrl;
-		$args->is_deleted_doc = 0;
-		$args->is_accepted = 'Y';
-		$args->list_count = 99999;
-		$output = executeQueryArray('angemombox.getAdminAngemomboxByModule', $args);
-		if( !$output->toBool() )
-			return $output;
-
-		$data = $output->data;
-
-		// extra_vars의 컬럼 데이터 설정
-		if( count( $data ) )
-		{
-			$to_time = 0;
-			$from_time = 0;
-
-			foreach( $data as $key1 => $val1 )
-			{
-				$nMemberSrl = (int)$val1->member_srl;
-				$nDocSrl = (int)$val1->doc_srl;
-				foreach( $val1 as $key2 => $val2 )
-				{
-					if( $key2 == 'is_deleted_doc' )
-						continue;
-
-					if( $key2 == 'datetimestamp_entry' )
-						$to_time = strtotime( $val2 );
-						
-					if( $key2 == 'datetimestamp_final' )
-					{
-						echo "\"".$val2."\",";
-						$from_time = strtotime( $val2 );
-						$duration_sec = round(abs($to_time - $from_time), 2 );
-						echo "\"".$duration_sec."\",";
-						continue;
-					}
-
-					if( $key2 == 'applicant_name' )
-						echo "\"".$val2."\",\"".$this->_maskMbString($val2,1,1)."\",";
-					else if( $key2 == 'applicant_phone' )
-					{
-						$nPhoneNumberLegnth = strlen( $val2 );
-						switch( $nPhoneNumberLegnth )
-						{
-							case 10:
-								echo "\"".substr($val2, 0, 3).'-'.substr($val2, 3, 3).'-'.substr($val2, 6, 4)."\","; // original number
-								echo "\"".$this->_maskMbString(substr($val2, 0, 3),2,0).'-'.$this->_maskMbString(substr($val2, 3, 3),0,0).'-'.substr($val2, 6, 4)."\","; // masked number
-								break;
-							case 11:
-								echo "\"".substr($val2, 0, 3).'-'.substr($val2, 3, 4).'-'.substr($val2, 7, 4)."\","; // original number
-								echo "\"".$this->_maskMbString(substr($val2, 0, 3),2,0).'-'.$this->_maskMbString(substr($val2, 3, 4),0,0).'-'.substr($val2, 7, 4)."\","; // masked number
-								break;
-							default:
-								echo "\"".$val2."\","; // original number
-								echo "\"".$this->_maskMbString($val2,2,4)."\","; // masked number
-						}
-					}
-					else if( $key2 == 'regdate' )
-					{
-						$dtTemp = strtotime($val2);
-						echo "\"". date("Y-m-d H:i:s",$dtTemp)."\",";
-					}
-					else
-						echo "\"".$val2."\",";
-				}
-
-				// member_id
-				$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nMemberSrl, 0, $columnList);
-				if($oMemberInfo)
-					echo "\"".$oMemberInfo->user_id."\",";
-				else
-					echo "\"withdraw\",";
-				// extra_vars
-				$aExtraVars = $oAngemomboxAdminModel->getDocExtraVars($nModuleSrl, $nDocSrl);
-				
-				foreach( $aExtraVars as $key=>$val)
-				{
-					if (in_array($val->eid, $aAddrEid)) 
-					{
-						$aTempAddrValue = explode( "|@|", $val->value );
-						echo "\"".$aTempAddrValue[0]."\",\"".$aTempAddrValue[1]." ".$aTempAddrValue[2]." ".$aTempAddrValue[3]."\",";
-					}
-					else if (in_array($val->eid, $aCheckBoxEid)) 
-					{
-						$sMultipleChoices = null;
-						$aTempCbValue = explode( "|@|", $val->value );
-						$naTempCbValue = count( $aTempCbValue );
-						foreach( $aCheckBoxAnswers[$val->eid] as $key1 => $val1 )
-						{
-							if (in_array($val1, $aTempCbValue))
-								$sMultipleChoices .= "1,";
-							else
-							{
-								$sLastElem = $aTempCbValue[$naTempCbValue -1];
-								if( $val1 == '기타' && strlen($sLastElem) && !in_array($sLastElem, $aCheckBoxAnswers[$val->eid]) )
-									$sMultipleChoices .= $sLastElem.",";
-								else
-									$sMultipleChoices .= "0,";
-							}
-						}
-						echo $sMultipleChoices;
-					}
-					else
-						echo "\"".$val->value."\",";
-				}
-
-				if( $oSvauthAdminModel )
-				{
-					$oSvauthData = $oSvauthAdminModel->getMemberAuthInfo($nMemberSrl,$aPrivacyAccessPolicy);
-					foreach( $oSvauthDataConfig as $authkey=>$authval)
-					{
-						if( $authval == '인증일시' )
-						{
-							if( $oSvauthData->{$authval} == NULL )
-								echo "\"\",";
-							else
-							{
-								$dtTemp = strtotime($oSvauthData->{$authval});
-								echo "\"". date("Y-m-d H:i:s",$dtTemp)."\",";
-							}
-						}
-						else if( $authval == '인증생일' )
-						{
-							if( $oSvauthData->{$authval} == NULL )
-								echo "\"\",";
-							else if( $oSvauthData->{$authval} == '열람권한없음' )
-								echo "\"".$oSvauthData->{$authval}."\",";
-							else
-							{
-								$dtTemp = strtotime($oSvauthData->{$authval});
-								echo "\"". date("Y-m-d",$dtTemp)."\",";
-							}
-						}
-						else if(  $authval == '인증핸드폰' )
-						{
-							$sAuthPhoneNumber = $oSvauthData->{$authval};
-							$nPhoneNumberLegnth = strlen( $sAuthPhoneNumber );
-							switch( $nPhoneNumberLegnth )
-							{
-								case 10:
-									echo "\"".substr($sAuthPhoneNumber, 0, 3).'-'.substr($sAuthPhoneNumber, 3, 3).'-'.substr($sAuthPhoneNumber, 6, 4)."\",";
-									break;
-								case 11:
-									echo "\"".substr($sAuthPhoneNumber, 0, 3).'-'.substr($sAuthPhoneNumber, 3, 4).'-'.substr($sAuthPhoneNumber, 7, 4)."\",";
-									break;
-								default:
-									echo "\"".$sAuthPhoneNumber."\",";
-							}
-						}
-						else
-							echo "\"".$oSvauthData->{$authval}."\",";
-					}
-				}
-				echo "\r\n";
-			}
-		}
-		exit(0);
 	}
 }

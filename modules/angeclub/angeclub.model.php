@@ -16,7 +16,7 @@ class angeclubModel extends module
 /**
  * @brief return club list
  **/
-	function getClubEffectiveUser()
+	public function getClubEffectiveUser()
 	{
 		$oArgs = new stdClass();
 		$oArgs->cu_id = 'admin';  // 웹관리자 제외
@@ -32,9 +32,72 @@ class angeclubModel extends module
 		return $aUserInfo;
 	}
 /**
- * @brief return club list
+ * @brief return json stringfied center list by staff user id
  **/
-	function getClubListPagination()
+	public function getCenterListByStaffIdJsonStringfied()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		$oArgs = new stdClass();
+		$oArgs->cu_id = $oLoggedInfo->user_id;
+		$oArgs->cc_state = 1;
+		$oRst = executeQueryArray('angeclub.getCenterByNurse', $oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+		unset($oArgs);
+		$aJsonStringfyCenterByStaffId = [];   // "강남 SK":{ "area":"강남", "name":"강남 SK" },
+		$aArea = [];
+		foreach($oRst->data as $_=>$oCenter)
+		{
+			$aJsonStringfyCenterByStaffId[] = '"'.$oCenter->cc_name.'":{"idx":"'.$oCenter->cc_idx.'", "area":"'.$oCenter->cc_area.'", "name":"'.$oCenter->cc_name.'"}';
+			$aArea[$oCenter->cc_area] = 1;
+		}
+		unset($oRst);
+		$oRst = new BaseObject();
+		$oRst->add('aArea', $aArea);
+		$oRst->add('aJsonStringfyCenterByStaff', implode( ',', $aJsonStringfyCenterByStaffId));
+		return $oRst;
+	}
+/**
+ * @brief check duplicated user via ajax
+ **/
+	public function getDuplicatedUserAjax()
+	{
+		$sCheckAttr = Context::get('check_attr');
+		if(!$sCheckAttr)
+			return new BaseObject(-1, '잘못된 회원 속성입니다.');
+			
+		$oMemberModel = &getModel('member');
+		$bDuplicated = 0;
+		switch($sCheckAttr)
+		{
+			case 'mobile':
+				$oMemberInfo = $oMemberModel->getMemberInfoByMobile(Context::get('mobile'));
+				if($oMemberInfo->member_srl)
+					$bDuplicated = 1;
+				break;
+			case 'user_id':
+				$oMemberInfo = $oMemberModel->getMemberInfoByUserID(Context::get('user_id'));
+				if($oMemberInfo->member_srl)
+					$bDuplicated = 1;
+				break;
+			case 'email':
+				$oMemberInfo = $oMemberModel->getMemberInfoByEmailAddress(Context::get('email'));
+				if($oMemberInfo->member_srl)
+					$bDuplicated = 1;
+				break;
+		}
+		$this->add('isDuplicated', $bDuplicated);
+		unset($oMemberInfo);
+		unset($oMemberModel);
+		return new BaseObject();
+	}
+/**
+ * @brief return center list
+ **/
+	public function getCenterListPagination()
 	{
 		$oInParams = Context::getRequestVars();
 		$sCenterState = $oInParams->category;
@@ -88,7 +151,7 @@ class angeclubModel extends module
 /**
  * @brief return json stringfied center area list
  **/
-    function getCenterAreaJsonStringfied()
+	public function getCenterAreaJsonStringfied()
     {
         $oRst = executeQueryArray('angeclub.getCenterAreaAll');
 		if(!$oRst->toBool())
@@ -108,19 +171,18 @@ class angeclubModel extends module
 /**
  * @brief return center detail
  **/
-	function getCenterInfoByIdx($nCcIdx)
+	public function getCenterInfoByIdx($nCcIdx)
 	{
 		$oArgs = new stdClass();
 		$oArgs->cc_idx = $nCcIdx;
 		$oRst = executeQuery('angeclub.getCenterByIdx', $oArgs);
-// var_Dump($oRst->data);
 		unset($oArgs);
 		return $oRst;
 	}
 /**
  * @brief 모듈 default setting 불러오기
  */
-	function getModuleConfig()
+	public function getModuleConfig()
 	{
 		$oModuleModel = &getModel('module');
 		return $oModuleModel->getModuleConfig('angeclub');

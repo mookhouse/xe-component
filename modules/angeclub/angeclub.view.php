@@ -18,10 +18,9 @@ class angeclubView extends angeclub
 
 		$oAngeclubModel = &getModel('angeclub');
 		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser();
-		// var_dump($aEffectiveUserList);
 		unset($oAngeclubModel);
-		$oLoggedInfo->user_id = 'sugarprime';
-		if(!$aEffectiveUserList[$oLoggedInfo->user_id])
+		// $oLoggedInfo->user_id = 'sugarprime';
+		if($oLoggedInfo->is_admin != 'Y' && !$aEffectiveUserList[$oLoggedInfo->user_id])
 		{
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: /');
@@ -37,7 +36,7 @@ class angeclubView extends angeclub
 		$this->setTemplatePath($template_path);
 	}
 /**
- * @brief 기본 화면
+ * @brief 담당자별 지역별 성과 대쉬보드 화면
  */
 	public function dispAngeclubIndex()
 	{
@@ -66,7 +65,7 @@ class angeclubView extends angeclub
 		Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
 		unset($oRst);
 
-		$oRst = $oAngeclubModel->getClubListPagination();
+		$oRst = $oAngeclubModel->getCenterListPagination();
 		if(!$oRst->toBool())
 			return $oRst;
 		Context::set('angeclub_list', $oRst->data );
@@ -80,6 +79,53 @@ class angeclubView extends angeclub
 		$this->setTemplateFile('center_manager');
 	}
 /**
+ * @brief 회원 수기 등록 화면
+ */
+	public function dispAngeclubAddMember()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		Context::set('oLoggedInfo', $oLoggedInfo);
+		$this->setTemplateFile('add_mom');
+	}
+/**
+ * @brief 산모 수기 추가 팝업
+ */
+	public function dispAngeclubMemberPopupAdd()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		/// test code
+		$oLoggedInfo->user_id = 'sugarprime';  
+		/// test code
+
+		// 팝업을 위해 layout 제거
+		$this->module_info->layout_srl = 0;
+
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
+		Context::set('oLoggedInfo', $oLoggedInfo);
+
+		$oAngeclubModel = &getModel('angeclub');
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		// Context::set('aCenterState', $this->_g_aCenterState);
+
+		// $oCenterInfo = new stdClass();
+		// $oCenterInfo->cc_city = '서울';  // for UX
+		// $oCenterInfo->cc_state = 1;  // for UX
+		// Context::set('oCenterInfo', $oCenterInfo);
+		
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfied();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('popup_add_mom');
+	}
+/**
  * @brief 조리원 센터 추가 팝업
  */
 	public function dispAngeclubCenterPopupAdd()
@@ -90,11 +136,16 @@ class angeclubView extends angeclub
 		// 팝업을 위해 layout 제거
 		$this->module_info->layout_srl = 0;
 
-		Context::addJsFilter($this->module_path.'tpl/filter', 'insert.xml');
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
 	
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
 		Context::set('aCenterState', $this->_g_aCenterState);
+
+		$oCenterInfo = new stdClass();
+		$oCenterInfo->cc_city = '서울';  // for UX
+		$oCenterInfo->cc_state = 1;  // for UX
+		Context::set('oCenterInfo', $oCenterInfo);
 		
 		$oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
 		Context::set('aCity', $oRst->get('aCity'));

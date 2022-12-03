@@ -1,0 +1,135 @@
+<article>
+	<div class="article-header">
+		<h5>회원등록</h5>
+	</div>
+</article>
+<script>
+$( document ).ready(function() {
+    // 주소가 없는 유저는 "주소없음"을 체크한다.
+    if ($('#_ZIP_CODE').val()=="000000") {
+        $('#addr_null').attr("checked", true);
+        $('#_ZONE_CODE').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+        $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+        $('#_ADDR').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+        $('#_ADDR_DETAIL').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+    }
+    $('#search_name').focus();
+    $("#topSearch").submit(function() {
+        if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 6) {
+            alert("생년월일은 6자리입니다.");
+            $('#search_birth').focus();
+            return false;
+        }
+    });
+});
+</script>
+<!-- 검색 영역 -->
+<div class="global-search">
+	<form action="?" method="get" name="topSearch" id="topSearch">
+		<input type="hidden" name="submenu"  value="clubmember">
+		<h4>검색하기</h4>
+		<div class="form-group">
+			이름 : <input type="text" id="search_name" name="search_name" class="form-control" placeholder="" value="" style='width:100px'>
+			<label for="global-search" class="sr-only">검색</label>
+		</div>
+		<div class="form-group">
+			생년월일<b>(6자리)</b> : <input type="text" id="search_birth" name="search_birth" class="form-control" placeholder="" value="" style='width:120px'>
+			<label for="global-search" class="sr-only">검색</label>
+		</div>
+		<div class="form-group">
+			휴대폰번호 : <input type="text" id="search_phone" name="search_phone" class="form-control" placeholder="01011112222" value="" style='width:150px'>
+			<label for="global-search" class="sr-only">검색</label>
+		</div>
+		<div class="form-group">
+			조리원명 : <input type="text" class="form-control" name="search_center" placeholder="조리원명" value="마미캠프" style="width:150px">
+			<label for="global-search" class="sr-only">검색</label>
+		</div>
+		<div class="form-group">
+			이메일 : <input type="text" id="search_mail" name="search_mail" class="form-control" placeholder="검색어" value="" style='width:150px'>
+			<label for="global-search" class="sr-only">검색</label>
+		</div>
+		<div class="btn-area">
+			<p>
+				<button type="submit" class="btn btn-blue btn-sm">검색하기</button>
+				<a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubMemberPopupAdd')}');" class="btn btn-green btn-sm" role="button">신규 회원 등록</a>
+			</p>
+		</div>
+	</form>
+</div>
+<div class="article-header">
+	<h6>담당자가 없는 경우 일반 앙쥬회원입니다.</h6>
+</div>
+<article>
+	<div class="article-header">
+		<!--<h5>검색된 회원 리스트</h5>-->
+		<small>검색된 회원 <span>총 ??? 명</span></small>
+	</div>
+	<div class="btn-area">
+		<p>
+			<!--a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?index=');" class="btn btn-down btn-sm btn-white">+ 회원 등록</a-->
+		</p>
+	</div>
+	<!--table-wrap list-->
+	<div class="table-wrap list">
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="width:9%"  class="none-order">번호</th>
+					<th style="width:8%" class="none-order"><a href="#">담당자</a></th>
+					<th style="width:8%">엄마</th>
+					<th style="width:15%">아이디</th>
+					<th style="width:15%">이메일</th>
+					<th style="width:10%">엄마생일</th>
+					<!-- <th style="width:10%">출산횟수</th> -->
+					<th style="width:10%">휴대폰번호</th>
+					<!-- <th style="width:10%">아이연령</th> -->
+					<th style="width:10%">조리원</th>
+					<th style="width:10%">등록일</th>
+					<th style="width:5%">관리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>763426</td>
+					<td>김성경</td>
+					<td>
+						<a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?updt=y&index=763426&search_center=마미캠프');" style="font-weight: 600;">
+						차민지			</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?updt=y&index=763426&search_center=마미캠프');" style="font-weight: 600;">
+						toto11528@naver.com			</a>
+					</td>
+					<td>toto11528@naver.com</td>
+					<td>1986-03-08</td>
+					<!--    <td>1</td> -->
+					<td>01085935033</td>
+					<!--    <td>1개월</td> -->
+					<td>강동 마미캠프</td>
+					<td>2022-11-29</td>
+					<td><a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?index=763426&search_center=마미캠프');" class="">-</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--//table-wrap list-->
+	<div class="btn-area">
+		<!--a href="" class="btn btn-xs btn-blue" style="float: right; width: 110px; ">공지글 등록</a-->
+	</div>
+</article>
+<nav class="paging" aria-label="Page navigation">
+	<ul class="pagination">
+		<li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
+		<li class="active"><a href="javascript:;">1</a></li>
+		<li><a href="?submenu=clubmember&category=&page=2&search=&&search_center=마미캠프">2</a></li>
+		<li><a href="?submenu=clubmember&category=&page=3&search=&&search_center=마미캠프">3</a></li>
+		<li><a href="?submenu=clubmember&category=&page=4&search=&&search_center=마미캠프">4</a></li>
+		<li><a href="?submenu=clubmember&category=&page=5&search=&&search_center=마미캠프">5</a></li>
+		<li><a href="?submenu=clubmember&category=&page=6&search=&&search_center=마미캠프">6</a></li>
+		<li><a href="?submenu=clubmember&category=&page=7&search=&&search_center=마미캠프">7</a></li>
+		<li><a href="?submenu=clubmember&category=&page=8&search=&&search_center=마미캠프">8</a></li>
+		<li><a href="?submenu=clubmember&category=&page=9&search=&&search_center=마미캠프">9</a></li>
+		<li><a href="?submenu=clubmember&category=&page=10&search=&&search_center=마미캠프">10</a></li>
+		<li class="next"><a href="?submenu=clubmember&category=&page=11&search=&&search_center=마미캠프" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
+	</ul>
+</nav>

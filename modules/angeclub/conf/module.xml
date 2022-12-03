@@ -7,21 +7,24 @@
 	<actions>
 		<action name="dispAngeclubAdminIndex" type="view" admin_index="true" menu_name="angeclub" menu_index="true" />
 		<action name="dispAngeclubAdminInsertMod" type="view" />
-
 		<action name="dispAngeclubAdminModDetail" type="view" />
 		<action name="dispAngeclubAdminGrantInfo" type="view" />
-		<action name="dispAngeclubAdminSkinInfo" type="view" />
-		<action name="dispAngeclubAdminMobileSkinInfo" type="view" />
+		<action name="dispAngeclubAdminConfig" type="view" />
 		<action name="dispAngeclubAdminDelete" type="view" />
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
 		<action name="dispAngeclubCenter" type="view" />
+		<action name="dispAngeclubAddMember" type="view" />
+		<action name="dispAngeclubMemberPopupAdd" type="view" />
 		<action name="dispAngeclubCenterPopupAdd" type="view" />
 		<action name="dispAngeclubCenterPopupUpdate" type="view" />
+
+		<action name="getDuplicatedUserAjax" type="model" />
 				
 		<action name="procAngeclubAdminUpdate" type="controller" />
-		<action name="procAngeclubAdminCSVDownloadByModule" type="controller" />
+		<action name="procAngeclubAdminConfig" type="controller" />
 
+		<action name="procAngeclubAddMom" type="controller" />
 		<action name="procAngeclubAddCenter" type="controller" />
 	</actions>
 	<menus>

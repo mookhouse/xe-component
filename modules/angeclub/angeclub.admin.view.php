@@ -153,27 +153,6 @@ class angeclubAdminView extends angeclub
 		$this->setTemplateFile('angeclub_info');
 	}
 /**
- * Display skin setting page
- */
-	public function dispAngeclubAdminSkinInfo()
-	{
-		$oModuleAdminModel = getAdminModel('module');
-		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
-		Context::set('skin_content', $skin_content);
-		$this->setTemplateFile('skin_info');
-	}
-/**
- * Display mobile skin setting page
- */
-	public function dispAngeclubAdminMobileSkinInfo()
-	{
-		$oModuleAdminModel = getAdminModel('module');
-		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
-		Context::set('skin_content', $skin_content);
-
-		$this->setTemplateFile('skin_info');
-	}
-/**
  * @brief display the grant information
  **/
 	public function dispAngeclubAdminGrantInfo() 
@@ -183,5 +162,15 @@ class angeclubAdminView extends angeclub
 		$grant_content = $oModuleAdminModel->getModuleGrantHTML($this->module_info->module_srl, $this->xml_info->grant);
 		Context::set('grant_content', $grant_content);
 		$this->setTemplateFile('grant_list');
+	}
+/**
+ * @brief admin view [기본설정]
+ **/
+	public function dispAngeclubAdminConfig() 
+	{
+		$oAngeclugAdminModel = &getAdminModel('angeclub');
+		Context::set('oConfig', $oAngeclugAdminModel->getModuleConfig());
+		unset($oAngeclugAdminModel);
+		$this->setTemplateFile('config');
 	}
 }

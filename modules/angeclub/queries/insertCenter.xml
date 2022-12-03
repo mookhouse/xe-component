@@ -18,5 +18,6 @@
 		<column name="cc_report" var="_cc_report" />
 		<column name="cc_memo" var="_cc_memo" />
 		<column name="cc_state" var="_cc_state" />
+		<column name="cc_date_regi" default="curdate()"/>
 	</columns>
 </query>

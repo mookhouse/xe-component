@@ -15,20 +15,10 @@ class angeclubAdminModel extends angeclub
 	{
 	}
 	
-	function getModuleConfig($nModuleSrl)
+	function getModuleConfig()
 	{
 		$oModuleModel = &getModel('module');
-		if( $nModuleSrl )
-		{
-			if (!$GLOBALS['__angemombox_module_config__'])
-			{
-				$config = $oModuleModel->getModuleInfoByModuleSrl($nModuleSrl);
-				$GLOBALS['__angemombox_module_config__'] = $config;
-			}
-			return $GLOBALS['__angemombox_module_config__'];
-		}
-		else
-			return $oModuleModel->getModuleConfig('angemombox');
+		return $oModuleModel->getModuleConfig('angeclub');
 	}
 }
 /* End of file angemombox.admin.model.php */

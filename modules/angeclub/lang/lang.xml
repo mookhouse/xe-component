@@ -6,4 +6,13 @@
 	<item name="angeclub_management">
 		<value xml:lang="ko"><![CDATA[앙쥬클럽 관리]]></value>
 	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+	</item>
+	<item name="member_addr_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 배송 주소 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_addr_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 배송 주소 필드명을 입력하세요.]]></value>
+	</item>
 </lang>

@@ -1,0 +1,17 @@
+<query id="getCenterByNurse" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+        <column name="cc_name" />
+        <column name="cc_area" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cu_id" var="cu_id" notnull="notnull" />
+        <condition operation="equal" column="cc_state" var="cc_state" default="1" filter="number" notnull="notnull" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="cc_area" order="asc" />
+    </navigation>
+</query>
