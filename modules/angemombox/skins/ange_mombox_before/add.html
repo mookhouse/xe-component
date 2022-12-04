@@ -65,7 +65,7 @@ function sample6_execDaumPostcode() {
 		<!-- Content Start -->
 		<div class="sub-content">
 			<section class="sample-write">
-				<h2 class="sub-title">앙쥬맘박스</h2>
+				<h2 class="sub-title">앙쥬 임신맘박스</h2>
 				<div class="section-content">
 					<article class="user-info">
 						<form method="post" action="./" onsubmit="return procFilter(this, window.insert)" class="x_form-horizontal" enctype="multipart/form-data">
@@ -139,7 +139,7 @@ function sample6_execDaumPostcode() {
 											</td>
 										</tr>
                                         <tr>
-											<th class="v-top"><label for="birth_name">아기 이름(태명)</label></th>
+											<th class="v-top"><label for="birth_name">태명</label></th>
 											<td>
 												<div class="form-group">
 													<input type="text" id="birth_name" name="birth_name" class="form-control">
@@ -176,15 +176,13 @@ function sample6_execDaumPostcode() {
 														<option value="">일</option>
 <!--@for($nBabyBirthDay=1;$nBabyBirthDay<32;$nBabyBirthDay++)-->
                                                         <option value="{sprintf('%02d',$nBabyBirthDay)}">{sprintf('%02d',$nBabyBirthDay)}</option>
-<!--@end-->  
+<!--@end-->
 													</select>
 												</div>
 											</td>
 										</tr>
                                         <tr>
-											<th class="necessary v-top">
-												태동느낌													
-											</th>
+											<th class="necessary v-top">임신맘박스를<BR>받고 싶은 이유</th>
 											<td>
 												<div class="form-group">
 													<textarea id="reason" name="reason" class="form-control"></textarea>

@@ -97,82 +97,96 @@ function sample6_execDaumPostcode() {
 								</div>
 							</td>
 						</tr>
-						<tr id="file_tr" style="display:none;">
-							<th class="essential">아이이름</th>
-							<td>
-								<div class="form-group">
-									<input type="text" id="CHILDNAME" name="CHILDNAME" class="form-control">
-								</div>
-							</td>
-						</tr>
-						<tr>
+                        <tr>
 							<th class="essential">
-								아이생일
+								엄마 생일
 							</th>
 							<td>
 								<div class="form-group basic-group">
-									<select class="form-control" id="YEAR" name="YEAR">
+									<select class="form-control" id="mom_birth_yr" name="mom_birth_yr">
 										<option value="">년도</option>
-{@
-$nTHisYr = date('Y');
-$nNextYr = date('Y', strtotime('+1 year'));
-}
-										<option value="{$nTHisYr}">{$nTHisYr}</option>
-										<option value="{$nNextYr}">{$nNextYr}</option>
+<!--@for($nMomBirthYr=1970;$nMomBirthYr<2003;$nMomBirthYr++)-->
+                                        <option value="{$nMomBirthYr}">{$nMomBirthYr}</option>
+<!--@end-->
 									</select>
-									<select class="form-control" id="MONTH" name="MONTH">
+									<select class="form-control" id="mom_birth_mo" name="mom_birth_mo">
 										<option value="">월</option>
-										<option value="01">01</option>
-										<option value="02">02</option>
-										<option value="03">03</option>
-										<option value="04">04</option>
-										<option value="05">05</option>
-										<option value="06">06</option>
-										<option value="07">07</option>
-										<option value="08">08</option>
-										<option value="09">09</option>
-										<option value="10">10</option>
-										<option value="11">11</option>
-										<option value="12">12</option>
+<!--@for($nMomBirthMo=1;$nMomBirthMo<13;$nMomBirthMo++)-->
+                                        <option value="{sprintf('%02d',$nMomBirthMo)}">{sprintf('%02d',$nMomBirthMo)}</option>
+<!--@end-->
 									</select>
-									<select class="form-control" id="DAY" name="DAY">
+									<select class="form-control" id="mom_birth_day" name="mom_birth_day">
 										<option value="">일</option>
-										<option value="01">01</option>
-										<option value="02">02</option>
-										<option value="03">03</option>
-										<option value="04">04</option>
-										<option value="05">05</option>
-										<option value="06">06</option>
-										<option value="07">07</option>
-										<option value="08">08</option>
-										<option value="09">09</option>
-										<option value="10">10</option>
-										<option value="11">11</option>
-										<option value="12">12</option>
-										<option value="13">13</option>
-										<option value="14">14</option>
-										<option value="15">15</option>
-										<option value="16">16</option>
-										<option value="17">17</option>
-										<option value="18">18</option>
-										<option value="19">19</option>
-										<option value="20">20</option>
-										<option value="21">21</option>
-										<option value="22">22</option>
-										<option value="23">23</option>
-										<option value="24">24</option>
-										<option value="25">25</option>
-										<option value="26">26</option>
-										<option value="27">27</option>
-										<option value="28">28</option>
-										<option value="29">29</option>
-										<option value="30">30</option>
-										<option value="31">31</option>
+<!--@for($nMomBirthDay=1;$nMomBirthDay<32;$nMomBirthDay++)-->
+                                        <option value="{sprintf('%02d',$nMomBirthDay)}">{sprintf('%02d',$nMomBirthDay)}</option>
+<!--@end-->
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr id="file_tr">
+							<th class="v-top">아기 이름</th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="birth_name" name="birth_name" class="form-control" style='width:80%'>
+								</div>
+							</td>
+						</tr>
+                        <tr>
+                            <th class="v-top"><label for="baby_gender">아기 성별</label></th>
+                            <td>
+                                <div class="form-group">
+                                    <select class="form-control" id="baby_gender" name="baby_gender" class="input01" title="아이 성별">
+                                        <option value="">성별 선택</option>
+{@
+unset($aBabyGender['D'])  // 성별 모름 제거
+}
+                                        <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+							<th class="essential">아기 생일</th>
+							<td>
+								<div class="form-group basic-group">
+									<select class="form-control" id="baby_birth_yr" name="baby_birth_yr">
+										<option value="">년도</option>
+                                        <option value="{date('Y')}">{date('Y')}</option>
+                                        <option value="{date('Y', strtotime('+1 year'))}">{date('Y', strtotime('+1 year'))}</option>
+									</select>
+									<select class="form-control" id="baby_birth_mo" name="baby_birth_mo">
+										<option value="">월</option>
+<!--@for($nBabyBirthMo=1;$nBabyBirthMo<13;$nBabyBirthMo++)-->
+                                        <option value="{sprintf('%02d',$nBabyBirthMo)}">{sprintf('%02d',$nBabyBirthMo)}</option>
+<!--@end-->
+									</select>
+									<select class="form-control" id="baby_birth_day" name="baby_birth_day">
+										<option value="">일</option>
+<!--@for($nBabyBirthDay=1;$nBabyBirthDay<32;$nBabyBirthDay++)-->
+                                        <option value="{sprintf('%02d',$nBabyBirthDay)}">{sprintf('%02d',$nBabyBirthDay)}</option>
+<!--@end-->
 									</select>
 								</div>
 							</td>
 						</tr>
 						<tr>
+							<th class="essential">출산맘박스를<br>받고 싶은 이유</th>
+							<td>
+								<div class="form-group">
+									<textarea id="REASON" name="REASON" class="form-control"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class=""><label for="feel">SNS아이디</label></th>
+							<td>
+								<div class="form-group">
+									<input type="text" id="SNS" name="SNS" class="form-control">
+								</div>
+							</td>
+						</tr>
+                        <tr>
 							<th class="essential">증빙자료<br>(출생증명서)</th>
 							<td class="file">
 								<div class="form-group">
@@ -251,27 +265,11 @@ jQuery(function($){
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<th class="essential">출산맘박스를<br>받고 싶은 이유</th>
-							<td>
-								<div class="form-group">
-									<textarea id="REASON" name="REASON" class="form-control"></textarea>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th class=""><label for="feel">SNS아이디</label></th>
-							<td>
-								<div class="form-group">
-									<input type="text" id="SNS" name="SNS" class="form-control">
-								</div>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 				<div class="btn-area">
 					<p>
-						<button type="button" class="btn btn-sm btn-pink" disabled|cond="!$bAllowSubmit">신청</button>
+						<button type="submit" class="btn btn-sm btn-pink" disabled|cond="!$bAllowSubmit">신청</button>
 						<a href="javascript:history.back();" class="btn btn-sm btn-white" role="button">취소</a>
 					</p>
 				</div>

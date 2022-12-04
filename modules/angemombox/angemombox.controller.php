@@ -220,7 +220,7 @@ class angemomboxController extends angemombox
  /**
  * add mombox into data lake
  */   
-    function insertDataLake($oArgs)
+    public function insertDataLake($oArgs)
 	{
         if(!$oArgs->module_srl)
             return new BaseObject(-1, 'msg_error_invalid_module_srl');

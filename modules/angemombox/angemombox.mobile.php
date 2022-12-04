@@ -24,6 +24,16 @@ class angemomboxMobile extends angemomboxView
 	 */
 	function dispAngemomboxIndex()
 	{
+        $oAngemomboxModel = &getModel('angemombox');
+		
+		$oDocInfo = $oAngemomboxModel->getDocInfo($this->module_srl);
+		if($oDocInfo->angeclub_exclusive == 'Y')
+		{
+			unset($oDocInfo);
+			return new BaseObject(-1, 'invalid_approach');
+		}
+		unset($oDocInfo);
+
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
@@ -31,11 +41,9 @@ class angemomboxMobile extends angemomboxView
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$bAllowSubmit = true;
-		if(!$oLoggedInfo->mobile)
+		if(!$oLoggedInfo->mobile)  // 회원 정보에 핸드폰 번호가 없으면 등록 거부
 			$bAllowSubmit = false;
 		Context::set('bAllowSubmit', $bAllowSubmit);
-
-		$oAngemomboxModel = &getModel('angemombox');
 
 		$oOpenRst = $oAngemomboxModel->checkOpenDay($this->module_srl);
 		if(!$oOpenRst->toBool())
@@ -75,6 +83,11 @@ class angemomboxMobile extends angemomboxView
 		$oEditorModel->getEditor($nFileSrl , $oOption);
 		unset($oOption);
 		unset($oEditorModel);
+        
+        $oAngeclubModel = &getModel('angeclub');
+        $aBabyGenderList = $oAngeclubModel->getBabyGender();
+        Context::set('aBabyGender', $aBabyGenderList);
+
 		$this->setTemplateFile('add');
 	}
 }
