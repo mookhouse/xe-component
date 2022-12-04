@@ -1,6 +1,6 @@
 <query id="getAdminDocByModuleMemberSrls" action="select">
     <tables>
-        <table name="angemombox" />
+        <table name="angemombox_data_lake" />
     </tables>
     <columns>
         <column name="*" />

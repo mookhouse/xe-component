@@ -59,6 +59,10 @@ class angemomboxController extends angemombox
 		$oMemberModel = &getModel('member');
 		$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oLoggedInfo->member_srl);
 		unset($oMemberModel);
+
+        // replace %mom_name% to member's name
+        $sTitlePrefix = str_replace('%mom_name%' , $oMemberInfo->user_name, $sTitlePrefix);
+
 		// never touch unrelated member info
 		unset($oMemberInfo->password);
 		unset($oMemberInfo->find_account_question);
@@ -72,29 +76,37 @@ class angemomboxController extends angemombox
 		// never touch unrelated member info
 
 		$oInParams = Context::getRequestVars();
-//var_dump($oInParams);
-//exit;
+// var_dump($oInParams);
+// exit;
+        // begin - update addr, mom's birthday into member tbl
+        // register mom's birthday into member tbl
+        $sMomBirthday = strip_tags($oInParams->mom_birth_yr.$oInParams->mom_birth_mo.$oInParams->mom_birth_day);
+        $oMemberInfo->birthday_yyyymmdd = $sMomBirthday;
+
+        $sStrippedPostcode = strip_tags($oInParams->postcode);
+		$sStrippedAddr = strip_tags($oInParams->address);
+		$sStrippedAddrDetail = strip_tags($oInParams->detailaddress);
+		$sStrippedAddrExtra = strip_tags($oInParams->extraaddress);
+        // register mom's birthday into member tbl extra_vars
 		// O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
 		$sAddrTitle = $sMemberAddrFieldName; // 'address';
-		$oMemberInfo->$sAddrTitle[0] = $oInParams->postcode;
-		$oMemberInfo->$sAddrTitle[1] = $oInParams->address;
-		$oMemberInfo->$sAddrTitle[2] = $oInParams->detailaddress;
-		$oMemberInfo->$sAddrTitle[3] = $oInParams->extraaddress;
+		$oMemberInfo->$sAddrTitle[0] = $sStrippedPostcode; //strip_tags($oInParams->postcode);
+		$oMemberInfo->$sAddrTitle[1] = $sStrippedAddr; //strip_tags($oInParams->address);
+		$oMemberInfo->$sAddrTitle[2] = $sStrippedAddrDetail; //strip_tags($oInParams->detailaddress);
+		$oMemberInfo->$sAddrTitle[3] = $sStrippedAddrExtra; //strip_tags($oInParams->extraaddress);
 
-		$sGiveBirthDate = $sMemberGiveBirthDateFieldName; //'give_birth_date';
-		$oMemberInfo->$sGiveBirthDate = $oInParams->year.$oInParams->month.$oInParams->day;
-
-		$sSnsId = $sMemberSnsFieldName; //'sns';
-		$oMemberInfo->$sSnsId = strip_tags($oInParams->sns);
-
-		// 회원 정보에 주소, 출산일, SNS ID 등록
+		// $sGiveBirthDate = $sMemberGiveBirthDateFieldName; //'give_birth_date';
+		// $oMemberInfo->$sGiveBirthDate = $oInParams->baby_birth_yr.$oInParams->baby_birth_mo.$oInParams->baby_birth_day;
+		// $sSnsId = $sMemberSnsFieldName; //'sns';
+		// $oMemberInfo->$sSnsId = strip_tags($oInParams->sns);
 		$this->_modifyMemberInfo($oMemberInfo);
+        // end - update addr, mom's birthday into member tbl
 		
 		$oArgs = new stdClass();
 		$oArgs->module_srl = Context::get('module_srl');
-		$oArgs->member_srl = $oLoggedInfo->member_srl;
-		$oArgs->privacy_collection = Context::get('privacy_collection') == 'Y' ? 1 : 0;
-		$oArgs->privacy_sharing = Context::get('privacy_sharing') == 'Y' ? 1 : 0;
+		$oArgs->member_srl = $oLoggedInfo->member_srl;  // mom's member srl
+		// $oArgs->privacy_collection = Context::get('privacy_collection') == 'Y' ? 1 : 0;
+		// $oArgs->privacy_sharing = Context::get('privacy_sharing') == 'Y' ? 1 : 0;
 
 		$oArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
 		$oArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -120,19 +132,36 @@ class angemomboxController extends angemombox
 		if(!is_null($sValue))
 			$oArgs->utm_term = $sValue;
 
-		$sTitle = $sTitlePrefix.' '.cut_str(strip_tags(Context::get('reason')), $nTitleCutSize, '...');
+        // construct mom's info
+        $oArgs->postcode = $sStrippedPostcode;
+		$oArgs->addr = $sStrippedAddr;
+		$oArgs->addr_detail = $sStrippedAddrDetail;
+		$oArgs->addr_extra = $sStrippedAddrExtra;
+        $oArgs->mom_birthday = $sMomBirthday;
+        $oArgs->sns_id = strip_tags($oInParams->sns);  // mom's sns id
+        // construct push agreement
+        $oArgs->email_push = 'Y';
+		$oArgs->sms_push = 'Y';
+		$oArgs->post_push = 'Y';
+		$oArgs->sponsor_push = 'Y';
+
+        // construct baby info
+        $sStrippedBabyBirthname = strip_tags($oInParams->birth_name);
+        $oArgs->baby_birth_name = $sStrippedBabyBirthname;
+        $oArgs->baby_gender = $oInParams->baby_gender;
+        $oArgs->baby_birthday = $oInParams->baby_birth_yr.$oInParams->baby_birth_mo.$oInParams->baby_birth_day;
+		
 		$sContent = nl2br(strip_tags(Context::get('reason'), ['<a>', '<br>']));
 
 		$oArgs->yr_mo = $nYrMo;
 		$oArgs->upload_target_srl = Context::get('upload_target_srl');
 		$oArgs->content = $sContent;
 
-		// begin - insert application
-		$oDocRst = executeQuery('angemombox.insertAngemombox', $oArgs);
+		// begin - insert application into data lake
+        $oDocRst = $this->insertDataLake($oArgs);
 		unset($oArgs);
 		if(!$oDocRst->toBool())
-			return new BaseObject(-1, 'msg_error_angemombox_db_query');
-
+			return $oDocRst;
 		$oDB = DB::getInstance();
 		$nAngemomboxSrl = $oDB->db_insert_id();
 		unset($oDocRst);
@@ -145,7 +174,9 @@ class angemomboxController extends angemombox
 		unset($oDocumentModel);
 
 		$oDocObj = new stdClass();
-		$oDocObj->title = $sTitle;
+        // replace %baby_name% to baby's name
+        $sTitlePrefix = str_replace('%baby_name%' , $sStrippedBabyBirthname, $sTitlePrefix);
+		$oDocObj->title = $sTitlePrefix.' '.cut_str(strip_tags(Context::get('reason')), $nTitleCutSize, '...');
 		$oDocObj->content = $sContent;
 		$oDocObj->module_srl = $nConnectedBoardModuleSrl;
 		if(count($aExtraKeys))
@@ -183,22 +214,36 @@ class angemomboxController extends angemombox
 			return new BaseObject(-1, '연결된 게시판에 등록 실패입니다.');
 		unset($oDocRst);
 		// end - register board_srl and document_srl into application
-		if(!in_array(Context::getRequestMethod(),['XMLRPC','JSON']))
-		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', $sConnectedBoardMid, 'document_srl', $nNewDocSrl);
-			$this->setRedirectUrl($returnUrl);
-			return;
-		}
-		else
-		{
-			$this->add('module', $sConnectedBoardMid);
-			$this->add('document_srl', $nNewDocSrl);
-		}
+        $this->add('module', $sConnectedBoardMid);
+        $this->add('document_srl', $nNewDocSrl);
 	}
+ /**
+ * add mombox into data lake
+ */   
+    function insertDataLake($oArgs)
+	{
+        if(!$oArgs->module_srl)
+            return new BaseObject(-1, 'msg_error_invalid_module_srl');
+        if(!$oArgs->member_srl)
+            return new BaseObject(-1, 'msg_error_invalid_member_srl');
+        if(!$oArgs->yr_mo)
+            return new BaseObject(-1, 'msg_error_invalid_yr_mo');
+        if(!$oArgs->is_mobile)
+            return new BaseObject(-1, 'msg_error_invalid_is_mobile');
+        if(!$oArgs->addr)
+            return new BaseObject(-1, 'msg_error_invalid_addr');
+        if(!$oArgs->addr_detail)
+            return new BaseObject(-1, 'msg_error_invalid_addr_detail');
+        if(!$oArgs->baby_birthday)
+            return new BaseObject(-1, 'msg_error_invalid_baby_birthday');
+        $oArgs->email_push = $oArgs->email_push ? $oArgs->email_push : 'N';
+        $oArgs->sms_push = $oArgs->sms_push ? $oArgs->sms_push : 'N';
+        $oArgs->post_push = $oArgs->post_push ? $oArgs->post_push : 'N';
+        $oArgs->sponsor_push = $oArgs->sponsor_push ? $oArgs->sponsor_push : 'N';		
+		return executeQuery('angemombox.insertDataLake', $oArgs);
+    }
 /**
  * Edit member profile
- *
- * @return void|BaseObject (void : success, BaseObject : fail)
  */
 	private function _modifyMemberInfo($oMemberInfo)
 	{
@@ -235,8 +280,10 @@ class angemomboxController extends angemombox
 		// Login Information
 		$logged_info = Context::get('logged_info');
 		$args->member_srl = $logged_info->member_srl;
-		$args->birthday = intval(strtr($args->birthday, array('-'=>'', '/'=>'', '.'=>'', ' '=>'')));
-		if(!$args->birthday && $args->birthday_ui) $args->birthday = intval(strtr($args->birthday_ui, array('-'=>'', '/'=>'', '.'=>'', ' '=>'')));
+		// $args->birthday = intval(strtr($args->birthday, array('-'=>'', '/'=>'', '.'=>'', ' '=>'')));
+		// if(!$args->birthday && $args->birthday_ui) $args->birthday = intval(strtr($args->birthday_ui, array('-'=>'', '/'=>'', '.'=>'', ' '=>'')));
+
+        $args->birthday = $oMemberInfo->birthday_yyyymmdd;
 
 		// Remove some unnecessary variables from all the vars
 		$all_args = $oMemberInfo; //Context::getRequestVars();

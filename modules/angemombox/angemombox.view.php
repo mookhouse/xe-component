@@ -13,6 +13,9 @@ class angemomboxView extends angemombox
  */
 	public function init()
 	{
+        if(is_null(getClass('angeclub')))  // check module dependency
+            return $this->stop("msg_error_angeclub_module_required");
+
 		$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
 		if(!is_dir($template_path)||!$this->module_info->skin)
 		{
@@ -85,6 +88,10 @@ class angemomboxView extends angemombox
 		$oEditorModel->getEditor($nFileSrl , $oOption);
 		unset($oOption);
 		unset($oEditorModel);
+
+        $oAngeclubModel = &getModel('angeclub');
+        $aBabyGenderList = $oAngeclubModel->getBabyGender();
+        Context::set('aBabyGender', $aBabyGenderList);
 		$this->setTemplateFile('add');
 	}
 }

@@ -49,7 +49,7 @@
 		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리]]></value>
 	</item>
 	<item name="about_title_prefix">
-		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리를 입력하세요.]]></value>
+		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리를 입력하세요.<BR>%mom_name%은 엄마이름으로 대치, %baby_name% 아기 이름으로 대치]]></value>
 	</item>
 	<item name="title_cut_size">
 		<value xml:lang="ko"><![CDATA[게시판 제목 최대 글자수]]></value>
@@ -113,6 +113,9 @@
 	</item>
 	<item name="msg_error_already_winned">
 		<value xml:lang="ko"><![CDATA[이미 당첨되셨습니다.]]></value>
+	</item>
+    <item name="msg_error_angeclub_module_required">
+		<value xml:lang="ko"><![CDATA[angeclub 모듈을 설치하세요.]]></value>
 	</item>
 	<item name="msg_already_registered">
 		<value xml:lang="ko"><![CDATA[이미 응모하셨습니다.]]></value>

@@ -1,6 +1,6 @@
 <query id="getAdminMaxYrMoByModuleSrl" action="select">
     <tables>
-        <table name="angemombox" />
+        <table name="angemombox_data_lake" />
     </tables>
     <columns>
         <column name="yr_mo" />

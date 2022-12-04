@@ -12,6 +12,9 @@ class angemomboxAdminView extends angemombox
  **/
 	public function init()
 	{
+        if(is_null(getClass('angeclub')))  // check module dependency
+            return $this->stop("msg_error_angeclub_module_required");
+
 		// Pre-check if module_srl exists. Set module_info if exists
 		$module_srl = Context::get('module_srl');
 		// Create module model object
