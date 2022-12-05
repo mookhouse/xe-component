@@ -45,9 +45,13 @@ class angeclubAdminController extends angeclub
  **/
 	public function procAngeclubAdminConfig()
 	{
+        $oArgs = new stdClass();
 		$sMemberAddrFieldName = Context::get('member_addr_field_name');
 		if(strlen($sMemberAddrFieldName))
 			$oArgs->member_addr_field_name = $sMemberAddrFieldName;
+        $sConnectedMomboxMid = Context::get('connected_mombox_mid');
+        if(strlen($sConnectedMomboxMid))
+            $oArgs->connected_mombox_mid = $sConnectedMomboxMid;
 		$oRst = $this->_saveModuleConfig($oArgs);
 		if(!$oRst->toBool())
 			$this->setMessage('error_occured');

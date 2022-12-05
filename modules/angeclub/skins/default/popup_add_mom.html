@@ -370,11 +370,10 @@ display: none;
                                 </tr>
                                 <tr>
                                     <th class="essential">엄마이름</tㅗ>
-                                    <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" value="" title="엄마이름" style="ime-mode:active;width: 200px;"></td>
-                                    <th class="essential">생년월일</th>
+                                    <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" value="" style="ime-mode:active;width: 200px;"></td>
+                                    <th class="essential">엄마 생년월일</th>
                                     <td >
-                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" value="" title="생년월일"  maxlength="6" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
-                                        &nbsp;&nbsp;&nbsp; </b>
+                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" value="" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
                                     </td>
                                 </tr>
                                 <tr>
@@ -400,7 +399,7 @@ display: none;
                                         <label style="margin-right:8px;" class="agree_label" data-target="SMS_SEND" data-str="Y"><img id="SMS_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
                                         <label style="margin-right:15px;" class="agree_label" data-target="SMS_SEND" data-str="N"><img id="SMS_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
                                         <BR>
-                                        <b>정보공유</b>&nbsp;&nbsp;
+                                        <b>스폰서 정보공유</b>&nbsp;&nbsp;
                                         <input type="hidden" name="SPONSOR" id="SPONSOR" value="Y" />  
                                         <label style="margin-right:8px;" class="agree_label" data-target="SPONSOR" data-str="Y"><img id="SPONSOR1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
                                         <label style="margin-right:15px;" class="agree_label" data-target="SPONSOR" data-str="N"><img id="SPONSOR2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
@@ -433,17 +432,17 @@ display: none;
                                     <th class="essential">아이정보</th>
                                     <td colspan='3' class="phone">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"  name="I_BABY_NM" value="" title="아이 이름" placeholder='아이 이름' style="width: 180px; border-color: #777;">
-                                            <input type="text" class="form-control"  name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" title="아이 생일" placeholder='아이 생일' maxlength="6" style="ime-mode:disabled;width: 180px;border-color: #777;" onkeydown="return onlyNumber(event)">
-                                                <script>
+                                            <input type="text" class="form-control" name="I_BABY_NM" value="" placeholder='아이 이름' style="width: 180px; border-color: #777;">
+                                            <input type="text" class="form-control" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" placeholder='아이 생일 yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 180px;border-color: #777;" onkeydown="return onlyNumber(event)">
+                                                <!-- <script>
                                                     $('#I_BABY_BIRTH').datetimepicker({
                                                         timepicker:false,
                                                         closeOnDateSelect:true,
-                                                        format:'ymd',
+                                                        format:'Ymd',
                                                         style:'z-index: 101000;',
                                                         lang: 'ko'
                                                     });
-                                                </script>
+                                                </script> -->
                                             <select class="form-control" id="I_BABY_SEX_GB" name="I_BABY_SEX_GB" class="input01" title="아이 성별" style="width: 120px; margin-left: 10px;">
                                                 <option value="">성별 선택</option>
                                                 <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
@@ -479,17 +478,17 @@ display: none;
                                 <tr>
                                     <th class="essential">교육일자</td>
                                     <td colspan='3'>
-                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('ymd')}" title="교육일자" maxlength="6" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="6" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
                                         <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
-                                        <script>
+                                        <!-- <script>
                                             $('#_CENTER_VISIT_YMD').datetimepicker({
                                                 timepicker:false,
                                                 closeOnDateSelect:true,
-                                                format:'ymd',
+                                                format:'Ymd',
                                                 style:'z-index: 101000;',
                                                 lang: 'ko'
                                             });
-                                        </script>
+                                        </script> -->
                                     </td>
                                 </tr>
                                 <!-- <tr>

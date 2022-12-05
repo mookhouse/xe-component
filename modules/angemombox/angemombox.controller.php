@@ -234,7 +234,6 @@ class angemomboxController extends angemombox
 		if(!$oDocRst->toBool())
 			return new BaseObject(-1, '연결된 게시판에 등록 실패입니다.');
 		unset($oDocRst);
-exit;
         // end - register board_srl and document_srl into application
         $this->add('module', $sConnectedBoardMid);
         $this->add('document_srl', $nNewDocSrl);

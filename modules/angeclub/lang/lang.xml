@@ -15,4 +15,10 @@
 	<item name="about_member_addr_field_name">
 		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 배송 주소 필드명을 입력하세요.]]></value>
 	</item>
+    <item name="connected_mombox_mid">
+		<value xml:lang="ko"><![CDATA[출산맘 정보를 전송할 angemombox mid]]></value>
+	</item>
+	<item name="about_connected_mombox_mid">
+		<value xml:lang="ko"><![CDATA[angemombox에 이미 생성한 출산맘 정보를 전송할 angeclub 전용 모듈의 mid를 입력하세요.]]></value>
+	</item>
 </lang>

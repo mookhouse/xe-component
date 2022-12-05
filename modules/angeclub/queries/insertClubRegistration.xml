@@ -9,10 +9,6 @@
         <column name="member_srl_mom" var="member_srl_mom" />
         <column name="center_visit_cnt" var="center_visit_cnt" />
         <column name="education_cnt" var="education_cnt" />
-        <column name="email_push" var="email_push" />
-        <column name="sms_push" var="sms_push" />
-        <column name="post_push" var="post_push" />
-        <column name="sponsor_push" var="sponsor_push" />
 		<column name="regdate" var="regdate" default="curdate()"/>
 	</columns>
 </query>
