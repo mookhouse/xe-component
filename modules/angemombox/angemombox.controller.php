@@ -258,10 +258,10 @@ exit;
             return new BaseObject(-1, 'msg_error_invalid_addr_detail');
         if(!$oArgs->baby_birthday)
             return new BaseObject(-1, 'msg_error_invalid_baby_birthday');
-        $oArgs->email_push = $oArgs->email_push ? $oArgs->email_push : 'N';
-        $oArgs->sms_push = $oArgs->sms_push ? $oArgs->sms_push : 'N';
-        $oArgs->post_push = $oArgs->post_push ? $oArgs->post_push : 'N';
-        $oArgs->sponsor_push = $oArgs->sponsor_push ? $oArgs->sponsor_push : 'N';		
+        // $oArgs->email_push = $oArgs->email_push ? $oArgs->email_push : 'N';
+        // $oArgs->sms_push = $oArgs->sms_push ? $oArgs->sms_push : 'N';
+        // $oArgs->post_push = $oArgs->post_push ? $oArgs->post_push : 'N';
+        // $oArgs->sponsor_push = $oArgs->sponsor_push ? $oArgs->sponsor_push : 'N';
 		return executeQuery('angemombox.insertDataLake', $oArgs);
     }
 /**
