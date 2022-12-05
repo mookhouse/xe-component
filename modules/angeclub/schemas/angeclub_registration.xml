@@ -6,9 +6,5 @@
     <column name="member_srl_mom" type="number" size="11" notnull="notnull"/>
     <column name="center_visit_cnt" type="number" size="11" notnull="notnull"/>
     <column name="education_cnt" type="number" size="11" notnull="notnull"/>
-    <column name="email_push" type="char" size="1" notnull="notnull" default="N"/>
-    <column name="sms_push" type="char" size="1" notnull="notnull" default="N"/>
-    <column name="post_push" type="char" size="1" notnull="notnull" default="N"/>
-    <column name="sponsor_push" type="char" size="1" notnull="notnull" default="N"/>
     <column name="regdate" type="date" />
 </table>
