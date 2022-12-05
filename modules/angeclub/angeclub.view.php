@@ -12,6 +12,9 @@ class angeclubView extends angeclub
  */
 	public function init()
 	{
+        if(is_null(getClass('angemombox')))  // check module dependency
+            return $this->stop("msg_error_angemombox_module_required");
+
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
