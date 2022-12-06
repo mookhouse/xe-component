@@ -67,7 +67,7 @@ class angeclubController extends angeclub
 			return $oRst;
 		unset($oArgs->_contact_id);
 		unset($oArgs->_care_center);
-		unset($oArgs->_center_visit_ymd);
+		// unset($oArgs->_center_visit_ymd);
 		unset($oArgs->_center_cnt);
 		// end - nurse performance registration
 
@@ -108,7 +108,7 @@ class angeclubController extends angeclub
         $oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);
         $oInArgs->baby_gender = $oArgs->i_baby_sex_gb;
         $oInArgs->baby_birthday = $oArgs->i_baby_birth; // $this->_completeBirthday($oArgs->i_baby_birth);  // "221215"
-		$oInArgs->yr_mo = date('Ym');
+		$oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
         $oAngemomboxController = &getController ('angemombox');
         $oRst = $oAngemomboxController->insertDataLake($oInArgs);
         unset($oInArgs);
@@ -117,7 +117,7 @@ class angeclubController extends angeclub
 			return $oRst;
         unset($oRst);
 		// end - push into angemombox data lake
-// exit;
+exit;
 		// 무의미
 		// ["_sex_gb"]=>string(1) "F"
 		// ["_contact_nm"]=>string(12) "웹관리자"
@@ -126,16 +126,6 @@ class angeclubController extends angeclub
 		// ["email_server"]=>string(11) "hanmail.net"
 		$this->add('bRst', 1);
 	}
-/**
- * complete birthday yyyymmdd
- */
-    private function _completeBirthday($sYymmdd)
-    {
-        if((int)$sYymmdd > 700000)  // 801212
-			return '19'.$sYymmdd;
-		elseif((int)$sMomBirth < 600000)  // 201212
-			return '20'.$sYymmdd;
-    }
 /**
  * add member profile
  */
@@ -160,12 +150,11 @@ class angeclubController extends angeclub
 		$oArgs->user_id = strip_tags(Context::get('_user_id'));
 		$oArgs->email_address = strip_tags(Context::get('_email'));
 		$oArgs->mobile = strip_tags(Context::get('_phone_2'));
-		$oArgs->password = strip_tags(Context::get('_phone_2'));
+		$oArgs->password = strip_tags(Context::get('password'));
 		$oArgs->user_name = strip_tags(Context::get('_user_nm'));
-		
+
 		$sMomBirth = strip_tags(Context::get('_birth'));  
 		$oArgs->birthday = strip_tags(Context::get('_birth'));  // $this->_completeBirthday($sMomBirth);
-
 		// check password strength
 		if(!$oMemberModel->checkPasswordStrength($oArgs->password, $oConfig->password_strength))
 		{
@@ -229,14 +218,7 @@ class angeclubController extends angeclub
 			if(isset($oArgs->{$val}))
 				$oArgs->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($oArgs->{$val}));
 		}
-
-        $oMemberClass = getClass('member');
-        $nEtcMemberRegistration= $oMemberClass::REFERRER_ETC;
-        unset($oMemberClass);
-        $oArgs->referral = $nEtcMemberRegistration;  // toavoid svauth SMS plugin proc
 		$oMemberController = &getController('member');
-// var_dump($oArgs);
-// exit;
 		$oRst = $oMemberController->insertMember($oArgs);
         return $oRst;
 	}
@@ -283,4 +265,14 @@ class angeclubController extends angeclub
 			return $oRst;
 		$this->add('bRst', 1);
 	}
+/**
+ * complete birthday yyyymmdd
+ */
+    // private function _completeBirthday($sYymmdd)
+    // {
+    //     if((int)$sYymmdd > 700000)  // 801212
+	// 		return '19'.$sYymmdd;
+	// 	elseif((int)$sMomBirth < 600000)  // 201212
+	// 		return '20'.$sYymmdd;
+    // }
 }

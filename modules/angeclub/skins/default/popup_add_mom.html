@@ -131,7 +131,7 @@ display: none;
                     if(ret_obj['isDuplicated'] == 0){
                         $('#_PHONE_2_check').css('color','#73B9FF');
                         $('#_PHONE_2_check').html('새로운 핸드폰 번호입니다.');
-        
+                        $('#password').val('{$sPasswordPrefix}'+t_value);
                     }else{
                         $('#_PHONE_2_check').css('color','#FF7373');
                         $('#_PHONE_2_check').html('등록된 핸드폰 번호입니다.');
@@ -369,6 +369,22 @@ display: none;
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th class="essential">비밀번호</td>
+                                    <td colspan='3'>
+                                        <input type="text" class="form-control" id="password" name="password" value="" placeholder="비밀번호" style="ime-mode:disabled;width: 200px;">
+                                        <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
+                                        <!-- <script>
+                                            $('#_CENTER_VISIT_YMD').datetimepicker({
+                                                timepicker:false,
+                                                closeOnDateSelect:true,
+                                                format:'Ymd',
+                                                style:'z-index: 101000;',
+                                                lang: 'ko'
+                                            });
+                                        </script> -->
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th class="essential">엄마이름</tㅗ>
                                     <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" value="" style="ime-mode:active;width: 200px;"></td>
                                     <th class="essential">엄마 생년월일</th>
@@ -478,7 +494,7 @@ display: none;
                                 <tr>
                                     <th class="essential">교육일자</td>
                                     <td colspan='3'>
-                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="6" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="8" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
                                         <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
                                         <!-- <script>
                                             $('#_CENTER_VISIT_YMD').datetimepicker({

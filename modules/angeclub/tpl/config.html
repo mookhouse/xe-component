@@ -10,6 +10,14 @@
 	<section class="section">
 		<h1>회원 정보 입력 설정</h1>
 		<div class="x_control-group">
+			<label class="x_control-label" for="password_prefix">{$lang->password_prefix}</label>
+			<div class="x_controls">
+				<input type="text" name="password_prefix" id="password_prefix" value="{$oConfig->password_prefix}" />
+				<a href="#aboutPasswordPrefix" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutPasswordPrefix" hidden>{$lang->about_password_prefix}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
 			<label class="x_control-label" for="member_addr_field_name">{$lang->member_addr_field_name}</label>
 			<div class="x_controls">
 				<input type="text" name="member_addr_field_name" id="member_addr_field_name" value="{$oConfig->member_addr_field_name}" />

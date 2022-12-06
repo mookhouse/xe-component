@@ -106,8 +106,7 @@ class angeclubView extends angeclub
 		$oLoggedInfo->user_id = 'sugarprime';  
 		/// test code
 
-		// 팝업을 위해 layout 제거
-		$this->module_info->layout_srl = 0;
+		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
 		Context::set('oLoggedInfo', $oLoggedInfo);
@@ -115,16 +114,17 @@ class angeclubView extends angeclub
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
 		Context::set('aBabyGender', $this->_g_aBabyGender);
-
-		// $oCenterInfo = new stdClass();
-		// $oCenterInfo->cc_city = '서울';  // for UX
-		// $oCenterInfo->cc_state = 1;  // for UX
-		// Context::set('oCenterInfo', $oCenterInfo);
 		
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfied();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
 		unset($oAngeclubModel);
+
+        // 핸폰 번호로 자동 생성되는 암호의 전치사 설정 가져오기
+        $oAngeclubModel = &getModel('angeclub');
+		$oConfig = $oAngeclubModel->getModuleConfig();
+        Context::set('sPasswordPrefix', $oConfig->password_prefix);
+        unset($oAngeclubModel);
 
 		$this->setTemplateFile('popup_add_mom');
 	}
@@ -138,7 +138,6 @@ class angeclubView extends angeclub
 			return new BaseObject(-1, 'msg_not_loggedin');
 		// 팝업을 위해 layout 제거
 		$this->module_info->layout_srl = 0;
-
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
 	
 		$oAngeclubModel = &getModel('angeclub');
@@ -169,10 +168,8 @@ class angeclubView extends angeclub
 		if(!$nCcIdx)
 			return new BaseObject(-1, 'msg_invalid_center_idx');
 
-		// 팝업을 위해 layout 제거
-		$this->module_info->layout_srl = 0;
-
-		Context::addJsFilter($this->module_path.'tpl/filter', 'insert.xml');
+		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
 
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getCenterInfoByIdx($nCcIdx);

@@ -52,6 +52,9 @@ class angeclubAdminController extends angeclub
         $sConnectedMomboxMid = Context::get('connected_mombox_mid');
         if(strlen($sConnectedMomboxMid))
             $oArgs->connected_mombox_mid = $sConnectedMomboxMid;
+        $sPasswordPrefix = Context::get('password_prefix');
+        if(strlen($sPasswordPrefix))
+            $oArgs->password_prefix = $sPasswordPrefix;
 		$oRst = $this->_saveModuleConfig($oArgs);
 		if(!$oRst->toBool())
 			$this->setMessage('error_occured');
@@ -64,10 +67,6 @@ class angeclubAdminController extends angeclub
  **/
 	private function _saveModuleConfig($oArgs)
 	{
-		//$oAngemomboxAdminModel = &getAdminModel('angemombox');
-		//$oConfig = $oSvdocsAdminModel->getModuleConfig();
-		//foreach( $oArgs as $key=>$val)
-		//	$oConfig->{$key} = $val;
 		$oModuleControll = getController('module');
 		return $oModuleControll->insertModuleConfig('angeclub', $oArgs);
 	}
