@@ -26,6 +26,10 @@ class angemomboxController extends angemombox
 		if(!$nModuleSrl)
 			return new BaseObject(-1, '잘못된 접근입니다.');
 		
+		$sSmsPush = Context::get('sms_push');
+		if($sSmsPush != 'Y')
+			return new BaseObject(-1, 'SMS 정보 수신에 동의해 주세요.');
+			
 		$oAngemomboxModel = &getModel('angemombox');
 
 		$oOpenRst = $oAngemomboxModel->checkOpenDay($nModuleSrl);
@@ -76,7 +80,8 @@ class angemomboxController extends angemombox
 		// never touch unrelated member info
 
 		$oInParams = Context::getRequestVars();
-        
+// var_dump($oInParams);
+// exit;		        
         // begin - check mandatory field - addr
         if(!$oInParams->postcode && !$oInParams->address && !$oInParams->detailaddress && !$oInParams->extraaddress)
         {
@@ -98,19 +103,18 @@ class angemomboxController extends angemombox
             $sStrippedAddrExtra = strip_tags($oInParams->extraaddress);
         }
         // end - check mandatory field - addr
-// var_dump($oLoggedInfo->birthday);
-// exit;
+
         // begin - add mom's birthday into member tbl extra_vars
-        if(!$oInParams->mom_birth_yr && !$oInParams->mom_birth_mo && !$oInParams->mom_birth_day)
+        if(!$oInParams->parent_birth_yr && !$oInParams->parent_birth_mo && !$oInParams->parent_birth_day)
         {
             if(strlen($oLoggedInfo->birthday))  // reuse member info if registered
-                $sMomBirthday = $oLoggedInfo->birthday[0];
+                $sParentBirthday = $oLoggedInfo->birthday[0];
         }
         else
-            $sMomBirthday = strip_tags($oInParams->mom_birth_yr).strip_tags($oInParams->mom_birth_mo).strip_tags($oInParams->mom_birth_day);
+            $sParentBirthday = strip_tags($oInParams->parent_birth_yr).strip_tags($oInParams->parent_birth_mo).strip_tags($oInParams->parent_birth_day);
 
-        // $sMomBirthday = strip_tags($oInParams->mom_birth_yr.$oInParams->mom_birth_mo.$oInParams->mom_birth_day);
-        $oMemberInfo->birthday_yyyymmdd = $sMomBirthday;
+        // $sParentBirthday = strip_tags($oInParams->parent_birth_yr.$oInParams->parent_birth_mo.$oInParams->parent_birth_day);
+        $oMemberInfo->birthday_yyyymmdd = $sParentBirthday;
         // end - add mom's birthday into member tbl extra_vars
         
 		// O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
@@ -126,16 +130,42 @@ class angemomboxController extends angemombox
 		// $oMemberInfo->$sSnsId = strip_tags($oInParams->sns);
 		$this->_modifyMemberInfo($oMemberInfo);
         // end - update addr, mom's birthday into member tbl
+		$sParentMobileNo = $oMemberInfo->mobile;
+		unset($oMemberInfo);
 		
 		$oArgs = new stdClass();
 		$oArgs->module_srl = Context::get('module_srl');
-		$oArgs->member_srl = $oLoggedInfo->member_srl;  // mom's member srl
-		// $oArgs->privacy_collection = Context::get('privacy_collection') == 'Y' ? 1 : 0;
-		// $oArgs->privacy_sharing = Context::get('privacy_sharing') == 'Y' ? 1 : 0;
+		$oArgs->yr_mo = $nYrMo;
+		$oArgs->parent_member_srl = $oLoggedInfo->member_srl;  // mom's member srl
+		$oArgs->parent_birthday = $sParentBirthday;
+		$oArgs->mobile = $sParentMobileNo;
+		$oArgs->parent_gender = $oInParams->parent_gender;
+		$oArgs->parent_pregnant = $oInParams->parent_pregnant;
+
+        // construct mom's info
+        $oArgs->postcode = $sStrippedPostcode;
+		$oArgs->addr = $sStrippedAddr;
+		$oArgs->addr_detail = $sStrippedAddrDetail;
+		$oArgs->addr_extra = $sStrippedAddrExtra;
+        $oArgs->sns_id = strip_tags($oInParams->sns);  // mom's sns id
+        // construct push agreement
+        // $oArgs->email_push = 'Y';
+		$oArgs->sms_push = $oInParams->sms_push;  // 항상 'Y'
+		// $oArgs->post_push = 'Y';
+		// $oArgs->sponsor_push = 'Y';
+
+        // construct baby info
+        $sStrippedBabyBirthname = strip_tags($oInParams->birth_name);
+        $oArgs->baby_birth_name = $sStrippedBabyBirthname;
+        $oArgs->baby_gender = $oInParams->baby_gender;
+        $oArgs->baby_birthday = $oInParams->baby_birth_yr.$oInParams->baby_birth_mo.$oInParams->baby_birth_day;
+
+		$oArgs->upload_target_srl = Context::get('upload_target_srl');
+		$sContent = nl2br(strip_tags(Context::get('reason'), ['<a>', '<br>']));
+		$oArgs->content = $sContent;
 
 		$oArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
 		$oArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
-		
 		// depends on /addons/svtracker
 		$sValue = $this->_getSessionValue('HTTP_INIT_REFERER' );
 		if(!is_null($sValue))
@@ -153,39 +183,14 @@ class angemomboxController extends angemombox
 		if(!is_null($sValue))
 			$oArgs->utm_term = $sValue;
 
-        // construct mom's info
-        $oArgs->postcode = $sStrippedPostcode;
-		$oArgs->addr = $sStrippedAddr;
-		$oArgs->addr_detail = $sStrippedAddrDetail;
-		$oArgs->addr_extra = $sStrippedAddrExtra;
-        $oArgs->mom_birthday = $sMomBirthday;
-        $oArgs->sns_id = strip_tags($oInParams->sns);  // mom's sns id
-        // construct push agreement
-        // $oArgs->email_push = 'Y';
-		// $oArgs->sms_push = 'Y';
-		// $oArgs->post_push = 'Y';
-		// $oArgs->sponsor_push = 'Y';
-
-        // construct baby info
-        $sStrippedBabyBirthname = strip_tags($oInParams->birth_name);
-        $oArgs->baby_birth_name = $sStrippedBabyBirthname;
-        $oArgs->baby_gender = $oInParams->baby_gender;
-        $oArgs->baby_birthday = $oInParams->baby_birth_yr.$oInParams->baby_birth_mo.$oInParams->baby_birth_day;
-		
-		$sContent = nl2br(strip_tags(Context::get('reason'), ['<a>', '<br>']));
-
-		$oArgs->yr_mo = $nYrMo;
-		$oArgs->upload_target_srl = Context::get('upload_target_srl');
-		$oArgs->content = $sContent;
-
 		// begin - insert application into data lake
         $oDocRst = $this->insertDataLake($oArgs);
 		unset($oArgs);
 		if(!$oDocRst->toBool())
 			return $oDocRst;
+		unset($oDocRst);
 		$oDB = DB::getInstance();
 		$nAngemomboxSrl = $oDB->db_insert_id();
-		unset($oDocRst);
 		unset($oDB);
 		// end - insert application
 		
@@ -234,6 +239,7 @@ class angemomboxController extends angemombox
 		if(!$oDocRst->toBool())
 			return new BaseObject(-1, '연결된 게시판에 등록 실패입니다.');
 		unset($oDocRst);
+exit;		
         // end - register board_srl and document_srl into application
         $this->add('module', $sConnectedBoardMid);
         $this->add('document_srl', $nNewDocSrl);
@@ -245,10 +251,12 @@ class angemomboxController extends angemombox
 	{
         if(!$oArgs->module_srl)
             return new BaseObject(-1, 'msg_error_invalid_module_srl');
-        if(!$oArgs->member_srl)
-            return new BaseObject(-1, 'msg_error_invalid_member_srl');
-        if(!$oArgs->yr_mo)
+		if(!$oArgs->yr_mo)
             return new BaseObject(-1, 'msg_error_invalid_yr_mo');
+        if(!$oArgs->parent_member_srl)
+            return new BaseObject(-1, 'msg_error_invalid_member_srl');
+		if(!$oArgs->parent_gender)
+            return new BaseObject(-1, 'msg_error_invalid_parent_gender');
         if(!$oArgs->is_mobile)
             return new BaseObject(-1, 'msg_error_invalid_is_mobile');
         if(!$oArgs->addr)

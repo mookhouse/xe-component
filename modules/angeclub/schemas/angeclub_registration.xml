@@ -3,7 +3,7 @@
 	<column name="cc_idx" type="number" size="11" notnull="notnull" />  <!--- 조리원 srl -->
     <column name="cu_id" type="varchar" size="45" notnull="notnull" />  <!--- 폐기 예정 -->
     <column name="member_srl_staff" type="number" size="11" />  <!--- cu_id 대치 예정 -->
-    <column name="member_srl_mom" type="number" size="11" notnull="notnull"/>
+    <column name="member_srl_parent" type="number" size="11" notnull="notnull"/>
     <column name="center_visit_cnt" type="number" size="11" notnull="notnull"/>
     <column name="education_cnt" type="number" size="11" notnull="notnull"/>
     <column name="regdate" type="date" />

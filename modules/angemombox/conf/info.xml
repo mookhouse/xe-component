@@ -2,8 +2,8 @@
 <module version="0.2">
 	<title xml:lang="ko">앙쥬 맘박스 신청 모듈</title>
 	<description xml:lang="ko">앙쥬 맘박스 응모를 관리합니다. angeclub 모듈에 의존합니다.</description>
-	<version>0.0.2</version>
-	<date>2022-12-04</date>
+	<version>0.0.3</version>
+	<date>2022-12-07</date>
 	<category>service</category>
 	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
         <name xml:lang="ko">Singleview.co.kr</name>

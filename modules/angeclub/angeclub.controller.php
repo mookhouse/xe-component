@@ -48,15 +48,15 @@ class angeclubController extends angeclub
 		unset($oRst);
 		unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
 		unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
-		unset($oArgs->_phone_2);  // ["_phone_2"]=>string(9) "010312645"
+		// unset($oArgs->_phone_2);  // ["_phone_2"]=>string(9) "010312645"
 		// end - member registration
 
 		// begin - nurse performance registration
 		$oInArgs = new stdClass();
 		$oInArgs->cc_idx = $oArgs->_care_center;  // ["_care_center"]=>string(30) "637"  // replace cc_name to cc_idx
 		$oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
-		// $oInArgs->member_srl_staff = null;
-		$oInArgs->member_srl_mom = $nMemberSrl;
+		$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
+		$oInArgs->member_srl_parent = $nMemberSrl;
 		$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
 		$oInArgs->education_cnt = 1;
 		if($oArgs->_center_visit_ymd)
@@ -65,9 +65,12 @@ class angeclubController extends angeclub
         unset($oInArgs);
 		if(!$oRst->toBool()) 
 			return $oRst;
+        unset($oRst);
+        $oDB = DB::getInstance();
+        $nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
+        unset($oDB);
 		unset($oArgs->_contact_id);
 		unset($oArgs->_care_center);
-		// unset($oArgs->_center_visit_ymd);
 		unset($oArgs->_center_cnt);
 		// end - nurse performance registration
 
@@ -81,17 +84,16 @@ class angeclubController extends angeclub
         unset($oConfig);
         $oInArgs->module_srl = $oAngemomboxDataLakeMidInfo->module_srl;
         unset($oAngemomboxDataLakeMidInfo);
-		$oInArgs->member_srl = $nMemberSrl;  // mom's member srl
-        // construct push agreement
-		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-		$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-		$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-		$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+        $oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
+        $oInArgs->angeclub_registration_log_srl = $nAngeclubRegistrationLogSrl;
 
-		$oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
-		$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
-		
-        // construct mom's info
+		// construct mom's info
+        $oInArgs->parent_member_srl = $nMemberSrl;  // mom's member srl
+        $oInArgs->mom_birthday = $oArgs->_birth;
+        $oInArgs->parent_gender = 'F';  // 산후 조리원이므로 반드시 여성
+        $oInArgs->parent_pregnant = 'N';  // 산후 조리원이므로 반드시 출산 후
+        $oInArgs->mobile = $oArgs->_phone_2;
+        
         // ["_zone_code"]=>string(5) "04078"
 		// ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
 		// ["_addr_detail"]=>string(13) "상세 주소"
@@ -99,8 +101,13 @@ class angeclubController extends angeclub
 		$oInArgs->addr = strip_tags($oArgs->_addr);
 		$oInArgs->addr_detail = strip_tags($oArgs->_addr_detail);
 		$oInArgs->addr_extra = '';
-        $oInArgs->mom_birthday = $oArgs->_birth;
-        
+
+        // construct push agreement
+		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
+		$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
+		$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
+		$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+
         // construct baby info
         // ["i_baby_nm"]=>string(12) "아이이름"
 		// ["i_baby_birth"]=>string(6) "221215"
@@ -108,7 +115,10 @@ class angeclubController extends angeclub
         $oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);
         $oInArgs->baby_gender = $oArgs->i_baby_sex_gb;
         $oInArgs->baby_birthday = $oArgs->i_baby_birth; // $this->_completeBirthday($oArgs->i_baby_birth);  // "221215"
-		$oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
+
+        $oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
+		$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
+        
         $oAngemomboxController = &getController ('angemombox');
         $oRst = $oAngemomboxController->insertDataLake($oInArgs);
         unset($oInArgs);

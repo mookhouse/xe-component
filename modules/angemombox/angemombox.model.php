@@ -46,7 +46,7 @@ class angemomboxModel extends module
 		return new BaseObject();
 
 		$oArgs = new stdClass();
-		$oArgs->member_srl = $nMemberSrl;
+		$oArgs->parent_member_srl = $nMemberSrl;
 		$oArgs->module_srl = $nModuleSrl;
 		$oArgs->yr_mo = $nYrMo;
 

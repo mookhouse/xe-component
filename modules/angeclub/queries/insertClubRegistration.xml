@@ -6,7 +6,7 @@
 		<column name="cc_idx" var="cc_idx" default="0" />
 		<column name="cu_id" var="cu_id" />
 		<column name="member_srl_staff" var="member_srl_staff" />
-        <column name="member_srl_mom" var="member_srl_mom" />
+        <column name="member_srl_parent" var="member_srl_parent" />
         <column name="center_visit_cnt" var="center_visit_cnt" />
         <column name="education_cnt" var="education_cnt" />
 		<column name="regdate" var="regdate" default="curdate()"/>

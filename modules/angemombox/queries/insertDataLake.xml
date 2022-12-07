@@ -5,25 +5,26 @@
 	<columns>
 		<column name="module_srl" var="module_srl" filter="number" default="0" />
 		<column name="yr_mo" var="yr_mo" />
-		<column name="member_srl" var="member_srl" filter="number" default="0" />
-        <column name="baby_birth_name" var="baby_birth_name" />
-        <column name="baby_gender" var="baby_gender" />
-        <column name="mom_birthday_yyyymmdd" var="mom_birthday" />
-        <column name="baby_birthday_yyyymmdd" var="baby_birthday" />
+        <column name="angeclub_registration_log_srl" var="angeclub_registration_log_srl" filter="number" />
+		<column name="parent_member_srl" var="parent_member_srl" filter="number" />
+        <column name="mobile" var="mobile" />
+        <column name="parent_birthday_yyyymmdd" var="parent_birthday" />
+        <column name="parent_gender" var="parent_gender" />
+        <column name="parent_pregnant" var="parent_pregnant" />
         <column name="postcode" var="postcode" />
         <column name="addr" var="addr" />
         <column name="addr_detail" var="addr_detail" />
         <column name="addr_extra" var="addr_extra" />
         <column name="sns_id" var="sns_id" />
+        <column name="baby_birth_name" var="baby_birth_name" />
+        <column name="baby_gender" var="baby_gender" />
+        <column name="baby_birthday_yyyymmdd" var="baby_birthday" />
         <column name="email_push" var="email_push" />
         <column name="sms_push" var="sms_push" />
         <column name="post_push" var="post_push" />
         <column name="sponsor_push" var="sponsor_push" />
 		<column name="user_agent" var="user_agent" />
 		<column name="content" var="content" />
-		<column name="ipaddress" var="ipaddress" default="ipaddress()" />
-		<column name="privacy_collection" var="privacy_collection" />
-		<column name="privacy_sharing" var="privacy_sharing" />
 		<column name="upload_target_srl" var="upload_target_srl" />
 		<column name="is_mobile" var="is_mobile" />
 		<column name="init_referral" var="init_referral" />

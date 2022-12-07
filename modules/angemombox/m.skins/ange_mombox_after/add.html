@@ -99,23 +99,23 @@ function sample6_execDaumPostcode() {
 						</tr>
                         <tr>
 							<th class="essential">
-								엄마 생일
+								부모 생일
 							</th>
 							<td>
 								<div class="form-group basic-group">
-									<select class="form-control" id="mom_birth_yr" name="mom_birth_yr">
+									<select class="form-control" id="parent_birth_yr" name="parent_birth_yr">
 										<option value="">년도</option>
 <!--@for($nMomBirthYr=1970;$nMomBirthYr<2003;$nMomBirthYr++)-->
                                         <option value="{$nMomBirthYr}">{$nMomBirthYr}</option>
 <!--@end-->
 									</select>
-									<select class="form-control" id="mom_birth_mo" name="mom_birth_mo">
+									<select class="form-control" id="parent_birth_mo" name="parent_birth_mo">
 										<option value="">월</option>
 <!--@for($nMomBirthMo=1;$nMomBirthMo<13;$nMomBirthMo++)-->
                                         <option value="{sprintf('%02d',$nMomBirthMo)}">{sprintf('%02d',$nMomBirthMo)}</option>
 <!--@end-->
 									</select>
-									<select class="form-control" id="mom_birth_day" name="mom_birth_day">
+									<select class="form-control" id="parent_birth_day" name="parent_birth_day">
 										<option value="">일</option>
 <!--@for($nMomBirthDay=1;$nMomBirthDay<32;$nMomBirthDay++)-->
                                         <option value="{sprintf('%02d',$nMomBirthDay)}">{sprintf('%02d',$nMomBirthDay)}</option>
@@ -124,6 +124,18 @@ function sample6_execDaumPostcode() {
 								</div>
 							</td>
 						</tr>
+                        <tr>
+                            <th class="v-top"><label for="baby_gender">부모 성별</label></th>
+                            <td>
+                                <div class="form-group">
+                                    <select class="form-control" id="parent_gender" name="parent_gender" style='width:80%'>
+                                        <option value="">성별 선택</option>
+                                        <option value="F">여</option>
+                                        <option value="M">남</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
 						<tr id="file_tr">
 							<th class="v-top">아기 이름</th>
 							<td>
@@ -136,7 +148,7 @@ function sample6_execDaumPostcode() {
                             <th class="v-top"><label for="baby_gender">아기 성별</label></th>
                             <td>
                                 <div class="form-group">
-                                    <select class="form-control" id="baby_gender" name="baby_gender" class="input01" title="아이 성별">
+                                    <select class="form-control" id="baby_gender" name="baby_gender" style='width:80%'>
                                         <option value="">성별 선택</option>
 {@
 unset($aBabyGender['D'])  // 성별 모름 제거
@@ -186,6 +198,14 @@ unset($aBabyGender['D'])  // 성별 모름 제거
 								</div>
 							</td>
 						</tr>
+                        <tr>
+                            <th class="v-"><label for="feel">동의</label></th>
+                            <td>
+                                <div class="form-group">
+                                    SMS 정보 수신 <input type="checkbox" id="sms_push" name="sms_push" value="Y" checked="form-control">
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
 							<th class="essential">증빙자료<br>(출생증명서)</th>
 							<td class="file">
