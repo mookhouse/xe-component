@@ -276,10 +276,6 @@ exit;
  */
 	private function _modifyMemberInfo($oMemberInfo)
 	{
-		if(!Context::get('is_logged'))
-		{
-			return $this->stop('msg_not_logged');
-		}
 		unset($_SESSION['rechecked_password_step']);
 		// Extract the necessary information in advance
 		$oMemberModel = getModel('member');
