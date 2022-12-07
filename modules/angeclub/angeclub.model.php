@@ -99,7 +99,30 @@ class angeclubModel extends module
 					$bDuplicated = 1;
 				break;
 		}
+        unset($oMemberInfo->allow_mailing);
+        unset($oMemberInfo->allow_message);
+        unset($oMemberInfo->blog);
+        unset($oMemberInfo->change_password_date);
+        
+        unset($oMemberInfo->email_address);
+        unset($oMemberInfo->denied);
+        unset($oMemberInfo->description);
+        unset($oMemberInfo->profile_image);
+        unset($oMemberInfo->referral);
+        unset($oMemberInfo->find_account_answer);
+        unset($oMemberInfo->find_account_question);
+        unset($oMemberInfo->group_list);
+        unset($oMemberInfo->homepage);
+        unset($oMemberInfo->image_mark);
+        unset($oMemberInfo->image_name);
+        unset($oMemberInfo->is_admin);
+        unset($oMemberInfo->limit_date);
+        unset($oMemberInfo->list_order);
+        unset($oMemberInfo->password);
+        unset($oMemberInfo->signature);
+       
 		$this->add('isDuplicated', $bDuplicated);
+        $this->add('sJsonMemberInfo', json_encode($oMemberInfo));
 		unset($oMemberInfo);
 		unset($oMemberModel);
 		return new BaseObject();

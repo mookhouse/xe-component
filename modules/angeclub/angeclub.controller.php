@@ -34,22 +34,66 @@ class angeclubController extends angeclub
 			return new BaseObject(-1, '아이디를 입력하세요.');
 		if(!$oArgs->_phone_2)
 			return new BaseObject(-1, '핸드폰 번호를 입력하세요.');
-		
-		// begin - member registration
-		// ["_user_nm"]=>string(12) "엄마이름"
-		// ["_birth"]=>string(6) "19801212"
-		// ["_zone_code"]=>string(5) "04078"
-		// ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
-		// ["_addr_detail"]=>string(13) "상세 주소"
-		$oRst = $this->_addMemberInfo();
-		if(!$oRst->toBool()) 
-			return $oRst;
-		$nMemberSrl = $oRst->get('member_srl');
-		unset($oRst);
-		unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
-		unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
-		// unset($oArgs->_phone_2);  // ["_phone_2"]=>string(9) "010312645"
-		// end - member registration
+        
+        $nExistingMemberSrl = (int)Context::get('existing_member_srl');
+        // begin - member info registration
+        $oAngeclubModel = &getModel('angeclub');
+		$oModuleInfo = $oAngeclubModel->getModuleConfig();
+		unset($oAngeclubModel);
+        // ["_zone_code"]=>string(5) "04078"
+        // ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
+        // ["_addr_detail"]=>string(13) "상세 주소"
+        $sStrippedPostcode = strip_tags($oArgs->_zone_code);
+        $sStrippedAddr = strip_tags($oArgs->_addr);
+        $sStrippedAddrDetail = strip_tags($oArgs->_addr_detail);
+        $sStrippedAddrExtra = '';
+        if(!$nExistingMemberSrl)  // append new member
+        {
+            // ["_user_nm"]=>string(12) "엄마이름"
+            // ["_birth"]=>string(6) "19801212"
+            $oRst = $this->_addMemberInfo($oModuleInfo->member_addr_field_name);
+            if(!$oRst->toBool()) 
+                return $oRst;
+            $nMemberSrl = $oRst->get('member_srl');
+        }
+        else  // update existing member
+        {
+            // Get user_id information
+            $oMemberModel = &getModel('member');
+            $oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nExistingMemberSrl);
+// var_dump($oMemberInfo->address);
+// exit;
+            unset($oMemberModel);
+            if($sStrippedPostcode && $sStrippedAddr && $sStrippedAddrDetail)
+            {
+                $sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
+                 // O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
+                $oMemberInfo->$sMemberAddrFieldName[0] = $sStrippedPostcode;
+                $oMemberInfo->$sMemberAddrFieldName[1] = $sStrippedAddr;
+                $oMemberInfo->$sMemberAddrFieldName[2] = $sStrippedAddrDetail;
+                $oMemberInfo->$sMemberAddrFieldName[3] = $sStrippedAddrExtra;
+// var_dump($oMemberInfo);
+// exit;
+                $oRst = $this->_modifyMemberInfo($oMemberInfo);
+                if(!$oRst->toBool()) 
+                    return $oRst;
+            }
+            else  // reuse member info if registered, do not update member info
+            {
+                $sStrippedPostcode = $oMemberInfo->address[0];
+                $sStrippedAddr = $oMemberInfo->address[1];
+                $sStrippedAddrDetail = $oMemberInfo->address[2];
+                $sStrippedAddrExtra = $oMemberInfo->address[3];
+            }
+            // end - update addr for member tbl
+            unset($oMemberInfo);
+            $nMemberSrl = $nExistingMemberSrl;
+        }
+        unset($oModuleInfo);
+        unset($oRst);
+        unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
+        unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
+        // end - member info registration
 
 		// begin - nurse performance registration
 		$oInArgs = new stdClass();
@@ -60,7 +104,10 @@ class angeclubController extends angeclub
 		$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
 		$oInArgs->education_cnt = 1;
 		if($oArgs->_center_visit_ymd)
-			$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';  // ["_center_visit_ymd"]=>string(6) "20221203"  // regdate
+			$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';  // ["_center_visit_ymd"]=>string(6) "20221203"
+        if($nExistingMemberSrl)  // 기존 회원 수정이면 표시함
+			$oInArgs->is_existing_parent_member = 'Y';
+            
 		$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
         unset($oInArgs);
 		if(!$oRst->toBool()) 
@@ -97,10 +144,10 @@ class angeclubController extends angeclub
         // ["_zone_code"]=>string(5) "04078"
 		// ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
 		// ["_addr_detail"]=>string(13) "상세 주소"
-        $oInArgs->postcode = strip_tags($oArgs->_zone_code);
-		$oInArgs->addr = strip_tags($oArgs->_addr);
-		$oInArgs->addr_detail = strip_tags($oArgs->_addr_detail);
-		$oInArgs->addr_extra = '';
+        $oInArgs->postcode = $sStrippedPostcode;
+		$oInArgs->addr = $sStrippedAddr;
+		$oInArgs->addr_detail = $sStrippedAddrDetail;
+		$oInArgs->addr_extra = $sStrippedAddrExtra;
 
         // construct push agreement
 		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
@@ -139,7 +186,7 @@ exit;
 /**
  * add member profile
  */
-	private function _addMemberInfo()
+	private function _addMemberInfo($sMemberAddrFieldName)
 	{
 		if(Context::getRequestMethod () == "GET") 
 			return new BaseObject(-1, "msg_invalid_request");
@@ -203,16 +250,16 @@ exit;
 		unset($oAllArgs->_center_visit_ymd);
 
 		// 시작 - 주소를 extra var로 변경
-		$oAngeclubModel = &getModel('angeclub');
-		$oModuleInfo = $oAngeclubModel->getModuleConfig();
-		unset($oAngeclubModel);
-		$sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
+		// $oAngeclubModel = &getModel('angeclub');
+		// $oModuleInfo = $oAngeclubModel->getModuleConfig();
+		// unset($oAngeclubModel);
+		// $sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
 		// O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
-		$sAddrTitle = $sMemberAddrFieldName;
-		$oAllArgs->$sAddrTitle[0] = strip_tags($oAllArgs->_zone_code);
-		$oAllArgs->$sAddrTitle[1] = strip_tags($oAllArgs->_addr);
-		$oAllArgs->$sAddrTitle[2] = strip_tags($oAllArgs->_addr_detail);
-		$oAllArgs->$sAddrTitle[3] = '';
+		// $sAddrTitle = $sMemberAddrFieldName;
+		$oAllArgs->$sMemberAddrFieldName[0] = strip_tags($oAllArgs->_zone_code);
+		$oAllArgs->$sMemberAddrFieldName[1] = strip_tags($oAllArgs->_addr);
+		$oAllArgs->$sMemberAddrFieldName[2] = strip_tags($oAllArgs->_addr_detail);
+		$oAllArgs->$sMemberAddrFieldName[3] = '';
 		unset($oAllArgs->_zone_code);
 		unset($oAllArgs->_addr);
 		unset($oAllArgs->_addr_detail);
@@ -232,6 +279,103 @@ exit;
 		$oRst = $oMemberController->insertMember($oArgs);
         return $oRst;
 	}
+/**
+ * Edit member profile
+ */
+    private function _modifyMemberInfo($oMemberInfo)
+    {
+        unset($_SESSION['rechecked_password_step']);
+
+        // never touch unrelated member info
+        unset($oMemberInfo->referral);
+        unset($oMemberInfo->password);
+        unset($oMemberInfo->find_account_question);
+        unset($oMemberInfo->find_account_answer);
+        unset($oMemberInfo->user_name);
+        unset($oMemberInfo->user_id);
+        unset($oMemberInfo->nick_name);
+        unset($oMemberInfo->description);
+        unset($oMemberInfo->birthday);
+        unset($oMemberInfo->group_srl_list);
+        unset($oMemberInfo->email_id);
+        unset($oMemberInfo->email_host);
+        unset($oMemberInfo->denied);
+        unset($oMemberInfo->limit_date);
+        unset($oMemberInfo->regdate);
+        unset($oMemberInfo->last_login);
+        unset($oMemberInfo->change_password_date);
+        unset($oMemberInfo->list_order);
+        unset($oMemberInfo->profile_image);
+        unset($oMemberInfo->image_name);
+        unset($oMemberInfo->image_mark);
+        unset($oMemberInfo->group_list);
+        // never touch unrelated member info
+
+        $oInParams = Context::getRequestVars();
+        $oMemberModel = &getModel('member');
+        $config = $oMemberModel->getMemberConfig ();
+        $getVars = array('find_account_answer','allow_mailing','allow_message');
+        if($config->signupForm)
+        {
+            foreach($config->signupForm as $formInfo)
+            {
+                if($formInfo->isDefaultForm && ($formInfo->isUse || $formInfo->required || $formInfo->mustRequired))
+                {
+                    $getVars[] = $formInfo->name;
+                }
+            }
+        }
+        $args = new stdClass;
+        foreach($getVars as $val)
+        {
+            $args->{$val} = $oMemberInfo->$val;
+            if($val == 'birthday') $args->birthday_ui = Context::get('birthday_ui');
+            if($val == 'find_account_answer' && !Context::get($val)) {
+                unset($args->{$val});
+            }
+        }
+        // Login Information
+        $args->member_srl = $oMemberInfo->member_srl;
+        $args->birthday = $oMemberInfo->birthday_yyyymmdd;
+
+        // Remove some unnecessary variables from all the vars
+        $all_args = $oMemberInfo; //Context::getRequestVars();
+        unset($all_args->module);
+        unset($all_args->act);
+        unset($all_args->member_srl);
+        unset($all_args->is_admin);
+        unset($all_args->description);
+        unset($all_args->group_srl_list);
+        unset($all_args->body);
+        unset($all_args->accept_agreement);
+        unset($all_args->signature);
+        unset($all_args->_filter);
+        unset($all_args->mid);
+        unset($all_args->error_return_url);
+        unset($all_args->ruleset);
+        unset($all_args->password);
+
+        // Add extra vars after excluding necessary information from all the requested arguments
+        $extra_vars = delObjectVars($all_args, $args);
+        $args->extra_vars = serialize($extra_vars);
+
+        // remove whitespace
+        $checkInfos = array('user_id', 'user_name', 'nick_name', 'email_address');
+        foreach($checkInfos as $val)
+        {
+            if(isset($args->{$val}))
+            {
+                $args->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($args->{$val}));
+            }
+        }
+        // Execute insert or update depending on the value of member_srl
+        $oMemberController = &getController('member');
+        $output = $oMemberController->updateMember($args);
+        if(!$output->toBool()) return $output;
+        unset($oMemberController);
+        // Return result
+        return new BaseObject();
+    }
 /**
  * @brief 센터 추가 / 변경 메소드
  **/
