@@ -1,0 +1,11 @@
+<query id="insertTmpAdminComUserTransferred" action="insert">
+	<tables>
+		<table name="angeclub_tmp_com_user_transferred" />
+	</tables>
+	<columns>
+		<column name="NO_SOURCE" var="NO_SOURCE" />
+        <column name="USER_ID_SOURCE" var="USER_ID_SOURCE" />
+        <column name="NO_DEST" var="NO_DEST" />
+        <column name="USER_ID_DEST" var="USER_ID_DEST" />
+	</columns>
+</query>

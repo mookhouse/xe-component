@@ -98,7 +98,7 @@ class angeclubController extends angeclub
 		// begin - nurse performance registration
 		$oInArgs = new stdClass();
 		$oInArgs->cc_idx = $oArgs->_care_center;  // ["_care_center"]=>string(30) "637"  // replace cc_name to cc_idx
-		$oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
+		// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
 		$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
 		$oInArgs->member_srl_parent = $nMemberSrl;
 		$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
@@ -168,6 +168,7 @@ class angeclubController extends angeclub
         
         $oAngemomboxController = &getController ('angemombox');
         $oRst = $oAngemomboxController->insertDataLake($oInArgs);
+var_dump($oInArgs);
         unset($oInArgs);
         unset($oAngemomboxController);
         if(!$oRst->toBool())
@@ -250,12 +251,7 @@ exit;
 		unset($oAllArgs->_center_visit_ymd);
 
 		// 시작 - 주소를 extra var로 변경
-		// $oAngeclubModel = &getModel('angeclub');
-		// $oModuleInfo = $oAngeclubModel->getModuleConfig();
-		// unset($oAngeclubModel);
-		// $sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
 		// O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
-		// $sAddrTitle = $sMemberAddrFieldName;
 		$oAllArgs->$sMemberAddrFieldName[0] = strip_tags($oAllArgs->_zone_code);
 		$oAllArgs->$sMemberAddrFieldName[1] = strip_tags($oAllArgs->_addr);
 		$oAllArgs->$sMemberAddrFieldName[2] = strip_tags($oAllArgs->_addr_detail);

@@ -47,6 +47,13 @@ class angeclubAdminView extends angeclub
 
 	}
 /**
+ * @brief temporary migration tool
+ */
+	public function dispAngeclubAdminMigrate()
+	{
+		$this->setTemplateFile('angeclub_migrate');
+	}
+/**
  * @brief Delete angeclub output
  */
 	public function dispAngeclubAdminDelete()
@@ -60,7 +67,7 @@ class angeclubAdminView extends angeclub
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
 		Context::set('module_info',$module_info);
 		// Set a template file
-		$this->setTemplateFile('angemombox_delete');
+		$this->setTemplateFile('angeclub_delete');
 
 		$security = new Security();
 		$security->encodeHTML('module_info.');

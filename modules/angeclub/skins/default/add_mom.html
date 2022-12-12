@@ -6,34 +6,142 @@
 <script>
 $( document ).ready(function() {
     // 주소가 없는 유저는 "주소없음"을 체크한다.
-    if ($('#_ZIP_CODE').val()=="000000") {
-        $('#addr_null').attr("checked", true);
-        $('#_ZONE_CODE').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-        $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-        $('#_ADDR').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-        $('#_ADDR_DETAIL').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    }
+    // if ($('#_ZIP_CODE').val()=="000000") {
+    //     $('#addr_null').attr("checked", true);
+    //     $('#_ZONE_CODE').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+    //     $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+    //     $('#_ADDR').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+    //     $('#_ADDR_DETAIL').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+    // }
     $('#search_name').focus();
     $("#topSearch").submit(function() {
-        if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 6) {
-            alert("생년월일은 6자리입니다.");
+        if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 8) {
+            alert("생년월일은 8자리입니다.");
             $('#search_birth').focus();
             return false;
         }
     });
+
+	//일주일 출력
+	// 현재날짜 가공
+	var newDate = new Date();
+	var yy = newDate.getFullYear();
+	var mm = newDate.getMonth()+1;
+	var dd = newDate.getDate();
+	var strmm = (mm.toString().length == 1) ? "0"+mm.toString() : mm.toString();
+	var strdd = (dd.toString().length == 1) ? "0"+dd.toString() : dd.toString();
+	var strNow = yy.toString() + strmm + strdd;
+
+	// 일주일전 날짜 가공
+	var pDate = newDate.setDate(newDate.getDate() - 7);
+	var pyy = newDate.getFullYear();
+	var pmm = newDate.getMonth()+1;
+	var pdd = newDate.getDate();
+	var strpmm = (pmm.toString().length == 1) ? "0"+pmm.toString() : pmm.toString();
+	var strpdd = (pdd.toString().length == 1) ? "0"+pdd.toString() : pdd.toString();
+
+	var strPst = pyy.toString() + strpmm + strpdd;
+
+			$("#search_start").val(strPst);
+			$("#search_end").val(strNow);
+	
+	$('#search_name').focus();
+
+	if($("#sortC").val()!="") {
+		if($("#sortC").val()=="0") {
+			$("#centerth").html("▲ 조리원");
+		} else {
+			$("#centerth").html("▼ 조리원");
+		}
+	}
+
+	$("#topSearch").submit(function() {
+
+		if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 6) {
+			alert("생년월일은 6자리입니다.");
+			$('#search_birth').focus();
+			return false;
+		}
+	});
 });
 </script>
+
+
 <!-- 검색 영역 -->
-<div class="global-search">
-	<form action="?" method="get" name="topSearch" id="topSearch">
-		<input type="hidden" name="submenu"  value="clubmember">
+<div class="search-form" style="padding-right:0px;">
+	<form id="topSearch" action="?" method="get">
+		<input type="hidden" name="submenu" value="search">
+		<input type="hidden" name="sortC" id="sortC" value="">
+		<div class="search-condition">
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:120px">기간검색</label>
+				<select name="term_type" class="form-control">
+					<option value="CLUB_REG_DT">최종수정일</option>
+					<option value="REG_DT" >최초등록일</option>
+					<option value="CENTER_VISIT_YMD" >교육일자</option>
+				</select>
+				<input type="text" class="form-control" style="width:150px" name="search_start"  id="search_start" value="" maxlength="8" onkeydown="return onlyNumber(event)"> -
+				<input type="text" class="form-control" style="width:150px" name="search_end"    id="search_end"   value=""   maxlength="8" onkeydown="return onlyNumber(event)">
+				<script>
+					$('#search_start').datetimepicker({
+						timepicker:false,
+						closeOnDateSelect:true,
+						format:'Ymd',
+						style:'z-index: 101000;',
+						lang: 'ko'
+					});
+					$('#search_end').datetimepicker({
+						timepicker:false,
+						closeOnDateSelect:true,
+						format:'Ymd',
+						style:'z-index: 101000;',
+						lang: 'ko'
+					});
+				</script>
+			</div>
+		</div>
+		<div class="search-condition">
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:120px">이름</label>
+				<input type="text" class="form-control" style="width:100px" id="search_name" name="search_name" value="" >
+			</div>
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:60px">이메일</label>
+				<input type="text" class="form-control type-long" style="width:120px" id="search_mail" name="search_mail" value="">
+			</div>
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:110px">생년월일(8자리)</label>
+				<input type="text" class="form-control" style="width:100px" id="search_birth" name="search_birth" value="" maxlength="6" onkeydown="return onlyNumber(event)">
+			</div>
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:50px">휴대폰</label>
+				<input type="text" class="form-control type-long" style="width:120px" id="search_phone" name="search_phone" placeholder="01011112222" value="">
+			</div>
+			<div class="form-group">
+				<label for="u-name" class="first" style="width:50px">조리원</label>
+				<input type="text" class="form-control" style="width:120px" placeholder="조리원명" value="마미캠프">
+			</div>
+		</div>
+		<div class="btn-area" style="top:30px;">
+			<p>
+				<button type="submit" class="btn btn-blue btn-sm">검색하기</button>
+				<a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubMemberPopupAdd')}');" class="btn btn-green btn-sm" role="button">신규 회원 등록</a>
+			</p>
+		</div>
+	</form>
+</div>
+
+<!-- <div class="global-search">
+	<form action="./" method="get" name="topSearch" id="topSearch">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="dispAngeclubAddMember" />
 		<h4>검색하기</h4>
 		<div class="form-group">
 			이름 : <input type="text" id="search_name" name="search_name" class="form-control" placeholder="" value="" style='width:100px'>
 			<label for="global-search" class="sr-only">검색</label>
 		</div>
 		<div class="form-group">
-			생년월일<b>(6자리)</b> : <input type="text" id="search_birth" name="search_birth" class="form-control" placeholder="" value="" style='width:120px'>
+			생년월일<b>(8자리)</b> : <input type="text" id="search_birth" name="search_birth" class="form-control" placeholder="19990101" placeholder="" value="" style='width:120px'>
 			<label for="global-search" class="sr-only">검색</label>
 		</div>
 		<div class="form-group">
@@ -55,14 +163,14 @@ $( document ).ready(function() {
 			</p>
 		</div>
 	</form>
-</div>
+</div> -->
 <div class="article-header">
 	<h6>담당자가 없는 경우 일반 앙쥬회원입니다.</h6>
 </div>
 <article>
 	<div class="article-header">
 		<!--<h5>검색된 회원 리스트</h5>-->
-		<small>검색된 회원 <span>총 ??? 명</span></small>
+		<!-- <small>검색된 회원 <span>총 ??? 명</span></small> -->
 	</div>
 	<div class="btn-area">
 		<p>
@@ -80,9 +188,7 @@ $( document ).ready(function() {
 					<th style="width:15%">아이디</th>
 					<th style="width:15%">이메일</th>
 					<th style="width:10%">엄마생일</th>
-					<!-- <th style="width:10%">출산횟수</th> -->
 					<th style="width:10%">휴대폰번호</th>
-					<!-- <th style="width:10%">아이연령</th> -->
 					<th style="width:10%">조리원</th>
 					<th style="width:10%">등록일</th>
 					<th style="width:5%">관리</th>

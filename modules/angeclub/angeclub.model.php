@@ -103,7 +103,6 @@ class angeclubModel extends module
         unset($oMemberInfo->allow_message);
         unset($oMemberInfo->blog);
         unset($oMemberInfo->change_password_date);
-        
         unset($oMemberInfo->email_address);
         unset($oMemberInfo->denied);
         unset($oMemberInfo->description);
@@ -120,7 +119,16 @@ class angeclubModel extends module
         unset($oMemberInfo->list_order);
         unset($oMemberInfo->password);
         unset($oMemberInfo->signature);
-       
+
+		$oModuleInfo = $this->getModuleConfig();
+		$sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
+		if($sMemberAddrFieldName != 'address')
+		{
+			$oMemberInfo->address = $oMemberInfo->$sMemberAddrFieldName;
+			unset($oMemberInfo->$sMemberAddrFieldName);
+		}
+		unset($oModuleInfo);
+
 		$this->add('isDuplicated', $bDuplicated);
         $this->add('sJsonMemberInfo', json_encode($oMemberInfo));
 		unset($oMemberInfo);

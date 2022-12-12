@@ -1,0 +1,29 @@
+<table name="angeclub_tmp_com_user">
+	<column name="NO" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>  <!-- `NO` int(11) NOT NULL AUTO_INCREMENT COMMENT '순번', -->
+	<column name="USER_ID" type="varchar" size="40" notnull="notnull" />  <!-- `USER_ID` varchar(40) NOT NULL COMMENT '사용자 ID (CLUB회원 중 이메일이 없는 경우 "CLUB_NULL"이라고 입력', -->
+	<column name="USER_NM" type="varchar" size="30" />  <!-- `USER_NM` varchar(30) DEFAULT NULL COMMENT '사용자명', -->
+    <column name="NICK_NM" type="varchar" size="30" />  <!-- `NICK_NM` varchar(30) DEFAULT NULL COMMENT '닉네임', -->
+    <column name="PASSWORD" type="varchar" size="256" />  <!-- `PASSWORD` varchar(256) DEFAULT NULL COMMENT '비밀번호', -->
+    <column name="BIRTH" type="varchar" size="10" />  <!-- `BIRTH` varchar(10) DEFAULT NULL COMMENT '생일', -->
+    <column name="ZONE_CODE" type="varchar" size="5" />  <!-- `ZONE_CODE` varchar(5) DEFAULT NULL COMMENT '새 우편번호', -->
+    <column name="ZIP_CODE" type="varchar" size="7" />  <!-- `ZIP_CODE` varchar(7) DEFAULT NULL COMMENT '우편번호', -->
+    <column name="ADDR" type="varchar" size="100" />  <!-- `ADDR` varchar(100) DEFAULT NULL COMMENT '주소', -->
+    <column name="ADDR_DETAIL" type="varchar" size="100" />  <!-- `ADDR_DETAIL` varchar(100) DEFAULT NULL COMMENT '상세주소', -->
+    <column name="PHONE_2" type="varchar" size="15" />  <!-- `PHONE_2` varchar(15) DEFAULT NULL COMMENT '휴대폰', -->
+    <column name="EMAIL" type="varchar" size="50" />  <!-- `EMAIL` varchar(50) DEFAULT NULL COMMENT '이메일', -->
+    <column name="SEX_GB" type="varchar" size="30" />   <!-- `SEX_GB` char(1) DEFAULT NULL COMMENT '성별(M:남, F:여)', -->
+    <column name="CLUB_INT" type="char" size="1" />  <!-- `CLUB_INT` char(1) DEFAULT NULL COMMENT '클럽통합 여부 (Y:통합)', -->
+    <column name="REG_DT" type="date" />  <!-- `REG_DT` datetime DEFAULT NULL COMMENT '등록일', -->
+    <column name="CLUB_REG_DT" type="date" />  <!-- `CLUB_REG_DT` datetime DEFAULT NULL COMMENT '클럽가입 시간 (앙쥬클럽에서 사용)', -->
+    <column name="FINAL_LOGIN_DT" type="date" />  <!-- `FINAL_LOGIN_DT` datetime DEFAULT NULL COMMENT '최종 로그인일', -->
+    <column name="PREGNENT_FL" type="char" size="1" />  <!-- `PREGNENT_FL` char(1) DEFAULT NULL COMMENT '임신 유무(Y/N)', -->
+    <column name="CONTACT_ID" type="varchar" size="40" />  <!-- `CONTACT_ID` varchar(40) DEFAULT NULL COMMENT '담당자 ID', -->
+    <column name="CARE_AREA" type="varchar" size="10" />  <!-- `CARE_AREA` varchar(10) DEFAULT NULL COMMENT '산후조리원 지역', -->
+    <column name="CARE_CENTER" type="varchar" size="40" />  <!-- `CARE_CENTER` varchar(40) DEFAULT NULL COMMENT '산후조리원명', -->
+    <column name="CENTER_CNT" type="number" size="11" />  <!-- `CENTER_CNT` int(11) DEFAULT NULL COMMENT '조리원 횟수', -->
+    <column name="CLUBEDU_CNT" type="number" size="11" />   <!-- `CLUBEDU_CNT` int(11) DEFAULT NULL, -->
+    <column name="EN_ANGE_EMAIL_FL" type="char" size="1" />  <!-- `EN_ANGE_EMAIL_FL` char(1) DEFAULT NULL COMMENT '앙쥬 소식 메일발송 유무', -->
+    <column name="EN_ANGE_SMS_FL" type="char" size="1" />  <!-- `EN_ANGE_SMS_FL` char(1) NOT NULL COMMENT '앙쥬 소식 SMS 유무', -->
+    <column name="EN_CLUB_SPONSOR_FL" type="char" size="1" />  <!-- `EN_CLUB_SPONSOR_FL` char(1) DEFAULT NULL COMMENT '업체정보공유 동의 유무(앙쥬클럽)', -->
+    <column name="EN_ANGE_ADDR_FL" type="char" size="1" />   <!-- `EN_ANGE_ADDR_FL` char(1) DEFAULT NULL COMMENT '우편발송 동의 유무', -->
+</table>

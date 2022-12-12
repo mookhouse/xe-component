@@ -11,6 +11,7 @@
 		<action name="dispAngeclubAdminGrantInfo" type="view" />
 		<action name="dispAngeclubAdminConfig" type="view" />
 		<action name="dispAngeclubAdminDelete" type="view" />
+		<action name="dispAngeclubAdminMigrate" type="view" />  <!-- temporary migration tool -->
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
 		<action name="dispAngeclubCenter" type="view" />
@@ -23,6 +24,7 @@
 				
 		<action name="procAngeclubAdminUpdate" type="controller" />
 		<action name="procAngeclubAdminConfig" type="controller" />
+		<action name="procAngeclubAdminMigrate" type="controller" />  <!-- temporary migration tool -->
 
 		<action name="procAngeclubAddMom" type="controller" />
 		<action name="procAngeclubAddCenter" type="controller" />

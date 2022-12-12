@@ -1,0 +1,34 @@
+<query id="insertTmpAdminComUserDuplicatedMobile" action="insert">
+	<tables>
+		<table name="angeclub_tmp_com_user_duplicated" />
+	</tables>
+	<columns>
+		<column name="NO" var="NO" />
+        <column name="USER_ID" var="USER_ID" />
+        <column name="USER_NM" var="USER_NM" />
+        <column name="NICK_NM" var="NICK_NM" />
+        <column name="PASSWORD" var="PASSWORD" />
+        <column name="BIRTH" var="BIRTH" />
+        <column name="ZONE_CODE" var="ZONE_CODE" />
+        <column name="ZIP_CODE" var="ZIP_CODE" />
+        <column name="ADDR" var="ADDR" />
+        <column name="ADDR_DETAIL" var="ADDR_DETAIL" />
+        <column name="PHONE_2" var="PHONE_2" />
+        <column name="EMAIL" var="EMAIL" />
+        <column name="SEX_GB" var="SEX_GB" />
+        <column name="CLUB_INT" var="CLUB_INT" />
+        <column name="REG_DT" var="REG_DT" />
+        <column name="CLUB_REG_DT" var="CLUB_REG_DT" />
+        <column name="FINAL_LOGIN_DT" var="FINAL_LOGIN_DT" />
+        <column name="PREGNENT_FL" var="PREGNENT_FL" />
+        <column name="CONTACT_ID" var="CONTACT_ID" />
+        <column name="CARE_AREA" var="CARE_AREA" />
+        <column name="CARE_CENTER" var="CARE_CENTER" />
+        <column name="CENTER_CNT" var="CENTER_CNT" />
+        <column name="CLUBEDU_CNT" var="CLUBEDU_CNT" />
+        <column name="EN_ANGE_EMAIL_FL" var="EN_ANGE_EMAIL_FL" />
+        <column name="EN_ANGE_SMS_FL" var="EN_ANGE_SMS_FL" />
+        <column name="EN_CLUB_SPONSOR_FL" var="EN_CLUB_SPONSOR_FL" />
+        <column name="EN_ANGE_ADDR_FL" var="EN_ANGE_ADDR_FL" />
+	</columns>
+</query>

@@ -4,7 +4,7 @@
 	</tables>
 	<columns>
 		<column name="cc_idx" var="cc_idx" default="0" />
-		<column name="cu_id" var="cu_id" />
+		<!-- <column name="cu_id" var="cu_id" /> -->
 		<column name="member_srl_staff" var="member_srl_staff" />  <!-- 간호사 member_srl -->
         <column name="member_srl_parent" var="member_srl_parent" />  <!-- 부모 member_srl -->
         <column name="is_existing_parent_member" var="is_existing_parent_member" /> <!-- 기존 홈페이지 회원을 앙쥬클럽에서 교육한 경우 -->

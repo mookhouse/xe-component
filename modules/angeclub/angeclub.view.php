@@ -90,6 +90,19 @@ class angeclubView extends angeclub
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 
+		$oInParams = Context::getRequestVars();
+		unset($oInParams->error_return_url);
+		unset($oInParams->mid);
+		unset($oInParams->act);
+		// var_dump($oInParams);
+
+		// search_name  // 회원명 검색
+		// search_birth"]=> string(8) "19990101 // 회원 생일 검색
+		// search_phone"]=> string(11) "01011112222  // 회원 핸드폰번호 검색
+		// search_mail  // 회원 이메일 주소 검색
+
+		// search_center"]=> string(12) "마미캠프  // 소속 조리원 검색
+
 		Context::set('oLoggedInfo', $oLoggedInfo);
 		$this->setTemplateFile('add_mom');
 	}

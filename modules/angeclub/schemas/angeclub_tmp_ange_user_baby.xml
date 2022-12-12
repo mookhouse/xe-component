@@ -1,0 +1,10 @@
+<table name="angeclub_tmp_ange_user_baby">
+	<column name="NO" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>  <!-- `NO` int(11) NOT NULL AUTO_INCREMENT COMMENT '순번(삭제 예정)', -->
+    <column name="USER_ID" type="varchar" size="40" />  <!-- `USER_ID` varchar(40) DEFAULT NULL COMMENT '사용자 ID', -->
+    <column name="BABY_NM" type="varchar" size="30" />  <!-- `BABY_NM` varchar(30) DEFAULT NULL COMMENT '아기 이름', -->
+    <column name="BABY_BIRTH" type="char" size="8" />  <!-- `BABY_BIRTH` char(8) DEFAULT NULL COMMENT '아기 생일', -->
+    <column name="BABY_SEX_GB" type="char" size="1" />  <!-- `BABY_SEX_GB` char(1) DEFAULT NULL COMMENT '아기 성별 구분', -->
+    <column name="CARE_CENTER" type="varchar" size="40" />  <!-- `CARE_CENTER` varchar(40) DEFAULT NULL COMMENT '조리원', -->
+    <column name="CENTER_VISIT_YMD" type="varchar" size="10" />  <!-- `CENTER_VISIT_YMD` varchar(10) DEFAULT NULL COMMENT '조리원 방문일', -->
+    <column name="CENTER_OUT_YMD" type="varchar" size="10" />  <!-- `CENTER_OUT_YMD` varchar(10) DEFAULT NULL COMMENT '조리원 퇴소일', -->
+</table>

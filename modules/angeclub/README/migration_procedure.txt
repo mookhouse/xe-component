@@ -1,0 +1,120 @@
+1. innodb tbl을 MyISAM으로 수동 변경
+
+adm_history_join
+ange_club_baby
+club_log
+com_user
+
+2. com_user의 미사용 필드 수동 삭제
+
+`LUNAR_FL` char(1) DEFAULT NULL COMMENT '생일 양력 유무(0:양력, 1:음력)',
+`PHONE_1` varchar(15) DEFAULT NULL COMMENT '연락처',
+`USER_GB` varchar(20) DEFAULT NULL COMMENT '사용자 구분(MEMBER:일반, CLUB:클럽)',
+`SUPPORT_NO` tinyint(4) DEFAULT NULL COMMENT '서포터즈 기수',
+`USER_ST` char(1) DEFAULT NULL COMMENT '사용자 상태(W:대기, N:정상, P:불량, W:휴면) ',
+`UPDATE_DT` datetime DEFAULT NULL COMMENT '수정일',
+`INTRO` varchar(500) DEFAULT NULL COMMENT '소개',
+`NOTE` varchar(500) DEFAULT NULL COMMENT '메모',
+`MARRIED_FL` char(1) DEFAULT NULL COMMENT '결혼 유무(Y/N)',
+`BABY_CNT` tinyint(4) unsigned DEFAULT NULL COMMENT '아기수(데이터 정확하지 않음)',
+`BLOG_FL` char(1) DEFAULT NULL COMMENT '블로그 유무(데이터 정확하지 않음)',
+`JOIN_PATH` varchar(10) DEFAULT NULL COMMENT '유입경로',
+`CONTACT_NM` varchar(40) DEFAULT NULL COMMENT '담당자명',
+`CENTER_VISIT_YMD` varchar(10) DEFAULT NULL COMMENT '센터교육일자(구:조리원 입소일)',
+`CENTER_OUT_YMD` varchar(10) DEFAULT NULL COMMENT '조리원 퇴소일',
+`EN_FL` char(1) DEFAULT NULL,
+`EN_EMAIL_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
+`EN_POST_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
+`EN_SMS_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
+`EN_PHONE_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
+`EN_ANGE_PHONE_FL` char(1) DEFAULT NULL COMMENT '앙쥬 소식 연락 유무(등록안함)',
+`EN_ALARM_EMAIL_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 메일발송 유무',
+`EN_ALARM_SMS_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 SMS 유무',
+`EN_ALARM_PHONE_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 연락 유무(등록안함)',
+`EN_STORE_EMAIL_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 메일발송 유무',
+`EN_STORE_SMS_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 SMS 유무',
+`EN_STORE_PHONE_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 연락 유무(등록안함)',
+`BABY_BIRTH_DT` varchar(30) DEFAULT NULL COMMENT '출산 예정일',
+`CERT_GB` varchar(10) DEFAULT NULL COMMENT '인증 구분(PHONE:휴대폰, EMAIL:이메일)',
+`CERT_DT` datetime DEFAULT NULL COMMENT '인증일',
+`CERT_HASH` varchar(100) DEFAULT NULL COMMENT '인증문자',
+`SUM_POINT` int(11) DEFAULT '0' COMMENT '적립 마일리지 총합',
+`USE_POINT` int(11) DEFAULT '0' COMMENT '사용 마일리지 총합',
+`REMAIN_POINT` int(11) DEFAULT '0' COMMENT '남은 마일리지 총합',
+`IP` varchar(20) DEFAULT NULL COMMENT 'IP',
+`MIG_NO` int(11) DEFAULT NULL COMMENT '마이그레이션 순번',
+`INTEREST01` varchar(20) DEFAULT NULL COMMENT '관심분야1(임신/출산)',
+`INTEREST02` varchar(20) DEFAULT NULL COMMENT '관심분야2(성장/건강)',
+`INTEREST03` varchar(20) DEFAULT NULL COMMENT '관심분야3(놀이/교육)',
+`INTEREST04` varchar(20) DEFAULT NULL COMMENT '관심분야4(리빙/헬스)',
+`INTEREST05` varchar(20) DEFAULT NULL COMMENT '관심분야5(체험/이벤트 진행중)',
+`INTEREST06` varchar(20) DEFAULT NULL COMMENT '관심분야6(당첨자발표)',
+`INTEREST07` varchar(20) DEFAULT NULL COMMENT '관심분야7(앙쥬POLL)',
+`INTEREST08` varchar(20) DEFAULT NULL COMMENT '관심분야8(육아노하우)',
+`INTEREST09` varchar(20) DEFAULT NULL COMMENT '관심분야9(레시피)',
+`INTEREST10` varchar(20) DEFAULT NULL COMMENT '관심분야10(아이 데리고 여기)',
+`INTEREST11` varchar(20) DEFAULT NULL COMMENT '관심분야11(아이 데리고 여기)',
+`MARRIED_DT` varchar(30) DEFAULT NULL COMMENT '결혼기념일',
+`PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT '패스워드변경일자',
+
+3.테이블 이름 변경
+
+adm_history_join -> xe_angeclub_tmp_adm_history_join
+ange_club_baby -> xe_angeclub_tmp_ange_club_baby
+club_log -> xe_angeclub_tmp_club_log
+com_user -> xe_angeclub_tmp_com_user
+
+4. angeclug migration tool 순서대로 실행
+. 중복 핸폰 번호 추출
+. 핸폰 번호 기준 정제된 COM_USER 생성
+. 정제된 COM_USER 정보를 xe_member에 입력
+
+angeadmin4650, angestory, momsfood 아이디를 보존할 수 없는 이유
+
+중복되면 안되는 angeweb@ange.co.kr이라는 메일 주소로 9게의 중복 회원
+mook1004 가 보존됨
+
+223	mook1004	관리자	앙쥬천사	sha256:1000:8jq7mKH3ChdnFtJ8VsZdGoLIfpwhU2+e:eS2SqTjnjy6xYE3rK/7RwKEZD+tCNHms
+219191	momsfood	김명희	맘스푸드	sha256:1000:o+pH7yFw576uMeRpOUdbciJ5+nSJ6FFp:JrN1QW5IkZhMPAqheqZX1WnDg1FBeIsr
+368152	angeadmin4650	관리자	관리자	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
+585493	angestory	편집팀2	편집팀22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
+
+5.
+. 정제된 COM_USER 정보를 mombox_datalake에 입력하기 위해 구홈페이지에서 맘박스 신청 내역 추출하고
+// SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
+// FROM adm_history_join
+// INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
+// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
+// ORDER BY adhj_idx;
+
+전체 선택 php array로 복사하여 붙여넣기
+
+
+
+
+
+
+관련 쿼리
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO`=4957 OR `NO`=53411;
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `PHONE_2`='01028522808';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_duplicated` WHERE `PHONE_2`='01054333925';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` LIKE '%+%';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` IS NULL;
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `NO` = 19482;  // 한글 아이디 빌런
+
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO` = 472190;
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_transferred` WHERE `NO_SOURCE` = 366943;
+
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `EMAIL` LIKE 'wjdghk11 @daum.net';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `PHONE_2` = '01040268318';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` = 'okcmi35';
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` = 'bugygirl';
+
+# SELECT `PHONE_2`, COUNT(`PHONE_2`) FROM `xe`.`xe_angeclub_tmp_com_user_duplicated` WHERE `USER_ID` IS NOT NULL GROUP BY `PHONE_2`;
+# SELECT `USER_ID`, COUNT(`USER_ID`) FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` IS NOT NULL GROUP BY `USER_ID` ORDER BY COUNT(`USER_ID`) LIMIT 300;
+
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `EMAIL`='angeweb@ange.co.kr';
+# DELETE FROM `xe`.`xe_member` WHERE `member_srl`>4;
+# DELETE FROM `xe`.`xe_member_group_member` WHERE `member_srl`>4;
+
+# SELECT COUNT(*) FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `REG_DT` <= DATE_ADD(NOW(), INTERVAL -8 YEAR)

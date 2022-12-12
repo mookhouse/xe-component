@@ -1,0 +1,8 @@
+<table name="angeclub_tmp_com_user_transferred">
+	<column name="NO_SOURCE" type="number" size="11" notnull="notnull" index="idx_no_source" />
+    <column name="USER_ID_SOURCE" type="varchar" size="40" notnull="notnull" index="idx_user_id_source" />
+    <column name="NO_DEST" type="number" size="11" notnull="notnull" />
+    <column name="USER_ID_DEST" type="varchar" size="40" notnull="notnull" />
+    <column name="xe_member_srl_dest" type="number" size="11" />
+    <column name="xe_user_id_dest" type="varchar" size="80" />
+</table>

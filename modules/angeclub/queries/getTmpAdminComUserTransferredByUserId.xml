@@ -1,0 +1,11 @@
+<query id="getTmpAdminComUserTransferredByUserId" action="select">
+    <tables>
+        <table name="angeclub_tmp_com_user_transferred" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="USER_ID_SOURCE" var="USER_ID_SOURCE" notnull="notnull" />
+    </conditions>
+</query>

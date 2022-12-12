@@ -1,0 +1,33 @@
+<!--#include("header.html")-->
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form ruleset="deletePage" action="./" method="post">
+	<input type="hidden" name="module" value="angeclub" />
+	<input type="hidden" name="act" value="procAngeclubAdminMigrate" />
+	<section class="section">
+		<h2>기존 데이터 이전</h2>
+        <p>...</p>
+    </section>
+    <div class="x_control-group">
+		<label class="x_control-label" for="layout_srl">명령어</label>
+		<div class="x_controls">
+			<select name="command" id="command" style="width:auto">
+				<option value="">데이터 이전 작업을 선택</option>
+				<option value="retrieve_duplicated_mobile">1. 중복 핸폰 번호 추출</option>
+                <option value="cleanup_com_user_by_mobile">2. 핸폰 번호 기준 정제된 COM_USER 생성</option>
+				<option value="migrate_com_user_into_xe_member">3. 정제된 COM_USER 정보를 xe_member에 입력</option>
+				<option value="migrate_com_user_into_xe_mombox_data_lake">4. 정제된 COM_USER 정보를 mombox_datalake에 입력</option>
+			</select>
+			<a href="#aboutLayout" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p class="x_help-block" id="aboutLayout" hidden></p>
+		</div>
+	</div>
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_submit}</button>
+			<a href="{getUrl('act','dispPageAdminContent','module_srl','')}" class="x_btn">{$lang->cmd_back}</a>
+		</div>
+	</div>
+</form>
