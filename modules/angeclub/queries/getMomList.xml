@@ -1,0 +1,39 @@
+<query id="getMomList" action="select">
+    <tables>
+        <table name="member" alias="m" />
+        <table name="angeclub_registration" alias="r" type="left join">
+            <conditions>
+                <condition operation="equal" column="m.member_srl" default="r.member_srl_parent" />
+            </conditions>
+        </table>
+        <table name="angeclub_center" alias="c" type="left join">
+            <conditions>
+                <condition operation="equal" column="r.cc_idx" default="c.cc_idx" />
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="m.member_srl" alias="member_srl" />
+        <column name="m.user_id" alias="user_id" />
+        <column name="m.user_name" alias="user_name" />
+        <column name="m.email_address" alias="email_address" />
+        <column name="m.birthday" alias="birthday" />
+        <column name="m.mobile" alias="mobile" />
+        <column name="m.regdate" alias="regdate" />
+        <column name="r.member_srl_staff" alias="member_srl_staff" />
+        <column name="c.cc_name" alias="cc_name" />
+    </columns>
+	<conditions>
+		<condition operation="equal" column="m.user_name" var="user_name" />
+		<condition operation="equal" column="m.email_address" var="email_address" pipe="and" />
+        <condition operation="equal" column="m.birthday" var="birthday" pipe="and" />
+        <condition operation="equal" column="m.mobile" var="mobile" pipe="and" />
+        <condition operation="in" column="r.cc_idx" var="a_cc_idx" pipe="and" />
+	</conditions>
+    <navigation>
+        <index var="sort_index" default="m.regdate" order="desc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

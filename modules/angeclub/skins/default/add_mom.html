@@ -47,32 +47,32 @@ $( document ).ready(function() {
 	
 	$('#search_name').focus();
 
-	if($("#sortC").val()!="") {
-		if($("#sortC").val()=="0") {
-			$("#centerth").html("▲ 조리원");
-		} else {
-			$("#centerth").html("▼ 조리원");
-		}
-	}
+	// if($("#sortC").val()!="") {
+	// 	if($("#sortC").val()=="0") {
+	// 		$("#centerth").html("▲ 조리원");
+	// 	} else {
+	// 		$("#centerth").html("▼ 조리원");
+	// 	}
+	// }
 
-	$("#topSearch").submit(function() {
+	// $("#topSearch").submit(function() {
 
-		if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 6) {
-			alert("생년월일은 6자리입니다.");
-			$('#search_birth').focus();
-			return false;
-		}
-	});
+	// 	if ($("#search_birth").val().length > 0 && $("#search_birth").val().length != 8) {
+	// 		alert("생년월일은 8자리입니다.");
+	// 		$('#search_birth').focus();
+	// 		return false;
+	// 	}
+	// });
 });
 </script>
 
-
 <!-- 검색 영역 -->
 <div class="search-form" style="padding-right:0px;">
-	<form id="topSearch" action="?" method="get">
-		<input type="hidden" name="submenu" value="search">
-		<input type="hidden" name="sortC" id="sortC" value="">
-		<div class="search-condition">
+	<form action="./" method="get" name="topSearch" id="topSearch">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="dispAngeclubAddMember" />
+		<!-- <input type="hidden" name="sortC" id="sortC" value=""> -->
+		<!-- <div class="search-condition">
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:120px">기간검색</label>
 				<select name="term_type" class="form-control">
@@ -99,30 +99,31 @@ $( document ).ready(function() {
 					});
 				</script>
 			</div>
-		</div>
+		</div> -->
+
 		<div class="search-condition">
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:120px">이름</label>
-				<input type="text" class="form-control" style="width:100px" id="search_name" name="search_name" value="" >
+				<input type="text" class="form-control" style="width:100px" id="user_name" name="user_name" value="{$user_name}" >
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:60px">이메일</label>
-				<input type="text" class="form-control type-long" style="width:120px" id="search_mail" name="search_mail" value="">
+				<input type="text" class="form-control type-long" style="width:120px" id="email_address" name="email_address" value="{$email_address}"">
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:110px">생년월일(8자리)</label>
-				<input type="text" class="form-control" style="width:100px" id="search_birth" name="search_birth" value="" maxlength="6" onkeydown="return onlyNumber(event)">
+				<input type="text" class="form-control" style="width:100px" id="birthday" name="birthday" value="{$birthday}"" maxlength="8" onkeydown="return onlyNumber(event)">
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:50px">휴대폰</label>
-				<input type="text" class="form-control type-long" style="width:120px" id="search_phone" name="search_phone" placeholder="01011112222" value="">
+				<input type="text" class="form-control type-long" style="width:120px" id="mobile" name="mobile" placeholder="01011112222" value="{$mobile}"">
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:50px">조리원</label>
-				<input type="text" class="form-control" style="width:120px" placeholder="조리원명" value="마미캠프">
+				<input type="text" class="form-control" style="width:120px" id="search_center" name="search_center" placeholder="조리원명" value="{$search_center}"">
 			</div>
 		</div>
-		<div class="btn-area" style="top:30px;">
+		<div class="btn-area" style="position: relative; top:30px;">
 			<p>
 				<button type="submit" class="btn btn-blue btn-sm">검색하기</button>
 				<a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubMemberPopupAdd')}');" class="btn btn-green btn-sm" role="button">신규 회원 등록</a>
@@ -164,9 +165,9 @@ $( document ).ready(function() {
 		</div>
 	</form>
 </div> -->
-<div class="article-header">
+<!-- <div class="article-header">
 	<h6>담당자가 없는 경우 일반 앙쥬회원입니다.</h6>
-</div>
+</div> -->
 <article>
 	<div class="article-header">
 		<!--<h5>검색된 회원 리스트</h5>-->
@@ -182,47 +183,77 @@ $( document ).ready(function() {
 		<table class="table">
 			<thead>
 				<tr>
-					<th style="width:9%"  class="none-order">번호</th>
+					<th style="width:9%" class="none-order">번호</th>
 					<th style="width:8%" class="none-order"><a href="#">담당자</a></th>
-					<th style="width:8%">엄마</th>
-					<th style="width:15%">아이디</th>
+					<th style="width:8%">엄마이름</th>
 					<th style="width:15%">이메일</th>
 					<th style="width:10%">엄마생일</th>
 					<th style="width:10%">휴대폰번호</th>
 					<th style="width:10%">조리원</th>
 					<th style="width:10%">등록일</th>
-					<th style="width:5%">관리</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>763426</td>
-					<td>김성경</td>
-					<td>
-						<a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?updt=y&index=763426&search_center=마미캠프');" style="font-weight: 600;">
-						차민지			</a>
-					</td>
-					<td>
-						<a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?updt=y&index=763426&search_center=마미캠프');" style="font-weight: 600;">
-						toto11528@naver.com			</a>
-					</td>
-					<td>toto11528@naver.com</td>
-					<td>1986-03-08</td>
-					<!--    <td>1</td> -->
-					<td>01085935033</td>
-					<!--    <td>1개월</td> -->
-					<td>강동 마미캠프</td>
-					<td>2022-11-29</td>
-					<td><a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?index=763426&search_center=마미캠프');" class="">-</a></td>
+				<tr loop="$aMomList=>$no,$oSingleMom" >
+					<td>{$oSingleMom->member_srl}</td>
+					<td>{$oSingleMom->staff_name}</td>
+					<td><a href="#popup_menu_area" class="member_{$oSingleMom->member_srl}" onclick="return false">{$oSingleMom->user_name}</a> ({$oSingleMom->user_id})</td>
+					<td>{$oSingleMom->email_address}</td>
+					<td>{zdate($oSingleMom->birthday,"Y-m-d")}</td>
+					<td>{$oSingleMom->mobile}</td>
+					<td>{$oSingleMom->cc_name}</td>
+					<td>{zdate($oSingleMom->regdate,"Y-m-d")}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<!--//table-wrap list-->
-	<div class="btn-area">
-		<!--a href="" class="btn btn-xs btn-blue" style="float: right; width: 110px; ">공지글 등록</a-->
-	</div>
+	<!-- <div class="btn-area">
+		<a href="" class="btn btn-xs btn-blue" style="float: right; width: 110px; ">공지글 등록</a>
+	</div> -->
 </article>
+
+<!-- 페이지 네비게이션 -->
+<nav class="paging" aria-label="Page navigation">
+	<form cond="$page_navigation" action="./" class="x_pagination" no-error-return-url="true" style="margin:-36px 0 0 0">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+		<ul class="pagination">
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+	
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+				{@$isGoTo = true}
+				<li>
+					<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+					<span cond="$isGoTo" id="goTo" class="x_input-append">
+						<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+						<button type="submit" class="x_add-on">Go</button>
+					</span>
+				</li>
+			</block>
+	
+	<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<li class="active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+				{@$isGoTo = true}
+				<li>
+					<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+					<span cond="$isGoTo" id="goTo" class="x_input-append">
+						<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+						<button type="submit" class="x_add-on">Go</button>
+					</span>
+				</li>
+			</block>
+			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
+	</form>
+</nav>
+<!-- 
+
 <nav class="paging" aria-label="Page navigation">
 	<ul class="pagination">
 		<li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
@@ -238,4 +269,4 @@ $( document ).ready(function() {
 		<li><a href="?submenu=clubmember&category=&page=10&search=&&search_center=마미캠프">10</a></li>
 		<li class="next"><a href="?submenu=clubmember&category=&page=11&search=&&search_center=마미캠프" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
 	</ul>
-</nav>
+</nav> -->

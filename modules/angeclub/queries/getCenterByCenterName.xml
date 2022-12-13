@@ -1,0 +1,19 @@
+<query id="getCenterByCenterName" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+        <column name="cc_name" />
+    </columns>
+    <conditions>
+        <condition operation="like" column="cc_name" var="cc_name" />
+        <!-- <condition operation="equal" column="cc_state" var="cc_state" filter="number" notnull="notnull" pipe="and" /> -->
+    </conditions>
+	<!-- <navigation>
+        <index var="sort_index" default="cc_idx" order="desc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation> -->
+</query>

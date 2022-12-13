@@ -13,6 +13,84 @@ class angeclubModel extends module
 	function init()
 	{
 	}
+	
+/**
+ * @brief return baby gender list
+ **/
+	public function getMomList($oInParams)
+	{
+		unset($oInParams->error_return_url);
+		unset($oInParams->mid);
+		unset($oInParams->act);
+		$aCcIdx = $this->getCenterInfoByName($oInParams->search_center);
+		unset($oInParams->search_center);
+		if(count($aCcIdx))
+			$oInParams->a_cc_idx = $aCcIdx;
+		$oRst = executeQueryArray('angeclub.getMomList', $oInParams);
+
+		$oMemberModel = &getModel('member');
+		$aMemberInfo = [];
+		foreach($oRst->data as $_=>$oSingleMom)
+		{
+			$aEmailInfo = explode('@', $oSingleMom->email_address);
+			$oSingleMom->email_address = $this->_maskMbString($aEmailInfo[0],2, 2).'@'.$aEmailInfo[1];  // 이메일 아이디 마스킹
+			$oSingleMom->mobile = $this->_maskMbString($oSingleMom->mobile,5, 3);  // 핸폰 번호 마스킹
+			unset($aEmailInfo);
+			if($oSingleMom->member_srl_staff)
+			{
+				if(!$aMemberInfo[$oSingleMom->member_srl_staff])
+				{
+					$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleMom->member_srl_staff);
+					$aMemberInfo[$oMemberInfo->member_srl] = $oMemberInfo;
+				}
+				$oSingleMom->staff_name = $aMemberInfo[$oMemberInfo->member_srl]->user_name;
+			}
+			// else
+			// 	$oSingleMom->staff_name = '담당자 없음';
+			unset($oMemberInfo);
+		}
+		unset($aMemberInfo);
+		unset($oMemberModel);
+		return $oRst;
+	}
+/**
+ * @brief mask multibyte string
+ * param 원본문자열, 마스킹하지 않는 전단부 글자수, 마스킹하지 않는 후단부 글자수, 마스킹 마크 최대 표시수, 마스킹마크
+ * echo _maskMbString('abc12234pro', 3, 2); => abc******ro
+ */	
+	private function _maskMbString($str, $len1, $len2=0, $limit=0, $mark='*')
+	{
+		$arr_str = preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+		$str_len = count($arr_str);
+
+		$len1 = abs($len1);
+		$len2 = abs($len2);
+		if($str_len <= ($len1 + $len2))
+			return $str;
+
+		$str_head = '';
+		$str_body = '';
+		$str_tail = '';
+
+		$str_head = join('', array_slice($arr_str, 0, $len1));
+		if($len2 > 0)
+			$str_tail = join('', array_slice($arr_str, $len2 * -1));
+
+		$arr_body = array_slice($arr_str, $len1, ($str_len - $len1 - $len2));
+
+		if(!empty($arr_body)) 
+		{
+			$len_body = count($arr_body);
+			$limit = abs($limit);
+
+			if($limit > 0 && $len_body > $limit)
+				$len_body = $limit;
+
+			$str_body = str_pad('', $len_body, $mark);
+		}
+
+		return $str_head.$str_body.$str_tail;
+	}
 /**
  * @brief return baby gender list
  **/
@@ -134,6 +212,25 @@ class angeclubModel extends module
 		unset($oMemberInfo);
 		unset($oMemberModel);
 		return new BaseObject();
+	}
+/**
+ * @brief return center list by center name
+ **/
+	public function getCenterInfoByName($sCenterName)
+	{
+		$aCcIdx = [];
+		if(strlen($sCenterName) < 2)
+			return $aCcIdx;	
+		$oArgs = new stdClass();
+		$oArgs->cc_name = $sCenterName;
+		$oRst = executeQueryArray('angeclub.getCenterByCenterName', $oArgs);
+		unset($oArgs);
+		// var_dump($oRst->data);
+		$aCcIdx = [];
+		foreach($oRst->data as $_=>$oCenter)
+			$aCcIdx[] = $oCenter->cc_idx;
+		unset($oRst);
+		return $aCcIdx;
 	}
 /**
  * @brief return center list
