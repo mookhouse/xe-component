@@ -27,7 +27,7 @@ class angeclubModel extends module
 		if(count($aCcIdx))
 			$oInParams->a_cc_idx = $aCcIdx;
 		$oRst = executeQueryArray('angeclub.getMomList', $oInParams);
-
+// var_dump($oRst);
 		$oMemberModel = &getModel('member');
 		$aMemberInfo = [];
 		foreach($oRst->data as $_=>$oSingleMom)

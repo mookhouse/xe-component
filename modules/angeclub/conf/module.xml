@@ -15,10 +15,10 @@
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
 		<action name="dispAngeclubCenter" type="view" />
-		<action name="dispAngeclubAddMember" type="view" />
-		<action name="dispAngeclubMemberPopupAdd" type="view" />
 		<action name="dispAngeclubCenterPopupAdd" type="view" />
 		<action name="dispAngeclubCenterPopupUpdate" type="view" />
+		<action name="dispAngeclubMember" type="view" />
+		<action name="dispAngeclubMemberPopupAdd" type="view" />
 
 		<action name="getDuplicatedUserAjax" type="model" />
 				

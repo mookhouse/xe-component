@@ -82,17 +82,17 @@ class angeclubView extends angeclub
 		$this->setTemplateFile('center_manager');
 	}
 /**
- * @brief 회원 수기 등록 화면
+ * @brief 회원 검색 및 추가 화면
  */
-	public function dispAngeclubAddMember()
+	public function dispAngeclubMember()
 	{
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 		Context::set('oLoggedInfo', $oLoggedInfo);
-// var_dump(Context::getRequestVars());
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getMomList(Context::getRequestVars());
+		// var_dump($oRst->data);
 		unset($oAngeclubModel);
 		if(!$oRst->toBool())
 			return $oRst;
@@ -102,7 +102,7 @@ class angeclubView extends angeclub
 		Context::set('aMomList', $oRst->data);
 		Context::set('page_navigation', $oRst->page_navigation);
 		unset($oRst);
-		$this->setTemplateFile('add_mom');
+		$this->setTemplateFile('mom_manager');
 	}
 /**
  * @brief 산모 수기 추가 팝업

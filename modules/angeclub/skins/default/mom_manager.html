@@ -103,24 +103,24 @@ $( document ).ready(function() {
 
 		<div class="search-condition">
 			<div class="form-group">
-				<label for="u-name" class="first" style="width:120px">이름</label>
+				<label for="u-name" class="first" style="width:40px">이름</label>
 				<input type="text" class="form-control" style="width:100px" id="user_name" name="user_name" value="{$user_name}" >
 			</div>
 			<div class="form-group">
-				<label for="u-name" class="first" style="width:60px">이메일</label>
-				<input type="text" class="form-control type-long" style="width:120px" id="email_address" name="email_address" value="{$email_address}"">
+				<label for="u-name" class="first" style="width:50px">이메일</label>
+				<input type="text" class="form-control type-long" style="width:120px" id="email_address" name="email_address" value="{$email_address}">
 			</div>
 			<div class="form-group">
-				<label for="u-name" class="first" style="width:110px">생년월일(8자리)</label>
-				<input type="text" class="form-control" style="width:100px" id="birthday" name="birthday" value="{$birthday}"" maxlength="8" onkeydown="return onlyNumber(event)">
+				<label for="u-name" class="first" style="width:60px">생년월일</label>
+				<input type="text" class="form-control" style="width:100px" id="birthday" name="birthday" value="{$birthday}" placeholder="yyyymmdd" maxlength="8" onkeydown="return onlyNumber(event)">
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:50px">휴대폰</label>
-				<input type="text" class="form-control type-long" style="width:120px" id="mobile" name="mobile" placeholder="01011112222" value="{$mobile}"">
+				<input type="text" class="form-control type-long" style="width:120px" id="mobile" name="mobile" placeholder="01011112222" value="{$mobile}">
 			</div>
 			<div class="form-group">
 				<label for="u-name" class="first" style="width:50px">조리원</label>
-				<input type="text" class="form-control" style="width:120px" id="search_center" name="search_center" placeholder="조리원명" value="{$search_center}"">
+				<input type="text" class="form-control" style="width:120px" id="search_center" name="search_center" placeholder="조리원명" value="{$search_center}">
 			</div>
 		</div>
 		<div class="btn-area" style="position: relative; top:30px;">
@@ -194,7 +194,7 @@ $( document ).ready(function() {
 				</tr>
 			</thead>
 			<tbody>
-				<tr loop="$aMomList=>$no,$oSingleMom" >
+				<tr loop="$aMomList => $no, $oSingleMom">
 					<td>{$oSingleMom->member_srl}</td>
 					<td>{$oSingleMom->staff_name}</td>
 					<td><a href="#popup_menu_area" class="member_{$oSingleMom->member_srl}" onclick="return false">{$oSingleMom->user_name}</a> ({$oSingleMom->user_id})</td>
@@ -252,21 +252,3 @@ $( document ).ready(function() {
 		</ul>
 	</form>
 </nav>
-<!-- 
-
-<nav class="paging" aria-label="Page navigation">
-	<ul class="pagination">
-		<li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
-		<li class="active"><a href="javascript:;">1</a></li>
-		<li><a href="?submenu=clubmember&category=&page=2&search=&&search_center=마미캠프">2</a></li>
-		<li><a href="?submenu=clubmember&category=&page=3&search=&&search_center=마미캠프">3</a></li>
-		<li><a href="?submenu=clubmember&category=&page=4&search=&&search_center=마미캠프">4</a></li>
-		<li><a href="?submenu=clubmember&category=&page=5&search=&&search_center=마미캠프">5</a></li>
-		<li><a href="?submenu=clubmember&category=&page=6&search=&&search_center=마미캠프">6</a></li>
-		<li><a href="?submenu=clubmember&category=&page=7&search=&&search_center=마미캠프">7</a></li>
-		<li><a href="?submenu=clubmember&category=&page=8&search=&&search_center=마미캠프">8</a></li>
-		<li><a href="?submenu=clubmember&category=&page=9&search=&&search_center=마미캠프">9</a></li>
-		<li><a href="?submenu=clubmember&category=&page=10&search=&&search_center=마미캠프">10</a></li>
-		<li class="next"><a href="?submenu=clubmember&category=&page=11&search=&&search_center=마미캠프" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
-	</ul>
-</nav> -->
