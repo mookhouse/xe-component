@@ -129,10 +129,6 @@ class angeclubView extends angeclub
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 
-		/// test code
-		// $oLoggedInfo->user_id = 'sugarprime';  
-		/// test code
-
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
@@ -162,10 +158,6 @@ class angeclubView extends angeclub
 		$nClIdx = Context::get('cl_idx');
 		if(!$nClIdx)
 			return new BaseObject(-1, 'msg_invalid_approach');
-
-		/// test code
-		// $oLoggedInfo->user_id = 'sugarprime';  
-		/// test code
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
@@ -220,10 +212,6 @@ class angeclubView extends angeclub
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
-
-		/// test code
-		// $oLoggedInfo->user_id = 'sugarprime';  
-		/// test code
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
