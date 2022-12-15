@@ -51,6 +51,167 @@ class angeclubView extends angeclub
 		$this->setTemplateFile('default');
 	}
 /**
+ * @brief 간호사 업무일지 화면
+ */
+	public function dispAngeclubWorkDiary()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+		
+		$oAngeclubModel = &getModel('angeclub');
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+
+// var_dump($oAngeclubModel->getClubEffectiveUser());
+		$oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
+		Context::set('aCity', $oRst->get('aCity'));
+// var_dump($oRst->get('aCity'));
+// exit;
+		Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
+		unset($oRst);
+
+		$oRst = $oAngeclubModel->getWorkDiaryListPagination();
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('workdiary_list', $oRst->data );
+		Context::set('total_count', $oRst->total_count);
+		Context::set('total_page', $oRst->total_page);
+		Context::set('page', $oRst->page);
+		Context::set('page_navigation', $oRst->page_navigation);
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('workdiary_manager');
+	}
+/**
+* @brief 간호사 업무 일지 추가 팝업
+*/
+	public function dispAngeclubWorkDiaryPopupAdd()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		/// test code
+		$oLoggedInfo->user_id = 'sugarprime';  
+		/// test code
+
+		$oAngeclubModel = &getModel('angeclub');
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+
+		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
+
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_workdiary.xml');
+		Context::set('oLoggedInfo', $oLoggedInfo);
+
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('workdiary_popup_add');
+	}
+/**
+ * @brief 간호사 업무 일지 변경 팝업
+ */
+	public function dispAngeclubWorkDiaryPopupUpdate()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		$nClIdx = Context::get('cl_idx');
+		if(!$nClIdx)
+			return new BaseObject(-1, 'msg_invalid_approach');
+
+		/// test code
+		$oLoggedInfo->user_id = 'sugarprime';  
+		/// test code
+
+		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
+
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_workdiary.xml');
+		Context::set('oLoggedInfo', $oLoggedInfo);
+
+		$oAngeclubModel = &getModel('angeclub');
+		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		unset($oRst);
+		
+		$oRst = $oAngeclubModel->getWorkDiaryByIdx($nClIdx);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('oWorkDiaryInfo', $oRst->data);
+		unset($oRst);
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aSessionType', $this->_g_aSessionType);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('workdiary_popup_add');
+	}
+/**
+ * @brief 회원 검색 및 추가 화면
+ */
+	public function dispAngeclubMember()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+		Context::set('oLoggedInfo', $oLoggedInfo);
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getMomList(Context::getRequestVars());
+		unset($oAngeclubModel);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('total_count', $oRst->total_count);
+		Context::set('total_page', $oRst->total_page);
+		Context::set('page', $oRst->page);
+		Context::set('aMomList', $oRst->data);
+		Context::set('page_navigation', $oRst->page_navigation);
+		unset($oRst);
+		$this->setTemplateFile('mom_manager');
+	}
+/**
+* @brief 산모 수기 추가 팝업
+*/
+	public function dispAngeclubMemberPopupAdd()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		/// test code
+		$oLoggedInfo->user_id = 'sugarprime';  
+		/// test code
+
+		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
+
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
+		Context::set('oLoggedInfo', $oLoggedInfo);
+
+		$oAngeclubModel = &getModel('angeclub');
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aBabyGender', $this->_g_aBabyGender);
+		
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForMemberAdd();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		// 핸폰 번호로 자동 생성되는 암호의 전치사 설정 가져오기
+		$oAngeclubModel = &getModel('angeclub');
+		$oConfig = $oAngeclubModel->getModuleConfig();
+		Context::set('sPasswordPrefix', $oConfig->password_prefix);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('mom_popup_add');
+	}
+/**
  * @brief 조리원 센터 메인 화면
  */
 	public function dispAngeclubCenter()
@@ -82,64 +243,6 @@ class angeclubView extends angeclub
 		$this->setTemplateFile('center_manager');
 	}
 /**
- * @brief 회원 검색 및 추가 화면
- */
-	public function dispAngeclubMember()
-	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
-		Context::set('oLoggedInfo', $oLoggedInfo);
-		$oAngeclubModel = &getModel('angeclub');
-		$oRst = $oAngeclubModel->getMomList(Context::getRequestVars());
-		// var_dump($oRst->data);
-		unset($oAngeclubModel);
-		if(!$oRst->toBool())
-			return $oRst;
-		Context::set('total_count', $oRst->total_count);
-		Context::set('total_page', $oRst->total_page);
-		Context::set('page', $oRst->page);
-		Context::set('aMomList', $oRst->data);
-		Context::set('page_navigation', $oRst->page_navigation);
-		unset($oRst);
-		$this->setTemplateFile('mom_manager');
-	}
-/**
- * @brief 산모 수기 추가 팝업
- */
-	public function dispAngeclubMemberPopupAdd()
-	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
-
-		/// test code
-		$oLoggedInfo->user_id = 'sugarprime';  
-		/// test code
-
-		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
-
-		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
-		Context::set('oLoggedInfo', $oLoggedInfo);
-
-		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
-		Context::set('aBabyGender', $this->_g_aBabyGender);
-		
-		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfied();
-		Context::set('aArea', $oRst->get('aArea'));
-		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
-		unset($oAngeclubModel);
-
-        // 핸폰 번호로 자동 생성되는 암호의 전치사 설정 가져오기
-        $oAngeclubModel = &getModel('angeclub');
-		$oConfig = $oAngeclubModel->getModuleConfig();
-        Context::set('sPasswordPrefix', $oConfig->password_prefix);
-        unset($oAngeclubModel);
-
-		$this->setTemplateFile('popup_add_mom');
-	}
-/**
  * @brief 조리원 센터 추가 팝업
  */
 	public function dispAngeclubCenterPopupAdd()
@@ -165,7 +268,7 @@ class angeclubView extends angeclub
 		Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
 		unset($oAngeclubModel);
 
-		$this->setTemplateFile('popup_add_center');
+		$this->setTemplateFile('center_popup_add');
 	}
 /**
  * @brief 조리원 센터 변경 팝업
@@ -195,7 +298,7 @@ class angeclubView extends angeclub
 		Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
 		unset($oAngeclubModel);
 
-		$this->setTemplateFile('popup_add_center');
+		$this->setTemplateFile('center_popup_add');
 	}
 }
 /* End of file angeclub.view.php */

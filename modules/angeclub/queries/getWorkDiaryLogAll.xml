@@ -1,0 +1,28 @@
+<query id="getWorkDiaryLogAll" action="select">
+    <tables>
+        <table name="angeclub_log" />
+    </tables>
+    <columns>
+        <column name="cl_idx" />
+        <column name="cu_id" />
+        <column name="cc_idx" />
+        <column name="cl_date" />
+        <column name="cl_category" />
+        <column name="cl_title" />
+        <column name="cl_memo" />
+        <column name="cl_count_regi" />
+        <column name="cl_count_update" />
+        <column name="cl_count_error" />
+        <column name="cl_count_center" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cu_id" var="cu_id" />
+        <condition operation="in" column="cc_idx" var="a_cc_idx" pipe="and" />
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="cl_idx" order="desc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

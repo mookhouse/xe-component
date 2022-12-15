@@ -1,0 +1,12 @@
+<query id="getCenterByCityAreaName" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cc_city" var="cc_city" />
+        <condition operation="equal" column="cc_area" var="cc_area" pipe="and" />
+    </conditions>
+</query>

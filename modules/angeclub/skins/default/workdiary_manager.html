@@ -1,0 +1,172 @@
+<script>
+var json_area = { {$sJsonAreaStringfy} }
+function SetArea(t_city,t_init){
+	t_options = '<option value=""></option>';
+
+	for( lkey in json_area){
+		if (json_area[lkey]['city']==t_city){
+			t_options = t_options + '<option value="'+json_area[lkey]['area']+'">'+json_area[lkey]['area']+'</option>';
+		}
+	}
+	$('#_cc_area').html(t_options);
+
+	if (t_init){
+		t_area = '{$cc_area}';
+		if (t_area!='') {
+			setTimeout(function(){ $('#_cc_area').val('{$cc_area}')  },100);
+		}
+	}
+}
+$( document ).ready(function() {
+		SetArea('{$cc_city}',true);
+	
+});
+
+$(document).ready(function(){
+    // 현재날짜 가공
+    var newDate = new Date();
+    var yy = newDate.getFullYear();
+    var mm = newDate.getMonth()+1;
+    var dd = newDate.getDate();
+    var strmm = (mm.toString().length == 1) ? "0"+mm.toString() : mm.toString();
+    var strdd = (dd.toString().length == 1) ? "0"+dd.toString() : dd.toString();
+
+    var strNow = yy.toString() + strmm + strdd;
+
+    // 일주일전 날짜 가공
+    var pDate = newDate.setDate(newDate.getDate() - 7);
+    var pyy = newDate.getFullYear();
+    var pmm = newDate.getMonth()+1;
+    var pdd = newDate.getDate();
+    var strpmm = (pmm.toString().length == 1) ? "0"+pmm.toString() : pmm.toString();
+    var strpdd = (pdd.toString().length == 1) ? "0"+pdd.toString() : pdd.toString();
+
+    var strPst = pyy.toString() + strpmm + strpdd;
+    $("#search_start").val(strPst);
+    $("#search_end").val(strNow);
+
+    $('#search_start').datetimepicker({
+        timepicker:false,
+        closeOnDateSelect:true,
+        format:'Ymd',
+        style:'z-index: 101000;',
+        lang: 'ko'
+        });
+        $('#search_end').datetimepicker({
+        timepicker:false,
+        closeOnDateSelect:true,
+        format:'Ymd',
+        style:'z-index: 101000;',
+        lang: 'ko'
+    });
+});
+</script>
+<article>
+    <div class="article-header">
+        <h5>업무일지 관리</h5>
+    </div>
+</article>
+<!-- nav-tab -->
+<nav id="nav-tab">
+    <ul class="tab-list">
+        <li class="active"|cond="is_null($cu_id)"><a href="{getUrl('act', 'dispAngeclubWorkDiary', 'cu_id', '')}">전체</a></li>
+    <block loop="$aUserInfo=>$sId,$sName">
+        <li class="active"|cond="$cu_id==$sId"><a href="{getUrl('act', 'dispAngeclubWorkDiary', 'cu_id', $sId, 'cc_city', $cc_city, 'cc_area', $cc_area, 'page', '')}">{$sName}</a></li>
+    </block>
+        <!-- <li class=" "><a href="?submenu=clublog&category=mocha2&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김경희</a></li>
+        <li class=" "><a href="?submenu=clublog&category=whzhwhzh&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김성경</a></li> -->
+    </ul>
+</nav>
+<!-- 검색 영역 -->
+<div class="search-form">
+    <form id="searchForm" action="./" method="get" class="x_input-append" >
+        <input type="hidden" name="mid" value="{$mid}" />
+        <input type="hidden" name="act" value="{$act}" />
+        <input type="hidden" name="cu_id" value="{$cu_id}" />
+        <div class="search-condition">
+            <div class="form-group">
+                <p class="search-title" style="width:120px">등록기간</p>
+                <input type="text" class="form-control" name="search_start"  id="search_start" value="" maxlength="8" > -
+                <input type="text" class="form-control" name="search_end" id="search_end" value="" maxlength="8" >
+            </div>
+            <div class="form-group">
+                <select name="cc_city" class="form-control" onChange="SetArea(this.value);"  style="width: 230px;">
+                    <option value="" selected >지역전체 </option>
+                    <option loop="$aCity=>$sCity,$_" value="{$sCity}" selected|cond="$sCity == $cc_city" >{$sCity}</option>
+                </select>
+                <select name="cc_area" id="_cc_area" class="form-control" title="지역" style="width: 230px;"></select>
+            </div>
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-blue btn-sm">검색하기</button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="btn-area">
+    <p style="margin: 20px 0;">
+        <a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupAdd')}');" class="btn btn-down btn-sm btn-gray" role="button">+ 일지등록</a>
+        <!-- <a href="/adm/vm/export/export_clublog.vm.php?category=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=" target="_blank" class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a> -->
+    </p>
+</div>
+<article>
+    <!-- <div class="article-header">
+        <h5>등록된 일지 리스트</h5>
+        <small>등록된 일지 <span>총 24,844 건</span></small>
+    </div> -->
+    <div class="table-wrap list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:5%"  class="none-order"><a href="javascript:;">번호</a></th>
+                    <th style="width: 60px;">담당자</th>
+                    <th>조리원</th>
+                    <th style="width:15%">일시</th>
+                    <th>교육내용</th>
+                    <th>DB 인원</th>
+                    <th style="width: 200px;">특이사항</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr loop="$workdiary_list=>$_,$oSingleWorkDiary">
+                    <td>{$oSingleWorkDiary->cl_idx}</td>
+                    <td>{$aUserInfo[$oSingleWorkDiary->cu_id]}</td>
+                    <td>
+                        <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
+                    </td>
+                    <td>{$oSingleWorkDiary->cl_date} <!--2022-12-14 , AM 11:00--></td>
+                    <td><a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700);" >{$oSingleWorkDiary->cl_category}</a></td>
+                    <td>
+                        {$oSingleWorkDiary->cl_count_regi} / {$oSingleWorkDiary->cl_count_update} / {$oSingleWorkDiary->cl_count_center}
+                    </td>
+                    <td>{$oSingleWorkDiary->cl_memo}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--//table-wrap list-->
+    <!-- <div class="btn-area">
+        <a href="" class="btn btn-xs btn-blue" style="float: right; width: 110px; ">공지글 등록</a>
+    </div> -->
+</article>
+
+<nav class="paging" aria-label="Page navigation">
+	<include target="_pagination.html" />
+</nav>
+<!-- <nav class="paging" aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
+        <li class="active"><a href="javascript:;">1</a></li>
+        <li><a href="?submenu=clublog&category=&page=2&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">2</a></li>
+        <li><a href="?submenu=clublog&category=&page=3&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">3</a></li>
+        <li><a href="?submenu=clublog&category=&page=4&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">4</a></li>
+        <li><a href="?submenu=clublog&category=&page=5&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">5</a></li>
+        <li><a href="?submenu=clublog&category=&page=6&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">6</a></li>
+        <li><a href="?submenu=clublog&category=&page=7&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">7</a></li>
+        <li><a href="?submenu=clublog&category=&page=8&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">8</a></li>
+        <li><a href="?submenu=clublog&category=&page=9&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">9</a></li>
+        <li><a href="?submenu=clublog&category=&page=10&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">10</a></li>
+        <li class="next"><a href="?submenu=clublog&category=&page=11&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
+    </ul>
+</nav> -->

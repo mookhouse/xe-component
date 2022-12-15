@@ -26,3 +26,14 @@ function completeMomInserted(ret_obj)
 	opener.parent.location.reload();
 	window.close();
 }
+
+function completeWorkDiaryInserted(ret_obj)
+{
+	var error = ret_obj.error;
+	var message = ret_obj.message;
+	var mid = ret_obj.mid;
+	var document_srl = ret_obj.document_srl;
+
+	opener.parent.location.reload();
+	window.close();
+}

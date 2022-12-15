@@ -1,0 +1,17 @@
+<table name="angeclub_log">
+	<column name="cl_idx" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/> <!-- `cl_idx` int(11) NOT NULL AUTO_INCREMENT COMMENT '관리번호', -->
+	<column name="cu_id" type="varchar" size="45" />  <!-- 폐기하고 member_srl로 변경해야 함. `cu_id` varchar(45) DEFAULT NULL COMMENT '등록자ID, club_user의 cu_id', -->
+	<column name="cc_idx" type="number" size="11" index="cc_idx"/>  <!-- `cc_idx` int(11) DEFAULT NULL COMMENT '교육장 연결, club_center의 cc_idx', -->
+    <column name="cc_name" type="varchar" size="45" />   <!-- 폐기 예정, `cc_name` varchar(45) DEFAULT NULL COMMENT '교육장명', -->
+    <column name="cl_date" type="date" />  <!-- `cl_date` datetime DEFAULT NULL COMMENT '업무일', 아마도 수정일 -->
+    <column name="cl_category" type="varchar" size="45" />   <!-- `cl_category` varchar(45) DEFAULT NULL COMMENT '교육유형', -->
+    <column name="cl_title" type="varchar" size="100" />   <!-- `cl_title` varchar(100) DEFAULT NULL COMMENT '교육명', -->
+    <column name="cl_memo" type="text" />  <!-- `cl_memo` text COMMENT '특이사항', -->
+    <column name="cl_count_regi" type="number" size="11" />   <!-- `cl_count_regi` int(11) DEFAULT NULL COMMENT '등록회원수', -->
+    <column name="cl_count_update" type="number" size="11" />  <!-- `cl_count_update` int(11) DEFAULT NULL COMMENT '중복회원수', -->
+    <column name="cl_count_error" type="number" size="11" />   <!-- 폐기 예정, `cl_count_error` int(11) DEFAULT NULL COMMENT '기타정보수(구 오류)', -->
+    <column name="cl_count_center" type="number" size="11" />  <!-- `cl_count_center` int(11) DEFAULT NULL COMMENT '센터증정수', -->
+    <column name="cl_date_regi" type="date" />  <!-- `cl_date_regi` datetime DEFAULT NULL COMMENT '등록일', -->
+    <column name="cl_site" type="number" size="11" />  <!--폐기 예정, `cl_site` int(11) DEFAULT NULL, -->
+    <column name="cp_idx" type="number" size="11" />  <!--폐기 예정, `cp_idx` int(11) DEFAULT NULL, -->
+</table>

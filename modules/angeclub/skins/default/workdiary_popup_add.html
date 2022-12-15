@@ -1,0 +1,207 @@
+<include target="_popup_header.html" />
+
+<section class="popup">
+<script>
+var json_center = { {$aJsonStringfyCenterByStaff} };
+//console.log(json_center);
+
+function SetCenter(t_area,t_cc_idx){
+    t_options = '';
+
+    for( lkey in json_center){
+        if (json_center[lkey]['area']==t_area){
+            t_options = t_options + '<option value="'+lkey+'">'+json_center[lkey]['name']+'</option>';
+        }
+    }
+    if (t_cc_idx==undefined) {
+        setTimeout(function(){ $('#_cc_name').val(json_center[$('#_cc_idx').val()]['name'])  },100);
+    }
+    $('#_cc_idx').html(t_options);
+}
+
+$( document ).ready(function() {
+    // 인덱스가 지정되었을 경우, 지역 선택 박스 설정
+    t_index = '{$oWorkDiaryInfo->cc_idx}';
+    if (t_index!=''){
+        $('#_cc_area').val(json_center['{$oWorkDiaryInfo->cc_idx}']['area']);
+        SetCenter(json_center['{$oWorkDiaryInfo->cc_idx}']['area'],'');
+        $('#_cc_idx').val('{$oWorkDiaryInfo->cc_idx}');
+        //$('#_cc_name').val(json_center[$('#_cc_idx').val()]['name']);
+    }else{
+        setTimeout(function(){ $('#_cc_name').val(json_center[$('#_cc_idx').val()]['name'])  },100);
+    }
+    t_index = '';
+
+    $('#_cl_date').datetimepicker({
+        timepicker:true,
+        format:'Y-m-d H:i',
+        step:10,
+        minTime:'08:00',
+        maxTime:'22:00',
+        defaultTime: '10:00',
+        hours12:false,
+        style:'z-index: 101000;',
+        lang: 'ko'
+    });
+});
+
+function db_sum(clN, idN,tdN){
+    var totalnum = 0;
+    $('.'+clN).each(function(idx, ele) {
+        var num = ($(ele).val()!='')?$(ele).val():0;
+        totalnum +=parseInt(num);
+    });
+    $('#'+idN).val(totalnum);
+    if(tdN!=''){
+        if($('#'+tdN).val()=='')$('#'+tdN).val(0);
+        switch(tdN){
+            case 'dbnum1': 
+                $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
+                break;
+            case 'dbnum2': 
+                $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
+                break;
+            case 'dbnum3':
+                $('.good2').val($('#dbnum3').val());
+                break;
+            case 'dbnum4':
+                $('.good3').val($('#dbnum4').val());
+                break;
+        }
+        for(var i=1; i <= $('#cd_num').val() ; i++){
+            //cd_sum(i);
+        }
+    }
+}
+
+// function cd_sum(idN){
+// 	var totalnum = 0;
+// 	var minusnum = 0;
+// 	var num		 = ($('#cd6_'+idN).val()!='') ?$('#cd6_'+idN).val():0;
+// 	var num1	 = ($('#cd1_'+idN).val()!='') ?$('#cd1_'+idN).val():0;
+// 	var num2	 = ($('#cd2_'+idN).val()!='') ?$('#cd2_'+idN).val():0;
+// 	var num3	 = ($('#cd3_'+idN).val()!='') ?$('#cd3_'+idN).val():0;
+// 	var num4	 = ($('#_cd4_'+idN).val()!='')?$('#_cd4_'+idN).val():0;
+// 	var num5	 = ($('#_cd5_'+idN).val()!='')?$('#_cd5_'+idN).val():0;
+    
+// 	totalnum = parseInt(num1) + parseInt(num2) + parseInt(num3);
+// 	minusnum = parseInt(num) - parseInt(totalnum) - parseInt(num4);
+// 	$('#cd4_'+idN).text(parseInt(num4)+totalnum);
+// 	$('#cd5_'+idN).text(minusnum);
+// }
+
+// DB인원 값 셋팅
+db_sum("dbnum","dbtotal","");
+// 특이사항 값 셋팅
+// for(var i=1; i <= $('#cd_num').val() ; i++){
+// 	cd_sum(i);
+// }
+</script>
+<div class="section-header">
+	<h4 class="modal-title" id="popup-contentLabel">업무일지 등록</h4>
+</div>
+
+<!--section-content-->
+<div class="section-content">
+    <form method="post" action="./" onsubmit="return procFilter(this, window.insert_workdiary)" class="x_form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="cl_idx" id="cl_idx" value="{$oWorkDiaryInfo->cl_idx}">
+        <div class="table-wrap write">
+            <table style="margin-left: 0px; width: 100%;">
+                <tr>
+                    <td valign="top">
+                        <!-- 업무일지 입력 -->
+                        <table class="table">
+                            <!-- <colgroup>
+                                <col width='25%'></col>
+                                <col width='75%'></col>
+                                <col></col>
+                            </colgroup> -->
+                            <tr cond="!$oWorkDiaryInfo->cl_idx">
+                                <td>담당자<b></b></td>
+                                <td >{$aUserInfo[$oLoggedInfo->user_id]}</td>
+                            </tr>
+                            <tr cond="$oWorkDiaryInfo->cl_idx">
+                                <td>담당자<b></b></td>
+                                <td >{$aUserInfo[$oWorkDiaryInfo->cu_id]}</td>
+                            </tr>
+                            <!-- <tr>
+                                <td>출고장소<b>*</b></td>
+                                <td>
+                                    <select name="_cl_site" class="form-control" style="width: 230px; line-height: 2.6em;">
+                                        <option value="1"  >서울</option>
+                                        <option value="2"  >부산</option>
+                                    </select>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td>지역<b>*</b></td>
+                                <td class="phone">
+                                    <div class="form-group">
+                                        <select id="_cc_area" class="form-control" title="단위기준" onChange="SetCenter(this.value);" style="width: 120px;">
+                                            <option loop="$aArea=>$sArea,$_" value="{$sArea}" selected|cond="$sArea==$oCenterInfo->cc_city">{$sArea}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="_cc_idx" name="_cc_idx" class="form-control" onChange="$('#_cc_name').val(json_center[this.value]['name']);" style="width: 230px;">
+                                            <!-- <option value="1042"  >강남 SK</option>
+                                            <option value="471"  >강남 궁(도곡)</option>
+                                            <option value="548"  >강남 메르앙서래</option>
+                                            <option value="452"  >강남 서래네송스</option>
+                                            <option value="339"  >강남 세인트파크</option>
+                                            <option value="547"  >강남 윤호부설</option>
+                                            <option value="774"  >강남 트리니티(삼성)</option>
+                                            <option value="948"  >강남 헤리티지(청담)</option> -->
+                                        </select>
+                                        <!-- <input type="hidden" id="_cc_name" name="_cc_name" value=""> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>일시<b>*</b></td>
+                                <td><input type="text" class="form-control" name="_cl_date" id="_cl_date" value="{$oWorkDiaryInfo->cl_date}" title="교육일시" style="width: 200px;"></td>
+                            </tr>
+                            <tr>
+                                <td>DB인원<b>*</b></td>
+                                <td class="phone">
+                                    <div class="form-group">
+                                        신규
+                                        <input type="text" class="form-control" id="dbnum1" name="_cl_count_regi" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_regi}" title="정상등록수" style="width: 45px;"> &nbsp;
+                                        중복
+                                        <input type="text" class="form-control" id="dbnum2" name="_cl_count_update" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_update}" title="중복등록수" style="width: 45px;">
+                                        교육장
+                                        <input type="text" class="form-control" id="dbnum3" name="_cl_count_center" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_center}" title="조리원 증정수" style="width: 45px;">
+                                        <!-- <br>기타
+                                        <input type="text" class="form-control" id="dbnum4" name="_cl_count_error"  onBlur='db_sum("dbnum","dbtotal","dbnum4");numberCheck(this);' value="0" title="등록오류수" style="width: 45px;">
+                                        총증정수
+                                        <input type="text" class="form-control" id='dbtotal' value="0" title="등록오류수" style="width: 45px;" readonly> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>교육내용<b>*</b></td>
+                                <td>
+                                    <select class="form-control" name="_cl_category" title="교육내용 분류" style="width: 90px;">
+                                        <option loop="$aSessionType=>$_,$sType" value="{$sType}" SELECTED|cond="$sType == $oWorkDiaryInfo->cl_category">{$sType}</option> 
+                                    </select>
+                                    &nbsp;
+                                    <input type="text" class="form-control" name="_cl_title" value="{$oWorkDiaryInfo->cl_title}" title="" style="width: 250px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>특이사항<b></b></td>
+                                <td><textarea type="text" class="form-control" name="_cl_memo" title="" style="width: 100%; height: 100px;">{$oWorkDiaryInfo->cl_memo}</textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-blue btn-sm">등록하기</button>
+                    <button type="button" class="btn btn-blue btn-sm" onclick="window.close()">닫기</button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>

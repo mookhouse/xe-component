@@ -1,0 +1,19 @@
+<query id="insertWorkDiary" action="insert">
+	<tables>
+		<table name="angeclub_log" />
+	</tables>
+	<columns>
+		<column name="cu_id" var="_cu_id" />
+		<column name="cc_idx" var="_cc_idx" />
+		<!-- <column name="cc_name" var="_cc_name" /> -->
+		<column name="cl_date" var="_cl_date" />
+		<column name="cl_category" var="_cl_category" />
+		<column name="cl_title" var="_cl_title" />
+		<column name="cl_memo" var="_cl_memo" />
+		<column name="cl_count_regi" var="_cl_count_regi" />
+		<column name="cl_count_update" var="_cl_count_update" />
+		<!-- <column name="cl_count_error" var="_cl_count_error" /> -->
+		<column name="cl_count_center" var="_cl_count_center" />
+		<column name="cl_date_regi" default="curdate()"/>
+	</columns>
+</query>

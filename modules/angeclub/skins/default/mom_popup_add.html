@@ -360,7 +360,7 @@ console.log(oMemberInfo);
                                 <tr>
                                     <th class="essential">휴대전화</th>
                                     <td>
-                                        <input type="text" class="form-control" name="_PHONE_2" id="_PHONE_2" value="" title="휴대전화번호" onblur="CheckMobile();" maxlength="11" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="form-control" name="_PHONE_2" id="_PHONE_2" value="" title="휴대전화번호" onblur="CheckMobile();" maxlength="11" style="ime-mode:disabled;width: 200px;">
                                         <p id='_PHONE_2_check'></p>
                                     </td>
                                     <th class="essential">아이디</td>
@@ -379,9 +379,9 @@ console.log(oMemberInfo);
                                                 <option value="daum.net" >daum.net</option>
                                                 <option value="nate.com" >nate.com</option>
                                                 <option value="gmail.com" >gmail.com</option>
-                                                <option value="live.co.kr" >live.co.kr</option>
+                                                <!-- <option value="live.co.kr" >live.co.kr</option>
                                                 <option value="hotmail.com" >hotmail.com</option>
-                                                <option value="yahoo.com" >yahoo.com</option>
+                                                <option value="yahoo.com" >yahoo.com</option> -->
                                                 <option value="custom">직접 입력</option>
                                             </select>
                                             <!-- <input type="checkbox" name="email_null" id="email_null" value="1" onclick="CheckEmailNull();"> 이메일 없음 -->
@@ -411,17 +411,17 @@ console.log(oMemberInfo);
                                     <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" value="" style="ime-mode:active;width: 200px;"></td>
                                     <th class="essential">엄마 생년월일</th>
                                     <td >
-                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" value="" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" value="" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="essential">출산횟수</th>
                                     <td >
-                                        <input type="number" min="0" max="15" class="form-control" name="_CENTER_CNT" id="_CENTER_CNT" value="1" title="출산횟수"  maxlength="1" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="number" min="0" max="15" class="form-control" name="_CENTER_CNT" id="_CENTER_CNT" value="1" title="출산횟수"  maxlength="1" style="ime-mode:disabled;width: 200px;">
                                     </td>
                                     <th class="essential">교육횟수(중복여부)</th>
                                     <td >
-                                        <input type="text" min="0" max="15" class="form-control" name="_CLUBEDU_CNT" id="_CLUBEDU_CNT" value="1" title="교육횟수"  maxlength="1" style="ime-mode:disabled;width: 70px;display:inline-block;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" min="0" max="15" class="form-control" name="_CLUBEDU_CNT" id="_CLUBEDU_CNT" value="1" title="교육횟수"  maxlength="1" style="ime-mode:disabled;width: 70px;display:inline-block;">
                                     </td>
                                 </tr>
                                 <tr>
@@ -458,7 +458,7 @@ console.log(oMemberInfo);
                                             </style>
                                             <input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title="새우편번호"  style="width: 80px;">
                                             <input type="text" class="form-control" name="_ZIP_CODE" id="_ZIP_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title=""  style="width: 80px;">
-                                            <input type="button" value="우편번호 검색" onClick="zipcode_execDaumPostcode();" class="button_address" style="">
+                                            <input type="button" value="우편번호 검색" onClick="zipcode_execDaumPostcode();" class="button_address" >
                                             <!-- <input type="checkbox" name="addr_null" id="addr_null" value="1" onclick="CheckAddrNull();"> 주소 없음 -->
                                             <br/>
                                             <input type="text" class="form-control" name="_ADDR" id="_ADDR" value="" title=""  style="width: 90%;margin-left:0px;"><br/>
@@ -471,7 +471,7 @@ console.log(oMemberInfo);
                                     <td colspan='3' class="phone">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="I_BABY_NM" value="" placeholder='아이 이름' style="width: 180px; border-color: #777;">
-                                            <input type="text" class="form-control" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" placeholder='아이 생일 yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 180px;border-color: #777;" onkeydown="return onlyNumber(event)">
+                                            <input type="text" class="form-control" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" placeholder='아이 생일 yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 180px;border-color: #777;">
                                                 <!-- <script>
                                                     $('#I_BABY_BIRTH').datetimepicker({
                                                         timepicker:false,
@@ -516,7 +516,7 @@ console.log(oMemberInfo);
                                 <tr>
                                     <th class="essential">교육일자</td>
                                     <td colspan='3'>
-                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="8" style="ime-mode:disabled;width: 200px;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="8" style="ime-mode:disabled;width: 200px;">
                                         <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
                                         <!-- <script>
                                             $('#_CENTER_VISIT_YMD').datetimepicker({
@@ -563,7 +563,7 @@ console.log(oMemberInfo);
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class="input01" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" title="아이 생일" maxlength="6" style="ime-mode:disabled;width: 100px;border-color: #777;" onkeydown="return onlyNumber(event)">
+                                        <input type="text" class="input01" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" title="아이 생일" maxlength="6" style="ime-mode:disabled;width: 100px;border-color: #777;">
                                         <script>
                                             $('#I_BABY_BIRTH').datetimepicker({
                                                 timepicker:false,

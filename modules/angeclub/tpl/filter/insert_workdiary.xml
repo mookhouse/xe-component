@@ -1,0 +1,11 @@
+<filter name="insert_workdiary" module="angeclub" act="procAngeclubAddWorkDiary">
+  <form>
+    <node target="reason" required="true" maxlength="1000" />
+  </form>
+  <response callback_func="completeWorkDiaryInserted">
+    <tag name="error" />
+    <tag name="message" />
+    <tag name="mid" />
+    <tag name="document_srl" />
+  </response>
+</filter>

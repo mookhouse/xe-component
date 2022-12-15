@@ -12,6 +12,7 @@ class angeclub extends ModuleObject
 	var $_g_aClubUserType = [1=>'스탭', 99=>'관리자'];
 	var $_g_aCenterState = [1=>'사용', 9=>'교육중지', 2=>'리모델링', 3=>'기타', 0=>'폐업'];  // 화면 표시 순서
     var $_g_aBabyGender = ['M'=>'남', 'F'=>'여', 'T'=>'쌍둥이', 'D'=>'모름'];  // 화면 표시 순서
+	var $_g_aSessionType = ['SMC'=>'SMC', '피임'=>'피임', '이유식'=>'이유식', '기타입력'=>'기타입력'];  // 화면 표시 순서
 
 	/**
 	 * constructor

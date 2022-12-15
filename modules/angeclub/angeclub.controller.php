@@ -61,8 +61,6 @@ class angeclubController extends angeclub
             // Get user_id information
             $oMemberModel = &getModel('member');
             $oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nExistingMemberSrl);
-// var_dump($oMemberInfo->address);
-// exit;
             unset($oMemberModel);
             if($sStrippedPostcode && $sStrippedAddr && $sStrippedAddrDetail)
             {
@@ -72,8 +70,6 @@ class angeclubController extends angeclub
                 $oMemberInfo->$sMemberAddrFieldName[1] = $sStrippedAddr;
                 $oMemberInfo->$sMemberAddrFieldName[2] = $sStrippedAddrDetail;
                 $oMemberInfo->$sMemberAddrFieldName[3] = $sStrippedAddrExtra;
-// var_dump($oMemberInfo);
-// exit;
                 $oRst = $this->_modifyMemberInfo($oMemberInfo);
                 if(!$oRst->toBool()) 
                     return $oRst;
@@ -373,6 +369,49 @@ exit;
         return new BaseObject();
     }
 /**
+ * @brief 업무일지 추가 / 변경 메소드
+ **/
+	public function procAngeclubAddWorkDiary()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, '로그인 하세요.');
+
+		$oArgs = Context::getRequestVars();
+		unset($oArgs->_filter);
+		unset($oArgs->error_return_url);
+		unset($oArgs->act);
+		unset($oArgs->mid);
+		unset($oArgs->module);
+		$oArgs->_cu_id = $oLoggedInfo->user_id;
+// var_dump($oArgs);
+// exit;
+		if(!$oArgs->_cc_idx)
+			return new BaseObject(-1, '조리원을 선택하세요.');
+		if(!$oArgs->_cl_count_regi)
+			return new BaseObject(-1, '신규 DB 인원을 입력하세요.');
+		if(!$oArgs->_cl_count_update)
+			return new BaseObject(-1, '중복장 DB 인원을 입력하세요.');
+		if(!$oArgs->_cl_category)
+			return new BaseObject(-1, '교육 유형을 입력하세요.');
+		// if(!$oArgs->_cl_count_center)
+		// 	return new BaseObject(-1, '신규 DB 인원을 입력하세요.');
+		// if(!$oArgs->_cl_title)
+		// 	return new BaseObject(-1, '교육명을 입력하세요.');
+		// if(!$oArgs->_cl_memo)
+		// 	return new BaseObject(-1, '특이사항을 입력하세요.');
+		
+		if((int)$oArgs->cl_idx > 0) // update
+			$oRst = executeQuery('angeclub.updateWorkDiary', $oArgs);
+		else  // insert
+			$oRst = executeQuery('angeclub.insertWorkDiary', $oArgs);
+// var_dump($oRst);
+// exit;
+		if(!$oRst->toBool())
+			return $oRst;
+		$this->add('bRst', 1);
+	}
+/**
  * @brief 센터 추가 / 변경 메소드
  **/
 	public function procAngeclubAddCenter()
@@ -415,14 +454,4 @@ exit;
 			return $oRst;
 		$this->add('bRst', 1);
 	}
-/**
- * complete birthday yyyymmdd
- */
-    // private function _completeBirthday($sYymmdd)
-    // {
-    //     if((int)$sYymmdd > 700000)  // 801212
-	// 		return '19'.$sYymmdd;
-	// 	elseif((int)$sMomBirth < 600000)  // 201212
-	// 		return '20'.$sYymmdd;
-    // }
 }

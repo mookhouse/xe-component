@@ -1,0 +1,36 @@
+<query id="getWorkDiaryByIdx" action="select">
+    <tables>
+        <table name="angeclub_log" />
+    </tables>
+    <columns>
+        <column name="cl_idx" />
+        <column name="cu_id" />
+        <column name="cc_idx" />
+        <column name="cl_date" />
+        <column name="cl_category" />
+        <column name="cl_title" />
+        <column name="cl_memo" />
+        <column name="cl_count_regi" />
+        <column name="cl_count_update" />
+        <column name="cl_count_center" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cl_idx" var="cl_idx" />
+    </conditions>
+</query>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

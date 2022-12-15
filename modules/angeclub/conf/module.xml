@@ -14,11 +14,14 @@
 		<action name="dispAngeclubAdminMigrate" type="view" />  <!-- temporary migration tool -->
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
+		<action name="dispAngeclubMember" type="view" />
+		<action name="dispAngeclubMemberPopupAdd" type="view" />
+		<action name="dispAngeclubWorkDiary" type="view" />
+		<action name="dispAngeclubWorkDiaryPopupAdd" type="view" />
+		<action name="dispAngeclubWorkDiaryPopupUpdate" type="view" />
 		<action name="dispAngeclubCenter" type="view" />
 		<action name="dispAngeclubCenterPopupAdd" type="view" />
 		<action name="dispAngeclubCenterPopupUpdate" type="view" />
-		<action name="dispAngeclubMember" type="view" />
-		<action name="dispAngeclubMemberPopupAdd" type="view" />
 
 		<action name="getDuplicatedUserAjax" type="model" />
 				
@@ -27,6 +30,7 @@
 		<action name="procAngeclubAdminMigrate" type="controller" />  <!-- temporary migration tool -->
 
 		<action name="procAngeclubAddMom" type="controller" />
+		<action name="procAngeclubAddWorkDiary" type="controller" />
 		<action name="procAngeclubAddCenter" type="controller" />
 	</actions>
 	<menus>

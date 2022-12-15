@@ -27,7 +27,6 @@ class angeclubModel extends module
 		if(count($aCcIdx))
 			$oInParams->a_cc_idx = $aCcIdx;
 		$oRst = executeQueryArray('angeclub.getMomList', $oInParams);
-// var_dump($oRst);
 		$oMemberModel = &getModel('member');
 		$aMemberInfo = [];
 		foreach($oRst->data as $_=>$oSingleMom)
@@ -52,44 +51,6 @@ class angeclubModel extends module
 		unset($aMemberInfo);
 		unset($oMemberModel);
 		return $oRst;
-	}
-/**
- * @brief mask multibyte string
- * param 원본문자열, 마스킹하지 않는 전단부 글자수, 마스킹하지 않는 후단부 글자수, 마스킹 마크 최대 표시수, 마스킹마크
- * echo _maskMbString('abc12234pro', 3, 2); => abc******ro
- */	
-	private function _maskMbString($str, $len1, $len2=0, $limit=0, $mark='*')
-	{
-		$arr_str = preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
-		$str_len = count($arr_str);
-
-		$len1 = abs($len1);
-		$len2 = abs($len2);
-		if($str_len <= ($len1 + $len2))
-			return $str;
-
-		$str_head = '';
-		$str_body = '';
-		$str_tail = '';
-
-		$str_head = join('', array_slice($arr_str, 0, $len1));
-		if($len2 > 0)
-			$str_tail = join('', array_slice($arr_str, $len2 * -1));
-
-		$arr_body = array_slice($arr_str, $len1, ($str_len - $len1 - $len2));
-
-		if(!empty($arr_body)) 
-		{
-			$len_body = count($arr_body);
-			$limit = abs($limit);
-
-			if($limit > 0 && $len_body > $limit)
-				$len_body = $limit;
-
-			$str_body = str_pad('', $len_body, $mark);
-		}
-
-		return $str_head.$str_body.$str_tail;
 	}
 /**
  * @brief return baby gender list
@@ -121,8 +82,52 @@ class angeclubModel extends module
 	}
 /**
  * @brief return json stringfied center list by staff user id
+ * for member add UI
  **/
-	public function getCenterListByStaffIdJsonStringfied()
+	public function getCenterListByStaffIdJsonStringfiedForWorkDiary()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		$oArgs = new stdClass();
+		$oArgs->cu_id = $oLoggedInfo->user_id;
+		$oArgs->cc_state = 1;
+		// var_dump($oArgs);
+		// exit;
+		$oRst = executeQueryArray('angeclub.getCenterByNurse', $oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+		unset($oArgs);
+		$aJsonStringfyCenterByStaffId = [];   // "1042":{ "area":"강남", "name":"강남 SK" }, 
+		$aArea = [];
+		foreach($oRst->data as $_=>$oCenter)
+		{
+			$aJsonStringfyCenterByStaffId[] = '"'.$oCenter->cc_idx.'":{"area":"'.$oCenter->cc_area.'", "name":"'.$oCenter->cc_name.'"}';
+			$aArea[$oCenter->cc_area] = 1;
+		}
+		unset($oRst);
+		$oRst = new BaseObject();
+		$oRst->add('aArea', $aArea);
+		$oRst->add('aJsonStringfyCenterByStaff', implode( ',', $aJsonStringfyCenterByStaffId));
+		return $oRst;
+	}
+/**
+ * @brief return work diary detail
+ **/
+	public function getWorkDiaryByIdx($nClIdx)
+	{
+		$oArgs = new stdClass();
+		$oArgs->cl_idx = $nClIdx;
+		$oRst = executeQuery('angeclub.getWorkDiaryByIdx', $oArgs);
+		unset($oArgs);
+		return $oRst;
+	}
+/**
+ * @brief return json stringfied center list by staff user id
+ * for member add UI
+ **/
+	public function getCenterListByStaffIdJsonStringfiedForMemberAdd()
 	{
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
@@ -233,6 +238,75 @@ class angeclubModel extends module
 		return $aCcIdx;
 	}
 /**
+ * @brief return work diary list
+ **/
+	public function getWorkDiaryListPagination()
+	{
+		$oInParams = Context::getRequestVars();
+		unset($oInParams->error_return_url);
+		unset($oInParams->mid);
+		unset($oInParams->act);
+		
+		$oCenterArgs = new stdClass();
+		if($oInParams->cc_city)  // ["cc_city"]=> string(6) "서울" 
+		{
+			$oCenterArgs->cc_city = $oInParams->cc_city;
+			Context::set('cc_city', $oInParams->cc_city);  // for ux on screen
+		}
+		if($oInParams->cc_area)  // ["cc_area"]=> string(6) "강북" 
+		{
+			$oCenterArgs->cc_area = $oInParams->cc_area;
+			Context::set('cc_area', $oInParams->cc_area);  // for ux on screen
+		}
+		
+		$aCenterIdx = [];
+		if($oCenterArgs->cc_city || $oCenterArgs->cc_area)
+		{
+			$oCenterRst = executeQueryArray('angeclub.getCenterByCityAreaName', $oCenterArgs);
+			// var_dump($oCenterRst);
+			foreach($oCenterRst->data as $_=>$oSingleCenter)
+				$aCenterIdx[] = $oSingleCenter->cc_idx;
+			unset($oCenterRst);
+		}
+		unset($oCenterArgs);
+		// var_dump($aCenterIdx);
+		// exit;
+
+		// exit;
+		
+		$oArgs = new stdClass();
+		$oArgs->page = Context::get('page');
+		if($oInParams->cu_id)
+		{
+			$oArgs->cu_id = $oInParams->cu_id;  // 담당자 검색
+			Context::set('cu_id', $oInParams->cu_id);  // for ux on screen
+		}
+		if(count($aCenterIdx))
+			$oArgs->a_cc_idx = $aCenterIdx;  // 지역별 조리원 검색
+
+		
+		// "search_start"]=> string(8) "20221207" ["search_end"]=> string(8) "20221214" 
+		$oRst = executeQueryArray('angeclub.getWorkDiaryLogAll', $oArgs);
+		
+		
+		$aCenterName = [];
+		foreach($oRst->data as $_=>$oSingleWorkDiary)  // 조리원 idx를 조리원명으로 변경
+		{
+			if($aCenterName[$oSingleWorkDiary->cc_idx])
+				$oSingleWorkDiary->cc_name = $aCenterName[$oSingleWorkDiary->cc_idx];
+			else
+			{
+				$oCenterRst = $this->getCenterInfoByIdx($oSingleWorkDiary->cc_idx);
+				$oSingleWorkDiary->cc_name = $oCenterRst->data->cc_name;
+				$aCenterName[$oSingleWorkDiary->cc_idx] = $oCenterRst->data->cc_name;
+				unset($oCenterRst);
+			}
+		}
+		unset($aCenterName);
+		unset($oArgs);
+		return $oRst;
+	}
+/**
  * @brief return center list
  **/
 	public function getCenterListPagination()
@@ -324,5 +398,43 @@ class angeclubModel extends module
 	{
 		$oModuleModel = &getModel('module');
 		return $oModuleModel->getModuleConfig('angeclub');
+	}
+/**
+ * @brief mask multibyte string
+ * param 원본문자열, 마스킹하지 않는 전단부 글자수, 마스킹하지 않는 후단부 글자수, 마스킹 마크 최대 표시수, 마스킹마크
+ * echo _maskMbString('abc12234pro', 3, 2); => abc******ro
+ */	
+	private function _maskMbString($str, $len1, $len2=0, $limit=0, $mark='*')
+	{
+		$arr_str = preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+		$str_len = count($arr_str);
+
+		$len1 = abs($len1);
+		$len2 = abs($len2);
+		if($str_len <= ($len1 + $len2))
+			return $str;
+
+		$str_head = '';
+		$str_body = '';
+		$str_tail = '';
+
+		$str_head = join('', array_slice($arr_str, 0, $len1));
+		if($len2 > 0)
+			$str_tail = join('', array_slice($arr_str, $len2 * -1));
+
+		$arr_body = array_slice($arr_str, $len1, ($str_len - $len1 - $len2));
+
+		if(!empty($arr_body)) 
+		{
+			$len_body = count($arr_body);
+			$limit = abs($limit);
+
+			if($limit > 0 && $len_body > $limit)
+				$len_body = $limit;
+
+			$str_body = str_pad('', $len_body, $mark);
+		}
+
+		return $str_head.$str_body.$str_tail;
 	}
 }
