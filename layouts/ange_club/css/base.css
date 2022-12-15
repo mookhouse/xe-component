@@ -1,0 +1,15 @@
+.txtc{
+	text-align:center !important;
+}
+
+.input01 {
+  width: 100%;
+  height: 30px;
+  color: #666;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #dfdfdf; 
+}
+
+.input01:hover, .input01:focus {
+box-shadow: none; }

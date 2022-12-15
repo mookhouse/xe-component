@@ -1,0 +1,24 @@
+body {
+  min-width: 100%;
+  padding: 0;
+  background-color: #eef0f5; }
+  body .popup {
+    width: 100%; }
+    body .popup .section-header {
+      padding: 20px 30px;
+      border-bottom: 0;
+      background-color: #a4aeb9; }
+      body .popup .section-header .modal-title {
+        font-size: 20px;
+        color: #fff;
+        font-weight: 400;
+        padding-right: 25px; }
+      body .popup .section-header .close {
+        opacity: 1;
+        margin: 0; }
+    body .popup .section-content {
+      padding: 40px 30px 50px; }
+      body .popup .section-content article {
+        width: 100%; }
+
+/*# sourceMappingURL=popup.css.map */

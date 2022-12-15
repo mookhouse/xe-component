@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.2">
+    <title xml:lang="ko">앙쥬 클럽 관리자 레이아웃</title>
+    <description xml:lang="ko">앙쥬 클럽 관리자 레이아웃.</description>
+    <version>0.1</version>
+    <date>2022-11-29</date>
+    <author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+        <name xml:lang="ko">singleview.co.kr</name>
+    </author>
+    <menus>
+        <menu name="GNB" maxdepth="2" default="true">
+            <title xml:lang="ko">전역 네비게이션 바</title>
+        </menu>
+    </menus>
+	<extra_vars>
+		<var name="LOGO_IMG" type="image">
+			<title xml:lang="ko">사이트 로고 이미지</title>
+		</var>
+	</extra_vars>
+</layout>

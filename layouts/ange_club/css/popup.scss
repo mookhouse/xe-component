@@ -1,0 +1,30 @@
+body {
+    min-width: 100%;
+    padding: 0;
+    background-color: #eef0f5;
+    .popup {
+        width: 100%;
+        .section-header {
+            padding: 20px 30px;
+            border-bottom: 0;
+            background-color: #a4aeb9;
+            .modal-title {
+                font-size: 20px;
+                color: #fff;
+                font-weight: 400;
+                padding-right: 25px;
+            }
+            .close {
+                opacity: 1;
+                margin: 0;
+            }
+        }
+        .section-content {
+            padding: 40px 30px 50px;
+            article {
+                width: 100%;
+            }
+        }
+    }
+}
+
