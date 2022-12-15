@@ -13,7 +13,6 @@ class angeclubModel extends module
 	function init()
 	{
 	}
-	
 /**
  * @brief return baby gender list
  **/
@@ -63,27 +62,6 @@ class angeclubModel extends module
         return $aBabyGenderList;
     }
 /**
- * @brief return club staff list
- **/
-	// private function _getClubEffectiveUserList($nModuleSrl)
-	// {
-	// 	$oArgs = new stdClass;
-	// 	$oArgs->module_srl = $nModuleSrl;
-	// 	$oGrantRst = executeQueryArray('module.getModuleGrants', $oArgs);
-	// 	unset($oArgs);
-	// 	$aGrantedGrpSrl = [];
-	// 	foreach($oGrantRst->data as $_=>$oSingGrant)
-	// 		$aGrantedGrpSrl[$oSingGrant->group_srl] = $oSingGrant->group_srl;
-
-	// 	$oArgs = new stdClass;
-	// 	$oArgs->selected_group_srl = $aGrantedGrpSrl;
-	// 	unset($aGrantedGrpSrl);
-	// 	$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
-	// 	$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
-	// 	unset($oArgs);
-	// 	return $oMemberWithinGrpRst;
-	// }
-/**
  * @brief return club staff list for manager
  **/
 	public function getClubEffectiveUserFullInfo($nModuleSrl)
@@ -94,36 +72,34 @@ class angeclubModel extends module
 		unset($oArgs);
 		$aGrantedGrpSrl = [];
 		foreach($oGrantRst->data as $_=>$oSingleGrant)
-		{
 			$aGrantedGrpSrl[$oSingleGrant->group_srl] = $oSingleGrant->group_srl;
-			
-		}
-		// var_dump($aGrantedGrpSrl);
-		// echo '<BR><BR>';
-
-		$oArgs = new stdClass;
-		$oArgs->selected_group_srl = $aGrantedGrpSrl;
-		$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
-		$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
-		unset($oArgs);
-
-		$oMemberModel = getModel('member');
-		// $oMemberWithinGrpRst = $this->_getClubEffectiveUserList($nModuleSrl);
-		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
+		if(count($aGrantedGrpSrl))
 		{
-			$aMemberGrp = $oMemberModel->getMemberGroups($oClubMember->member_srl);
-			unset($aMemberGrp[1], $aMemberGrp[2], $aMemberGrp[3]);
-			$aGrpBelonged = [];
-			foreach($aMemberGrp as $nGrpSrl => $sGrpLabel)
+			$oArgs = new stdClass;
+			$oArgs->selected_group_srl = $aGrantedGrpSrl;
+			$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
+			$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
+			unset($oArgs);
+
+			$oMemberModel = getModel('member');
+			foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
 			{
-				if($aGrantedGrpSrl[$nGrpSrl])
-					$aGrpBelonged[] = $sGrpLabel;
+				$aMemberGrp = $oMemberModel->getMemberGroups($oClubMember->member_srl);
+				unset($aMemberGrp[1], $aMemberGrp[2], $aMemberGrp[3]);  // 기본 생성 그룹 제거
+				$aGrpBelonged = [];
+				foreach($aMemberGrp as $nGrpSrl => $sGrpLabel)
+				{
+					if($aGrantedGrpSrl[$nGrpSrl])
+						$aGrpBelonged[] = $sGrpLabel;
+				}
+				$oClubMember->grant_label = implode(',', $aGrpBelonged);
 			}
-			$oClubMember->grant_label = implode(',', $aGrpBelonged);
+			unset($aGrantedGrpSrl);
+			unset($oMemberModel);
 		}
-		unset($aGrantedGrpSrl);
-		unset($oMemberModel);
-		// unset($oMemberWithinGrpRst);
+		else
+			$oMemberWithinGrpRst = new BaseObject();  // return none
+	
 		return $oMemberWithinGrpRst;
 	}
 /**
@@ -145,7 +121,6 @@ class angeclubModel extends module
 		$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
 		$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
 		unset($oArgs);
-		// $oMemberWithinGrpRst = $this->_getClubEffectiveUserList($nModuleSrl);
 		$aUserInfo = [];
 		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
 			$aUserInfo[$oClubMember->user_id] = $oClubMember->user_name;
