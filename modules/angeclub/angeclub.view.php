@@ -64,14 +64,9 @@ class angeclubView extends angeclub
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 	
-		// $oInParams = Context::getRequestVars();
-		// var_dump($oInParams);
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
-		// $oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
-		// Context::set('aCity', $oRst->get('aCity'));
-		// Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
@@ -165,7 +160,6 @@ class angeclubView extends angeclub
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
-		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
