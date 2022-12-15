@@ -16,9 +16,7 @@
     <column name="cc_report" type="text" />
     <column name="cc_delivery" type="varchar" size="45" />
     <column name="cc_memo" type="text" />
-    <column name="cc_boss" type="varchar" size="20" />
     <column name="cc_state" type="number" size="11" notnull="notnull" default="1" />  <!-- 1:사용 9:교육중지 2:리모델링 3:기타 0:폐업 -->
-    <column name="cc_boss" type="varchar" size="20" />
     <column name="cc_date_regi" type="date" />
     <column name="cc_homepage" type="varchar" size="20" />
 </table>
