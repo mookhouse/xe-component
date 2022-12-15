@@ -45,34 +45,34 @@ $( document ).ready(function() {
     });
 });
 
-function db_sum(clN, idN,tdN){
-    var totalnum = 0;
-    $('.'+clN).each(function(idx, ele) {
-        var num = ($(ele).val()!='')?$(ele).val():0;
-        totalnum +=parseInt(num);
-    });
-    $('#'+idN).val(totalnum);
-    if(tdN!=''){
-        if($('#'+tdN).val()=='')$('#'+tdN).val(0);
-        switch(tdN){
-            case 'dbnum1': 
-                $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
-                break;
-            case 'dbnum2': 
-                $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
-                break;
-            case 'dbnum3':
-                $('.good2').val($('#dbnum3').val());
-                break;
-            case 'dbnum4':
-                $('.good3').val($('#dbnum4').val());
-                break;
-        }
-        for(var i=1; i <= $('#cd_num').val() ; i++){
-            //cd_sum(i);
-        }
-    }
-}
+// function db_sum(clN, idN,tdN){
+//     var totalnum = 0;
+//     $('.'+clN).each(function(idx, ele) {
+//         var num = ($(ele).val()!='')?$(ele).val():0;
+//         totalnum +=parseInt(num);
+//     });
+//     $('#'+idN).val(totalnum);
+//     if(tdN!=''){
+//         if($('#'+tdN).val()=='')$('#'+tdN).val(0);
+//         switch(tdN){
+//             case 'dbnum1': 
+//                 $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
+//                 break;
+//             case 'dbnum2': 
+//                 $('.good1').val(parseInt($('#dbnum1').val()) + parseInt($('#dbnum2').val()));
+//                 break;
+//             case 'dbnum3':
+//                 $('.good2').val($('#dbnum3').val());
+//                 break;
+//             case 'dbnum4':
+//                 $('.good3').val($('#dbnum4').val());
+//                 break;
+//         }
+//         for(var i=1; i <= $('#cd_num').val() ; i++){
+//             //cd_sum(i);
+//         }
+//     }
+// }
 
 // function cd_sum(idN){
 // 	var totalnum = 0;
@@ -91,7 +91,7 @@ function db_sum(clN, idN,tdN){
 // }
 
 // DB인원 값 셋팅
-db_sum("dbnum","dbtotal","");
+// db_sum("dbnum","dbtotal","");
 // 특이사항 값 셋팅
 // for(var i=1; i <= $('#cd_num').val() ; i++){
 // 	cd_sum(i);

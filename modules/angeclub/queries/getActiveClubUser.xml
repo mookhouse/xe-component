@@ -1,4 +1,4 @@
-<query id="getClubUser" action="select">
+<query id="getActiveClubUser" action="select">
     <tables>
         <table name="angeclub_user" />
     </tables>

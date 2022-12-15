@@ -1,28 +1,53 @@
 <script>
-var json_area = { {$sJsonAreaStringfy} }
-function SetArea(t_city,t_init){
-	t_options = '<option value=""></option>';
+// var json_area = { {$sJsonAreaStringfy} };
+// function SetArea(t_city,t_init){
+// 	t_options = '<option value=""></option>';
 
-	for( lkey in json_area){
-		if (json_area[lkey]['city']==t_city){
-			t_options = t_options + '<option value="'+json_area[lkey]['area']+'">'+json_area[lkey]['area']+'</option>';
-		}
-	}
-	$('#_cc_area').html(t_options);
+// 	for( lkey in json_area){
+// 		if (json_area[lkey]['city']==t_city){
+// 			t_options = t_options + '<option value="'+json_area[lkey]['area']+'">'+json_area[lkey]['area']+'</option>';
+// 		}
+// 	}
+// 	$('#cc_area').html(t_options);
 
-	if (t_init){
-		t_area = '{$cc_area}';
-		if (t_area!='') {
-			setTimeout(function(){ $('#_cc_area').val('{$cc_area}')  },100);
-		}
-	}
+// 	if (t_init){
+// 		t_area = '{$cc_area}';
+// 		if (t_area!='') {
+// 			setTimeout(function(){ $('#cc_area').val('{$cc_area}')  },100);
+// 		}
+// 	}
+// }
+
+var json_center = { {$aJsonStringfyCenterByStaff} };
+//console.log(json_center);
+
+function SetCenter(t_area,t_cc_idx){
+    t_options = '';
+
+    for( lkey in json_center){
+        if (json_center[lkey]['area']==t_area){
+            t_options = t_options + '<option value="'+lkey+'">'+json_center[lkey]['name']+'</option>';
+        }
+    }
+    if (t_cc_idx==undefined) {
+        setTimeout(function(){ $('#_cc_name').val(json_center[$('#cc_idx').val()]['name'])  },100);
+    }
+    $('#cc_idx').html(t_options);
 }
-$( document ).ready(function() {
-		SetArea('{$cc_city}',true);
-	
-});
 
 $(document).ready(function(){
+    // 인덱스가 지정되었을 경우, 지역 선택 박스 설정
+    t_index = '{$cc_idx}';
+    if (t_index!=''){
+        $('#cc_area').val(json_center['{$cc_idx}']['area']);
+        SetCenter(json_center['{$cc_idx}']['area'],'');
+        $('#cc_idx').val('{$cc_idx}');
+    }else{
+        setTimeout(function(){ $('#_cc_name').val(json_center[$('#cc_idx').val()]['name'])  },100);
+    }
+    t_index = '';
+
+
     // 현재날짜 가공
     var newDate = new Date();
     var yy = newDate.getFullYear();
@@ -59,6 +84,8 @@ $(document).ready(function(){
         style:'z-index: 101000;',
         lang: 'ko'
     });
+
+    // SetArea('{$cc_city}',true);
 });
 </script>
 <article>
@@ -66,23 +93,13 @@ $(document).ready(function(){
         <h5>업무일지 관리</h5>
     </div>
 </article>
-<!-- nav-tab -->
-<nav id="nav-tab">
-    <ul class="tab-list">
-        <li class="active"|cond="is_null($cu_id)"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'cu_id', '')}">전체</a></li>
-    <block loop="$aUserInfo=>$sId,$sName">
-        <li class="active"|cond="$cu_id==$sId"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'cu_id', $sId, 'cc_city', $cc_city, 'cc_area', $cc_area, 'page', '')}">{$sName}</a></li>
-    </block>
-        <!-- <li class=" "><a href="?submenu=clublog&category=mocha2&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김경희</a></li>
-        <li class=" "><a href="?submenu=clublog&category=whzhwhzh&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김성경</a></li> -->
-    </ul>
-</nav>
+
 <!-- 검색 영역 -->
 <div class="search-form">
-    <form id="searchForm" action="./" method="get" class="x_input-append" >
+    <form id="searchForm" action="./" method="post" class="x_input-append" >
         <input type="hidden" name="mid" value="{$mid}" />
         <input type="hidden" name="act" value="{$act}" />
-        <input type="hidden" name="cu_id" value="{$cu_id}" />
+        <!-- <input type="hidden" name="cu_id" value="{$cu_id}" /> -->
         <div class="search-condition">
             <div class="form-group">
                 <p class="search-title" style="width:120px">등록기간</p>
@@ -90,11 +107,23 @@ $(document).ready(function(){
                 <input type="text" class="form-control" name="search_end" id="search_end" value="" maxlength="8" >
             </div>
             <div class="form-group">
-                <select name="cc_city" class="form-control" onChange="SetArea(this.value);"  style="width: 230px;">
-                    <option value="" selected >지역전체 </option>
-                    <option loop="$aCity=>$sCity,$_" value="{$sCity}" selected|cond="$sCity == $cc_city" >{$sCity}</option>
+                <select id="cc_area" name="cc_area" class="form-control" title="단위기준" onChange="SetCenter(this.value);" style="width: 120px;">
+                    <option value="" selected >지역전체</option>
+                    <option loop="$aArea=>$sArea,$_" value="{$sArea}" selected|cond="$sArea==$cc_area">{$sArea}</option>
                 </select>
-                <select name="cc_area" id="_cc_area" class="form-control" title="지역" style="width: 230px;"></select>
+            </div>
+            <div class="form-group">
+                <select id="cc_idx" name="cc_idx" class="form-control" style="width: 230px;">
+                    <!-- <option value="1042"  >강남 SK</option>
+                    <option value="471"  >강남 궁(도곡)</option>
+                    <option value="548"  >강남 메르앙서래</option>
+                    <option value="452"  >강남 서래네송스</option>
+                    <option value="339"  >강남 세인트파크</option>
+                    <option value="547"  >강남 윤호부설</option>
+                    <option value="774"  >강남 트리니티(삼성)</option>
+                    <option value="948"  >강남 헤리티지(청담)</option> -->
+                </select>
+                <!-- <input type="hidden" id="_cc_name" name="_cc_name" value=""> -->
             </div>
             <div class="btn-area">
                 <p>
@@ -154,3 +183,19 @@ $(document).ready(function(){
 <nav class="paging" aria-label="Page navigation">
 	<include target="_pagination.html" />
 </nav>
+<!-- <nav class="paging" aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
+        <li class="active"><a href="javascript:;">1</a></li>
+        <li><a href="?submenu=clublog&category=&page=2&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">2</a></li>
+        <li><a href="?submenu=clublog&category=&page=3&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">3</a></li>
+        <li><a href="?submenu=clublog&category=&page=4&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">4</a></li>
+        <li><a href="?submenu=clublog&category=&page=5&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">5</a></li>
+        <li><a href="?submenu=clublog&category=&page=6&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">6</a></li>
+        <li><a href="?submenu=clublog&category=&page=7&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">7</a></li>
+        <li><a href="?submenu=clublog&category=&page=8&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">8</a></li>
+        <li><a href="?submenu=clublog&category=&page=9&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">9</a></li>
+        <li><a href="?submenu=clublog&category=&page=10&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">10</a></li>
+        <li class="next"><a href="?submenu=clublog&category=&page=11&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
+    </ul>
+</nav> -->

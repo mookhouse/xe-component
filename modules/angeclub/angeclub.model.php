@@ -63,21 +63,103 @@ class angeclubModel extends module
         return $aBabyGenderList;
     }
 /**
- * @brief return club list
+ * @brief return club staff list
  **/
-	public function getClubEffectiveUser()
-	{
-		$oArgs = new stdClass();
-		$oArgs->cu_id = 'admin';  // 웹관리자 제외
+	// private function _getClubEffectiveUserList($nModuleSrl)
+	// {
+	// 	$oArgs = new stdClass;
+	// 	$oArgs->module_srl = $nModuleSrl;
+	// 	$oGrantRst = executeQueryArray('module.getModuleGrants', $oArgs);
+	// 	unset($oArgs);
+	// 	$aGrantedGrpSrl = [];
+	// 	foreach($oGrantRst->data as $_=>$oSingGrant)
+	// 		$aGrantedGrpSrl[$oSingGrant->group_srl] = $oSingGrant->group_srl;
 
-		$oAngeclub = &getClass('angeclub');
-		$aFlipped = array_flip($oAngeclub->_g_aClubUserState);
-		unset($oAngeclub);
-		$oArgs->cu_state = $aFlipped['탈퇴'];  // 퇴사자 제외
-		$oRst = executeQueryArray('angeclub.getActiveClubUser', $oArgs);
+	// 	$oArgs = new stdClass;
+	// 	$oArgs->selected_group_srl = $aGrantedGrpSrl;
+	// 	unset($aGrantedGrpSrl);
+	// 	$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
+	// 	$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
+	// 	unset($oArgs);
+	// 	return $oMemberWithinGrpRst;
+	// }
+/**
+ * @brief return club staff list for manager
+ **/
+	public function getClubEffectiveUserFullInfo($nModuleSrl)
+	{
+		$oArgs = new stdClass;
+		$oArgs->module_srl = $nModuleSrl;
+		$oGrantRst = executeQueryArray('module.getModuleGrants', $oArgs);
+		unset($oArgs);
+		$aGrantedGrpSrl = [];
+		foreach($oGrantRst->data as $_=>$oSingleGrant)
+		{
+			$aGrantedGrpSrl[$oSingleGrant->group_srl] = $oSingleGrant->group_srl;
+			
+		}
+		// var_dump($aGrantedGrpSrl);
+		// echo '<BR><BR>';
+
+		$oArgs = new stdClass;
+		$oArgs->selected_group_srl = $aGrantedGrpSrl;
+		$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
+		$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
+		unset($oArgs);
+
+		$oMemberModel = getModel('member');
+		// $oMemberWithinGrpRst = $this->_getClubEffectiveUserList($nModuleSrl);
+		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
+		{
+			$aMemberGrp = $oMemberModel->getMemberGroups($oClubMember->member_srl);
+			unset($aMemberGrp[1], $aMemberGrp[2], $aMemberGrp[3]);
+			$aGrpBelonged = [];
+			foreach($aMemberGrp as $nGrpSrl => $sGrpLabel)
+			{
+				if($aGrantedGrpSrl[$nGrpSrl])
+					$aGrpBelonged[] = $sGrpLabel;
+			}
+			$oClubMember->grant_label = implode(',', $aGrpBelonged);
+		}
+		unset($aGrantedGrpSrl);
+		unset($oMemberModel);
+		// unset($oMemberWithinGrpRst);
+		return $oMemberWithinGrpRst;
+	}
+/**
+ * @brief return club staff list for UX
+ **/
+	public function getClubEffectiveUser($nModuleSrl)
+	{
+		$oArgs = new stdClass;
+		$oArgs->module_srl = $nModuleSrl;
+		$oGrantRst = executeQueryArray('module.getModuleGrants', $oArgs);
+		unset($oArgs);
+		$aGrantedGrpSrl = [];
+		foreach($oGrantRst->data as $_=>$oSingleGrant)
+			$aGrantedGrpSrl[$oSingleGrant->group_srl] = $oSingleGrant->group_srl;
+		unset($oGrantRst);
+		$oArgs = new stdClass;
+		$oArgs->selected_group_srl = $aGrantedGrpSrl;
+		unset($aGrantedGrpSrl);
+		$oArgs->list_count = 100;  // 현실적으로 클럽 간호사는 100명 이하임
+		$oMemberWithinGrpRst = executeQuery('member.getMemberListWithinGroup', $oArgs);
+		unset($oArgs);
+		// $oMemberWithinGrpRst = $this->_getClubEffectiveUserList($nModuleSrl);
 		$aUserInfo = [];
-		foreach($oRst->data as $nIdx=>$oUser)
-			$aUserInfo[$oUser->cu_id] = $oUser->cu_name;
+		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
+			$aUserInfo[$oClubMember->user_id] = $oClubMember->user_name;
+		unset($oMemberWithinGrpRst);
+		// $oArgs = new stdClass();
+		// $oArgs->cu_id = 'admin';  // 웹관리자 제외
+		// $oAngeclub = &getClass('angeclub');
+		// $aFlipped = array_flip($oAngeclub->_g_aClubUserState);
+		// unset($oAngeclub);
+		// $oArgs->cu_state = $aFlipped['탈퇴'];  // 퇴사자 제외
+		// $oRst = executeQueryArray('angeclub.getActiveClubUser', $oArgs);
+		// $aUserInfo = [];
+		// foreach($oRst->data as $nIdx=>$oUser)
+		// 	$aUserInfo[$oUser->cu_id] = $oUser->cu_name;
 		return $aUserInfo;
 	}
 /**
@@ -240,7 +322,7 @@ class angeclubModel extends module
 /**
  * @brief return work diary list
  **/
-	public function getWorkDiaryListPagination()
+	public function getWorkDiaryListPagination($bStaffMode=FALSE)
 	{
 		$oInParams = Context::getRequestVars();
 		unset($oInParams->error_return_url);
@@ -248,6 +330,11 @@ class angeclubModel extends module
 		unset($oInParams->act);
 		
 		$oCenterArgs = new stdClass();
+		if($oInParams->cc_idx)  // ["cc_idx"]=> string(6) "137" 
+		{
+			$oCenterArgs->cc_idx = $oInParams->cc_idx;
+			Context::set('cc_idx', $oInParams->cc_idx);  // for ux on screen
+		}
 		if($oInParams->cc_city)  // ["cc_city"]=> string(6) "서울" 
 		{
 			$oCenterArgs->cc_city = $oInParams->cc_city;
@@ -260,7 +347,7 @@ class angeclubModel extends module
 		}
 		
 		$aCenterIdx = [];
-		if($oCenterArgs->cc_city || $oCenterArgs->cc_area)
+		if($oCenterArgs->cc_idx || $oCenterArgs->cc_city || $oCenterArgs->cc_area)
 		{
 			$oCenterRst = executeQueryArray('angeclub.getCenterByCityAreaName', $oCenterArgs);
 			// var_dump($oCenterRst);
@@ -269,26 +356,28 @@ class angeclubModel extends module
 			unset($oCenterRst);
 		}
 		unset($oCenterArgs);
-		// var_dump($aCenterIdx);
-		// exit;
-
-		// exit;
-		
+	
 		$oArgs = new stdClass();
 		$oArgs->page = Context::get('page');
-		if($oInParams->cu_id)
+		if($oInParams->cu_id)  // 총괄 화면에서 개별 스탭 검색 버튼
 		{
 			$oArgs->cu_id = $oInParams->cu_id;  // 담당자 검색
 			Context::set('cu_id', $oInParams->cu_id);  // for ux on screen
 		}
+		if($bStaffMode)  // 일반 스태프용 목록 화면
+		{
+			$oLoggedInfo = Context::get('logged_info');
+			if(!$oLoggedInfo)
+				return new BaseObject(-1, 'msg_not_loggedin');
+			$oArgs->cu_id = $oLoggedInfo->user_id;
+		}
 		if(count($aCenterIdx))
 			$oArgs->a_cc_idx = $aCenterIdx;  // 지역별 조리원 검색
 
-		
-		// "search_start"]=> string(8) "20221207" ["search_end"]=> string(8) "20221214" 
-		$oRst = executeQueryArray('angeclub.getWorkDiaryLogAll', $oArgs);
-		
-		
+		// "search_start"]=> string(8) "20221207" ["search_end"]=> string(8) "20221214"
+		$oRst = executeQueryArray('angeclub.getWorkDiaryLog', $oArgs);
+		unset($oArgs);
+				
 		$aCenterName = [];
 		foreach($oRst->data as $_=>$oSingleWorkDiary)  // 조리원 idx를 조리원명으로 변경
 		{
@@ -303,7 +392,6 @@ class angeclubModel extends module
 			}
 		}
 		unset($aCenterName);
-		unset($oArgs);
 		return $oRst;
 	}
 /**

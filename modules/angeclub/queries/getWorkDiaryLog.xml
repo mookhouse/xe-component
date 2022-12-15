@@ -1,4 +1,4 @@
-<query id="getWorkDiaryLogAll" action="select">
+<query id="getWorkDiaryLog" action="select">
     <tables>
         <table name="angeclub_log" />
     </tables>

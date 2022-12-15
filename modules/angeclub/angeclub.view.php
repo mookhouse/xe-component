@@ -19,10 +19,15 @@ class angeclubView extends angeclub
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 
+		$oModuleModel = getModel('module');
+		$oGrant = $oModuleModel->getGrant($oModuleModel->getModuleInfoByModuleSrl($this->module_info->module_srl), $oLoggedInfo);
+		unset($oModuleModel);
+		if(!$oGrant->access)
+			return new BaseObject(-1, 'msg_invalid_approach');
+
 		$oAngeclubModel = &getModel('angeclub');
-		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser();
+		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl);
 		unset($oAngeclubModel);
-		// $oLoggedInfo->user_id = 'sugarprime';
 		if($oLoggedInfo->is_admin != 'Y' && !$aEffectiveUserList[$oLoggedInfo->user_id])
 		{
 			header('HTTP/1.1 301 Moved Permanently');
@@ -51,22 +56,54 @@ class angeclubView extends angeclub
 		$this->setTemplateFile('default');
 	}
 /**
- * @brief 간호사 업무일지 화면
+ * @brief 간호사 업무일지 일반 스탭 화면
  */
 	public function dispAngeclubWorkDiary()
 	{
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
+	
+		// $oInParams = Context::getRequestVars();
+		// var_dump($oInParams);
+		$oAngeclubModel = &getModel('angeclub');
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
+
+		// $oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
+		// Context::set('aCity', $oRst->get('aCity'));
+		// Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		unset($oRst);
+
+		$oRst = $oAngeclubModel->getWorkDiaryListPagination(TRUE);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('workdiary_list', $oRst->data );
+		Context::set('total_count', $oRst->total_count);
+		Context::set('total_page', $oRst->total_page);
+		Context::set('page', $oRst->page);
+		Context::set('page_navigation', $oRst->page_navigation);
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('workdiary_staff');
+	}
+/**
+ * @brief 간호사 업무일지 총괄 관리자 화면
+ */
+	public function dispAngeclubWorkDiaryManager()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
 		
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
-// var_dump($oAngeclubModel->getClubEffectiveUser());
 		$oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
 		Context::set('aCity', $oRst->get('aCity'));
-// var_dump($oRst->get('aCity'));
-// exit;
 		Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
 		unset($oRst);
 
@@ -82,7 +119,7 @@ class angeclubView extends angeclub
 		unset($oAngeclubModel);
 
 		$this->setTemplateFile('workdiary_manager');
-	}
+	}	
 /**
 * @brief 간호사 업무 일지 추가 팝업
 */
@@ -93,11 +130,11 @@ class angeclubView extends angeclub
 			return new BaseObject(-1, 'msg_not_loggedin');
 
 		/// test code
-		$oLoggedInfo->user_id = 'sugarprime';  
+		// $oLoggedInfo->user_id = 'sugarprime';  
 		/// test code
 
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
@@ -127,7 +164,7 @@ class angeclubView extends angeclub
 			return new BaseObject(-1, 'msg_invalid_approach');
 
 		/// test code
-		$oLoggedInfo->user_id = 'sugarprime';  
+		// $oLoggedInfo->user_id = 'sugarprime';  
 		/// test code
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
@@ -136,7 +173,7 @@ class angeclubView extends angeclub
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
-		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
@@ -147,7 +184,7 @@ class angeclubView extends angeclub
 			return $oRst;
 		Context::set('oWorkDiaryInfo', $oRst->data);
 		unset($oRst);
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aSessionType', $this->_g_aSessionType);
 		unset($oAngeclubModel);
 
@@ -185,7 +222,7 @@ class angeclubView extends angeclub
 			return new BaseObject(-1, 'msg_not_loggedin');
 
 		/// test code
-		$oLoggedInfo->user_id = 'sugarprime';  
+		// $oLoggedInfo->user_id = 'sugarprime';  
 		/// test code
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
@@ -194,7 +231,7 @@ class angeclubView extends angeclub
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aBabyGender', $this->_g_aBabyGender);
 		
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForMemberAdd();
@@ -221,7 +258,7 @@ class angeclubView extends angeclub
 			return new BaseObject(-1, 'msg_not_loggedin');
 		
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aCenterState', $this->_g_aCenterState);
 		
 		$oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
@@ -255,7 +292,7 @@ class angeclubView extends angeclub
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
 	
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aCenterState', $this->_g_aCenterState);
 
 		$oCenterInfo = new stdClass();
@@ -290,7 +327,7 @@ class angeclubView extends angeclub
 		if(!$oRst->toBool())
 			return $oRst;
 		Context::set('oCenterInfo', $oRst->data);
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser());
+		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aCenterState', $this->_g_aCenterState);
 		
 		$oRst = $oAngeclubModel->getCenterAreaJsonStringfied();
@@ -299,6 +336,29 @@ class angeclubView extends angeclub
 		unset($oAngeclubModel);
 
 		$this->setTemplateFile('center_popup_add');
+	}
+/**
+ * @brief 클럽 스탭 명단 화면
+ */
+	public function dispAngeclubStaffManager()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+		
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getClubEffectiveUserFullInfo($this->module_info->module_srl);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('staff_list', $oRst->data );
+		// Context::set('total_count', $oRst->total_count);
+		// Context::set('total_page', $oRst->total_page);
+		// Context::set('page', $oRst->page);
+		// Context::set('page_navigation', $oRst->page_navigation);
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('staff_manager');
 	}
 }
 /* End of file angeclub.view.php */
