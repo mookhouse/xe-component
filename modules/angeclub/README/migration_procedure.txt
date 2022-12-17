@@ -108,7 +108,7 @@ mook1004 가 보존됨
 // ORDER BY adhj_idx;
 
 전체 선택 php array로 복사하여 붙여넣기
-
+/files/angeclub/mombox_registration_log_array.php
 
 
 *.
