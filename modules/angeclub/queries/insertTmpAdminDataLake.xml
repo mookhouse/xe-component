@@ -1,0 +1,26 @@
+<query id="insertTmpAdminDataLake" action="insert">
+	<tables>
+		<table name="angemombox_data_lake" />
+	</tables>
+	<columns>
+		<column name="module_srl" var="module_srl" />
+        <column name="yr_mo" var="yr_mo" />
+        <column name="angeclub_registration_log_srl" var="angeclub_registration_log_srl" />
+        <column name="parent_member_srl" var="parent_member_srl" />
+        <column name="mobile" var="mobile" />
+        <column name="parent_birthday_yyyymmdd" var="parent_birthday_yyyymmdd" />
+        <column name="parent_gender" var="parent_gender" />
+        <column name="parent_pregnant" var="parent_pregnant" />
+        <column name="baby_birth_name" var="baby_birth_name" />
+        <column name="baby_gender" var="baby_gender" />
+        <column name="baby_birthday_yyyymmdd" var="baby_birthday_yyyymmdd" />
+        <column name="postcode" var="postcode" />
+        <column name="addr" var="addr" />
+        <column name="addr_detail" var="addr_detail" />
+        <column name="email_push" var="email_push" />
+        <column name="sms_push" var="sms_push" />
+        <column name="post_push" var="post_push" />
+        <column name="sponsor_push" var="sponsor_push" />
+        <column name="regdate" var="regdate" />
+	</columns>
+</query>

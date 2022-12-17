@@ -7,5 +7,6 @@
         <column name="USER_ID_SOURCE" var="USER_ID_SOURCE" />
         <column name="NO_DEST" var="NO_DEST" />
         <column name="USER_ID_DEST" var="USER_ID_DEST" />
+		<column name="mobile" var="mobile" />
 	</columns>
 </query>

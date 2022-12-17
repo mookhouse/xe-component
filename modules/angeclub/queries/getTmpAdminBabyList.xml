@@ -1,0 +1,13 @@
+<query id="getTmpAdminBabyList" action="select">
+    <tables>
+        <table name="angeclub_tmp_ange_user_baby" />
+    </tables>
+    <columns>
+        <column name="BABY_NM" />
+        <column name="BABY_BIRTH" />
+        <column name="BABY_SEX_GB" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="USER_ID" var="USER_ID" notnull="notnull" />
+    </conditions>
+</query>

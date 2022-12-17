@@ -5,178 +5,12 @@
  * @author singleview(root@singleview.co.kr)
  * @brief  angeclubAdminController
 **/ 
-// "PHONE_2"	"COUNT(`PHONE_2`)"
-// "01000000000"	"224"
-// "01075742379"	"159"
-// "0100000000"	"157"
-// "00000000000"	"90"
-// "01011111111"	"62"
-// "0101111111"	"50"
-// "0101234567"	"36"
-// "01012341234"	"24"
-// "01058482576"	"20"
-// "000-000-000"	"18"
-// "000000000"	"17"
-// "010000000"	"17"
-// "0102222222"	"17"
-// "0101231234"	"14"
-// "01022177402"	"14"
-// "000-000-0000"	"13"
-// "01020681956"	"13"
-// "01012345678"	"11"
-// "01024739528"	"10"
-// "01048401490"	"10"
-// "0193460025"	"10"
-// "01040534131"	"9"
-// "01044553016"	"9"
-// "01099952638"	"9"
-// "01195381041"	"9"
-// "0000000000"	"8"
-// "01022222222"	"8"
-// "01039565320"	"8"
-// "01055555555"	"8"
-// "01077488929"	"8"
-// "01099999999"	"8"
-// "0168057801"	"8"
-// "01027137400"	"7"
-// "0103333333"	"7"
-// "01033333333"	"7"
-// "01043107170"	"7"
-// "01047442511"	"7"
-// "01094749851"	"7"
-// "01100000000"	"7"
-// "01020473571"	"6"
-// "01023620198"	"6"
-// "01024943591"	"6"
-// "01025295458"	"6"
-// "0102767912"	"6"
-// "01032629417"	"6"
-// "01075628580"	"6"
-// "01087727372"	"6"
-// "01098833581"	"6"
-// "0109999999"	"6"
-// "0110000000"	"6"
-// "010000000000"	"5"
-// "01012121212"	"5"
-// "01022886651"	"5"
-// "01023232323"	"5"
-// "01025609984"	"5"
-// "01029255107"	"5"
-// "01032926183"	"5"
-// "010400000"	"5"
-// "01044444444"	"5"
-// "01046165404"	"5"
-// "01049722927"	"5"
-// "01051603271"	"5"
-// "01056123513"	"5"
-// "01056581551"	"5"
-// "01062521963"	"5"
-// "01064555847"	"5"
-// "01083559980"	"5"
-// "01087045766"	"5"
-// "01094354915"	"5"
-// "01096757897"	"5"
-// "01099033612"	"5"
-// "01199693717"	"5"
-// "0000-000-000"	"4"
-// "000000000000"	"4"
-// "010-000-0000"	"4"
-// "01012311231"	"4"
-// "01022311024"	"4"
-// "01023015750"	"4"
-// "01023182142"	"4"
-// "01023422342"	"4"
-// "01023786653"	"4"
-// "01024409366"	"4"
-// "01024470800"	"4"
-// "01025654254"	"4"
-// "01026240978"	"4"
-// "01026244814"	"4"
-// "01026875637"	"4"
-// "01027220393"	"4"
-// "01028580172"	"4"
-// "01029098208"	"4"
-// "01029319669"	"4"
-// "01029547655"	"4"
-// "01033241802"	"4"
-// "01033973148"	"4"
-// "01034652017"	"4"
-// "01035501617"	"4"
-// "01036776515"	"4"
-// "01036945144"	"4"
-// "01037772453"	"4"
-// "01038885130"	"4"
-// "01039162653"	"4"
-// "0104000000"	"4"
-// "01040396237"	"4"
-// "01040768022"	"4"
-// "01041721072"	"4"
-// "01041939717"	"4"
-// "01042705131"	"4"
-// "01042836021"	"4"
-// "01043532685"	"4"
-// "01044569277"	"4"
-// "01046166914"	"4"
-// "01046464206"	"4"
-// "01046681953"	"4"
-// "01047359368"	"4"
-// "01047899153"	"4"
-// "01051673309"	"4"
-// "01053234565"	"4"
-// "01053399057"	"4"
-// "01054550121"	"4"
-// "01054943841"	"4"
-// "0105555555"	"4"
-// "01056687823"	"4"
-// "01056872331"	"4"
-// "01056912582"	"4"
-// "01058179123"	"4"
-// "01058506265"	"4"
-// "01062890242"	"4"
-// "01063048837"	"4"
-// "01065203096"	"4"
-// "01066774814"	"4"
-// "01071575031"	"4"
-// "01072785045"	"4"
-// "01075537388"	"4"
-// "0107777777"	"4"
-// "01082779470"	"4"
-// "01085552528"	"4"
-// "01086650283"	"4"
-// "01086896509"	"4"
-// "01087220524"	"4"
-// "01087752819"	"4"
-// "01087971750"	"4"
-// "01087983168"	"4"
-// "01088351971"	"4"
-// "01088690223"	"4"
-// "01089090836"	"4"
-// "01092047387"	"4"
-// "01092280518"	"4"
-// "01092413132"	"4"
-// "01092534977"	"4"
-// "01094159708"	"4"
-// "01096018280"	"4"
-// "01097679420"	"4"
-// "01099634032"	"4"
-// "01099903048"	"4"
-// "01191826898"	"4"
-// "01194026277"	"4"
-// "0160000000"	"4"
-// "01600000000"	"4"
-// "0162971126"	"4"
-// "0165119435"	"4"
-// "0167503215"	"4"
-// "01700000000"	"4"
-// "0177663750"	"4"
-// "0195306210"	"4"
-// "0195467101"	"4"
-// "000-0000-0000"	"3"
-// "01000000001"	"3"
-// "01011112222"	"3"
 
 class angeclubAdminController extends angeclub
 {
+	const PREGNANT = 0;  // for data migration, to be deleted
+	const POSTNATAL = 1;    // for data migration, to be deleted
+
 	/**
 	 * @brief initialization
 	 **/
@@ -211,15 +45,296 @@ class angeclubAdminController extends angeclub
 		exit;
 	}
 /**
- * @brief COM_USER_cleaned 테이블의 
+ * @brief 아래의 쿼리로 adm_history_join에서 추출한 홈피 맘박스 신청자 php array 반환
+ */
+	private function _arrangeHompyMomboxRegistration()
+	{
+		// 홈페이지 맘박스 신청 내역 추출
+		// SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
+		// FROM adm_history_join
+		// INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
+		// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
+		// ORDER BY adhj_idx;
+		$sMomboxRegistrationArrPath = './files/angeclub/mombox_registration_log_array.php';
+		include $sMomboxRegistrationArrPath;
+		$aArrangedMomboxRegistration = [];
+		foreach($aMomboxRegistration as $_=>$aMombox)
+		{
+			$sMomId = $aMombox['adu_id'];
+			$aArrangedMomboxRegistration[$sMomId] = new stdClass();
+			if(strpos($aMombox['ada_name'], '출산맘') !== false)  // 출산맘박스
+				$aArrangedMomboxRegistration[$sMomId]->mombox_type = POSTNATAL;
+			else  // 임신맘박스
+				$aArrangedMomboxRegistration[$sMomId]->mombox_type = PREGNANT;
+				
+			$sMomboxTitle = $aMombox['ada_name'];
+			$nYrMoPos = mb_strpos($sMomboxTitle, '년');
+			if($nYrMoPos === false)  // 앙쥬 기존회원 앙쥬맘박스(구.샘플팩) 2020-07
+			{
+				$nYrMoPos = strpos($sMomboxTitle, '20');
+				$sInitYrMo = substr($sMomboxTitle, $nYrMoPos, 7);
+				$aInitYrMo = explode('-', $sInitYrMo);
+				$sFinalYrMo = $aInitYrMo[0].sprintf('%02d', $aInitYrMo[1]);
+				$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
+				// var_dump($sFinalYrMo);
+				// echo '<BR>';
+			}
+			else  // 앙쥬 신규회원 앙쥬맘박스(구.샘플팩) 20년 5월_114차
+			{
+				$sInitYrMo = mb_substr($sMomboxTitle, $nYrMoPos-2, 7);
+				$sInitYrMo = str_replace('_' , '', $sInitYrMo);
+				$aInitYrMo = explode('년 ', $sInitYrMo);
+				$sFinalYrMo = '20'.$aInitYrMo[0].sprintf('%02d',str_replace('월' , '', $aInitYrMo[1]));
+				$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
+			}
+			$aArrangedMomboxRegistration[$sMomId]->regdate = preg_replace("/[ :-]/i", "", $aMombox['adhj_date_request']);  // 2020-04-26 02:04:40 수정
+		}
+		unset($aMomboxRegistration);
+
+		// foreach($aArrangedMomboxRegistration as $sMomId=>$oMombox)
+		// {
+		// 	var_dump($sMomId, $oMombox);
+		// 	echo '<BR>';
+		// }
+		return $aArrangedMomboxRegistration;
+	}
+/**
+ * @brief angeclub_registration에 신청 내역 추가
+ */
+	private function _registerAngeclubRegistration($oAngeclubModel, $oMemberModel, $oComUser, $oXeMemberInfo)
+	{
+		switch($oComUser->CONTACT_ID)	
+		{
+			case 'whzhwhzh':
+				$sStaffMemberId = 'whzhwzh';
+				break;
+			case 'juhyun0451':
+				$sStaffMemberId = 'ju7886';
+				break;
+			case 'mocha':
+				$sStaffMemberId = 'mocha2';
+				break;
+			default:
+				$sStaffMemberId = $oComUser->CONTACT_ID;
+		}
+		$oXeStaffMemberInfo = $oMemberModel->getMemberInfoByUserID($sStaffMemberId);
+		if(!$oXeStaffMemberInfo)
+		{
+			if($oComUser->CONTACT_ID != 'dahae1541' && $oComUser->CONTACT_ID != 'admin')  // 직원 정보 상실
+			{
+				echo 'weird contact id<BR>';
+				var_dump($oComUser->CONTACT_ID);
+				echo '<BR>';
+				exit;
+			}
+		}
+		switch($oComUser->CARE_CENTER)
+		{
+			case '마포 아이린(망원)':
+			case '마포 아이린(성산)':
+				$sCenterName = 	'마포 아이린';
+				break;
+			case '동작 카리스 1관':
+				$sCenterName = 	'동작 카리스1관';
+				break;
+			case '부산 미래여성부설(신관)':
+				$sCenterName = 	'부산 미래여성부설(별관)';
+				break;
+			case '부산 일신부설(연제)':
+				$sCenterName = 	'부산 일신부설(연제본관)';
+				break;
+			case '강동 동그라미(명일)':
+				$sCenterName = 	'강동 동그라미';
+				break;
+			case '광명 레피리움(닥터마레)':
+				$sCenterName = 	'광명 레피리움(광명)';
+				break;
+			case '양천 포미즈부설':
+				$sCenterName = 	'양천 포미즈타임';
+				break;
+			case '부산 순부설(신관)':
+			case '부산 순부설(본관)':
+				$sCenterName = 	'부산 순부설';
+				break;
+			case '중구 레피리움(용산마포)':
+				$sCenterName = 	'중구 레피리움(마포)';
+				break;
+			case '영등포 리더스미래퀸':
+				$sCenterName = 	'영등포 리더스';
+				break;
+			case '일산 퀸즈파크':
+				$sCenterName = 	'일산 퀸스파크';
+				break;
+			case '영등포 아란테':
+				$sCenterName = 	'영등포 아란태';
+				break;
+			
+			default:
+				$sCenterName = $oComUser->CARE_CENTER;
+		}
+
+		if(strpos($oComUser->CARE_CENTER, '퀸즈마리') !== false) // '양천 퀸즈마리'  table에 있는데 php는 문자열 인식 안됨
+		{
+			if($oComUser->CARE_AREA	== '양천')
+				$sCenterName = 	'양천 queensmari';
+		}
+	
+		$aCcIdx = $oAngeclubModel->getCenterInfoByName($sCenterName);
+		$nLatestCenterId = array_pop($aCcIdx);
+		if(!$nLatestCenterId)  // 폐업 조리원
+		{
+			if($oComUser->CARE_CENTER != '양천 이자르' && $oComUser->CARE_CENTER != '구리 이자르' && 
+				$oComUser->CARE_CENTER != '구리 뉴이자르' &&
+				$oComUser->CARE_CENTER != '양천 강서레피리움' && $oComUser->CARE_CENTER != '부산창원 새한마음' &&
+				$oComUser->CARE_CENTER != '인천 미추홀 W여성부설 B동' && $oComUser->CARE_CENTER != '의정부 레피리움' &&
+				$oComUser->CARE_CENTER != '성남 곽생로부설' && $oComUser->CARE_CENTER != '용인 포근포근')
+			{
+				echo 'weird center name<BR>';
+				var_dump($oComUser);
+				echo '<BR><BR>';
+				var_dump($aCcIdx);
+				echo '<BR><BR>';
+				var_dump($sCenterName);
+				exit;	
+			}
+		}
+
+		$oAngeclubRegistArgs = new stdClass();
+		$oAngeclubRegistArgs->cc_idx = $nLatestCenterId;
+		unset($aCcIdx);
+		$oAngeclubRegistArgs->member_srl_staff = $oXeStaffMemberInfo->member_srl;
+		$oAngeclubRegistArgs->member_srl_parent = $oXeMemberInfo->member_srl;
+		$oAngeclubRegistArgs->is_existing_parent_member = 'N';
+		$oAngeclubRegistArgs->center_visit_cnt = $oComUser->CENTER_CNT;
+		$oAngeclubRegistArgs->education_cnt = $oComUser->CLUBEDU_CNT;
+		$aClubRegdate = explode(' ', $oComUser->CLUB_REG_DT);
+		$sClubRegdate = str_replace('-', '', $aClubRegdate[0]).'133030';
+		$oAngeclubRegistArgs->regdate = $sClubRegdate; //$oComUser->CLUB_REG_DT;
+
+		$oAngeclubRegistrationInsertRst = executeQuery('angeclub.insertClubRegistration', $oAngeclubRegistArgs);
+		if(!$oAngeclubRegistrationInsertRst->toBool())
+		{
+			var_Dump($oAngeclubRegistrationInsertRst);
+			echo '<BR>';
+			var_Dump($oAngeclubRegistArgs);
+			exit;
+		}
+
+		$oDB = DB::getInstance();
+		$nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
+		unset($oDB);
+		unset($oAngeclubRegistArgs);
+		unset($oAngeclubRegistrationInsertRst);
+		$oRst = new stdClass();
+		$oRst->nAngeclubRegistrationLogSrl = $nAngeclubRegistrationLogSrl;
+		$oRst->sClubRegdate = $sClubRegdate;
+		return $oRst;
+	}
+/**
+ * @brief 아이 정보 가져오기
+ */
+	private function _getBabyInfoByXeUserId($sXeUserId)
+	{
+		$aBabyList = [];
+		// echo 'inquiry old USER_ID alias<BR>';
+		$oArgs = new stdClass();
+		$oArgs->USER_ID_DEST = $sXeUserId;
+		$oAliasRst = executeQueryArray('angeclub.getTmpAdminComUserTransferredByUserId', $oArgs);
+		foreach($oAliasRst->data as $_=>$oAlias)  // search baby list by OLD USER_ID
+		{
+			echo 'alias USER_ID found for baby list searching<BR>';
+			$oBabyArgs = new stdClass();
+			$oBabyArgs->USER_ID = $oAlias->USER_ID_SOURCE;
+			$oBabyRst = executeQueryArray('angeclub.getTmpAdminBabyList', $oBabyArgs);
+			foreach($oBabyRst->data as $_=>$oSingleBaby)
+				$aBabyList[$oSingleBaby->BABY_BIRTH.'|@|'.$oSingleBaby->BABY_SEX_GB] = $oSingleBaby->BABY_NM;
+			unset($oBabyRst);
+			unset($oBabyArgs);
+		}
+		unset($oAliasRst);
+		unset($oArgs);
+
+		$oBabyArgs = new stdClass();  // search baby list by XE member.user_id
+		$oBabyArgs->USER_ID = $sXeUserId;
+		$oBabyRst = executeQueryArray('angeclub.getTmpAdminBabyList', $oBabyArgs);
+		foreach($oBabyRst->data as $_=>$oSingleBaby)
+			$aBabyList[$oSingleBaby->BABY_BIRTH.'|@|'.$oSingleBaby->BABY_SEX_GB] = $oSingleBaby->BABY_NM;
+		unset($oBabyRst);
+		unset($oBabyArgs);
+
+		$aFinalBabyList = [];
+		foreach($aBabyList as $sUid=>$sBabyName)
+		{
+			$aInfo = explode('|@|', $sUid);
+			$oSingleBaby = new stdClass();
+			$oSingleBaby->sName = $sBabyName;
+			$oSingleBaby->sBirthYyyymmdd = $aInfo[0];
+			$oSingleBaby->sGender = $aInfo[1];
+			$aFinalBabyList[] = $oSingleBaby;
+		}
+		unset($aBabyList);
+		return $aFinalBabyList;
+	}
+/**
+ * @brief angemombox_data_lake에 신청 내역 추가
+ */
+	private function _registerAngemomboxDataLake($oDatalakeArgs)
+	{
+		// $oDatalakeArgs->baby_birth_name = null;
+		// $oDatalakeArgs->baby_gender = null;
+		// $oDatalakeArgs->baby_birthday_yyyymmdd = null;
+		$oDataLakeInsertRst = executeQuery('angeclub.insertTmpAdminDataLake', $oDatalakeArgs);
+		return $oDataLakeInsertRst;
+	}
+/**
+ * @brief COM_USER_cleaned 테이블을 참조하여 홈피 맘박스 신청자와 클럽 가입자를 angemombox_data_lake에 insert
  */
 	private function _migrateComUserIntoXeMomboxDatalake()
 	{
 		echo __FILE__.':'.__LINE__.'<BR>';
 		ini_set('memory_limit', '2048M');  // php.ini default 512M
 		set_time_limit(720);  // sec
+
+		// begin - adm_history_join tbl 구성
+		$aMomboxRegistInfo = $this->_arrangeHompyMomboxRegistration();
+		// var_dump($aMomboxRegistInfo);
+		// exit;
+		// end - adm_history_join tbl 구성
+
+		// begin - angemombox_data_lake에 입력할 module_srl 설정
+		$oModuleModel = &getModel('module');
+		$oMomboxBeforeModuleInfo = $oModuleModel->getModuleInfoByMid('mombox_before_apply');
+		$oMomboxAfterModuleInfo = $oModuleModel->getModuleInfoByMid('mombox_after_apply');
+		$oAngeclubModuleInfo = $oModuleModel->getModuleInfoByMid('angeclub');
 		
-		$sSeqLogFilePath = './files/angeclub/xe_mombox_datalake_migrate_seq.txt';
+		$nMomboxBeforeModuleSrl = $oMomboxBeforeModuleInfo->module_srl;
+		$nMomboxAfterModuleSrl = $oMomboxAfterModuleInfo->module_srl;
+		$nAngeclubModuleSrl = $oAngeclubModuleInfo->module_srl;
+		// echo '<BR>';
+		// var_dump($oMomboxAfterModuleInfo->module_srl);
+		// echo '<BR>';
+		unset($oMomboxBeforeModuleInfo);
+		unset($oMomboxAfterModuleInfo);
+		unset($oModuleModel);
+		// end - angemombox_data_lake에 입력할 module_srl 설정
+
+		if(!$nMomboxBeforeModuleSrl)
+		{
+			echo 'invalid nMomboxBeforeModuleSrl<BR>';
+			exit;
+		}
+		if(!$nMomboxAfterModuleSrl)
+		{
+			echo 'invalid nMomboxAfterModuleSrl<BR>';
+			exit;
+		}
+		if(!$nAngeclubModuleSrl)
+		{
+			echo 'invalid nAngeclubModuleSrl<BR>';
+			exit;
+		}
+		
+		$sSeqLogFilePath = './files/angeclub/4xe_mombox_datalake_migrate_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
 			$nCurPage = (int)$sSeqLogFileContent;
@@ -228,68 +343,159 @@ class angeclubAdminController extends angeclub
 
 		$oArgs = new stdClass();
 		$oArgs->page = $nCurPage;
-		// $oArgs->NO = 720476;
-		$oArgs->list_count = 60000;
-		$oRst = executeQueryArray('angeclub.getTmpAdminComUserCleanedPagination', $oArgs);
+		// $oArgs->NO = 753763;
+		
+		$oArgs->list_count = 50000;
+		$oRst = executeQueryArray('angeclub.getTmpAdminComUserCleanedPaginationAsc', $oArgs);
 		unset($oArgs);
 		echo count($oRst->data).' records has been detected<BR>';
 
 		$oMemberModel = &getModel('member');
+		$oAngeclubModel = &getModel('angeclub');
 		foreach($oRst->data as $nIdx=>$oComUser)
 		{
+			// 주의!! com_user_cleaned tbl이므로 $oComUser->USER_ID == $oXeMemberInfo->user_id
 			echo 'search NO: '.$oComUser->NO.' USER_ID: '.$oComUser->USER_ID.'<BR>';
+			$sOriginalUserId = null;
 			$oXeMemberInfo = $oMemberModel->getMemberInfoByUserID($oComUser->USER_ID);
-			if(!$oXeMemberInfo->member_srl)
-			{
-				echo 'inquiry unregistered member alias<BR>';
-				$oArgs = new stdClass();
-				$oArgs->USER_ID_SOURCE = $oComUser->USER_ID;
-				$oAliasRst = executeQueryArray('angeclub.getTmpAdminComUserTransferredByUserId', $oArgs);
-				if(count($oAliasRst->data))
-					$oXeMemberInfo = $oMemberModel->getMemberInfoByUserID($oAliasRst->data[0]->USER_ID_DEST);
-				// echo '<BR>';
-				unset($oArgs);
-			}
-			else
-			{
-				var_dump($oXeMemberInfo);
-				// echo '<BR>';
-			}
+
+			$aFinalBabyList = $this->_getBabyInfoByXeUserId($oXeMemberInfo->user_id);
+			// echo $oXeMemberInfo->user_id.'\'s baby info<BR>';
+			// var_dump($aFinalBabyList);
+			// echo '<BR>';
+		
+			// if(!$oXeMemberInfo->member_srl)
+			// {
+			// 	echo 'inquiry unregistered member alias<BR>';
+			// 	$oArgs = new stdClass();
+			// 	$oArgs->USER_ID_DEST = $oComUser->USER_ID;
+			// 	$oAliasRst = executeQueryArray('angeclub.getTmpAdminComUserTransferredByUserId', $oArgs);
+			// 	if(count($oAliasRst->data))
+			// 	{
+			// 		echo 'alias found<BR>';
+			// 		exit;
+			// 		$sOriginalUserId = $oAliasRst->data[0]->USER_ID_DEST;
+			// 		$oXeMemberInfo = $oMemberModel->getMemberInfoByUserID($oAliasRst->data[0]->USER_ID_SOURCE);
+			// 	}
+			// 	unset($oAliasRst);
+			// 	unset($oArgs);
+			// }
+			// else
+			// 	var_dump($oXeMemberInfo);
 			
-			// 홈페이지 맘박스 신청 내역 추출
-			// SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
-			// FROM adm_history_join
-			// INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
-			// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
-			// ORDER BY adhj_idx;
 			if($oXeMemberInfo->member_srl)
 			{
 				$oDatalakeArgs = new stdClass();
 				$oDatalakeArgs->parent_member_srl = $oXeMemberInfo->member_srl;
 				$oDatalakeArgs->mobile = $oXeMemberInfo->mobile;
 				$oDatalakeArgs->parent_birthday_yyyymmdd = $oXeMemberInfo->birthday;
-				$oDatalakeArgs->parent_gender = $oComUser->PHONE_2;
-				$oDatalakeArgs->parent_pregnant = $oComUser->PREGNENT_FL;
-				$oDatalakeArgs->baby_birth_name = null;
-				$oDatalakeArgs->baby_gender = null;
-				$oDatalakeArgs->baby_birthday_yyyymmdd = null;
+				$oDatalakeArgs->parent_gender = $oComUser->SEX_GB;
 				$oDatalakeArgs->postcode = $oComUser->ZONE_CODE ? $oComUser->ZONE_CODE : $oComUser->ZIP_CODE;
 				$oDatalakeArgs->addr = $oComUser->ADDR;
 				$oDatalakeArgs->addr_detail = $oComUser->ADDR_DETAIL;
-				// $oDatalakeArgs->addr_extra = null;
 				$oDatalakeArgs->email_push = $oComUser->EN_ANGE_EMAIL_FL;
 				$oDatalakeArgs->sms_push = $oComUser->EN_ANGE_SMS_FL;
 				$oDatalakeArgs->post_push = $oComUser->EN_ANGE_ADDR_FL;
 				$oDatalakeArgs->sponsor_push = $oComUser->EN_CLUB_SPONSOR_FL;
-				// $oDatalakeArgs->content = null; 
-				$oDatalakeArgs->regdate = $oComUser->REG_DT;
-			}
 
-			// exit;
+				$oHompyMomboxRegist = $aMomboxRegistInfo[$oXeMemberInfo->user_id];
+				if($oHompyMomboxRegist)  // 홈피에서 맘박스 신청
+				{
+					if($oHompyMomboxRegist->mombox_type == POSTNATAL)
+						$oDatalakeArgs->module_srl = $nMomboxAfterModuleSrl;
+					elseif($oHompyMomboxRegist->mombox_type == PREGNANT)
+						$oDatalakeArgs->module_srl = $nMomboxBeforeModuleSrl;
+					else
+					{
+						echo 'invalid mombox_type<BR>';
+						var_Dump($oHompyMomboxRegist);
+						exit;
+					}
+					$oDatalakeArgs->yr_mo = $oHompyMomboxRegist->yr_mo;
+					$oDatalakeArgs->parent_pregnant = $oComUser->PREGNENT_FL;
+					// $oDatalakeArgs->content = null; 
+					$oDatalakeArgs->regdate = $oHompyMomboxRegist->regdate;
+					foreach($aFinalBabyList as $_=>$oSingleBaby)
+					{
+						$oDatalakeArgs->baby_birth_name = $oSingleBaby->sName;
+						$oDatalakeArgs->baby_gender = $oSingleBaby->sGender;
+						$oDatalakeArgs->baby_birthday_yyyymmdd = $oSingleBaby->sBirthYyyymmdd;
+						$oDataLakeInsertRst = $this->_registerAngemomboxDataLake($oDatalakeArgs);
+						if(!$oDataLakeInsertRst->toBool())
+						{
+							echo 'error while register hompy an exclusive member<BR>';
+							var_Dump($oDataLakeInsertRst);
+							echo '<BR>';
+							var_Dump($oDatalakeArgs);
+							exit;
+						}
+					}
+
+					if($oComUser->CLUB_INT == 'Y') // 홈피로 가입한 산모를 클럽에서 만났으므로 한번 더 기록
+					{
+						if(!$oComUser->CLUB_REG_DT || !$oComUser->CARE_CENTER) // 불완전한 기록이므로 무시
+							continue;
+						
+						$oRst = $this->_registerAngeclubRegistration($oAngeclubModel, $oMemberModel, $oComUser, $oXeMemberInfo);
+						$oDatalakeArgs->angeclub_registration_log_srl = $oRst->nAngeclubRegistrationLogSrl;
+						$oDatalakeArgs->module_srl = $nAngeclubModuleSrl;
+						$oDatalakeArgs->yr_mo = substr($oRst->sClubRegdate, 0, 6);
+						$oDatalakeArgs->parent_pregnant = 'N';  // 조리원이므로 당연히 출산 후
+						$oDatalakeArgs->regdate = $oRst->sClubRegdate;
+						unset($oRst);
+						foreach($aFinalBabyList as $_=>$oSingleBaby)
+						{
+							$oDatalakeArgs->baby_birth_name = $oSingleBaby->sName;
+							$oDatalakeArgs->baby_gender = $oSingleBaby->sGender;
+							$oDatalakeArgs->baby_birthday_yyyymmdd = $oSingleBaby->sBirthYyyymmdd;
+							$oDataLakeInsertRst = $this->_registerAngemomboxDataLake($oDatalakeArgs);
+							if(!$oDataLakeInsertRst->toBool())
+							{
+								echo 'error while register a hompy angeclub duplicated member<BR>';
+								var_Dump($oDataLakeInsertRst);
+								echo '<BR>';
+								var_Dump($oDatalakeArgs);
+								exit;
+							}
+						}
+					}
+				}
+				else  // 앙쥬 클럽만 가입한 산모
+				{
+					if(!$oComUser->CLUB_REG_DT || !$oComUser->CARE_CENTER)  // 불완전한 기록이므로 무시
+						continue;
+					
+					$oRst = $this->_registerAngeclubRegistration($oAngeclubModel, $oMemberModel, $oComUser, $oXeMemberInfo);
+					$oDatalakeArgs->angeclub_registration_log_srl = $oRst->nAngeclubRegistrationLogSrl;
+					$oDatalakeArgs->module_srl = $nAngeclubModuleSrl;
+					$oDatalakeArgs->yr_mo = substr($oRst->sClubRegdate, 0, 6);
+					$oDatalakeArgs->parent_pregnant = 'N';  // 조리원이므로 당연히 출산 후
+					$oDatalakeArgs->regdate = $oRst->sClubRegdate;
+					unset($oRst);
+					foreach($aFinalBabyList as $_=>$oSingleBaby)
+					{
+						$oDatalakeArgs->baby_birth_name = $oSingleBaby->sName;
+						$oDatalakeArgs->baby_gender = $oSingleBaby->sGender;
+						$oDatalakeArgs->baby_birthday_yyyymmdd = $oSingleBaby->sBirthYyyymmdd;
+						$oDataLakeInsertRst = $this->_registerAngemomboxDataLake($oDatalakeArgs);
+						if(!$oDataLakeInsertRst->toBool())
+						{
+							echo 'error while register a angeclub exclusive member<BR>';
+							var_Dump($oDataLakeInsertRst);
+							echo '<BR>';
+							var_Dump($oDatalakeArgs);
+							exit;
+						}
+					}
+				}
+				unset($oDatalakeArgs);
+			}
+			unset($aFinalBabyList);
 		}
 		unset($oMemberModel);
+		unset($oAngeclubModel);
 		unset($oRst);
-		exit;
+		// exit;
 		FileHandler::writeFile($sSeqLogFilePath, ++$nCurPage);
 		echo '<BR><BR>succeed!';
 	}
@@ -302,7 +508,7 @@ class angeclubAdminController extends angeclub
 		ini_set('memory_limit', '2048M');  // php.ini default 512M
 		set_time_limit(720);  // sec
 		
-		$sSeqLogFilePath = './files/angeclub/xe_member_migrate_seq.txt';
+		$sSeqLogFilePath = './files/angeclub/3xe_member_migrate_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
 			$nCurPage = (int)$sSeqLogFileContent;
@@ -328,9 +534,10 @@ class angeclubAdminController extends angeclub
 			if(!$oInsertRst->toBool())
 			{
 				echo 'error occured while xe_member insert!!!<BR>';
-				var_Dump($oComUser);
-				echo '<BR>';
-				var_Dump($oInsertRst);
+				// var_Dump($oComUser);
+				// echo '<BR>';
+				// var_Dump($oInsertRst);
+				// echo '<BR>';
 				exit;
 			}
 			$nXeMemberSrl = $oInsertRst->get('member_srl');
@@ -408,14 +615,18 @@ class angeclubAdminController extends angeclub
 		// unset($oArgs);
 		// var_dump($oRst);
 		// exit;
-		$oArgs->list_order = -1 * $oArgs->member_srl;
+		$oArgs->list_order = $oArgs->member_srl; //-1 * $oArgs->member_srl;
 		$oMemberAddRst = executeQuery('member.insertMember', $oArgs);
+		if(!$oMemberAddRst->toBool())
+		{
+			var_dump($oMemberAddRst);
+			echo '<BR>';
+			var_dump($oArgs);
+			echo '<BR>';
+			// exit;
+		}
 		$oMemberAddRst->add('member_srl', $oArgs->member_srl);
-		// if(!$oMemberAddRst->toBool())
-		// {
-		// 	var_dump($oMemberAddRst);
-		// 	exit;
-		// }
+		
 		$oGrpAddArgs = new stdClass();
 		$oGrpAddArgs->member_srl = $oArgs->member_srl;
 		$oGrpAddArgs->group_srl = 2;
@@ -472,21 +683,28 @@ class angeclubAdminController extends angeclub
 		if(strpos($sUserId, '@') !== false) // USER_ID가 이메일이면
 		{ 
 			$aUserId = explode('@', $sUserId);
-			$sUserId = $this->_checkUserIdUniqueness($aUserId[0]);
+			$sEmailId = str_replace(' ' , '', $aUserId[0]);
+			$sEmailId = strtolower($sEmailId);
+			$sEmailId = preg_replace("/[ #\&\\%@=\/\\\:;,\.\+'\"\^`~\|\!\?\*$#<>()\[\]\{\}]/i", "", $sEmailId);  // -_ 제외한 특수 문자 제거
+			$sUserId = $this->_checkUserIdUniqueness($sEmailId);
 			unset($aUserId);
 		}
 		if(preg_match("/[\xE0-\xFF][\x80-\xFF][\x80-\xFF]/", $sUserId)) // USER_ID가 UTF-8 한글이면
 		{ 
 			$aUserId = explode('@', $sEmail);
-			$sUserId = $this->_checkUserIdUniqueness($aUserId[0]);
+			$sEmailId = str_replace(' ' , '', $aUserId[0]);
+			$sEmailId = strtolower($sEmailId);
+			$sUserId = $this->_checkUserIdUniqueness($sEmailId);
+			$sEmailId = preg_replace("/[ #\&\\%@=\/\\\:;,\.\+'\"\^`~\|\!\?\*$#<>()\[\]\{\}]/i", "", $sEmailId);  // -_ 제외한 특수 문자 제거
+			// $sUserId = $this->_checkUserIdUniqueness($aUserId[0]);
 			unset($aUserId);
 		}
 		// https://lynmp.com/ko/article/ad811c9dc5oi
 		$sUserId = preg_replace("/[ #\&\\%@=\/\\\:;,\.\+'\"\^`~\|\!\?\*$#<>()\[\]\{\}]/i", "", $sUserId);  // -_ 제외한 특수 문자 제거
 		if(strlen($sUserId) == 0)
-			$sUserId = $sMobile.$this->_getRandStr(2);
+			$sUserId = $this->_getRandStr(7);  // $sMobile.$this->_getRandStr(2);
 		if(!preg_match('/^[0-9a-zA-Z]+([-_0-9a-zA-Z]+)*$/is', $sUserId))  // XE member ID rule
-			$sUserId = $sMobile.$this->_getRandStr(2);
+			$sUserId = $this->_getRandStr(7); //$sMobile.$this->_getRandStr(2);
 		return strtolower($sUserId);
 	}
 /**
@@ -497,8 +715,25 @@ class angeclubAdminController extends angeclub
 		if(strlen($sEmail)==0)  // 이메일이 공란이면
 			return $this->_getRandStr(7, TRUE).'@e.c';
 		
-		$sEmail = str_replace(',' , '.', $sEmail); // 상식적인 co,kr 오류만 수정
-		$sEmail = str_replace(' ' , '', $sEmail); // 상식적인 빈칸 오류만 수정
+		$sEmail = str_replace(',' , '.', $sEmail); // co,kr 오류 수정
+		$sEmail = str_replace(' ' , '', $sEmail); // 빈칸 오류 수정
+
+		$aEmailInfo = explode('@', $sEmail);
+		if(count($aEmailInfo)>2) // rudgml2474@naver.com@rudgml2474@naver.com
+		{
+			$sTmpEmailId = $aEmailInfo[0];
+			$sTmpEmailHost = null;
+			unset($aEmailInfo[0]);
+			foreach($aEmailInfo as $_ => $sChunk)
+			{
+				if(strpos($sChunk, ".") !== false)  // catch host info, whatever
+				{
+					$sTmpEmailHost = $sChunk;
+					break;
+				}
+			}
+			$sEmail = $sTmpEmailId.'@'.$sTmpEmailHost;
+		}
 		// 그 이상의 이메일 주소 문법 오류는 허위 입력으로 처리함
 		if(!preg_match('/^[\w-]+((?:\.|\+|\~)[\w-]+)*@[\w-]+(\.[\w-]+)+$/is', $sEmail))
 			return $this->_getRandStr(7, TRUE).'@e.c';
@@ -569,9 +804,9 @@ class angeclubAdminController extends angeclub
 		echo __FILE__.':'.__LINE__.'<BR>';
 		ini_set('memory_limit', '2048M');  // php.ini default 512M
 		set_time_limit(360);  // sec
-		
+
 		// 핸드폰 고유성이 확보된 COM_USER 테이블 구성
-		$sSeqLogFilePath = './files/angeclub/com_user_cleanup_seq.txt';
+		$sSeqLogFilePath = './files/angeclub/2com_user_cleanup_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
 			$nCurPage = (int)$sSeqLogFileContent;
@@ -579,6 +814,7 @@ class angeclubAdminController extends angeclub
 			$nCurPage = 1;
 
 		$oArgs = new stdClass();
+		$oArgs->NO = 682224;
 		$oArgs->page = $nCurPage;
 		$oArgs->list_count = 75000;
 		$oRst = executeQueryArray('angeclub.getTmpAdminComUserPagination', $oArgs);
@@ -620,6 +856,7 @@ class angeclubAdminController extends angeclub
 					$oTransferArg->USER_ID_SOURCE = $oUser->USER_ID;
 					$oTransferArg->NO_DEST = $oUser->NO;
 					$oTransferArg->USER_ID_DEST = $sCleanedUserId;
+					$oTransferArg->mobile = $oUser->PHONE_2;
 					$oInsertTransferRst = executeQuery('angeclub.insertTmpAdminComUserTransferred', $oTransferArg);
 					// echo '<BR>핸폰 번호 고유성 확인된 회원 정보의 ID 변경<BR>';
 					// var_dump($oTransferArg);
@@ -670,6 +907,7 @@ class angeclubAdminController extends angeclub
 						$oTransferArg->USER_ID_SOURCE = $oLatestMemberInfo->USER_ID;
 						$oTransferArg->NO_DEST = $oLatestMemberInfo->NO;
 						$oTransferArg->USER_ID_DEST = $sCleanedUserId;
+						$oTransferArg->mobile = $oLatestMemberInfo->PHONE_2;
 						$oInsertTransferRst = executeQuery('angeclub.insertTmpAdminComUserTransferred', $oTransferArg);
 						// echo '<BR>중복 핸폰 번호이며 등록된 모든 ID가 이메일인 회원 정보의 ID 변경<BR>';
 						// var_dump($oTransferArg);
@@ -689,6 +927,7 @@ class angeclubAdminController extends angeclub
 							$oTransferArg->USER_ID_SOURCE = $sFinalChoosedUserId;
 							$oTransferArg->NO_DEST = $nFinalChoosedNo;
 							$oTransferArg->USER_ID_DEST = $sCleanedUserId;
+							$oTransferArg->mobile = $oLatestMemberInfo->PHONE_2;
 							$oInsertTransferRst = executeQuery('angeclub.insertTmpAdminComUserTransferred', $oTransferArg);
 							// echo '<BR>중복 핸폰 번호이며 등록된 모든 ID가 이메일은 아니지만 ID 검사 실패한 회원 정보의 ID 변경<BR>';
 							// var_dump($oTransferArg);
@@ -718,6 +957,7 @@ class angeclubAdminController extends angeclub
 						$oTransferArg->USER_ID_SOURCE = $sUserId;
 						$oTransferArg->NO_DEST = $oLatestMemberInfo->NO;
 						$oTransferArg->USER_ID_DEST = $oLatestMemberInfo->USER_ID;
+						$oTransferArg->mobile = $oLatestMemberInfo->PHONE_2;
 						$oInsertTransferRst = executeQuery('angeclub.insertTmpAdminComUserTransferred', $oTransferArg);
 						// echo '<BR>중복 핸폰 번호의 ID ALIAS 등록<BR>';
 						// var_dump($oTransferArg);
@@ -778,7 +1018,7 @@ class angeclubAdminController extends angeclub
 		set_time_limit(360);  // sec
 
 		// 회원 정보에서 중복된 핸드폰 번호 발견하면 중복 번호 테이블에 기록
-		$sSeqLogFilePath = './files/angeclub/com_user_duplicated_mobile_seq.txt';
+		$sSeqLogFilePath = './files/angeclub/1com_user_duplicated_mobile_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
 			$nCurPage = (int)$sSeqLogFileContent;
@@ -786,6 +1026,7 @@ class angeclubAdminController extends angeclub
 			$nCurPage = 1;
 
 		$oArgs = new stdClass();
+		$oArgs->NO = 682224;
 		$oArgs->page = $nCurPage;
 		$oRst = executeQueryArray('angeclub.getTmpAdminComUserPagination', $oArgs);
 		unset($oArgs);
@@ -798,7 +1039,7 @@ class angeclubAdminController extends angeclub
 		{
 			if(strlen($oUser->PHONE_2) < 9)  // 0101234567
 				continue;
-			// echo $nCnt++.' - '.$oUser->NO.' - '.$oUser->PHONE_2.'<BR>';
+			echo $nCnt++.' - '.$oUser->NO.' - '.$oUser->PHONE_2.'<BR>';
 			$oArgs->PHONE_2 = $oUser->PHONE_2;
 			$oDupRst = executeQueryArray('angeclub.getTmpAdminComUserDuplicatedMobile', $oArgs);
 			$nDuplication = count($oDupRst->data);

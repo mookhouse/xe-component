@@ -1,106 +1,126 @@
-1. innodb tblÀ» MyISAMÀ¸·Î ¼öµ¿ º¯°æ
+*. ì•™ì¥¬í´ëŸ½ ê°„í˜¸ì‚¬ íšŒì› ê°€ìž…í•˜ê³   [ì•™ì¥¬í´ëŸ½ìŠ¤íƒœí”„] [ì•™ì¥¬í´ëŸ½ê´€ë¦¬ìž] ê·¸ë£¹ì— ì¶”ê°€
+cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
+(ê°€ìž…í–ˆì„ìˆ˜ ìžˆìŒ) mocha2	ê°•ë‚¨	c4650	ê¹€ê²½í¬	01047428413	angeclub@ange.co.kr	51025	
+(ë¬´ì‹œ) mocha	ì´ê´„	c4650	ê¹€ê²½í¬(a)	01047428413	angeclub@ange.co.kr	51025	
+(ê°€ìž…í–ˆì„ìˆ˜ ìžˆìŒ) sugarprime	ê°•ì„œ	830228	ì†ë¯¸ì—°	01071377707	sugarprime@naver.com	160208	
+sooga7	ë¶€ì‚°	761015	ì´ì„±ìˆ™	01065514405	sooga76@naver.com	2018-05-28	211125
+hya1021	ê°•ë¶	821021	ì‹ ëª…í¬	01034972002	hya1021@naver.com	190422	201026
+myheromyth89	ê°•ë™	891001	ë‚¨ê°€ì€	01091611247	myheromyth89@naver.com	200810	201224
+(ì´ë¯¸ ê°€ìž…ë¨) juhyun0451	ë¶€ì‚°	910517	ì‹ ì£¼í˜„	01048900451	juhyun0451@gmail.com	211126	220731
+(ì´ë¯¸ ê°€ìž…ë¨) whzhwhzh	ê°•ë¶	770722	ê¹€ì„±ê²½	01062752710	whzhwhzh@naver.com	220926	
+
+êµ¬ ange.co.krì— ë’¤ëŠ¦ê²Œ íšŒì› ë“±ë¡í•œ ê°„í˜¸ì‚¬ ì•„ì´ë””
+whzhwhzh 
+sugarprime
+mocha2 
+
+*. innodb tblì„ MyISAMìœ¼ë¡œ ìˆ˜ë™ ë³€ê²½
 
 adm_history_join
 ange_club_baby
 club_log
+club_center
 com_user
 
-2. com_userÀÇ ¹Ì»ç¿ë ÇÊµå ¼öµ¿ »èÁ¦
+club_centerì—ì„œ
+896  ì–‘ì²œ í€¸ì¦ˆë§ˆë¦¬ ->  ì–‘ì²œ queensmarie
 
-`LUNAR_FL` char(1) DEFAULT NULL COMMENT '»ýÀÏ ¾ç·Â À¯¹«(0:¾ç·Â, 1:À½·Â)',
-`PHONE_1` varchar(15) DEFAULT NULL COMMENT '¿¬¶ôÃ³',
-`USER_GB` varchar(20) DEFAULT NULL COMMENT '»ç¿ëÀÚ ±¸ºÐ(MEMBER:ÀÏ¹Ý, CLUB:Å¬·´)',
-`SUPPORT_NO` tinyint(4) DEFAULT NULL COMMENT '¼­Æ÷ÅÍÁî ±â¼ö',
-`USER_ST` char(1) DEFAULT NULL COMMENT '»ç¿ëÀÚ »óÅÂ(W:´ë±â, N:Á¤»ó, P:ºÒ·®, W:ÈÞ¸é) ',
-`UPDATE_DT` datetime DEFAULT NULL COMMENT '¼öÁ¤ÀÏ',
-`INTRO` varchar(500) DEFAULT NULL COMMENT '¼Ò°³',
-`NOTE` varchar(500) DEFAULT NULL COMMENT '¸Þ¸ð',
-`MARRIED_FL` char(1) DEFAULT NULL COMMENT '°áÈ¥ À¯¹«(Y/N)',
-`BABY_CNT` tinyint(4) unsigned DEFAULT NULL COMMENT '¾Æ±â¼ö(µ¥ÀÌÅÍ Á¤È®ÇÏÁö ¾ÊÀ½)',
-`BLOG_FL` char(1) DEFAULT NULL COMMENT 'ºí·Î±× À¯¹«(µ¥ÀÌÅÍ Á¤È®ÇÏÁö ¾ÊÀ½)',
-`JOIN_PATH` varchar(10) DEFAULT NULL COMMENT 'À¯ÀÔ°æ·Î',
-`CONTACT_NM` varchar(40) DEFAULT NULL COMMENT '´ã´çÀÚ¸í',
-`CENTER_VISIT_YMD` varchar(10) DEFAULT NULL COMMENT '¼¾ÅÍ±³À°ÀÏÀÚ(±¸:Á¶¸®¿ø ÀÔ¼ÒÀÏ)',
-`CENTER_OUT_YMD` varchar(10) DEFAULT NULL COMMENT 'Á¶¸®¿ø Åð¼ÒÀÏ',
+
+*. com_userì˜ ë¯¸ì‚¬ìš© í•„ë“œ ìˆ˜ë™ ì‚­ì œ
+
+`LUNAR_FL` char(1) DEFAULT NULL COMMENT 'ìƒì¼ ì–‘ë ¥ ìœ ë¬´(0:ì–‘ë ¥, 1:ìŒë ¥)',
+`PHONE_1` varchar(15) DEFAULT NULL COMMENT 'ì—°ë½ì²˜',
+`USER_GB` varchar(20) DEFAULT NULL COMMENT 'ì‚¬ìš©ìž êµ¬ë¶„(MEMBER:ì¼ë°˜, CLUB:í´ëŸ½)',
+`SUPPORT_NO` tinyint(4) DEFAULT NULL COMMENT 'ì„œí¬í„°ì¦ˆ ê¸°ìˆ˜',
+`USER_ST` char(1) DEFAULT NULL COMMENT 'ì‚¬ìš©ìž ìƒíƒœ(W:ëŒ€ê¸°, N:ì •ìƒ, P:ë¶ˆëŸ‰, W:íœ´ë©´) ',
+`UPDATE_DT` datetime DEFAULT NULL COMMENT 'ìˆ˜ì •ì¼',
+`INTRO` varchar(500) DEFAULT NULL COMMENT 'ì†Œê°œ',
+`NOTE` varchar(500) DEFAULT NULL COMMENT 'ë©”ëª¨',
+`MARRIED_FL` char(1) DEFAULT NULL COMMENT 'ê²°í˜¼ ìœ ë¬´(Y/N)',
+`BABY_CNT` tinyint(4) unsigned DEFAULT NULL COMMENT 'ì•„ê¸°ìˆ˜(ë°ì´í„° ì •í™•í•˜ì§€ ì•ŠìŒ)',
+`BLOG_FL` char(1) DEFAULT NULL COMMENT 'ë¸”ë¡œê·¸ ìœ ë¬´(ë°ì´í„° ì •í™•í•˜ì§€ ì•ŠìŒ)',
+`JOIN_PATH` varchar(10) DEFAULT NULL COMMENT 'ìœ ìž…ê²½ë¡œ',
+`CONTACT_NM` varchar(40) DEFAULT NULL COMMENT 'ë‹´ë‹¹ìžëª…',
+`CENTER_VISIT_YMD` varchar(10) DEFAULT NULL COMMENT 'ì„¼í„°êµìœ¡ì¼ìž(êµ¬:ì¡°ë¦¬ì› ìž…ì†Œì¼)',
+`CENTER_OUT_YMD` varchar(10) DEFAULT NULL COMMENT 'ì¡°ë¦¬ì› í‡´ì†Œì¼',
 `EN_FL` char(1) DEFAULT NULL,
-`EN_EMAIL_FL` char(1) DEFAULT NULL COMMENT '»èÁ¦¿¹Á¤',
-`EN_POST_FL` char(1) DEFAULT NULL COMMENT '»èÁ¦¿¹Á¤',
-`EN_SMS_FL` char(1) DEFAULT NULL COMMENT '»èÁ¦¿¹Á¤',
-`EN_PHONE_FL` char(1) DEFAULT NULL COMMENT '»èÁ¦¿¹Á¤',
-`EN_ANGE_PHONE_FL` char(1) DEFAULT NULL COMMENT '¾ÓÁê ¼Ò½Ä ¿¬¶ô À¯¹«(µî·Ï¾ÈÇÔ)',
-`EN_ALARM_EMAIL_FL` char(1) DEFAULT NULL COMMENT '½ºÄÉÁì ¾Ë¸² ¸ÞÀÏ¹ß¼Û À¯¹«',
-`EN_ALARM_SMS_FL` char(1) DEFAULT NULL COMMENT '½ºÄÉÁì ¾Ë¸² SMS À¯¹«',
-`EN_ALARM_PHONE_FL` char(1) DEFAULT NULL COMMENT '½ºÄÉÁì ¾Ë¸² ¿¬¶ô À¯¹«(µî·Ï¾ÈÇÔ)',
-`EN_STORE_EMAIL_FL` char(1) DEFAULT NULL COMMENT '½ºÅä¾î ¼Ò½Ä ¸ÞÀÏ¹ß¼Û À¯¹«',
-`EN_STORE_SMS_FL` char(1) DEFAULT NULL COMMENT '½ºÅä¾î ¼Ò½Ä SMS À¯¹«',
-`EN_STORE_PHONE_FL` char(1) DEFAULT NULL COMMENT '½ºÅä¾î ¼Ò½Ä ¿¬¶ô À¯¹«(µî·Ï¾ÈÇÔ)',
-`BABY_BIRTH_DT` varchar(30) DEFAULT NULL COMMENT 'Ãâ»ê ¿¹Á¤ÀÏ',
-`CERT_GB` varchar(10) DEFAULT NULL COMMENT 'ÀÎÁõ ±¸ºÐ(PHONE:ÈÞ´ëÆù, EMAIL:ÀÌ¸ÞÀÏ)',
-`CERT_DT` datetime DEFAULT NULL COMMENT 'ÀÎÁõÀÏ',
-`CERT_HASH` varchar(100) DEFAULT NULL COMMENT 'ÀÎÁõ¹®ÀÚ',
-`SUM_POINT` int(11) DEFAULT '0' COMMENT 'Àû¸³ ¸¶ÀÏ¸®Áö ÃÑÇÕ',
-`USE_POINT` int(11) DEFAULT '0' COMMENT '»ç¿ë ¸¶ÀÏ¸®Áö ÃÑÇÕ',
-`REMAIN_POINT` int(11) DEFAULT '0' COMMENT '³²Àº ¸¶ÀÏ¸®Áö ÃÑÇÕ',
+`EN_EMAIL_FL` char(1) DEFAULT NULL COMMENT 'ì‚­ì œì˜ˆì •',
+`EN_POST_FL` char(1) DEFAULT NULL COMMENT 'ì‚­ì œì˜ˆì •',
+`EN_SMS_FL` char(1) DEFAULT NULL COMMENT 'ì‚­ì œì˜ˆì •',
+`EN_PHONE_FL` char(1) DEFAULT NULL COMMENT 'ì‚­ì œì˜ˆì •',
+`EN_ANGE_PHONE_FL` char(1) DEFAULT NULL COMMENT 'ì•™ì¥¬ ì†Œì‹ ì—°ë½ ìœ ë¬´(ë“±ë¡ì•ˆí•¨)',
+`EN_ALARM_EMAIL_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤ì¼€ì¥´ ì•Œë¦¼ ë©”ì¼ë°œì†¡ ìœ ë¬´',
+`EN_ALARM_SMS_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤ì¼€ì¥´ ì•Œë¦¼ SMS ìœ ë¬´',
+`EN_ALARM_PHONE_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤ì¼€ì¥´ ì•Œë¦¼ ì—°ë½ ìœ ë¬´(ë“±ë¡ì•ˆí•¨)',
+`EN_STORE_EMAIL_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤í† ì–´ ì†Œì‹ ë©”ì¼ë°œì†¡ ìœ ë¬´',
+`EN_STORE_SMS_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤í† ì–´ ì†Œì‹ SMS ìœ ë¬´',
+`EN_STORE_PHONE_FL` char(1) DEFAULT NULL COMMENT 'ìŠ¤í† ì–´ ì†Œì‹ ì—°ë½ ìœ ë¬´(ë“±ë¡ì•ˆí•¨)',
+`BABY_BIRTH_DT` varchar(30) DEFAULT NULL COMMENT 'ì¶œì‚° ì˜ˆì •ì¼',
+`CERT_GB` varchar(10) DEFAULT NULL COMMENT 'ì¸ì¦ êµ¬ë¶„(PHONE:íœ´ëŒ€í°, EMAIL:ì´ë©”ì¼)',
+`CERT_DT` datetime DEFAULT NULL COMMENT 'ì¸ì¦ì¼',
+`CERT_HASH` varchar(100) DEFAULT NULL COMMENT 'ì¸ì¦ë¬¸ìž',
+`SUM_POINT` int(11) DEFAULT '0' COMMENT 'ì ë¦½ ë§ˆì¼ë¦¬ì§€ ì´í•©',
+`USE_POINT` int(11) DEFAULT '0' COMMENT 'ì‚¬ìš© ë§ˆì¼ë¦¬ì§€ ì´í•©',
+`REMAIN_POINT` int(11) DEFAULT '0' COMMENT 'ë‚¨ì€ ë§ˆì¼ë¦¬ì§€ ì´í•©',
 `IP` varchar(20) DEFAULT NULL COMMENT 'IP',
-`MIG_NO` int(11) DEFAULT NULL COMMENT '¸¶ÀÌ±×·¹ÀÌ¼Ç ¼ø¹ø',
-`INTEREST01` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß1(ÀÓ½Å/Ãâ»ê)',
-`INTEREST02` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß2(¼ºÀå/°Ç°­)',
-`INTEREST03` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß3(³îÀÌ/±³À°)',
-`INTEREST04` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß4(¸®ºù/Çï½º)',
-`INTEREST05` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß5(Ã¼Çè/ÀÌº¥Æ® ÁøÇàÁß)',
-`INTEREST06` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß6(´çÃ·ÀÚ¹ßÇ¥)',
-`INTEREST07` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß7(¾ÓÁêPOLL)',
-`INTEREST08` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß8(À°¾Æ³ëÇÏ¿ì)',
-`INTEREST09` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß9(·¹½ÃÇÇ)',
-`INTEREST10` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß10(¾ÆÀÌ µ¥¸®°í ¿©±â)',
-`INTEREST11` varchar(20) DEFAULT NULL COMMENT '°ü½ÉºÐ¾ß11(¾ÆÀÌ µ¥¸®°í ¿©±â)',
-`MARRIED_DT` varchar(30) DEFAULT NULL COMMENT '°áÈ¥±â³äÀÏ',
-`PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT 'ÆÐ½º¿öµåº¯°æÀÏÀÚ',
+`MIG_NO` int(11) DEFAULT NULL COMMENT 'ë§ˆì´ê·¸ë ˆì´ì…˜ ìˆœë²ˆ',
+`INTEREST01` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼1(ìž„ì‹ /ì¶œì‚°)',
+`INTEREST02` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼2(ì„±ìž¥/ê±´ê°•)',
+`INTEREST03` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼3(ë†€ì´/êµìœ¡)',
+`INTEREST04` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼4(ë¦¬ë¹™/í—¬ìŠ¤)',
+`INTEREST05` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼5(ì²´í—˜/ì´ë²¤íŠ¸ ì§„í–‰ì¤‘)',
+`INTEREST06` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼6(ë‹¹ì²¨ìžë°œí‘œ)',
+`INTEREST07` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼7(ì•™ì¥¬POLL)',
+`INTEREST08` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼8(ìœ¡ì•„ë…¸í•˜ìš°)',
+`INTEREST09` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼9(ë ˆì‹œí”¼)',
+`INTEREST10` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼10(ì•„ì´ ë°ë¦¬ê³  ì—¬ê¸°)',
+`INTEREST11` varchar(20) DEFAULT NULL COMMENT 'ê´€ì‹¬ë¶„ì•¼11(ì•„ì´ ë°ë¦¬ê³  ì—¬ê¸°)',
+`MARRIED_DT` varchar(30) DEFAULT NULL COMMENT 'ê²°í˜¼ê¸°ë…ì¼',
+`PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT 'íŒ¨ìŠ¤ì›Œë“œë³€ê²½ì¼ìž',
 
-3.Å×ÀÌºí ÀÌ¸§ º¯°æ
+*.í…Œì´ë¸” ì´ë¦„ ë³€ê²½
 
 adm_history_join -> xe_angeclub_tmp_adm_history_join
 ange_club_baby -> xe_angeclub_tmp_ange_club_baby
 club_log -> xe_angeclub_tmp_club_log
 com_user -> xe_angeclub_tmp_com_user
 
-4. angeclug migration tool ¼ø¼­´ë·Î ½ÇÇà
-. Áßº¹ ÇÚÆù ¹øÈ£ ÃßÃâ
-. ÇÚÆù ¹øÈ£ ±âÁØ Á¤Á¦µÈ COM_USER »ý¼º
-. Á¤Á¦µÈ COM_USER Á¤º¸¸¦ xe_member¿¡ ÀÔ·Â
+*. angeclug migration tool ìˆœì„œëŒ€ë¡œ ì‹¤í–‰
+. ì¤‘ë³µ í•¸í° ë²ˆí˜¸ ì¶”ì¶œ
+. í•¸í° ë²ˆí˜¸ ê¸°ì¤€ ì •ì œëœ COM_USER ìƒì„±
+. ì •ì œëœ COM_USER ì •ë³´ë¥¼ xe_memberì— ìž…ë ¥
 
-angeadmin4650, angestory, momsfood ¾ÆÀÌµð¸¦ º¸Á¸ÇÒ ¼ö ¾ø´Â ÀÌÀ¯
+angeadmin4650, angestory, momsfood ì•„ì´ë””ë¥¼ ë³´ì¡´í•  ìˆ˜ ì—†ëŠ” ì´ìœ 
 
-Áßº¹µÇ¸é ¾ÈµÇ´Â angeweb@ange.co.krÀÌ¶ó´Â ¸ÞÀÏ ÁÖ¼Ò·Î 9°ÔÀÇ Áßº¹ È¸¿ø
-mook1004 °¡ º¸Á¸µÊ
+ì¤‘ë³µë˜ë©´ ì•ˆë˜ëŠ” angeweb@ange.co.krì´ë¼ëŠ” ë©”ì¼ ì£¼ì†Œë¡œ 9ê²Œì˜ ì¤‘ë³µ íšŒì›
+mook1004 ê°€ ë³´ì¡´ë¨
 
-223	mook1004	°ü¸®ÀÚ	¾ÓÁêÃµ»ç	sha256:1000:8jq7mKH3ChdnFtJ8VsZdGoLIfpwhU2+e:eS2SqTjnjy6xYE3rK/7RwKEZD+tCNHms
-219191	momsfood	±è¸íÈñ	¸¾½ºÇªµå	sha256:1000:o+pH7yFw576uMeRpOUdbciJ5+nSJ6FFp:JrN1QW5IkZhMPAqheqZX1WnDg1FBeIsr
-368152	angeadmin4650	°ü¸®ÀÚ	°ü¸®ÀÚ	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
-585493	angestory	ÆíÁýÆÀ2	ÆíÁýÆÀ22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
+223	mook1004	ê´€ë¦¬ìž	ì•™ì¥¬ì²œì‚¬	sha256:1000:8jq7mKH3ChdnFtJ8VsZdGoLIfpwhU2+e:eS2SqTjnjy6xYE3rK/7RwKEZD+tCNHms
+219191	momsfood	ê¹€ëª…í¬	ë§˜ìŠ¤í‘¸ë“œ	sha256:1000:o+pH7yFw576uMeRpOUdbciJ5+nSJ6FFp:JrN1QW5IkZhMPAqheqZX1WnDg1FBeIsr
+368152	angeadmin4650	ê´€ë¦¬ìž	ê´€ë¦¬ìž	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
+585493	angestory	íŽ¸ì§‘íŒ€2	íŽ¸ì§‘íŒ€22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
 
-5.
-. Á¤Á¦µÈ COM_USER Á¤º¸¸¦ mombox_datalake¿¡ ÀÔ·ÂÇÏ±â À§ÇØ ±¸È¨ÆäÀÌÁö¿¡¼­ ¸¾¹Ú½º ½ÅÃ» ³»¿ª ÃßÃâÇÏ°í
+*. ì •ì œëœ COM_USER ì •ë³´ë¥¼ mombox_datalakeì— ìž…ë ¥í•˜ê¸° ìœ„í•´ êµ¬í™ˆíŽ˜ì´ì§€ì—ì„œ ë§˜ë°•ìŠ¤ ì‹ ì²­ ë‚´ì—­ ì¶”ì¶œí•˜ê³ 
 // SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
 // FROM adm_history_join
 // INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
-// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%¸¾¹Ú½º%'
+// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%ë§˜ë°•ìŠ¤%'
 // ORDER BY adhj_idx;
 
-ÀüÃ¼ ¼±ÅÃ php array·Î º¹»çÇÏ¿© ºÙ¿©³Ö±â
+ì „ì²´ ì„ íƒ php arrayë¡œ ë³µì‚¬í•˜ì—¬ ë¶™ì—¬ë„£ê¸°
 
 
 
+*.
 
 
-
-°ü·Ã Äõ¸®
+ê´€ë ¨ ì¿¼ë¦¬
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO`=4957 OR `NO`=53411;
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `PHONE_2`='01028522808';
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_duplicated` WHERE `PHONE_2`='01054333925';
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` LIKE '%+%';
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `USER_ID` IS NULL;
-# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `NO` = 19482;  // ÇÑ±Û ¾ÆÀÌµð ºô·±
+# SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_cleaned` WHERE `NO` = 19482;  // í•œê¸€ ì•„ì´ë”” ë¹ŒëŸ°
 
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO` = 472190;
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user_transferred` WHERE `NO_SOURCE` = 366943;
@@ -118,3 +138,175 @@ mook1004 °¡ º¸Á¸µÊ
 # DELETE FROM `xe`.`xe_member_group_member` WHERE `member_srl`>4;
 
 # SELECT COUNT(*) FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `REG_DT` <= DATE_ADD(NOW(), INTERVAL -8 YEAR)
+
+
+ì•…ì„± ì¤‘ë³µ í•¸í° ë²ˆí˜¸
+// "PHONE_2"	"COUNT(`PHONE_2`)"
+// "01000000000"	"224"
+// "01075742379"	"159"
+// "0100000000"	"157"
+// "00000000000"	"90"
+// "01011111111"	"62"
+// "0101111111"	"50"
+// "0101234567"	"36"
+// "01012341234"	"24"
+// "01058482576"	"20"
+// "000-000-000"	"18"
+// "000000000"	"17"
+// "010000000"	"17"
+// "0102222222"	"17"
+// "0101231234"	"14"
+// "01022177402"	"14"
+// "000-000-0000"	"13"
+// "01020681956"	"13"
+// "01012345678"	"11"
+// "01024739528"	"10"
+// "01048401490"	"10"
+// "0193460025"	"10"
+// "01040534131"	"9"
+// "01044553016"	"9"
+// "01099952638"	"9"
+// "01195381041"	"9"
+// "0000000000"	"8"
+// "01022222222"	"8"
+// "01039565320"	"8"
+// "01055555555"	"8"
+// "01077488929"	"8"
+// "01099999999"	"8"
+// "0168057801"	"8"
+// "01027137400"	"7"
+// "0103333333"	"7"
+// "01033333333"	"7"
+// "01043107170"	"7"
+// "01047442511"	"7"
+// "01094749851"	"7"
+// "01100000000"	"7"
+// "01020473571"	"6"
+// "01023620198"	"6"
+// "01024943591"	"6"
+// "01025295458"	"6"
+// "0102767912"	"6"
+// "01032629417"	"6"
+// "01075628580"	"6"
+// "01087727372"	"6"
+// "01098833581"	"6"
+// "0109999999"	"6"
+// "0110000000"	"6"
+// "010000000000"	"5"
+// "01012121212"	"5"
+// "01022886651"	"5"
+// "01023232323"	"5"
+// "01025609984"	"5"
+// "01029255107"	"5"
+// "01032926183"	"5"
+// "010400000"	"5"
+// "01044444444"	"5"
+// "01046165404"	"5"
+// "01049722927"	"5"
+// "01051603271"	"5"
+// "01056123513"	"5"
+// "01056581551"	"5"
+// "01062521963"	"5"
+// "01064555847"	"5"
+// "01083559980"	"5"
+// "01087045766"	"5"
+// "01094354915"	"5"
+// "01096757897"	"5"
+// "01099033612"	"5"
+// "01199693717"	"5"
+// "0000-000-000"	"4"
+// "000000000000"	"4"
+// "010-000-0000"	"4"
+// "01012311231"	"4"
+// "01022311024"	"4"
+// "01023015750"	"4"
+// "01023182142"	"4"
+// "01023422342"	"4"
+// "01023786653"	"4"
+// "01024409366"	"4"
+// "01024470800"	"4"
+// "01025654254"	"4"
+// "01026240978"	"4"
+// "01026244814"	"4"
+// "01026875637"	"4"
+// "01027220393"	"4"
+// "01028580172"	"4"
+// "01029098208"	"4"
+// "01029319669"	"4"
+// "01029547655"	"4"
+// "01033241802"	"4"
+// "01033973148"	"4"
+// "01034652017"	"4"
+// "01035501617"	"4"
+// "01036776515"	"4"
+// "01036945144"	"4"
+// "01037772453"	"4"
+// "01038885130"	"4"
+// "01039162653"	"4"
+// "0104000000"	"4"
+// "01040396237"	"4"
+// "01040768022"	"4"
+// "01041721072"	"4"
+// "01041939717"	"4"
+// "01042705131"	"4"
+// "01042836021"	"4"
+// "01043532685"	"4"
+// "01044569277"	"4"
+// "01046166914"	"4"
+// "01046464206"	"4"
+// "01046681953"	"4"
+// "01047359368"	"4"
+// "01047899153"	"4"
+// "01051673309"	"4"
+// "01053234565"	"4"
+// "01053399057"	"4"
+// "01054550121"	"4"
+// "01054943841"	"4"
+// "0105555555"	"4"
+// "01056687823"	"4"
+// "01056872331"	"4"
+// "01056912582"	"4"
+// "01058179123"	"4"
+// "01058506265"	"4"
+// "01062890242"	"4"
+// "01063048837"	"4"
+// "01065203096"	"4"
+// "01066774814"	"4"
+// "01071575031"	"4"
+// "01072785045"	"4"
+// "01075537388"	"4"
+// "0107777777"	"4"
+// "01082779470"	"4"
+// "01085552528"	"4"
+// "01086650283"	"4"
+// "01086896509"	"4"
+// "01087220524"	"4"
+// "01087752819"	"4"
+// "01087971750"	"4"
+// "01087983168"	"4"
+// "01088351971"	"4"
+// "01088690223"	"4"
+// "01089090836"	"4"
+// "01092047387"	"4"
+// "01092280518"	"4"
+// "01092413132"	"4"
+// "01092534977"	"4"
+// "01094159708"	"4"
+// "01096018280"	"4"
+// "01097679420"	"4"
+// "01099634032"	"4"
+// "01099903048"	"4"
+// "01191826898"	"4"
+// "01194026277"	"4"
+// "0160000000"	"4"
+// "01600000000"	"4"
+// "0162971126"	"4"
+// "0165119435"	"4"
+// "0167503215"	"4"
+// "01700000000"	"4"
+// "0177663750"	"4"
+// "0195306210"	"4"
+// "0195467101"	"4"
+// "000-0000-0000"	"3"
+// "01000000001"	"3"
+// "01011112222"	"3"

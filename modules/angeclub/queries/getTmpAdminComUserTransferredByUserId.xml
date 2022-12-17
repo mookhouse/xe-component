@@ -3,9 +3,9 @@
         <table name="angeclub_tmp_com_user_transferred" />
     </tables>
     <columns>
-        <column name="*" />
+        <column name="USER_ID_SOURCE" />
     </columns>
     <conditions>
-        <condition operation="equal" column="USER_ID_SOURCE" var="USER_ID_SOURCE" notnull="notnull" />
+        <condition operation="equal" column="USER_ID_DEST" var="USER_ID_DEST" notnull="notnull" />
     </conditions>
 </query>

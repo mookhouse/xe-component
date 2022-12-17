@@ -1,4 +1,4 @@
-<query id="getTmpAdminComUserCleanedPagination" action="select">
+<query id="getTmpAdminComUserCleanedPaginationAsc" action="select">
     <tables>
         <table name="angeclub_tmp_com_user_cleaned" />
     </tables>
@@ -9,7 +9,7 @@
         <condition operation="more" column="NO" var="NO" />
     </conditions>
 	<navigation>
-        <index var="sort_index" default="NO" order="desc" />
+        <index var="sort_index" default="NO" order="asc" />
         <list_count var="list_count" default="87000" />
         <page_count var="page_count" default="10" />
         <page var="page" default="1" />
