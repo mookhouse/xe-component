@@ -78,12 +78,17 @@ club_center에서
 `MARRIED_DT` varchar(30) DEFAULT NULL COMMENT '결혼기념일',
 `PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT '패스워드변경일자',
 
+*. club_log에 XE 필드 수동 추가
+cp_idx 미사용 필드를 member_srl_staff -> bigint 11 null 허용로 변경
+workdate  -> varchar 14 null 허용으로 추가
+regdate  -> varchar 14 null 허용으로 추가
+
 *.테이블 이름 변경
 
 adm_history_join -> xe_angeclub_tmp_adm_history_join
 ange_club_baby -> xe_angeclub_tmp_ange_club_baby
-club_log -> xe_angeclub_tmp_club_log
 com_user -> xe_angeclub_tmp_com_user
+club_log -> xe_angeclub_log
 
 *. angeclug migration tool 순서대로 실행
 . 중복 핸폰 번호 추출
@@ -100,7 +105,8 @@ mook1004 가 보존됨
 368152	angeadmin4650	관리자	관리자	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
 585493	angestory	편집팀2	편집팀22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
 
-*. 정제된 COM_USER 정보를 mombox_datalake에 입력하기 위해 구홈페이지에서 맘박스 신청 내역 추출하고
+*. 4. 정제된 COM_USER 정보를 mombox_datalake에 입력 실행 전
+정제된 COM_USER 정보를 mombox_datalake에 입력하기 위해 구홈페이지에서 맘박스 신청 내역 추출하고
 // SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
 // FROM adm_history_join
 // INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
@@ -110,9 +116,11 @@ mook1004 가 보존됨
 전체 선택 php array로 복사하여 붙여넣기
 /files/angeclub/mombox_registration_log_array.php
 
-
-*.
-
+*. xe_angeclub_log에서 아래의 필드 삭제
+cu_id
+cc_name
+cl_date
+cl_date_regi
 
 관련 쿼리
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO`=4957 OR `NO`=53411;

@@ -1,0 +1,13 @@
+<query id="updateTmpAdminClubLog" action="update">
+	<tables>
+		<table name="angeclub_log" />
+	</tables>
+	<columns>
+		<column name="member_srl_staff" var="member_srl_staff" />
+		<column name="workdate" var="workdate" />
+		<column name="regdate" var="regdate" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="cl_idx" var="cl_idx" />
+    </conditions>
+</query>

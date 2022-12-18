@@ -1,0 +1,20 @@
+<query id="getTmpAdminClubLogPagination" action="select">
+    <tables>
+        <table name="angeclub_log" />
+    </tables>
+    <columns>
+        <column name="cl_idx" />
+        <column name="cu_id" />
+        <column name="cl_date" />
+        <column name="cl_date_regi" />
+    </columns>
+    <conditions>
+        <condition operation="more" column="cl_idx" var="cl_idx" />
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="cl_idx" order="asc" />
+        <list_count var="list_count" default="87000" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

@@ -41,8 +41,82 @@ class angeclubAdminController extends angeclub
 				echo 'migrate_com_user_into_xe_mombox_data_lake has been started<BR>';
 				$this->_migrateComUserIntoXeMomboxDatalake();
 				break;
+			case 'rebuild_club_log':
+				echo 'rebuild_club_log has been started<BR>';
+				$this->_rebuildClubLog();
+				break;
+				
 		}
 		exit;
+	}
+/**
+ * @brief club_log tbl에 XE 관련 필드 재설정
+ */
+	private function _rebuildClubLog()
+	{
+		echo __FILE__.':'.__LINE__.'<BR>';
+		ini_set('memory_limit', '2048M');  // php.ini default 512M
+		set_time_limit(720);  // sec
+		
+		$sSeqLogFilePath = './files/angeclub/5xe_club_log_rebuild_seq.txt';
+		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
+		if($sSeqLogFileContent)
+			$nCurPage = (int)$sSeqLogFileContent;
+		else
+			$nCurPage = 1;
+
+		$oArgs = new stdClass();
+		$oArgs->page = $nCurPage;
+		// $oArgs->cl_idx = 753763;
+		
+		$oArgs->list_count = 50000;
+		$oRst = executeQueryArray('angeclub.getTmpAdminClubLogPagination', $oArgs);
+		unset($oArgs);
+		echo count($oRst->data).' records has been detected<BR>';
+		
+		$oMemberModel = &getModel('member');
+		foreach($oRst->data as $nIdx=>$oSingleLog)
+		{
+			$sStaffMemberId = $this->_translateClubStaffId($oSingleLog->cu_id);
+
+			$oUpdateArgs = new stdClass();
+			$oUpdateArgs->cl_idx = $oSingleLog->cl_idx;
+			$oUpdateArgs->workdate = preg_replace("/[ :-]/i", "", $oSingleLog->cl_date);  // 2020-04-26 02:04:40 수정
+			$oUpdateArgs->regdate = preg_replace("/[ :-]/i", "", $oSingleLog->cl_date_regi);  // 2020-04-26 02:04:40 수정
+
+			$oXeStaffMemberInfo = $oMemberModel->getMemberInfoByUserID($sStaffMemberId);
+			if(!$oXeStaffMemberInfo)
+			{
+				// if($oSingleLog->cu_id != 'beauty79y' && $oSingleLog->cu_id != 'miheejilong' &&  // 직원 정보 상실
+				// 	$oSingleLog->cu_id != 'feelsk0614' && $oSingleLog->cu_id != 'thguskim' &&
+				// 	$oSingleLog->cu_id != 'admin' && $oSingleLog->cu_id != 'bynwhj' && 
+				// 	$oSingleLog->cu_id != 'pjsmommy' && $oSingleLog->cu_id != 'kiok1219' &&
+				// 	$oSingleLog->cu_id != 'dahae1541' )  
+				if(!$this->_isAbandonedStaffId($oSingleLog->cu_id))
+				{
+					echo 'weird contact id<BR>';
+					var_dump($sStaffMemberId);
+					echo '<BR>';
+					exit;
+				}
+			}
+			$oUpdateArgs->member_srl_staff = $oXeStaffMemberInfo->member_srl;
+			$oUpdateRst = executeQueryArray('angeclub.updateTmpAdminClubLog', $oUpdateArgs);
+			if(!$oUpdateRst->toBool())
+			{
+				var_Dump($oUpdateRst);
+				echo '<BR>';
+				var_Dump($oUpdateArgs);
+				exit;
+			}
+			unset($oUpdateArgs);
+			// echo '<BR>';
+		}
+		unset($oMemberModel);
+
+		exit;
+		FileHandler::writeFile($sSeqLogFilePath, ++$nCurPage);
+		echo '<BR><BR>succeed!';
 	}
 /**
  * @brief 아래의 쿼리로 adm_history_join에서 추출한 홈피 맘박스 신청자 php array 반환
@@ -99,28 +173,58 @@ class angeclubAdminController extends angeclub
 		return $aArrangedMomboxRegistration;
 	}
 /**
+ * @brief 무결성이 손상된 클럽 스탭 ID를 해석
+ */
+private function _isAbandonedStaffId($sClubStaffId)
+{
+	$aAbandonedStaffId = ['beauty79y', 'miheejilong', 'feelsk0614', 'thguskim', 'admin', 'bynwhj', 'pjsmommy',
+							 'kiok1219', 'dahae1541'];
+	if(in_array($sClubStaffId, $aAbandonedStaffId))
+		return true;
+	return FALSE;
+}
+/**
+ * @brief 무결성이 손상된 클럽 스탭 ID를 해석
+ */
+	private function _translateClubStaffId($sClubStaffId)
+	{
+		switch($sClubStaffId)	
+		{
+			case 'whzhwhzh':
+				return 'whzhwzh';
+			case 'juhyun0451':
+				return 'ju7886';
+			case 'mocha':
+				return 'mocha2';
+			default:
+				return $sClubStaffId;
+		}
+	}
+/**
  * @brief angeclub_registration에 신청 내역 추가
  */
 	private function _registerAngeclubRegistration($oAngeclubModel, $oMemberModel, $oComUser, $oXeMemberInfo)
 	{
-		switch($oComUser->CONTACT_ID)	
-		{
-			case 'whzhwhzh':
-				$sStaffMemberId = 'whzhwzh';
-				break;
-			case 'juhyun0451':
-				$sStaffMemberId = 'ju7886';
-				break;
-			case 'mocha':
-				$sStaffMemberId = 'mocha2';
-				break;
-			default:
-				$sStaffMemberId = $oComUser->CONTACT_ID;
-		}
+		// switch($oComUser->CONTACT_ID)	
+		// {
+		// 	case 'whzhwhzh':
+		// 		$sStaffMemberId = 'whzhwzh';
+		// 		break;
+		// 	case 'juhyun0451':
+		// 		$sStaffMemberId = 'ju7886';
+		// 		break;
+		// 	case 'mocha':
+		// 		$sStaffMemberId = 'mocha2';
+		// 		break;
+		// 	default:
+		// 		$sStaffMemberId = $oComUser->CONTACT_ID;
+		// }
+		$sStaffMemberId = $this->_translateClubStaffId($oComUser->CONTACT_ID);
 		$oXeStaffMemberInfo = $oMemberModel->getMemberInfoByUserID($sStaffMemberId);
 		if(!$oXeStaffMemberInfo)
 		{
-			if($oComUser->CONTACT_ID != 'dahae1541' && $oComUser->CONTACT_ID != 'admin')  // 직원 정보 상실
+			// if($oComUser->CONTACT_ID != 'dahae1541' && $oComUser->CONTACT_ID != 'admin')  // 직원 정보 상실
+			if(!$this->_isAbandonedStaffId($oComUser->CONTACT_ID))
 			{
 				echo 'weird contact id<BR>';
 				var_dump($oComUser->CONTACT_ID);
