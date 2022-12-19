@@ -4,7 +4,8 @@
     </tables>
     <columns>
         <column name="cl_idx" />
-        <column name="cu_id" />
+        <!-- <column name="cu_id" /> -->
+        <column name="member_srl_staff" />
         <column name="cc_idx" />
         <column name="cl_date" />
         <column name="cl_category" />
@@ -16,7 +17,7 @@
         <column name="cl_count_center" />
     </columns>
     <conditions>
-        <condition operation="equal" column="cu_id" var="cu_id" />
+        <condition operation="equal" column="member_srl_staff" var="member_srl_staff" />
         <condition operation="in" column="cc_idx" var="a_cc_idx" pipe="and" />
     </conditions>
 	<navigation>

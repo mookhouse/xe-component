@@ -8,7 +8,8 @@
         <column name="cc_area" />
     </columns>
     <conditions>
-        <condition operation="equal" column="cu_id" var="cu_id" notnull="notnull" />
+        <!-- <condition operation="equal" column="cu_id" var="cu_id" notnull="notnull" /> -->
+        <condition operation="equal" column="member_srl_staff" var="member_srl_staff" notnull="notnull" />
         <condition operation="equal" column="cc_state" var="cc_state" default="1" filter="number" notnull="notnull" pipe="and" />
     </conditions>
     <navigation>

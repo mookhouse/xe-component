@@ -22,6 +22,7 @@ class angeclubModel extends module
 		unset($oInParams->mid);
 		unset($oInParams->act);
 		$aCcIdx = $this->getCenterInfoByName($oInParams->search_center);
+		
 		unset($oInParams->search_center);
 		if(count($aCcIdx))
 			$oInParams->a_cc_idx = $aCcIdx;
@@ -233,16 +234,6 @@ class angeclubModel extends module
 		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
 			$aUserInfo[$oClubMember->member_srl] = $oClubMember->user_name;
 		unset($oMemberWithinGrpRst);
-		// $oArgs = new stdClass();
-		// $oArgs->cu_id = 'admin';  // 웹관리자 제외
-		// $oAngeclub = &getClass('angeclub');
-		// $aFlipped = array_flip($oAngeclub->_g_aClubUserState);
-		// unset($oAngeclub);
-		// $oArgs->cu_state = $aFlipped['탈퇴'];  // 퇴사자 제외
-		// $oRst = executeQueryArray('angeclub.getActiveClubUser', $oArgs);
-		// $aUserInfo = [];
-		// foreach($oRst->data as $nIdx=>$oUser)
-		// 	$aUserInfo[$oUser->cu_id] = $oUser->cu_name;
 		return $aUserInfo;
 	}
 /**
@@ -256,10 +247,8 @@ class angeclubModel extends module
 			return new BaseObject(-1, 'msg_not_loggedin');
 
 		$oArgs = new stdClass();
-		$oArgs->cu_id = $oLoggedInfo->user_id;
+		$oArgs->member_srl_staff = $oLoggedInfo->member_srl;
 		$oArgs->cc_state = 1;
-		// var_dump($oArgs);
-		// exit;
 		$oRst = executeQueryArray('angeclub.getCenterByNurse', $oArgs);
 		if(!$oRst->toBool())
 			return $oRst;
@@ -286,6 +275,12 @@ class angeclubModel extends module
 		$oArgs->cl_idx = $nClIdx;
 		$oRst = executeQuery('angeclub.getWorkDiaryByIdx', $oArgs);
 		unset($oArgs);
+
+		$oMemberModel = &getModel('member');
+		$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl_staff);
+		$oRst->data->user_name = $oStaffMemberInfo->user_name;
+		unset($oMemberModel);
+		unset($oStaffMemberInfo);
 		return $oRst;
 	}
 /**
@@ -299,7 +294,7 @@ class angeclubModel extends module
 			return new BaseObject(-1, 'msg_not_loggedin');
 
 		$oArgs = new stdClass();
-		$oArgs->cu_id = $oLoggedInfo->user_id;
+		$oArgs->member_srl_staff = $oLoggedInfo->member_srl;
 		$oArgs->cc_state = 1;
 		$oRst = executeQueryArray('angeclub.getCenterByNurse', $oArgs);
 		if(!$oRst->toBool())
@@ -433,7 +428,6 @@ class angeclubModel extends module
 		if($oCenterArgs->cc_idx || $oCenterArgs->cc_city || $oCenterArgs->cc_area)
 		{
 			$oCenterRst = executeQueryArray('angeclub.getCenterByCityAreaName', $oCenterArgs);
-			// var_dump($oCenterRst);
 			foreach($oCenterRst->data as $_=>$oSingleCenter)
 				$aCenterIdx[] = $oSingleCenter->cc_idx;
 			unset($oCenterRst);
@@ -442,17 +436,17 @@ class angeclubModel extends module
 	
 		$oArgs = new stdClass();
 		$oArgs->page = Context::get('page');
-		if($oInParams->cu_id)  // 총괄 화면에서 개별 스탭 검색 버튼
+		if($oInParams->member_srl_staff)  // 총괄 화면에서 개별 스탭 검색 버튼
 		{
-			$oArgs->cu_id = $oInParams->cu_id;  // 담당자 검색
-			Context::set('cu_id', $oInParams->cu_id);  // for ux on screen
+			$oArgs->member_srl_staff = $oInParams->member_srl_staff;  // 담당자 검색
+			Context::set('member_srl_staff', $oInParams->member_srl_staff);  // for ux on screen
 		}
 		if($bStaffMode)  // 일반 스태프용 목록 화면
 		{
 			$oLoggedInfo = Context::get('logged_info');
 			if(!$oLoggedInfo)
 				return new BaseObject(-1, 'msg_not_loggedin');
-			$oArgs->cu_id = $oLoggedInfo->user_id;
+			$oArgs->member_srl_staff = $oLoggedInfo->member_srl;
 		}
 		if(count($aCenterIdx))
 			$oArgs->a_cc_idx = $aCenterIdx;  // 지역별 조리원 검색
@@ -460,10 +454,16 @@ class angeclubModel extends module
 		// "search_start"]=> string(8) "20221207" ["search_end"]=> string(8) "20221214"
 		$oRst = executeQueryArray('angeclub.getWorkDiaryLog', $oArgs);
 		unset($oArgs);
-				
+		
+		$oMemberModel = &getModel('member');
 		$aCenterName = [];
 		foreach($oRst->data as $_=>$oSingleWorkDiary)  // 조리원 idx를 조리원명으로 변경
 		{
+			// 시작 - 직원 이름 변환
+			$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleWorkDiary->member_srl_staff);
+			$oSingleWorkDiary->user_name = $oStaffMemberInfo->user_name;
+			unset($oStaffMemberInfo);
+			// 끝 - 직원 이름 변환
 			if($aCenterName[$oSingleWorkDiary->cc_idx])
 				$oSingleWorkDiary->cc_name = $aCenterName[$oSingleWorkDiary->cc_idx];
 			else
@@ -487,13 +487,13 @@ class angeclubModel extends module
 		$oArgs = new stdClass();
 		$oArgs->page = Context::get('page');
 
-		if($oInParams->cu_id)
+		if($oInParams->member_srl_staff)
 		{
-			$oArgs->cu_id = $oInParams->cu_id;  // 담당자 검색
-			Context::set('cu_id', $oInParams->cu_id);  // for ux on screen
+			$oArgs->member_srl_staff = $oInParams->member_srl_staff;  // 담당자 검색
+			Context::set('member_srl_staff', $oInParams->member_srl_staff);  // for ux on screen
 		}
 		else
-			$oArgs->cu_id = '0';  // 담당자 없는 센터 제외
+			$oArgs->member_srl_staff = '0';  // 담당자 없는 센터 제외
 				
 		if($oInParams->cc_name)
 		{
@@ -515,7 +515,7 @@ class angeclubModel extends module
 		{
 			$oArgs->cc_state = 0;  // 폐업 센터 제외
 			// select count(1) from club_center cc inner join club_user cu on cc.cu_id=cu.cu_id where 1=1 and cc.cc_state<>0
-			if($oArgs->cu_id == '0')
+			if($oArgs->member_srl_staff == '0')
 				$oRst = executeQueryArray('angeclub.getEffeciveCenter', $oArgs);
 			else
 				$oRst = executeQueryArray('angeclub.getEffeciveCenterByUserId', $oArgs);
@@ -523,12 +523,20 @@ class angeclubModel extends module
 		else
 		{
 			$oArgs->cc_state = $sCenterState;
-			if($oArgs->cu_id == '0')
+			if($oArgs->member_srl_staff == '0')
 				$oRst = executeQueryArray('angeclub.getCenterByState', $oArgs);
 			else
 				$oRst = executeQueryArray('angeclub.getCenterByStateByUserId', $oArgs);
 		}
 		unset($oArgs);
+		$oMemberModel = &getModel('member');
+		foreach($oRst->data as $_=>$oSingleCenter)  // 담당자 member_srl을 담당자명으로 변경
+		{
+			$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleCenter->member_srl_staff);
+			$oSingleCenter->user_name = $oStaffMemberInfo->user_name;
+			unset($oStaffMemberInfo);
+		}
+		unset($oMemberModel);
 		return $oRst;
 	}
 /**
@@ -560,6 +568,11 @@ class angeclubModel extends module
 		$oArgs->cc_idx = $nCcIdx;
 		$oRst = executeQuery('angeclub.getCenterByIdx', $oArgs);
 		unset($oArgs);
+		$oMemberModel = &getModel('member');
+		$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl_staff);
+		$oRst->data->user_name = $oStaffMemberInfo->user_name;
+		unset($oMemberModel);
+		unset($oStaffMemberInfo);
 		return $oRst;
 	}
 /**

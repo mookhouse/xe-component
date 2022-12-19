@@ -4,7 +4,8 @@
     </tables>
     <columns>
         <column name="cl_idx" />
-        <column name="cu_id" />
+        <!-- <column name="cu_id" /> -->
+        <column name="member_srl_staff" />
         <column name="cc_idx" />
         <column name="cl_date" />
         <column name="cl_category" />

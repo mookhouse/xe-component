@@ -28,7 +28,7 @@ class angeclubView extends angeclub
 		$oAngeclubModel = &getModel('angeclub');
 		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl);
 		unset($oAngeclubModel);
-		if($oLoggedInfo->is_admin != 'Y' && !$aEffectiveUserList[$oLoggedInfo->user_id])
+		if($oLoggedInfo->is_admin != 'Y' && !$aEffectiveUserList[$oLoggedInfo->member_srl])
 		{
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: /');
@@ -85,10 +85,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubWorkDiary()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-	
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
@@ -115,10 +111,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubWorkDiaryManager()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-		
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
@@ -145,22 +137,20 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubWorkDiaryPopupAdd()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-
 		$oAngeclubModel = &getModel('angeclub');
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
+		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_workdiary.xml');
+		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForWorkDiary();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
+		Context::set('aSessionType', $this->_g_aSessionType);
 		unset($oRst);
 		unset($oAngeclubModel);
 
@@ -171,10 +161,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubWorkDiaryPopupUpdate()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-
 		$nClIdx = Context::get('cl_idx');
 		if(!$nClIdx)
 			return new BaseObject(-1, 'msg_invalid_approach');
@@ -182,6 +168,7 @@ class angeclubView extends angeclub
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_workdiary.xml');
+		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
@@ -195,7 +182,7 @@ class angeclubView extends angeclub
 			return $oRst;
 		Context::set('oWorkDiaryInfo', $oRst->data);
 		unset($oRst);
-		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
+		// Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aSessionType', $this->_g_aSessionType);
 		unset($oAngeclubModel);
 
@@ -206,9 +193,7 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubMember()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
+		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getMomList(Context::getRequestVars());
@@ -228,13 +213,10 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubMemberPopupAdd()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
+		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$oAngeclubModel = &getModel('angeclub');
@@ -260,10 +242,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenter()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-		
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aCenterState', $this->_g_aCenterState);
@@ -291,9 +269,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenterPopupAdd()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		// 팝업을 위해 layout 제거
 		$this->module_info->layout_srl = 0;
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
@@ -319,9 +294,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenterPopupUpdate()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		$nCcIdx = Context::get('cc_idx');
 		if(!$nCcIdx)
 			return new BaseObject(-1, 'msg_invalid_center_idx');
@@ -349,10 +321,6 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubStaffManager()
 	{
-		// $oLoggedInfo = Context::get('logged_info');
-		// if(!$oLoggedInfo)
-		// 	return new BaseObject(-1, 'msg_not_loggedin');
-		
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getClubEffectiveUserFullInfo($this->module_info->module_srl);
 		if(!$oRst->toBool())

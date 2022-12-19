@@ -6,7 +6,7 @@
         <column name="*" />
     </columns>
     <conditions>
-        <condition operation="notequal" column="cu_id" var="cu_id" notnull="notnull" />
+        <condition operation="notequal" column="member_srl_staff" var="member_srl_staff" notnull="notnull" />
         <condition operation="equal" column="cc_city" var="cc_city" pipe="and" />
         <condition operation="equal" column="cc_area" var="cc_area" pipe="and" />
         <condition operation="like" column="cc_name" var="cc_name" pipe="and" />

@@ -1,0 +1,19 @@
+<query id="getTmpAdminClubCenterPagination" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+        <column name="cu_id" />
+        <column name="cc_date_regi" />
+    </columns>
+    <conditions>
+        <condition operation="more" column="cc_idx" var="cc_idx" />
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="cc_idx" order="asc" />
+        <list_count var="list_count" default="87000" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

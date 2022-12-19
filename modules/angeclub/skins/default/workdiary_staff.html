@@ -99,7 +99,6 @@ $(document).ready(function(){
     <form id="searchForm" action="./" method="post" class="x_input-append" >
         <input type="hidden" name="mid" value="{$mid}" />
         <input type="hidden" name="act" value="{$act}" />
-        <!-- <input type="hidden" name="cu_id" value="{$cu_id}" /> -->
         <div class="search-condition">
             <div class="form-group">
                 <p class="search-title" style="width:120px">등록기간</p>
@@ -160,7 +159,7 @@ $(document).ready(function(){
             <tbody>
                 <tr loop="$workdiary_list=>$_,$oSingleWorkDiary">
                     <td>{$oSingleWorkDiary->cl_idx}</td>
-                    <td>{$aUserInfo[$oSingleWorkDiary->cu_id]}</td>
+                    <td>{$oSingleWorkDiary->user_name}</td>
                     <td>
                         <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
                     </td>

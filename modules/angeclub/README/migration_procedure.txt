@@ -83,6 +83,10 @@ cp_idx 미사용 필드를 member_srl_staff -> bigint 11 null 허용로 변경
 workdate  -> varchar 14 null 허용으로 추가
 regdate  -> varchar 14 null 허용으로 추가
 
+*. club_center에 XE 필드 수동 추가
+member_srl_staff -> bigint 11 null 허용 추가
+regdate  -> varchar 14 null 허용으로 추가
+
 *.테이블 이름 변경
 
 adm_history_join -> xe_angeclub_tmp_adm_history_join
@@ -121,6 +125,10 @@ cu_id
 cc_name
 cl_date
 cl_date_regi
+
+*. xe_angeclub_center에서 아래의 필드 삭제
+cu_id
+cc_date_regi
 
 관련 쿼리
 # SELECT * FROM `xe`.`xe_angeclub_tmp_com_user` WHERE `NO`=4957 OR `NO`=53411;

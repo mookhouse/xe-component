@@ -84,7 +84,7 @@ $( document ).ready(function() {
 	</div--->
 	<div class="btn-area">
 		<p style="margin: 20px 0;">
-			<a href="/adm/vm/export/export_center.svm.php?index=&category=&page=1&search=&cc_area=&cc_city=&cu_id=" target="_blank" class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a>
+			<a href="/adm/vm/export/export_center.svm.php?index=&category=&page=1&search=&cc_area=&cc_city=" target="_blank" class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a>
 			<a href="javascript:LoadPopup('{getUrl('act', 'dispAngeclubCenterPopupAdd')}');" class="btn btn-sm btn-gray" role="button">+ 교육장 등록</a>
 		</p>
 	</div>
@@ -111,9 +111,9 @@ $( document ).ready(function() {
 					<select name="cc_area" id="_cc_area" class="form-control" title="지역" style="width: 200px;"></select>
 				</div>
 				<div class="form-group">
-					<select name="cu_id" class="form-control"  style="width: 200px;">
+					<select name="member_srl_staff" class="form-control"  style="width: 200px;">
 						<option value="" selected>담당자 전체</option>
-						<option loop="$aUserInfo=>$sId,$sName" value="{$sId}" selected|cond="$sId == $cu_id">{$sName}</option>
+						<option loop="$aUserInfo=>$nMemberSrlStaff,$sName" value="{$nMemberSrlStaff}" selected|cond="$nMemberSrlStaff == $member_srl_staff">{$sName}</option>
 					</select>
 				</div>
 			</div>
@@ -132,7 +132,7 @@ $( document ).ready(function() {
 					<th>지역</th>
 					<th>교육장명</th>
 					<th>담당자</th>
-					<th>택배수량</th>
+					<!-- <th>택배수량</th> -->
 					<th>전화</th>
 					<th style="width: 80px;">상태</th>
 				</tr>
@@ -146,8 +146,8 @@ $( document ).ready(function() {
 					<td>
 						<a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubCenterPopupUpdate', 'cc_idx', $oCenter->cc_idx)}');" >{$oCenter->cc_name}</a> 			
 					</td>
-					<td>{$aUserInfo[$oCenter->cu_id]}</td>
-					<td>{$oCenter->cc_delivery}</td>
+					<td>{$oCenter->user_name}</td>
+					<!-- <td>{$oCenter->cc_delivery}</td> -->
 					<td>{$oCenter->cc_phone}</td>
 					<td>{$aCenterState[$oCenter->cc_state]}</td>
 				</tr>
@@ -160,11 +160,3 @@ $( document ).ready(function() {
 <nav class="paging" aria-label="Page navigation">
 	<include target="_pagination.html" />
 </nav>
-<!-- <nav class="paging" aria-label="Page navigation">
-	<ul class="pagination">
-		<li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
-		<li class="active"><a href="javascript:;">1</a></li>
-		<li><a href="?submenu=center&category=&page=2&search=&category=&search=&cc_area=&cc_city=&cu_id=">2</a></li>
-		<li class="next"><a href="?submenu=center&category=&page=11&search=&category=&search=&cc_area=&cc_city=&cu_id=" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
-	</ul>
-</nav> -->

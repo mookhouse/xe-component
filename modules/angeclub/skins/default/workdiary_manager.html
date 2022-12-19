@@ -69,9 +69,9 @@ $(document).ready(function(){
 <!-- nav-tab -->
 <nav id="nav-tab">
     <ul class="tab-list">
-        <li class="active"|cond="is_null($cu_id)"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'cu_id', '')}">전체</a></li>
-    <block loop="$aUserInfo=>$sId,$sName">
-        <li class="active"|cond="$cu_id==$sId"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'cu_id', $sId, 'cc_city', $cc_city, 'cc_area', $cc_area, 'page', '')}">{$sName}</a></li>
+        <li class="active"|cond="is_null($member_srl_staff)"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'member_srl_staff', '')}">전체</a></li>
+    <block loop="$aUserInfo=>$nMemberSrl,$sName">
+        <li class="active"|cond="$member_srl_staff==$nMemberSrl"><a href="{getUrl('act', 'dispAngeclubWorkDiaryManager', 'member_srl_staff', $nMemberSrl, 'cc_city', $cc_city, 'cc_area', $cc_area, 'page', '')}">{$sName}</a></li>
     </block>
         <!-- <li class=" "><a href="?submenu=clublog&category=mocha2&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김경희</a></li>
         <li class=" "><a href="?submenu=clublog&category=whzhwhzh&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">김성경</a></li> -->
@@ -82,7 +82,6 @@ $(document).ready(function(){
     <form id="searchForm" action="./" method="get" class="x_input-append" >
         <input type="hidden" name="mid" value="{$mid}" />
         <input type="hidden" name="act" value="{$act}" />
-        <input type="hidden" name="cu_id" value="{$cu_id}" />
         <div class="search-condition">
             <div class="form-group">
                 <p class="search-title" style="width:120px">등록기간</p>
@@ -106,7 +105,7 @@ $(document).ready(function(){
 </div>
 <div class="btn-area">
     <p style="margin: 20px 0;">
-        <a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupAdd')}');" class="btn btn-down btn-sm btn-gray" role="button">+ 일지등록</a>
+        <!-- <a href="#" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupAdd')}');" class="btn btn-down btn-sm btn-gray" role="button">+ 일지등록</a> -->
         <!-- <a href="/adm/vm/export/export_clublog.vm.php?category=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=" target="_blank" class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a> -->
     </p>
 </div>
@@ -131,7 +130,7 @@ $(document).ready(function(){
             <tbody>
                 <tr loop="$workdiary_list=>$_,$oSingleWorkDiary">
                     <td>{$oSingleWorkDiary->cl_idx}</td>
-                    <td>{$aUserInfo[$oSingleWorkDiary->cu_id]}</td>
+                    <td>{$oSingleWorkDiary->user_name}</td>
                     <td>
                         <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
                     </td>

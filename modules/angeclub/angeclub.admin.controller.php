@@ -41,40 +41,40 @@ class angeclubAdminController extends angeclub
 				echo 'migrate_com_user_into_xe_mombox_data_lake has been started<BR>';
 				$this->_migrateComUserIntoXeMomboxDatalake();
 				break;
-			case 'rebuild_club_log':
-				echo 'rebuild_club_log has been started<BR>';
-				$this->_rebuildClubLog();
+			case 'translate_cu_id':
+				echo 'translate_cu_id has been started<BR>';
+				$this->_translateCuId();
 				break;
 				
 		}
 		exit;
 	}
 /**
- * @brief club_log tbl에 XE 관련 필드 재설정
+ * @brief club_log, club_center tbl에서 cu_id 필드를 member_srl_staff으로 변경
  */
-	private function _rebuildClubLog()
+	private function _translateCuId()
 	{
 		echo __FILE__.':'.__LINE__.'<BR>';
 		ini_set('memory_limit', '2048M');  // php.ini default 512M
 		set_time_limit(720);  // sec
 		
-		$sSeqLogFilePath = './files/angeclub/5xe_club_log_rebuild_seq.txt';
+		$sSeqLogFilePath = './files/angeclub/5xe_translate_cu_id_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
 			$nCurPage = (int)$sSeqLogFileContent;
 		else
 			$nCurPage = 1;
-
+		
+		$oMemberModel = &getModel('member');
+		echo 'angeclub_log tbl translation<BR>';
 		$oArgs = new stdClass();
 		$oArgs->page = $nCurPage;
 		// $oArgs->cl_idx = 753763;
-		
 		$oArgs->list_count = 50000;
 		$oRst = executeQueryArray('angeclub.getTmpAdminClubLogPagination', $oArgs);
 		unset($oArgs);
 		echo count($oRst->data).' records has been detected<BR>';
 		
-		$oMemberModel = &getModel('member');
 		foreach($oRst->data as $nIdx=>$oSingleLog)
 		{
 			$sStaffMemberId = $this->_translateClubStaffId($oSingleLog->cu_id);
@@ -87,11 +87,6 @@ class angeclubAdminController extends angeclub
 			$oXeStaffMemberInfo = $oMemberModel->getMemberInfoByUserID($sStaffMemberId);
 			if(!$oXeStaffMemberInfo)
 			{
-				// if($oSingleLog->cu_id != 'beauty79y' && $oSingleLog->cu_id != 'miheejilong' &&  // 직원 정보 상실
-				// 	$oSingleLog->cu_id != 'feelsk0614' && $oSingleLog->cu_id != 'thguskim' &&
-				// 	$oSingleLog->cu_id != 'admin' && $oSingleLog->cu_id != 'bynwhj' && 
-				// 	$oSingleLog->cu_id != 'pjsmommy' && $oSingleLog->cu_id != 'kiok1219' &&
-				// 	$oSingleLog->cu_id != 'dahae1541' )  
 				if(!$this->_isAbandonedStaffId($oSingleLog->cu_id))
 				{
 					echo 'weird contact id<BR>';
@@ -100,7 +95,7 @@ class angeclubAdminController extends angeclub
 					exit;
 				}
 			}
-			$oUpdateArgs->member_srl_staff = $oXeStaffMemberInfo->member_srl;
+			$oUpdateArgs->member_srl_staff = $oXeStaffMemberInfo->member_srl ? $oXeStaffMemberInfo->member_srl : 0;
 			$oUpdateRst = executeQueryArray('angeclub.updateTmpAdminClubLog', $oUpdateArgs);
 			if(!$oUpdateRst->toBool())
 			{
@@ -110,9 +105,57 @@ class angeclubAdminController extends angeclub
 				exit;
 			}
 			unset($oUpdateArgs);
+		}
+		unset($oArgs);
+		echo count($oRst->data).' records has been resolved<BR>';
+
+		echo 'angeclub_center tbl translation<BR>';
+		$oArgs = new stdClass();
+		$oArgs->page = $nCurPage;
+		// $oArgs->cl_idx = 753763;
+		$oArgs->list_count = 50000;
+		$oRst = executeQueryArray('angeclub.getTmpAdminClubCenterPagination', $oArgs);
+		unset($oArgs);
+		echo count($oRst->data).' records has been detected<BR>';
+		
+		// $oMemberModel = &getModel('member');
+		foreach($oRst->data as $nIdx=>$oSingleLog)
+		{
+			$sStaffMemberId = $this->_translateClubStaffId($oSingleLog->cu_id);
+
+			$oUpdateArgs = new stdClass();
+			$oUpdateArgs->cc_idx = $oSingleLog->cc_idx;
+			if($oSingleLog->cc_date_regi)
+				$oUpdateArgs->regdate = preg_replace("/[ :-]/i", "", $oSingleLog->cc_date_regi);  // 2020-04-26 02:04:40 수정
+
+			$oXeStaffMemberInfo = $oMemberModel->getMemberInfoByUserID($sStaffMemberId);
+			if(!$oXeStaffMemberInfo)
+			{
+				if(!$this->_isAbandonedStaffId($oSingleLog->cu_id))
+				{
+					echo 'weird contact id<BR>';
+					var_dump($sStaffMemberId);
+					echo '<BR>';
+					exit;
+				}
+			}
+			$oUpdateArgs->member_srl_staff = $oXeStaffMemberInfo->member_srl ? $oXeStaffMemberInfo->member_srl : 0;
+
+			$oUpdateRst = executeQueryArray('angeclub.updateTmpAdminClubCenter', $oUpdateArgs);
+			// var_dump($oUpdateArgs);
 			// echo '<BR>';
+			if(!$oUpdateRst->toBool())
+			{
+				var_Dump($oUpdateRst);
+				echo '<BR>';
+				var_Dump($oUpdateArgs);
+				exit;
+			}
+			unset($oUpdateRst);
+			unset($oUpdateArgs);
 		}
 		unset($oMemberModel);
+		echo count($oRst->data).' records has been resolved<BR>';
 
 		exit;
 		FileHandler::writeFile($sSeqLogFilePath, ++$nCurPage);
@@ -150,8 +193,6 @@ class angeclubAdminController extends angeclub
 				$aInitYrMo = explode('-', $sInitYrMo);
 				$sFinalYrMo = $aInitYrMo[0].sprintf('%02d', $aInitYrMo[1]);
 				$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
-				// var_dump($sFinalYrMo);
-				// echo '<BR>';
 			}
 			else  // 앙쥬 신규회원 앙쥬맘박스(구.샘플팩) 20년 5월_114차
 			{
@@ -164,12 +205,6 @@ class angeclubAdminController extends angeclub
 			$aArrangedMomboxRegistration[$sMomId]->regdate = preg_replace("/[ :-]/i", "", $aMombox['adhj_date_request']);  // 2020-04-26 02:04:40 수정
 		}
 		unset($aMomboxRegistration);
-
-		// foreach($aArrangedMomboxRegistration as $sMomId=>$oMombox)
-		// {
-		// 	var_dump($sMomId, $oMombox);
-		// 	echo '<BR>';
-		// }
 		return $aArrangedMomboxRegistration;
 	}
 /**
@@ -178,7 +213,7 @@ class angeclubAdminController extends angeclub
 private function _isAbandonedStaffId($sClubStaffId)
 {
 	$aAbandonedStaffId = ['beauty79y', 'miheejilong', 'feelsk0614', 'thguskim', 'admin', 'bynwhj', 'pjsmommy',
-							 'kiok1219', 'dahae1541'];
+							 'kiok1219', 'dahae1541', '0', ''];
 	if(in_array($sClubStaffId, $aAbandonedStaffId))
 		return true;
 	return FALSE;

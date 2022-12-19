@@ -3,7 +3,7 @@
 		<table name="angeclub_log" />
 	</tables>
 	<columns>
-		<column name="cu_id" var="_cu_id" />
+		<!-- <column name="cu_id" var="_cu_id" /> -->
 		<column name="cc_idx" var="_cc_idx" />
 		<!-- <column name="cc_name" var="_cc_name" /> -->
 		<column name="cl_date" var="_cl_date" />

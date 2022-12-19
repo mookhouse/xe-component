@@ -118,11 +118,11 @@ $( document ).ready(function() {
                             </colgroup> -->
                             <tr cond="!$oWorkDiaryInfo->cl_idx">
                                 <td>담당자<b></b></td>
-                                <td >{$aUserInfo[$oLoggedInfo->user_id]}</td>
+                                <td >{$oLoggedInfo->user_name}</td>
                             </tr>
                             <tr cond="$oWorkDiaryInfo->cl_idx">
                                 <td>담당자<b></b></td>
-                                <td >{$aUserInfo[$oWorkDiaryInfo->cu_id]}</td>
+                                <td >{$oWorkDiaryInfo->user_name}</td>
                             </tr>
                             <!-- <tr>
                                 <td>출고장소<b>*</b></td>

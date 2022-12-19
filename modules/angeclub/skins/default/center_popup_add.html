@@ -95,10 +95,10 @@
 						<input type="hidden" name="cc_idx" value="{$cc_idx}" />
 						<table class="table">
 							<tr>
-								<td class="label">담당자 {$oCenterInfo->cu_id}</td>
+								<td class="label">담당자 {$oCenterInfo->user_name}</td>
 								<td>
-									<select name="_cu_id" class="form-control" style="width: 230px; line-height: 2.6em;">
-										<option loop="$aUserInfo=>$sId,$sName" value="{$sId}" selected|cond="$sId==$oCenterInfo->cu_id">{$sName}</option>
+									<select name="member_srl_staff" class="form-control" style="width: 230px; line-height: 2.6em;">
+										<option loop="$aUserInfo=>$nMemberSrlStaff,$sName" value="{$nMemberSrlStaff}" selected|cond="$nMemberSrlStaff==$oCenterInfo->member_srl_staff">{$sName}</option>
 									</select>
 								</td>
 							</tr>

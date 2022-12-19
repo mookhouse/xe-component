@@ -383,9 +383,8 @@ exit;
 		unset($oArgs->act);
 		unset($oArgs->mid);
 		unset($oArgs->module);
-		$oArgs->_cu_id = $oLoggedInfo->user_id;
-// var_dump($oArgs);
-// exit;
+		$oArgs->member_srl_staff = $oLoggedInfo->member_srl;
+
 		if(!$oArgs->_cc_idx)
 			return new BaseObject(-1, '조리원을 선택하세요.');
 		if(!$oArgs->_cl_count_regi)
@@ -405,8 +404,6 @@ exit;
 			$oRst = executeQuery('angeclub.updateWorkDiary', $oArgs);
 		else  // insert
 			$oRst = executeQuery('angeclub.insertWorkDiary', $oArgs);
-// var_dump($oRst);
-// exit;
 		if(!$oRst->toBool())
 			return $oRst;
 		$this->add('bRst', 1);
@@ -426,7 +423,7 @@ exit;
 		unset($oArgs->act);
 		unset($oArgs->mid);
 		unset($oArgs->module);
-		if(!$oArgs->_cu_id)
+		if(!$oArgs->member_srl_staff)
 			return new BaseObject(-1, '담당자를 선택하세요.');
 		if(!$oArgs->_cc_city)
 			return new BaseObject(-1, '도시를 선택하세요.');

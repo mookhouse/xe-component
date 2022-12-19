@@ -1,0 +1,12 @@
+<query id="updateTmpAdminClubCenter" action="update">
+	<tables>
+		<table name="angeclub_center" />
+	</tables>
+	<columns>
+		<column name="member_srl_staff" var="member_srl_staff" />
+		<column name="regdate" var="regdate" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="cc_idx" var="cc_idx" />
+    </conditions>
+</query>
