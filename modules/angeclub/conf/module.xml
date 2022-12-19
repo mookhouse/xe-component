@@ -14,6 +14,7 @@
 		<action name="dispAngeclubAdminMigrate" type="view" />  <!-- temporary migration tool -->
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
+		<action name="dispAngeclubStatistics" type="view" />
 		<action name="dispAngeclubMember" type="view" />
 		<action name="dispAngeclubMemberPopupAdd" type="view" />
 		<action name="dispAngeclubWorkDiary" type="view" />

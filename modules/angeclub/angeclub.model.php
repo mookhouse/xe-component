@@ -103,6 +103,114 @@ class angeclubModel extends module
 		return $oMemberWithinGrpRst;
 	}
 /**
+ * @brief return period performance by city
+ **/
+	public function getPeriodPerfByCity($nModuleSrl, $sBeginDate, $sEndDate)
+	{
+		$oRst = $this->getCenterAreaJsonStringfied();
+		$aCity = $oRst->get('aCity');
+		// Context::set('sJsonAreaStringfy', $oRst->get('aJsonStringfyArea'));
+
+		// city 별 조리원 idx 가져오기
+		$oArg = new stdClass();
+		$aTmpCenterByCity = [];
+		foreach($aCity as $sCityName=>$_)
+		{
+			$oArgs->cc_city = $sCityName;
+			$oRst = executeQuery('angeclub.getCenterByCityAreaName', $oArgs);
+			if(!$oRst->toBool())
+				return $oRst;
+
+			$aCenterIdxList = [];
+			foreach($oRst->data as $_=>$oCenter)
+				$aCenterIdxList[] = $oCenter->cc_idx;
+			$aTmpCenterByCity[$sCityName] = $aCenterIdxList;
+			unset($oRst);
+				// exit;
+			
+		}
+		unset($oArg);
+
+		// city 별 조리원의 성과 요약하기
+		$oArgs = new stdClass;
+		$oArgs->begin_date = $sBeginDate;
+		$oArgs->end_date = $sEndDate;
+		$aTmpStatisticsByCity = [];
+		$aSort = [];
+		foreach($aTmpCenterByCity as $sCityName=>$aCenterList)
+		{
+			$oArgs->a_cc_idx = $aCenterList;
+			$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByCity', $oArgs);
+			if(!$oRst->toBool())
+				return $oRst;
+
+			if($oRst->data->gross_new_member || $oRst->data->gross_update_member || $oRst->data->gross_new_center)
+			{
+				$oSingleCityStat = new stdClass();
+				$oSingleCityStat->city_name = $sCityName;
+				$oSingleCityStat->gross_new_member = $oRst->data->gross_new_member;
+				$oSingleCityStat->gross_update_member = $oRst->data->gross_update_member;
+				$oSingleCityStat->gross_new_center = $oRst->data->gross_new_center;
+				$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center;
+				$aSort[$sCityName] = $nGross;
+				$aTmpStatisticsByCity[$sCityName] = $oSingleCityStat;
+			}
+			unset($oRst);
+		}
+		unset($oArg);
+		ksort($aSort);
+
+		$aStatisticsByCity = [];
+		foreach($aSort as $sCityName=>$nGross)
+			$aStatisticsByCity[] = $aTmpStatisticsByCity[$sCityName];
+		unset($aTmpStatisticsByCity);
+		$oRet = new BaseObject();
+		$oRet->add('aStatisticsByCity', $aStatisticsByCity);
+		return $oRet;
+	}
+/**
+ * @brief return period performance by staff
+ **/
+	public function getPeriodPerfByStaff($nModuleSrl, $sBeginDate, $sEndDate)
+	{
+		$aUserInfo = $this->getClubEffectiveUser($nModuleSrl);
+		
+		$oArgs = new stdClass;
+		$oArgs->begin_date = $sBeginDate;
+		$oArgs->end_date = $sEndDate;
+
+		$aTmpStatisticsByStaffMemberSrl = [];
+		$aSort = [];
+		foreach($aUserInfo as $nStaffMemberSrl=>$sStaffName)
+		{
+			$oArgs->member_srl_staff = $nStaffMemberSrl;
+			$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByMemberSrl', $oArgs);
+			if(!$oRst->toBool())
+				return $oRst;
+			$oSingleStat = new stdClass();
+			$oSingleStat->member_srl = $nStaffMemberSrl;
+			$oSingleStat->staff_name = $sStaffName;
+			$oSingleStat->gross_new_member = $oRst->data->gross_new_member;
+			$oSingleStat->gross_update_member = $oRst->data->gross_update_member;
+			$oSingleStat->gross_new_center = $oRst->data->gross_new_center;
+
+			$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center;
+			$aSort[$nStaffMemberSrl] = $nGross;
+			unset($oRst);
+			$aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl] = $oSingleStat;
+		}
+		unset($oArgs);
+		ksort($aSort);
+
+		$aStatisticsByStaffMemberSrl = [];
+		foreach($aSort as $nStaffMemberSrl=>$nGross)
+			$aStatisticsByStaffMemberSrl[] = $aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl];
+		unset($aTmpStatisticsByStaffMemberSrl);
+		$oRet = new BaseObject();
+		$oRet->add('aStatisticsByStaffMemberSrl', $aStatisticsByStaffMemberSrl);
+		return $oRet;
+	}
+/**
  * @brief return club staff list for UX
  **/
 	public function getClubEffectiveUser($nModuleSrl)
@@ -123,7 +231,7 @@ class angeclubModel extends module
 		unset($oArgs);
 		$aUserInfo = [];
 		foreach($oMemberWithinGrpRst->data as $_=>$oClubMember)
-			$aUserInfo[$oClubMember->user_id] = $oClubMember->user_name;
+			$aUserInfo[$oClubMember->member_srl] = $oClubMember->user_name;
 		unset($oMemberWithinGrpRst);
 		// $oArgs = new stdClass();
 		// $oArgs->cu_id = 'admin';  // 웹관리자 제외

@@ -44,25 +44,50 @@ class angeclubView extends angeclub
 		$this->setTemplatePath($template_path);
 	}
 /**
- * @brief 담당자별 지역별 성과 대쉬보드 화면
+ * @brief 기본 시작 화면
  */
 	public function dispAngeclubIndex()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		$this->dispAngeclubWorkDiary();
+	}
+/**
+ * @brief 담당자별 지역별 성과 대쉬보드 화면
+ */
+	public function dispAngeclubStatistics()
+	{
+		$sEndDate = date('Ymd',strtotime("-1 days")).'000000';  // means yesterday Yyyymmddhhiiss
+		$dtEnd = date_create($sEndDate);
+		$dtEnd->modify('-7 day');
+		$sBeginDate = $dtEnd->format('Ymd000000');
+		unset($dtEnd);
 
-		Context::set('oLoggedInfo', $oLoggedInfo);
-		$this->setTemplateFile('default');
+		Context::set('sBeginDate', substr($sBeginDate, 0, 8));
+		Context::set('sEndDate', substr($sEndDate, 0, 8));
+
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getPeriodPerfByStaff($this->module_info->module_srl, $sBeginDate, $sEndDate);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('aStatisticsByStaffMemberSrl', $oRst->get('aStatisticsByStaffMemberSrl'));
+		unset($oRst);
+
+		$oRst = $oAngeclubModel->getPeriodPerfByCity($this->module_info->module_srl, $sBeginDate, $sEndDate);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('aStatisticsByCity', $oRst->get('aStatisticsByCity'));
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('statistics');
 	}
 /**
  * @brief 간호사 업무일지 일반 스탭 화면
  */
 	public function dispAngeclubWorkDiary()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 	
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
@@ -90,9 +115,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubWorkDiaryManager()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
@@ -120,9 +145,9 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubWorkDiaryPopupAdd()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
@@ -146,9 +171,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubWorkDiaryPopupUpdate()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 
 		$nClIdx = Context::get('cl_idx');
 		if(!$nClIdx)
@@ -181,9 +206,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubMember()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		Context::set('oLoggedInfo', $oLoggedInfo);
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getMomList(Context::getRequestVars());
@@ -203,9 +228,9 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubMemberPopupAdd()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
 
@@ -235,9 +260,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenter()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
@@ -266,9 +291,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenterPopupAdd()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		// 팝업을 위해 layout 제거
 		$this->module_info->layout_srl = 0;
 		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_center.xml');
@@ -294,9 +319,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubCenterPopupUpdate()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		$nCcIdx = Context::get('cc_idx');
 		if(!$nCcIdx)
 			return new BaseObject(-1, 'msg_invalid_center_idx');
@@ -324,9 +349,9 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubStaffManager()
 	{
-		$oLoggedInfo = Context::get('logged_info');
-		if(!$oLoggedInfo)
-			return new BaseObject(-1, 'msg_not_loggedin');
+		// $oLoggedInfo = Context::get('logged_info');
+		// if(!$oLoggedInfo)
+		// 	return new BaseObject(-1, 'msg_not_loggedin');
 		
 		$oAngeclubModel = &getModel('angeclub');
 		$oRst = $oAngeclubModel->getClubEffectiveUserFullInfo($this->module_info->module_srl);

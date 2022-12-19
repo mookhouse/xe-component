@@ -1,0 +1,15 @@
+<query id="getWorkDiaryLogPerformanceByCity" action="select">
+    <tables>
+        <table name="angeclub_log" />
+    </tables>
+    <columns>
+        <column name="sum(cl_count_regi)" alias="gross_new_member" />
+        <column name="sum(cl_count_update)" alias="gross_update_member" />
+        <column name="sum(cl_count_center)" alias="gross_new_center" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="cc_idx" var="a_cc_idx" notnull="notnull"/>
+        <condition operation="more" column="regdate" var="begin_date" notnull="notnull" pipe="and" />
+        <condition operation="less" column="regdate" var="end_date" notnull="notnull" pipe="and" />
+    </conditions>
+</query>
