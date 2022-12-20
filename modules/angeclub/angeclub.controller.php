@@ -37,11 +37,6 @@ class angeclubController extends angeclub
 
 		$oAngemomboxController = &getController ('angemombox');
 		$oInArgs = new stdClass();
-		// construct push agreement
-		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-		$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-		$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-		$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
 		
 		$nDatalakeDocSrl = (int)Context::get('datalake_doc_srl');
         if(!$nDatalakeDocSrl)  // append new member
@@ -110,7 +105,7 @@ class angeclubController extends angeclub
 
 			// construct mom's info
 			$oInArgs->parent_member_srl = $nMemberSrl;  // mom's member srl
-			$oInArgs->mom_birthday = $oArgs->_birth;
+			$oInArgs->parent_birthday = $oArgs->_birth;
 			$oInArgs->parent_gender = 'F';  // 산후 조리원이므로 반드시 여성
 			$oInArgs->parent_pregnant = 'N';  // 산후 조리원이므로 반드시 출산 후
 			$oInArgs->mobile = $oArgs->_phone_2;
@@ -121,10 +116,10 @@ class angeclubController extends angeclub
 			$oInArgs->addr_extra = '';
 
 			// construct push agreement
-			// $oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-			// $oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-			// $oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-			// $oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+			$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
+			$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
+			$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
+			$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
 
 			// construct baby info
 			$oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);  // ["i_baby_nm"]=>string(12) "아이이름"
@@ -133,12 +128,8 @@ class angeclubController extends angeclub
 
 			$oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
 			$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
-			
-			// $oAngemomboxController = &getController ('angemombox');
 			$oRst = $oAngemomboxController->insertDataLake($oInArgs);
 // var_dump($oInArgs);
-			// unset($oInArgs);
-			// unset($oAngemomboxController);
 			if(!$oRst->toBool())
 				return $oRst;
 			unset($oRst);
@@ -146,6 +137,12 @@ class angeclubController extends angeclub
         }
         else  // update existing datalake log
         {
+			// construct push agreement
+			$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
+			$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
+			$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
+			$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+
 			$oInArgs->datalake_doc_srl = $nDatalakeDocSrl;
 			$oRst = $oAngemomboxController->updateDataLake($oInArgs);
 			if(!$oRst->toBool())

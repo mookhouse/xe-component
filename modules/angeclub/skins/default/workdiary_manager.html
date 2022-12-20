@@ -110,11 +110,31 @@ $(document).ready(function(){
     </p>
 </div>
 <article>
+<style>
+@keyframes blink-effect {
+  50% {
+    opacity: 0;
+  }
+}
+.blink {
+  animation: blink-effect 1s step-end infinite;
+  /*
+  animation-name: blink-effect;
+  animation-duration: 1s;
+  animation-iteration-count:infinite;
+  animation-timing-function:step-end;
+  */
+  color: red;
+}
+</style>
     <!-- <div class="article-header">
         <h5>등록된 일지 리스트</h5>
         <small>등록된 일지 <span>총 24,844 건</span></small>
     </div> -->
     <div class="table-wrap list">
+{@
+$sTodayYyyymmdd = date('Ymd');
+}  
         <table class="table">
             <thead>
                 <tr>
@@ -133,8 +153,11 @@ $(document).ready(function(){
                     <td>{$oSingleWorkDiary->user_name}</td>
                     <td>
                         <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
-                    </td>
-                    <td>{$oSingleWorkDiary->cl_date} <!--2022-12-14 , AM 11:00--></td>
+<block cond="$sTodayYyyymmdd==substr($oSingleWorkDiary->workdate, 0, 8)">
+                        <c class="blink">오늘 일정!</c>
+</block>
+					</td>
+                    <td>{zdate($oSingleWorkDiary->workdate)} <!--2022-12-14 , AM 11:00--></td>
                     <td><a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700);" >{$oSingleWorkDiary->cl_category}</a></td>
                     <td>
                         {$oSingleWorkDiary->cl_count_regi} / {$oSingleWorkDiary->cl_count_update} / {$oSingleWorkDiary->cl_count_center}

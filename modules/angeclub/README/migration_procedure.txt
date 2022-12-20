@@ -1,30 +1,15 @@
-*. 앙쥬클럽 간호사 회원 가입하고  [앙쥬클럽스태프] [앙쥬클럽관리자] 그룹에 추가
-cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
-(가입했을수 있음) mocha2	강남	c4650	김경희	01047428413	angeclub@ange.co.kr	51025	
-(무시) mocha	총괄	c4650	김경희(a)	01047428413	angeclub@ange.co.kr	51025	
-(가입했을수 있음) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208	
-sooga7	부산	761015	이성숙	01065514405	sooga76@naver.com	2018-05-28	211125
-hya1021	강북	821021	신명희	01034972002	hya1021@naver.com	190422	201026
-myheromyth89	강동	891001	남가은	01091611247	myheromyth89@naver.com	200810	201224
-(이미 가입됨) juhyun0451	부산	910517	신주현	01048900451	juhyun0451@gmail.com	211126	220731
-(이미 가입됨) whzhwhzh	강북	770722	김성경	01062752710	whzhwhzh@naver.com	220926	
+*. tbl import
 
-구 ange.co.kr에 뒤늦게 회원 등록한 간호사 아이디
-whzhwhzh 
-sugarprime
-mocha2 
+adm_history_join
+ANGE_USER_BABY
+club_area
+club_center
+club_log
+COM_USER
 
 *. innodb tbl을 MyISAM으로 수동 변경
 
-adm_history_join
-ange_club_baby
-club_log
-club_center
-com_user
-
-club_center에서
-896  양천 퀸즈마리 ->  양천 queensmarie
-
+*. club_center에서 896  양천 퀸즈마리 ->  양천 queensmarie
 
 *. com_user의 미사용 필드 수동 삭제
 
@@ -78,26 +63,52 @@ club_center에서
 `MARRIED_DT` varchar(30) DEFAULT NULL COMMENT '결혼기념일',
 `PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT '패스워드변경일자',
 
+*. club_center에 XE 필드 수동 추가
+member_srl_staff -> bigint 11 null 허용 추가
+regdate  -> varchar 14 null 허용으로 추가
+
 *. club_log에 XE 필드 수동 추가
 cp_idx 미사용 필드를 member_srl_staff -> bigint 11 null 허용로 변경
 workdate  -> varchar 14 null 허용으로 추가
 regdate  -> varchar 14 null 허용으로 추가
 
-*. club_center에 XE 필드 수동 추가
-member_srl_staff -> bigint 11 null 허용 추가
-regdate  -> varchar 14 null 허용으로 추가
-
 *.테이블 이름 변경
 
 adm_history_join -> xe_angeclub_tmp_adm_history_join
-ange_club_baby -> xe_angeclub_tmp_ange_club_baby
-com_user -> xe_angeclub_tmp_com_user
+ange_club_baby -> xe_angeclub_tmp_ange_user_baby
+club_area -> xe_angeclub_area
+club_center -> xe_angeclub_center
 club_log -> xe_angeclub_log
+com_user -> xe_angeclub_tmp_com_user
+
+*. 회원 그룹 생성
+앙쥬클럽스탭
+앙쥬클럽관리자
+
+*.
+회원 필드 : 핸드폰 번호 활성화
+
+*. 사용자 정의 회원 필드 추가
+addr   배송주소 주소
+
+*. angeclub 모듈에 사용자 정의 회원 배송주소 필드명 추가
+
+*. 앙쥬클럽 간호사 회원 가입하고  [앙쥬클럽스태프] [앙쥬클럽관리자] 그룹에 추가
+cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
+(무시) mocha	총괄	c4650	김경희(a)	01047428413	angeclub@ange.co.kr	51025	
+
+(가입했음) mocha2	강남	c4650	김경희	01047428413	angeclub@ange.co.kr	51025	
+(가입했음) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208
+(whzhwzh로 가입했음) whzhwhzh	강북	770722	김성경	01062752710	whzhwhzh@naver.com	220926	
+(ju7886로 가입했음)  juhyun0451	부산	910517	신주현	01048900451	juhyun0451@gmail.com	211126	220731
+(수기가입) sooga7	부산	761015	이성숙	01065514405	sooga76@naver.com	2018-05-28	211125
+(수기가입) hya1021	강북	821021	신명희	01034972002	hya1021@naver.com	190422	201026
+(수기가입) myheromyth89	강동	891001	남가은	01091611247	myheromyth89@naver.com	200810	201224
 
 *. angeclug migration tool 순서대로 실행
-. 중복 핸폰 번호 추출
-. 핸폰 번호 기준 정제된 COM_USER 생성
-. 정제된 COM_USER 정보를 xe_member에 입력
+1. 중복 핸폰 번호 추출
+2. 핸폰 번호 기준 정제된 COM_USER 생성
+3. 정제된 COM_USER 정보를 xe_member에 입력
 
 angeadmin4650, angestory, momsfood 아이디를 보존할 수 없는 이유
 
@@ -111,14 +122,29 @@ mook1004 가 보존됨
 
 *. 4. 정제된 COM_USER 정보를 mombox_datalake에 입력 실행 전
 정제된 COM_USER 정보를 mombox_datalake에 입력하기 위해 구홈페이지에서 맘박스 신청 내역 추출하고
-// SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
-// FROM adm_history_join
-// INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
-// WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
-// ORDER BY adhj_idx;
+
+SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
+FROM adm_history_join
+INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
+WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
+ORDER BY adhj_idx;
 
 전체 선택 php array로 복사하여 붙여넣기
 /files/angeclub/mombox_registration_log_array.php
+<?php
+$aMomboxRegistration = array(
+... 붙여넣기 ...
+);
+?>
+
+angemombox에 생성된 모듈명 확인
+1.angeclub
+2.mombox_after_apply
+3.mombox_before_apply
+
+*. angeclug migration tool 순서대로 실행
+4. 정제된 COM_USER 정보를 mombox_datalake에 입력
+5. club_log와 club_center에 XE 필드 설정
 
 *. xe_angeclub_log에서 아래의 필드 삭제
 cu_id

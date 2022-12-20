@@ -149,10 +149,10 @@ $(document).on("click", ".agree_label", function(){
                                                 input.button_address { padding: 7px 10px !important; border-radius: 7px; background-color: #aaa; color: #fff; border: 0px; cursor: pointer; }
                                                 input.button_address:hover { background-color: #000; }
                                             </style>
-                                            <input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" DISABLED value="{$oMomMemberInfo->addr[0]}" style="width: 80px;">
+                                            <input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" DISABLED value="{$oMomMemberInfo->address[0]}" style="width: 80px;">
                                             <br/>
-                                            <input type="text" class="form-control" name="_ADDR" id="_ADDR" DISABLED value="{$oMomMemberInfo->addr[1]}" style="width: 90%;margin-left:0px;"><br/>
-                                            <input type="text" class="form-control" name="_ADDR_DETAIL" id="_ADDR_DETAIL" DISABLED value="{$oMomMemberInfo->addr[2]} {$oMomMemberInfo->addr[3]}" style="width: 90%;margin-left:0px;">
+                                            <input type="text" class="form-control" name="_ADDR" id="_ADDR" DISABLED value="{$oMomMemberInfo->address[1]}" style="width: 90%;margin-left:0px;"><br/>
+                                            <input type="text" class="form-control" name="_ADDR_DETAIL" id="_ADDR_DETAIL" DISABLED value="{$oMomMemberInfo->address[2]} {$oMomMemberInfo->address[3]}" style="width: 90%;margin-left:0px;">
                                         </div>
                                     </td>
                                 </tr>
@@ -180,7 +180,7 @@ $(document).on("click", ".agree_label", function(){
                                     <th >아이 이름</th>
                                     <th >아이 성별</th>
                                     <th >아이 생일</th>
-                                    <th >교육일자</th>
+                                    <th >입력일</th>
                                 </tr>
                                 <tr loop="$oMomMemberInfo->aDatalakeHistory=>$_,$oSingleDataLake">
                                     <td>{$oSingleDataLake->user_name_staff}</td>

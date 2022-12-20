@@ -157,7 +157,6 @@ class angeclubAdminController extends angeclub
 		unset($oMemberModel);
 		echo count($oRst->data).' records has been resolved<BR>';
 
-		exit;
 		FileHandler::writeFile($sSeqLogFilePath, ++$nCurPage);
 		echo '<BR><BR>succeed!';
 	}
@@ -180,29 +179,30 @@ class angeclubAdminController extends angeclub
 			$sMomId = $aMombox['adu_id'];
 			$aArrangedMomboxRegistration[$sMomId] = new stdClass();
 			if(strpos($aMombox['ada_name'], '출산맘') !== false)  // 출산맘박스
-				$aArrangedMomboxRegistration[$sMomId]->mombox_type = POSTNATAL;
+				$aArrangedMomboxRegistration[$sMomId]->mombox_type = self::POSTNATAL;
 			else  // 임신맘박스
-				$aArrangedMomboxRegistration[$sMomId]->mombox_type = PREGNANT;
+				$aArrangedMomboxRegistration[$sMomId]->mombox_type = self::PREGNANT;
 				
 			$sMomboxTitle = $aMombox['ada_name'];
-			$nYrMoPos = mb_strpos($sMomboxTitle, '년');
-			if($nYrMoPos === false)  // 앙쥬 기존회원 앙쥬맘박스(구.샘플팩) 2020-07
-			{
-				$nYrMoPos = strpos($sMomboxTitle, '20');
-				$sInitYrMo = substr($sMomboxTitle, $nYrMoPos, 7);
-				$aInitYrMo = explode('-', $sInitYrMo);
-				$sFinalYrMo = $aInitYrMo[0].sprintf('%02d', $aInitYrMo[1]);
-				$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
-			}
-			else  // 앙쥬 신규회원 앙쥬맘박스(구.샘플팩) 20년 5월_114차
-			{
-				$sInitYrMo = mb_substr($sMomboxTitle, $nYrMoPos-2, 7);
-				$sInitYrMo = str_replace('_' , '', $sInitYrMo);
-				$aInitYrMo = explode('년 ', $sInitYrMo);
-				$sFinalYrMo = '20'.$aInitYrMo[0].sprintf('%02d',str_replace('월' , '', $aInitYrMo[1]));
-				$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
-			}
+			//$nYrMoPos = mb_strpos($sMomboxTitle, '년');
+			//if($nYrMoPos === false)  // 앙쥬 기존회원 앙쥬맘박스(구.샘플팩) 2020-07
+			//{
+			//	$nYrMoPos = strpos($sMomboxTitle, '20');
+			//	$sInitYrMo = substr($sMomboxTitle, $nYrMoPos, 7);
+			//	$aInitYrMo = explode('-', $sInitYrMo);
+			//	$sFinalYrMo = $aInitYrMo[0].sprintf('%02d', $aInitYrMo[1]);
+			//	$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
+			//}
+			//else  // 앙쥬 신규회원 앙쥬맘박스(구.샘플팩) 20년 5월_114차
+			//{
+			//	$sInitYrMo = mb_substr($sMomboxTitle, $nYrMoPos-2, 7);
+			//	$sInitYrMo = str_replace('_' , '', $sInitYrMo);
+			//	$aInitYrMo = explode('년 ', $sInitYrMo);
+			//	$sFinalYrMo = '20'.$aInitYrMo[0].sprintf('%02d',str_replace('월' , '', $aInitYrMo[1]));
+			//	$aArrangedMomboxRegistration[$sMomId]->yr_mo = $sFinalYrMo;
+			//}
 			$aArrangedMomboxRegistration[$sMomId]->regdate = preg_replace("/[ :-]/i", "", $aMombox['adhj_date_request']);  // 2020-04-26 02:04:40 수정
+			$aArrangedMomboxRegistration[$sMomId]->yr_mo = substr($aArrangedMomboxRegistration[$sMomId]->regdate, 0, 6);
 		}
 		unset($aMomboxRegistration);
 		return $aArrangedMomboxRegistration;
@@ -346,9 +346,12 @@ private function _isAbandonedStaffId($sClubStaffId)
 		$oAngeclubRegistArgs->is_existing_parent_member = 'N';
 		$oAngeclubRegistArgs->center_visit_cnt = $oComUser->CENTER_CNT;
 		$oAngeclubRegistArgs->education_cnt = $oComUser->CLUBEDU_CNT;
-		$aClubRegdate = explode(' ', $oComUser->CLUB_REG_DT);
-		$sClubRegdate = str_replace('-', '', $aClubRegdate[0]).'133030';
-		$oAngeclubRegistArgs->regdate = $sClubRegdate; //$oComUser->CLUB_REG_DT;
+
+		//$aClubRegdate = explode(' ', $oComUser->CLUB_REG_DT);
+		//$sClubRegdate = str_replace('-', '', $aClubRegdate[0]).'133030';
+		//$oAngeclubRegistArgs->regdate = $sClubRegdate; //$oComUser->CLUB_REG_DT;
+		$sClubRegdate = preg_replace("/[ \:-]/i", "", $oComUser->CLUB_REG_DT);  // 2012-01-26 21:12:12 수정
+		$oAngeclubRegistArgs->regdate = $aClubRegdate;
 
 		$oAngeclubRegistrationInsertRst = executeQuery('angeclub.insertClubRegistration', $oAngeclubRegistArgs);
 		if(!$oAngeclubRegistrationInsertRst->toBool())
@@ -540,9 +543,9 @@ private function _isAbandonedStaffId($sClubStaffId)
 				$oHompyMomboxRegist = $aMomboxRegistInfo[$oXeMemberInfo->user_id];
 				if($oHompyMomboxRegist)  // 홈피에서 맘박스 신청
 				{
-					if($oHompyMomboxRegist->mombox_type == POSTNATAL)
+					if($oHompyMomboxRegist->mombox_type == self::POSTNATAL)
 						$oDatalakeArgs->module_srl = $nMomboxAfterModuleSrl;
-					elseif($oHompyMomboxRegist->mombox_type == PREGNANT)
+					elseif($oHompyMomboxRegist->mombox_type == self::PREGNANT)
 						$oDatalakeArgs->module_srl = $nMomboxBeforeModuleSrl;
 					else
 					{
@@ -566,6 +569,10 @@ private function _isAbandonedStaffId($sClubStaffId)
 							var_Dump($oDataLakeInsertRst);
 							echo '<BR>';
 							var_Dump($oDatalakeArgs);
+							echo '<BR>';
+							var_Dump($oHompyMomboxRegist);
+							echo '<BR>';
+							var_Dump($oXeMemberInfo->user_id);
 							exit;
 						}
 					}
@@ -712,12 +719,14 @@ private function _isAbandonedStaffId($sClubStaffId)
 		$oArgs->birthday = $oComUserInfo->BIRTH;
 
 		$oArgs->allow_mailing = 'N';
-		$sCleanedRegDt = preg_replace("/[ \:-]/i", "", $oComUserInfo->REG_DT);  // 2012-01-26 21: 수정
-		$oArgs->regdate = $sCleanedRegDt.'0101';
+		//$sCleanedRegDt = preg_replace("/[ \:-]/i", "", $oComUserInfo->REG_DT);  // 2012-01-26 21: 수정
+		//$oArgs->regdate = $sCleanedRegDt.'0101';
+		$oArgs->regdate = preg_replace("/[ \:-]/i", "", $oComUserInfo->REG_DT);  // 2012-01-26 21:12:12 수정
 		if(strlen($oComUserInfo->FINAL_LOGIN_DT))
 		{
-			$sCleanedFinalLoginDt = preg_replace("/[ \:-]/i", "", $oComUserInfo->FINAL_LOGIN_DT);  // 2012-01-26 21: 수정
-			$oArgs->last_login = $sCleanedFinalLoginDt.'0101';
+			//$sCleanedFinalLoginDt = preg_replace("/[ \:-]/i", "", $oComUserInfo->FINAL_LOGIN_DT);  // 2012-01-26 21: 수정
+			//$oArgs->last_login = $sCleanedFinalLoginDt.'0101';
+			$oArgs->last_login = preg_replace("/[ \:-]/i", "", $oComUserInfo->FINAL_LOGIN_DT);  // 2012-01-26 21:12:12 수정
 			$dtChangePasswordDate = new \DateTime($oArgs->last_login.' +60 day');
 			$oArgs->change_password_date = $dtChangePasswordDate->format('YmdHis');
 		}
@@ -800,13 +809,13 @@ private function _isAbandonedStaffId($sClubStaffId)
 	{
 		$oArg = new stdClass();
 		$oArg->USER_ID = $sUserId;
-		$oRst = executeQueryArray('angeclub.getTmpAdminComUserByUserId', $oArg);
+		$oUserIdRst = executeQueryArray('angeclub.getTmpAdminComUserByUserId', $oArg);
 		if(count($oUserIdRst->data))
 			$sFinalUserId = $sUserId.$this->_getRandStr(2);
 		else
 			$sFinalUserId = $sUserId;
 		unset($oArg);
-		unset($oRst);
+		unset($oUserIdRst);
 		return $sFinalUserId;
 	}
 /**
@@ -1202,6 +1211,7 @@ private function _isAbandonedStaffId($sClubStaffId)
 		}
 		unset($oArgs);
 		FileHandler::writeFile($sSeqLogFilePath, ++$nCurPage);
+		echo '<BR><BR>succeed!<BR>wait for DB proc completion!<BR><BR>';
 	}
 /**
  * @brief 

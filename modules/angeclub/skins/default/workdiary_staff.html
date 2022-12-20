@@ -183,7 +183,7 @@ $sTodayYyyymmdd = date('Ymd');
                     <td>
                         <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
 <block cond="$sTodayYyyymmdd==substr($oSingleWorkDiary->workdate, 0, 8)">
-                        <c class="blink">today!</c>
+                        <c class="blink">오늘 일정!</c>
 </block>
                     </td>
                     <td>{zdate($oSingleWorkDiary->workdate)} <!--2022-12-14 , AM 11:00--></td>
