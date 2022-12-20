@@ -18,6 +18,10 @@ class angeclubModel extends module
  **/
 	public function getMomList($oInParams)
 	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
 		unset($oInParams->error_return_url);
 		unset($oInParams->mid);
 		unset($oInParams->act);
@@ -26,29 +30,70 @@ class angeclubModel extends module
 		unset($oInParams->search_center);
 		if(count($aCcIdx))
 			$oInParams->a_cc_idx = $aCcIdx;
-		$oRst = executeQueryArray('angeclub.getMomList', $oInParams);
+
 		$oMemberModel = &getModel('member');
-		$aMemberInfo = [];
-		foreach($oRst->data as $_=>$oSingleMom)
-		{
-			$aEmailInfo = explode('@', $oSingleMom->email_address);
-			$oSingleMom->email_address = $this->_maskMbString($aEmailInfo[0],2, 2).'@'.$aEmailInfo[1];  // 이메일 아이디 마스킹
-			$oSingleMom->mobile = $this->_maskMbString($oSingleMom->mobile,5, 3);  // 핸폰 번호 마스킹
-			unset($aEmailInfo);
-			if($oSingleMom->member_srl_staff)
+		if($oInParams->user_name || $oInParams->email_address || $oInParams->birthday || $oInParams->mobile)	
+		{  // 검색하면 member tbl join
+			$aStaffMemberInfo = [];
+			$oRst = executeQueryArray('angeclub.getMomList', $oInParams);
+			foreach($oRst->data as $_=>$oSingleMom)
 			{
-				if(!$aMemberInfo[$oSingleMom->member_srl_staff])
+				$aEmailInfo = explode('@', $oSingleMom->email_address);
+				$oSingleMom->email_address = $this->_maskMbString($aEmailInfo[0],2, 2).'@'.$aEmailInfo[1];  // 이메일 아이디 마스킹
+				$oSingleMom->mobile = $this->_maskMbString($oSingleMom->mobile,5, 3);  // 핸폰 번호 마스킹
+				unset($aEmailInfo);
+				if($oSingleMom->member_srl_staff)
 				{
-					$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleMom->member_srl_staff);
-					$aMemberInfo[$oMemberInfo->member_srl] = $oMemberInfo;
+					if(!$aStaffMemberInfo[$oSingleMom->member_srl_staff])
+					{
+						$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleMom->member_srl_staff);
+						$aStaffMemberInfo[$oMemberInfo->member_srl] = $oMemberInfo;
+						unset($oMemberInfo);
+					}
+					$oSingleMom->staff_name = $aStaffMemberInfo[$oMemberInfo->member_srl]->user_name;
 				}
-				$oSingleMom->staff_name = $aMemberInfo[$oMemberInfo->member_srl]->user_name;
+				// else
+				// 	$oSingleMom->staff_name = '담당자 없음';
 			}
-			// else
-			// 	$oSingleMom->staff_name = '담당자 없음';
-			unset($oMemberInfo);
+			unset($aStaffMemberInfo);
 		}
-		unset($aMemberInfo);
+		else  // 검색하지 않으면 club_registration tbl select
+		{
+			$aMomMemberInfo = [];
+			$aCenterInfo = [];
+			$oInParams->member_srl_staff = $oLoggedInfo->member_srl;
+			$oRst = executeQueryArray('angeclub.getRegistrationByStaffMemberSrl', $oInParams);
+			foreach($oRst->data as $_=>$oSingleRegist)
+			{
+				// ["is_existing_parent_member"]=> string(1) "N"
+				if(!$aMomMemberInfo[$oSingleRegist->member_srl_parent])
+				{
+					$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleRegist->member_srl_parent);
+					$aEmailInfo = explode('@', $oMemberInfo->email_address);
+					$oMemberInfo->email_address = $this->_maskMbString($aEmailInfo[0],2, 2).'@'.$aEmailInfo[1];  // 이메일 아이디 마스킹
+					$oMemberInfo->mobile = $this->_maskMbString($oMemberInfo->mobile,5, 3);  // 핸폰 번호 마스킹
+					unset($aEmailInfo);
+					$aMomMemberInfo[$oSingleRegist->member_srl_parent] = $oMemberInfo;
+					unset($oMemberInfo);
+				}
+				$oSingleRegist->member_srl = $oSingleRegist->member_srl_parent;
+				$oSingleRegist->staff_name = $oLoggedInfo->user_name;
+				$oSingleRegist->user_name = $aMomMemberInfo[$oSingleRegist->member_srl_parent]->user_name;
+				$oSingleRegist->email_address = $aMomMemberInfo[$oSingleRegist->member_srl_parent]->email_address;
+				$oSingleRegist->birthday = $aMomMemberInfo[$oSingleRegist->member_srl_parent]->birthday;
+				$oSingleRegist->mobile = $aMomMemberInfo[$oSingleRegist->member_srl_parent]->mobile;
+				$oSingleRegist->regdate = $oSingleRegist->regdate;
+
+				if(!$aCenterInfo[$oSingleRegist->cc_idx])
+				{
+					$oCenterRst = $this->getCenterInfoByIdx($oSingleRegist->cc_idx);
+					$aCenterInfo[$oSingleRegist->cc_idx] = $oCenterRst->data;
+				}
+				$oSingleRegist->cc_name = $aCenterInfo[$oSingleRegist->cc_idx]->cc_name;
+			}
+			unset($aMomMemberInfo);
+			unset($aCenterInfo);
+		}
 		unset($oMemberModel);
 		return $oRst;
 	}
@@ -267,6 +312,72 @@ class angeclubModel extends module
 		return $oRst;
 	}
 /**
+ * @brief return mom member detail
+ **/
+	public function getMomMemberInfoBySrl($nMomMemberSrl)
+	{
+		$oRegistArgs = new stdClass();
+		$oRegistArgs->member_srl_parent = $nMomMemberSrl;
+		$oRegistRst = executeQueryArray('angeclub.getRegistrationByMomMemberSrl', $oRegistArgs);
+		unset($oRegistArgs);
+		if(!$oRegistRst->toBool())
+			return $oRegistRst;
+		$oMemberModel = &getModel('member');
+
+		$aDataLakeHistory = [];
+		$nLatestDatalakeDocSrl = 0;
+		$sEmailPush = 'N';
+		$sSmsPush = 'N';
+		$sPostPush = 'N';
+		$sSponsorPush = 'N';
+		foreach($oRegistRst->data as $_=>$oSingleRegist)
+		{
+			$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleRegist->member_srl_staff);
+
+			$oCenterRst = $this->getCenterInfoByIdx($oSingleRegist->cc_idx);
+			if(!$oCenterRst->toBool())
+				return $oCenterRst;
+			$oDataLakeArgs = new stdClass();
+			$oDataLakeArgs->angeclub_registration_log_srl = $oSingleRegist->log_srl;
+			$oDataLakeRst = executeQueryArray('angemombox.getDataLakeByRegistSrl', $oDataLakeArgs);
+			unset($oRegistArgs);
+			foreach($oDataLakeRst->data as $_=>$oSingleDl)
+			{
+				$oSingleDlAppend = new stdClass();
+				$oSingleDlAppend->doc_srl = $oSingleDl->doc_srl;
+				$nLatestDatalakeDocSrl = $oSingleDl->doc_srl;
+				// $oSingleDlAppend->module_srl = $oSingleDl->module_srl;
+				$oSingleDlAppend->user_name_staff = $oStaffMemberInfo->user_name;
+				$oSingleDlAppend->cc_city = $oCenterRst->data->cc_city;
+				$oSingleDlAppend->cc_area = $oCenterRst->data->cc_area;
+				$oSingleDlAppend->cc_name = $oCenterRst->data->cc_name;
+				$oSingleDlAppend->baby_birth_name = $oSingleDl->baby_birth_name;
+				$oSingleDlAppend->baby_gender = $oSingleDl->baby_gender;
+				$oSingleDlAppend->baby_birthday = $oSingleDl->baby_birthday_yyyymmdd;
+				
+				$sEmailPush = $oSingleDl->email_push;  // identify latest status only
+				$sSmsPush = $oSingleDl->sms_push;  // identify latest status only
+				$sPostPush = $oSingleDl->post_push;  // identify latest status only
+				$sSponsorPush = $oSingleDl->sponsor_push;  // identify latest status only
+
+				$oSingleDlAppend = $oSingleRegist->regdate;
+				$aDataLakeHistory[] = $oSingleDlAppend;
+			}
+			unset($oStaffMemberInfo);
+			unset($oCenterRst);
+			unset($oDataLakeRst);
+		}
+		$oMomMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nMomMemberSrl);
+		unset($oMemberModel);
+		$oMomMemberInfo->aDatalakeHistory = $aDataLakeHistory;
+		$oMomMemberInfo->nLatestDatalakeDocSrl = $nLatestDatalakeDocSrl;
+		$oMomMemberInfo->sEmailPush = $sEmailPush;
+		$oMomMemberInfo->sSmsPush = $sSmsPush;
+		$oMomMemberInfo->sPostPush = $sPostPush;
+		$oMomMemberInfo->sSponsorPush = $sSponsorPush;
+		return $oMomMemberInfo;
+	}
+/**
  * @brief return work diary detail
  **/
 	public function getWorkDiaryByIdx($nClIdx)
@@ -390,12 +501,27 @@ class angeclubModel extends module
 		$oArgs->cc_name = $sCenterName;
 		$oRst = executeQueryArray('angeclub.getCenterByCenterName', $oArgs);
 		unset($oArgs);
-		// var_dump($oRst->data);
 		$aCcIdx = [];
 		foreach($oRst->data as $_=>$oCenter)
 			$aCcIdx[] = $oCenter->cc_idx;
 		unset($oRst);
 		return $aCcIdx;
+	}
+/**
+ * @brief return center detail
+ **/
+	public function getCenterInfoByIdx($nCcIdx)
+	{
+		$oArgs = new stdClass();
+		$oArgs->cc_idx = $nCcIdx;
+		$oRst = executeQuery('angeclub.getCenterByIdx', $oArgs);
+		unset($oArgs);
+		$oMemberModel = &getModel('member');
+		$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl_staff);
+		$oRst->data->user_name = $oStaffMemberInfo->user_name;
+		unset($oMemberModel);
+		unset($oStaffMemberInfo);
+		return $oRst;
 	}
 /**
  * @brief return work diary list
@@ -559,22 +685,6 @@ class angeclubModel extends module
 		$oRst->add('aJsonStringfyArea', implode( ',', $aJsonStringfyArea));
 		return $oRst;
     }
-/**
- * @brief return center detail
- **/
-	public function getCenterInfoByIdx($nCcIdx)
-	{
-		$oArgs = new stdClass();
-		$oArgs->cc_idx = $nCcIdx;
-		$oRst = executeQuery('angeclub.getCenterByIdx', $oArgs);
-		unset($oArgs);
-		$oMemberModel = &getModel('member');
-		$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl_staff);
-		$oRst->data->user_name = $oStaffMemberInfo->user_name;
-		unset($oMemberModel);
-		unset($oStaffMemberInfo);
-		return $oRst;
-	}
 /**
  * @brief 모듈 default setting 불러오기
  */

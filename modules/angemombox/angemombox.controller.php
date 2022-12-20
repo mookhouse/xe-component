@@ -244,9 +244,22 @@ exit;
         $this->add('module', $sConnectedBoardMid);
         $this->add('document_srl', $nNewDocSrl);
 	}
- /**
- * add mombox into data lake
- */   
+/**
+* update mombox data lake
+*/  
+    public function updateDataLake($oArgs)
+	{
+        if(!$oArgs->datalake_doc_srl)
+            return new BaseObject(-1, 'msg_error_invalid_datalake_doc_srl');
+        $oArgs->email_push = $oArgs->email_push ? $oArgs->email_push : 'N';
+        $oArgs->sms_push = $oArgs->sms_push ? $oArgs->sms_push : 'N';
+        $oArgs->post_push = $oArgs->post_push ? $oArgs->post_push : 'N';
+        $oArgs->sponsor_push = $oArgs->sponsor_push ? $oArgs->sponsor_push : 'N';
+		return executeQuery('angemombox.updateDataLake', $oArgs);
+    }
+/**
+* add mombox into data lake
+*/   
     public function insertDataLake($oArgs)
 	{
         if(!$oArgs->module_srl)
@@ -265,10 +278,6 @@ exit;
             return new BaseObject(-1, 'msg_error_invalid_addr_detail');
         if(!$oArgs->baby_birthday)
             return new BaseObject(-1, 'msg_error_invalid_baby_birthday');
-        // $oArgs->email_push = $oArgs->email_push ? $oArgs->email_push : 'N';
-        // $oArgs->sms_push = $oArgs->sms_push ? $oArgs->sms_push : 'N';
-        // $oArgs->post_push = $oArgs->post_push ? $oArgs->post_push : 'N';
-        // $oArgs->sponsor_push = $oArgs->sponsor_push ? $oArgs->sponsor_push : 'N';
 		return executeQuery('angemombox.insertDataLake', $oArgs);
     }
 /**

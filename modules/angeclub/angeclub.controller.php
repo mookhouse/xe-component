@@ -28,156 +28,132 @@ class angeclubController extends angeclub
 		unset($oArgs->act);
 		unset($oArgs->mid);
 		unset($oArgs->module);
-		if(!$oArgs->_email)
-			return new BaseObject(-1, '이메일을 입력하세요.');
-		if(!$oArgs->_user_id)
-			return new BaseObject(-1, '아이디를 입력하세요.');
-		if(!$oArgs->_phone_2)
-			return new BaseObject(-1, '핸드폰 번호를 입력하세요.');
-        
-        $nExistingMemberSrl = (int)Context::get('existing_member_srl');
-        // begin - member info registration
-        $oAngeclubModel = &getModel('angeclub');
-		$oModuleInfo = $oAngeclubModel->getModuleConfig();
-		unset($oAngeclubModel);
-        // ["_zone_code"]=>string(5) "04078"
-        // ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
-        // ["_addr_detail"]=>string(13) "상세 주소"
-        $sStrippedPostcode = strip_tags($oArgs->_zone_code);
-        $sStrippedAddr = strip_tags($oArgs->_addr);
-        $sStrippedAddrDetail = strip_tags($oArgs->_addr_detail);
-        $sStrippedAddrExtra = '';
-        if(!$nExistingMemberSrl)  // append new member
+		// 무의미한 변수 제거
+		unset($oArgs->_sex_gb);// ["_sex_gb"]=>string(1) "F"
+		unset($oArgs->_contact_nm);// ["_contact_nm"]=>string(12) "웹관리자"
+		unset($oArgs->_care_area);// ["_care_area"]=>string(6) "강서"
+		unset($oArgs->email_id);// ["email_id"]=>string(3) "dfg"
+		unset($oArgs->email_server);// ["email_server"]=>string(11) "hanmail.net"
+
+		$oAngemomboxController = &getController ('angemombox');
+		$oInArgs = new stdClass();
+		// construct push agreement
+		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
+		$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
+		$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
+		$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+		
+		$nDatalakeDocSrl = (int)Context::get('datalake_doc_srl');
+        if(!$nDatalakeDocSrl)  // append new member
         {
+			if(!$oArgs->_email)
+				return new BaseObject(-1, '이메일을 입력하세요.');
+			if(!$oArgs->_user_id)
+				return new BaseObject(-1, '아이디를 입력하세요.');
+			if(!$oArgs->_phone_2)
+				return new BaseObject(-1, '핸드폰 번호를 입력하세요.');
+			
+			$oAngeclubModel = &getModel('angeclub');
+			$oModuleInfo = $oAngeclubModel->getModuleConfig();
+			unset($oAngeclubModel);
+			
             // ["_user_nm"]=>string(12) "엄마이름"
             // ["_birth"]=>string(6) "19801212"
             $oRst = $this->_addMemberInfo($oModuleInfo->member_addr_field_name);
             if(!$oRst->toBool()) 
                 return $oRst;
             $nMemberSrl = $oRst->get('member_srl');
+			unset($oModuleInfo);
+			unset($oRst);
+			unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
+			unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
+			// end - member info registration
+
+			// begin - nurse performance registration
+			// $oInArgs = new stdClass();
+			$oInArgs->cc_idx = $oArgs->_care_center;  // ["_care_center"]=>string(30) "637"  // replace cc_name to cc_idx
+			// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
+			$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
+			$oInArgs->member_srl_parent = $nMemberSrl;
+			$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
+			$oInArgs->education_cnt = 1;
+			if($oArgs->_center_visit_ymd)
+				$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';  // ["_center_visit_ymd"]=>string(6) "20221203"
+			if($nExistingMemberSrl)  // 기존 회원 수정이면 표시함
+				$oInArgs->is_existing_parent_member = 'Y';
+				
+			$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
+			unset($oInArgs);
+			if(!$oRst->toBool()) 
+				return $oRst;
+			unset($oRst);
+			$oDB = DB::getInstance();
+			$nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
+			unset($oDB);
+			unset($oArgs->_contact_id);
+			unset($oArgs->_care_center);
+			unset($oArgs->_center_cnt);
+			// end - nurse performance registration
+
+			// begin - push into angemombox data lake
+			$oInArgs = new stdClass();
+			$oAngeclubModel = &getModel ('angeclub');
+			$oConfig = $oAngeclubModel->getModuleConfig();
+			unset($oAngeclubModel);
+			$oModuleModel = &getModel ('module');
+			$oAngemomboxDataLakeMidInfo = $oModuleModel->getModuleInfoByMid($oConfig->connected_mombox_mid);
+			unset($oConfig);
+			$oInArgs->module_srl = $oAngemomboxDataLakeMidInfo->module_srl;
+			unset($oAngemomboxDataLakeMidInfo);
+			$oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
+			$oInArgs->angeclub_registration_log_srl = $nAngeclubRegistrationLogSrl;
+
+			// construct mom's info
+			$oInArgs->parent_member_srl = $nMemberSrl;  // mom's member srl
+			$oInArgs->mom_birthday = $oArgs->_birth;
+			$oInArgs->parent_gender = 'F';  // 산후 조리원이므로 반드시 여성
+			$oInArgs->parent_pregnant = 'N';  // 산후 조리원이므로 반드시 출산 후
+			$oInArgs->mobile = $oArgs->_phone_2;
+			
+			$oInArgs->postcode = strip_tags($oArgs->_zone_code);  // ["_zone_code"]=>string(5) "04078"
+			$oInArgs->addr = strip_tags($oArgs->_addr);  // ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
+			$oInArgs->addr_detail = strip_tags($oArgs->_addr_detail);  // ["_addr_detail"]=>string(13) "상세 주소"
+			$oInArgs->addr_extra = '';
+
+			// construct push agreement
+			// $oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
+			// $oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
+			// $oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
+			// $oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+
+			// construct baby info
+			$oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);  // ["i_baby_nm"]=>string(12) "아이이름"
+			$oInArgs->baby_gender = $oArgs->i_baby_sex_gb;  // ["i_baby_sex_gb"]=>string(1) "T"
+			$oInArgs->baby_birthday = $oArgs->i_baby_birth;   // ["i_baby_birth"]=>string(6) "221215"
+
+			$oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
+			$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
+			
+			// $oAngemomboxController = &getController ('angemombox');
+			$oRst = $oAngemomboxController->insertDataLake($oInArgs);
+// var_dump($oInArgs);
+			// unset($oInArgs);
+			// unset($oAngemomboxController);
+			if(!$oRst->toBool())
+				return $oRst;
+			unset($oRst);
+			// end - push into angemombox data lake
         }
-        else  // update existing member
+        else  // update existing datalake log
         {
-            // Get user_id information
-            $oMemberModel = &getModel('member');
-            $oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nExistingMemberSrl);
-            unset($oMemberModel);
-            if($sStrippedPostcode && $sStrippedAddr && $sStrippedAddrDetail)
-            {
-                $sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
-                 // O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
-                $oMemberInfo->$sMemberAddrFieldName[0] = $sStrippedPostcode;
-                $oMemberInfo->$sMemberAddrFieldName[1] = $sStrippedAddr;
-                $oMemberInfo->$sMemberAddrFieldName[2] = $sStrippedAddrDetail;
-                $oMemberInfo->$sMemberAddrFieldName[3] = $sStrippedAddrExtra;
-                $oRst = $this->_modifyMemberInfo($oMemberInfo);
-                if(!$oRst->toBool()) 
-                    return $oRst;
-            }
-            else  // reuse member info if registered, do not update member info
-            {
-                $sStrippedPostcode = $oMemberInfo->address[0];
-                $sStrippedAddr = $oMemberInfo->address[1];
-                $sStrippedAddrDetail = $oMemberInfo->address[2];
-                $sStrippedAddrExtra = $oMemberInfo->address[3];
-            }
-            // end - update addr for member tbl
-            unset($oMemberInfo);
-            $nMemberSrl = $nExistingMemberSrl;
-        }
-        unset($oModuleInfo);
-        unset($oRst);
-        unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
-        unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
-        // end - member info registration
-
-		// begin - nurse performance registration
-		$oInArgs = new stdClass();
-		$oInArgs->cc_idx = $oArgs->_care_center;  // ["_care_center"]=>string(30) "637"  // replace cc_name to cc_idx
-		// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
-		$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
-		$oInArgs->member_srl_parent = $nMemberSrl;
-		$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
-		$oInArgs->education_cnt = 1;
-		if($oArgs->_center_visit_ymd)
-			$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';  // ["_center_visit_ymd"]=>string(6) "20221203"
-        if($nExistingMemberSrl)  // 기존 회원 수정이면 표시함
-			$oInArgs->is_existing_parent_member = 'Y';
-            
-		$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
-        unset($oInArgs);
-		if(!$oRst->toBool()) 
-			return $oRst;
-        unset($oRst);
-        $oDB = DB::getInstance();
-        $nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
-        unset($oDB);
-		unset($oArgs->_contact_id);
-		unset($oArgs->_care_center);
-		unset($oArgs->_center_cnt);
-		// end - nurse performance registration
-
-		// begin - push into angemombox data lake
-        $oInArgs = new stdClass();
-        $oAngeclubModel = &getModel ('angeclub');
-        $oConfig = $oAngeclubModel->getModuleConfig();
-        unset($oAngeclubModel);
-        $oModuleModel = &getModel ('module');
-        $oAngemomboxDataLakeMidInfo = $oModuleModel->getModuleInfoByMid($oConfig->connected_mombox_mid);
-        unset($oConfig);
-        $oInArgs->module_srl = $oAngemomboxDataLakeMidInfo->module_srl;
-        unset($oAngemomboxDataLakeMidInfo);
-        $oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
-        $oInArgs->angeclub_registration_log_srl = $nAngeclubRegistrationLogSrl;
-
-		// construct mom's info
-        $oInArgs->parent_member_srl = $nMemberSrl;  // mom's member srl
-        $oInArgs->mom_birthday = $oArgs->_birth;
-        $oInArgs->parent_gender = 'F';  // 산후 조리원이므로 반드시 여성
-        $oInArgs->parent_pregnant = 'N';  // 산후 조리원이므로 반드시 출산 후
-        $oInArgs->mobile = $oArgs->_phone_2;
-        
-        // ["_zone_code"]=>string(5) "04078"
-		// ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
-		// ["_addr_detail"]=>string(13) "상세 주소"
-        $oInArgs->postcode = $sStrippedPostcode;
-		$oInArgs->addr = $sStrippedAddr;
-		$oInArgs->addr_detail = $sStrippedAddrDetail;
-		$oInArgs->addr_extra = $sStrippedAddrExtra;
-
-        // construct push agreement
-		$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-		$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-		$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-		$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
-
-        // construct baby info
-        // ["i_baby_nm"]=>string(12) "아이이름"
-		// ["i_baby_birth"]=>string(6) "221215"
-		// ["i_baby_sex_gb"]=>string(1) "T"
-        $oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);
-        $oInArgs->baby_gender = $oArgs->i_baby_sex_gb;
-        $oInArgs->baby_birthday = $oArgs->i_baby_birth; // $this->_completeBirthday($oArgs->i_baby_birth);  // "221215"
-
-        $oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
-		$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
-        
-        $oAngemomboxController = &getController ('angemombox');
-        $oRst = $oAngemomboxController->insertDataLake($oInArgs);
-var_dump($oInArgs);
-        unset($oInArgs);
-        unset($oAngemomboxController);
-        if(!$oRst->toBool())
-			return $oRst;
-        unset($oRst);
-		// end - push into angemombox data lake
-exit;
-		// 무의미
-		// ["_sex_gb"]=>string(1) "F"
-		// ["_contact_nm"]=>string(12) "웹관리자"
-		// ["_care_area"]=>string(6) "강서"
-		// ["email_id"]=>string(3) "dfg"
-		// ["email_server"]=>string(11) "hanmail.net"
+			$oInArgs->datalake_doc_srl = $nDatalakeDocSrl;
+			$oRst = $oAngemomboxController->updateDataLake($oInArgs);
+			if(!$oRst->toBool())
+				return $oRst;
+			unset($oRst);
+        } 
+		unset($oInArgs);
+		unset($oAngemomboxController);  
 		$this->add('bRst', 1);
 	}
 /**

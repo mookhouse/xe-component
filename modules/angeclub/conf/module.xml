@@ -17,6 +17,7 @@
 		<action name="dispAngeclubStatistics" type="view" />
 		<action name="dispAngeclubMember" type="view" />
 		<action name="dispAngeclubMemberPopupAdd" type="view" />
+		<action name="dispAngeclubMemberPopupUpdate" type="view" />
 		<action name="dispAngeclubWorkDiary" type="view" />
 		<action name="dispAngeclubWorkDiaryManager" type="view" />  <!-- 총괄 관리자 전용 -->
 		<action name="dispAngeclubWorkDiaryPopupAdd" type="view" />

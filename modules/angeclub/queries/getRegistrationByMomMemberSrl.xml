@@ -1,0 +1,17 @@
+<query id="getRegistrationByMomMemberSrl" action="select">
+    <tables>
+        <table name="angeclub_registration" />
+    </tables>
+    <columns>
+        <column name="log_srl" />
+        <column name="cc_idx" />
+        <column name="member_srl_staff" />
+        <column name="is_existing_parent_member" />
+        <!-- <column name="center_visit_cnt" />
+        <column name="education_cnt" /> -->
+        <column name="regdate" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="member_srl_parent" var="member_srl_parent" notnull="notnull" />
+    </conditions>
+</query>

@@ -1,0 +1,25 @@
+<query id="getRegistrationByStaffMemberSrl" action="select">
+    <tables>
+        <table name="angeclub_registration" />
+    </tables>
+    <columns>
+        <column name="log_srl" />
+        <column name="cc_idx" />
+        <column name="member_srl_staff" />
+        <column name="member_srl_parent" />
+        <column name="is_existing_parent_member" />
+        <!-- <column name="center_visit_cnt" />
+        <column name="education_cnt" /> -->
+        <column name="regdate" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="member_srl_staff" var="member_srl_staff" notnull="notnull" />
+        <condition operation="in" column="cc_idx" var="a_cc_idx" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="log_srl" order="desc" />
+        <list_count var="list_count" default="10" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

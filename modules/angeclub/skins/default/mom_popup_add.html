@@ -493,7 +493,7 @@ console.log(oMemberInfo);
                                     <td colspan='3'>
                                         <!-- <select id="_CONTACT_NM" name="_CONTACT_NM" class="form-control" title="관리자이름" onChange="SetUser(this.value);" style="width: 100px;"> -->
                                         <select id="_CONTACT_ID" name="_CONTACT_ID" class="form-control" title="관리자이름" style="width: 100px;">
-                                            <option loop="$aUserInfo=>$sId,$sName" value="{$sId}" selected|cond="$sId==$oLoggedInfo->user_id">{$sName}</option>
+                                            <option loop="$aUserInfo=>$nStaffMemberSrl,$sName" value="{$sId}" selected|cond="$nStaffMemberSrl==$oLoggedInfo->member_srl">{$sName}</option>
                                         </select>
                                         <!-- <input type="hidden" id="_CONTACT_ID" name="_CONTACT_ID" value="admin"> -->
                                     </td>

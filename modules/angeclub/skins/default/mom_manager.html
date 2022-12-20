@@ -69,8 +69,9 @@ $( document ).ready(function() {
 <!-- 검색 영역 -->
 <div class="search-form" style="padding-right:0px;">
 	<form action="./" method="post" name="topSearch" id="topSearch">
+		<input type="hidden" name="mid" value="{$mid}" />
 		<input type="hidden" name="module" value="{$module}" />
-		<input type="hidden" name="act" value="dispAngeclubAddMember" />
+		<input type="hidden" name="act" value="dispAngeclubMember" />
 		<!-- <input type="hidden" name="sortC" id="sortC" value=""> -->
 		<!-- <div class="search-condition">
 			<div class="form-group">
@@ -169,15 +170,15 @@ $( document ).ready(function() {
 	<h6>담당자가 없는 경우 일반 앙쥬회원입니다.</h6>
 </div> -->
 <article>
-	<div class="article-header">
-		<!--<h5>검색된 회원 리스트</h5>-->
-		<!-- <small>검색된 회원 <span>총 ??? 명</span></small> -->
+	<!-- <div class="article-header">
+		<h5>검색된 회원 리스트</h5>
+		<small>검색된 회원 <span>총 ??? 명</span></small>
 	</div>
 	<div class="btn-area">
 		<p>
-			<!--a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?index=');" class="btn btn-down btn-sm btn-white">+ 회원 등록</a-->
+			<a href="javascript:void(0);" onClick="LoadPopup('/adm/vm/club/member.svm.php?index=');" class="btn btn-down btn-sm btn-white">+ 회원 등록</a>
 		</p>
-	</div>
+	</div> -->
 	<!--table-wrap list-->
 	<div class="table-wrap list">
 		<table class="table">
@@ -197,7 +198,8 @@ $( document ).ready(function() {
 				<tr loop="$aMomList => $no, $oSingleMom">
 					<td>{$oSingleMom->member_srl}</td>
 					<td>{$oSingleMom->staff_name}</td>
-					<td><a href="#popup_menu_area" class="member_{$oSingleMom->member_srl}" onclick="return false">{$oSingleMom->user_name}</a> ({$oSingleMom->user_id})</td>
+					<!-- <td><a href="#popup_menu_area" class="member_{$oSingleMom->member_srl}" onclick="return false">{$oSingleMom->user_name}</a> ({$oSingleMom->user_id})</td> -->
+					<td><a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubMemberPopupUpdate', 'member_srl_mom', $oSingleMom->member_srl)}');" >{$oSingleMom->user_name}</a></td>
 					<td>{$oSingleMom->email_address}</td>
 					<td>{zdate($oSingleMom->birthday,"Y-m-d")}</td>
 					<td>{$oSingleMom->mobile}</td>

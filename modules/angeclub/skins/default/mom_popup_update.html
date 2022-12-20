@@ -1,0 +1,202 @@
+<include target="_popup_header.html" />
+
+<style>
+input[id="cb2"] + label {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: #bcbcbc;
+    border-radius: 7px;
+    cursor: pointer;
+}
+input[id="cb2"]:checked + label {
+    background-color: red;
+}
+    input[id="cb2"] {
+display: none;
+}
+</style>
+<section class="popup">
+<script>
+$(document).on("click", ".agree_label", function(){
+    var target = $(this).attr("data-target");
+    var radio_val = $(this).attr("data-str");
+    switch(radio_val){
+        case "Y":
+            $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_on.png");
+            $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
+            break;
+        case "N":
+            $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
+            $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_red_on.png");
+            break;
+    }
+    $("#"+target).val(radio_val);
+});
+</script>
+    
+    <div class="section-header">
+        <h4 class="modal-title" id="popup-contentLabel">회원 정보 수정</h4>
+    </div>
+    <!--section-content-->
+    <div class="section-content">
+        <article>
+            <!-- <div class="article-header">
+                <small>
+                등록일 &nbsp; 2022-12-02		</small>
+            </div>
+            <div class="article-header">
+                <h5>회원정보</h5>
+            </div> -->
+            <div class="article-content">
+                <form method="post" action="./" onsubmit="return procFilter(this, window.update_mom)" class="x_form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="datalake_doc_srl" id="datalake_doc_srl" value="{$oMomMemberInfo->nLatestDatalakeDocSrl}">
+                    <div class="table-wrap write">
+                        <table class="table">
+                            <colgroup>
+                                <col width='100'></col>
+                                <col width='300'></col>
+                                <col width='100'></col>
+                                <col></col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th class="essential">휴대전화</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="_PHONE_2" id="_PHONE_2" DISABLED value="{$oMomMemberInfo->mobile}" title="휴대전화번호" maxlength="11" style="ime-mode:disabled;width: 200px;">
+                                    </td>
+                                    <th class="essential">아이디</th>
+                                    <td ><input type="text" class="form-control" name="_USER_ID" id="_USER_ID" DISABLED value="{$oMomMemberInfo->user_id}" style="ime-mode:active;width: 200px;" ><p id='_USER_ID_check'></p></td>
+                                </tr>
+                                <tr>
+                                    <th class="essential">이메일</th>
+                                    <td colspan='3' class="phone">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="email_id" id="email_id" DISABLED value="{$oMomMemberInfo->email_address}" title="이메일" style="width: 300px; ime-mode:disabled;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="essential">엄마이름</tㅗ>
+                                    <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" DISABLED value="{$oMomMemberInfo->user_name}" style="ime-mode:active;width: 200px;"></td>
+                                    <th class="essential">엄마 생년월일</th>
+                                    <td >
+                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" DISABLED value="{$oMomMemberInfo->birthday}" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;">
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <th class="essential">출산횟수</th>
+                                    <td >
+                                        <input type="number" min="0" max="15" class="form-control" name="_CENTER_CNT" id="_CENTER_CNT" value="1" title="출산횟수"  maxlength="1" style="ime-mode:disabled;width: 200px;">
+                                    </td>
+                                    <th class="essential">교육횟수(중복여부)</th>
+                                    <td >
+                                        <input type="text" min="0" max="15" class="form-control" name="_CLUBEDU_CNT" id="_CLUBEDU_CNT" value="1" title="교육횟수"  maxlength="1" style="ime-mode:disabled;width: 70px;display:inline-block;">
+                                    </td>
+                                </tr> -->
+                                <tr>
+                                    <th class="essential">동의</th>
+                                    <td colspan='3'>
+                                        <!-- 저장소 문서 {$oMomMemberInfo->nLatestDatalakeDocSrl}번의 동의 내역 수정 가능<BR><BR> -->
+                                        <b>이메일</b>&nbsp;&nbsp; 
+                                        <input type="hidden" name="EMAIL_SEND" id="EMAIL_SEND" value="{$oMomMemberInfo->sEmailPush}" /> 
+                                    <block cond="$oMomMemberInfo->sEmailPush=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="EMAIL_SEND" data-str="Y" ><img id="EMAIL_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="EMAIL_SEND" data-str="N"><img id="EMAIL_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sEmailPush || $oMomMemberInfo->sEmailPush=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="EMAIL_SEND" data-str="Y" ><img id="EMAIL_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="EMAIL_SEND" data-str="N"><img id="EMAIL_SEND2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block>
+                                        <b>SMS</b>&nbsp;&nbsp;
+                                        <input type="hidden" name="SMS_SEND" id="SMS_SEND" value="{$oMomMemberInfo->sSmsPush}" /> 
+                                    <block cond="$oMomMemberInfo->sSmsPush=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="SMS_SEND" data-str="Y"><img id="SMS_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="SMS_SEND" data-str="N"><img id="SMS_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sSmsPush || $oMomMemberInfo->sSmsPush=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="SMS_SEND" data-str="Y"><img id="SMS_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="SMS_SEND" data-str="N"><img id="SMS_SEND2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block>
+                                        <BR>
+                                        <b>스폰서 정보공유</b>&nbsp;&nbsp;
+                                        <input type="hidden" name="SPONSOR" id="SPONSOR" value="{$oMomMemberInfo->sSponsorPush}" />  
+                                    <block cond="$oMomMemberInfo->sSponsorPush=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="SPONSOR" data-str="Y"><img id="SPONSOR1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="SPONSOR" data-str="N"><img id="SPONSOR2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sSponsorPush || $oMomMemberInfo->sSponsorPush=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="SPONSOR" data-str="Y"><img id="SPONSOR1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="SPONSOR" data-str="N"><img id="SPONSOR2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block> 
+                                        <b>우편발송동의</b>&nbsp;&nbsp;
+                                        <input type="hidden" name="ADDR_SEND" id="ADDR_SEND" value="{$oMomMemberInfo->sPostPush}" />  
+                                    <block cond="$oMomMemberInfo->sPostPush=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="ADDR_SEND" data-str="Y"><img id="ADDR_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="ADDR_SEND" data-str="N"><img id="ADDR_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sPostPush || $oMomMemberInfo->sPostPush=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="ADDR_SEND" data-str="Y"><img id="ADDR_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="ADDR_SEND" data-str="N"><img id="ADDR_SEND2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="essential">주소</th>
+                                    <td colspan='3' class="phone">
+                                        <div class="form-group">
+                                            <style>
+                                                input.button_address { padding: 7px 10px !important; border-radius: 7px; background-color: #aaa; color: #fff; border: 0px; cursor: pointer; }
+                                                input.button_address:hover { background-color: #000; }
+                                            </style>
+                                            <input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" DISABLED value="{$oMomMemberInfo->addr[0]}" style="width: 80px;">
+                                            <br/>
+                                            <input type="text" class="form-control" name="_ADDR" id="_ADDR" DISABLED value="{$oMomMemberInfo->addr[1]}" style="width: 90%;margin-left:0px;"><br/>
+                                            <input type="text" class="form-control" name="_ADDR_DETAIL" id="_ADDR_DETAIL" DISABLED value="{$oMomMemberInfo->addr[2]} {$oMomMemberInfo->addr[3]}" style="width: 90%;margin-left:0px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <th>비고</th>
+                                    <td colspan='3'><textarea type="text" class="form-control" name="_NOTE" title=""  style="width: 90%;height:150px;"></textarea></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <div class="btn-area">
+                            <p><button type="submit" id="btn_submit" class="btn btn-xs btn-blue" style="width:150px;">회원 정보 수정</button></p>
+                        </div>
+                    </div>
+                    <div class="article-header">
+                        <h5>아이정보</h5>
+                    </div>
+                    <div class="ta1ble-wrap list">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th >담당자</th>
+                                    <th >도시</th>
+                                    <!-- <th >지역</td> -->
+                                    <th >조리원</td>
+                                    <th >아이 이름</th>
+                                    <th >아이 성별</th>
+                                    <th >아이 생일</th>
+                                    <th >교육일자</th>
+                                </tr>
+                                <tr loop="$oMomMemberInfo->aDatalakeHistory=>$_,$oSingleDataLake">
+                                    <td>{$oSingleDataLake->user_name_staff}</td>
+                                    <td>{$oSingleDataLake->cc_city}</td>
+                                    <!-- <td>{$oSingleDataLake->cc_area}</td> -->
+                                    <td>{$oSingleDataLake->cc_name}</td>
+                                    <td>{$oSingleDataLake->baby_birth_name}</td>
+                                    <td>{$aBabyGender[$oSingleDataLake->baby_gender]}</td>
+                                    <td>{$oSingleDataLake->baby_birthday}</td>
+                                    <td>{zdate($oSingleDataLake->regdate)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</section>
