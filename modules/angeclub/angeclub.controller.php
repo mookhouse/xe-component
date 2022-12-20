@@ -375,6 +375,8 @@ class angeclubController extends angeclub
 		// 	return new BaseObject(-1, '교육명을 입력하세요.');
 		// if(!$oArgs->_cl_memo)
 		// 	return new BaseObject(-1, '특이사항을 입력하세요.');
+
+		$oArgs->workdate = preg_replace("/[ :-]/i", "", $oArgs->workdate);  // 2020-04-26 02:04:40 수정
 		
 		if((int)$oArgs->cl_idx > 0) // update
 			$oRst = executeQuery('angeclub.updateWorkDiary', $oArgs);

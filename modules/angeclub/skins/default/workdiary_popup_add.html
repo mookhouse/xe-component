@@ -32,7 +32,7 @@ $( document ).ready(function() {
     }
     t_index = '';
 
-    $('#_cl_date').datetimepicker({
+    $('#workdate').datetimepicker({
         timepicker:true,
         format:'Y-m-d H:i',
         step:10,
@@ -138,6 +138,7 @@ $( document ).ready(function() {
                                 <td class="phone">
                                     <div class="form-group">
                                         <select id="_cc_area" class="form-control" title="단위기준" onChange="SetCenter(this.value);" style="width: 120px;">
+                                            <option value="">선택하세요</option>
                                             <option loop="$aArea=>$sArea,$_" value="{$sArea}" selected|cond="$sArea==$oCenterInfo->cc_city">{$sArea}</option>
                                         </select>
                                     </div>
@@ -158,7 +159,7 @@ $( document ).ready(function() {
                             </tr>
                             <tr>
                                 <td>일시<b>*</b></td>
-                                <td><input type="text" class="form-control" name="_cl_date" id="_cl_date" value="{$oWorkDiaryInfo->cl_date}" title="교육일시" style="width: 200px;"></td>
+                                <td><input type="text" class="form-control" name="workdate" id="workdate" value="{$oWorkDiaryInfo->workdate}" title="교육일시" style="width: 200px;"></td>
                             </tr>
                             <tr>
                                 <td>DB인원<b>*</b></td>

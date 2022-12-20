@@ -6,7 +6,8 @@
 		<column name="member_srl_staff" var="member_srl_staff" />
 		<column name="cc_idx" var="_cc_idx" />
 		<!-- <column name="cc_name" var="_cc_name" /> -->
-		<column name="cl_date" var="_cl_date" />
+		<!-- <column name="cl_date" var="_cl_date" /> -->
+		<column name="workdate" var="workdate" />
 		<column name="cl_category" var="_cl_category" />
 		<column name="cl_title" var="_cl_title" />
 		<column name="cl_memo" var="_cl_memo" />
@@ -15,5 +16,6 @@
 		<!-- <column name="cl_count_error" var="_cl_count_error" /> -->
 		<column name="cl_count_center" var="_cl_count_center" />
 		<column name="cl_date_regi" default="curdate()"/>
+		<column name="regdate" default="curdate()"/>
 	</columns>
 </query>

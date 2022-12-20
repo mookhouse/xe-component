@@ -139,11 +139,31 @@ $(document).ready(function(){
     </p>
 </div>
 <article>
+<style>
+@keyframes blink-effect {
+  50% {
+    opacity: 0;
+  }
+}
+.blink {
+  animation: blink-effect 1s step-end infinite;
+  /*
+  animation-name: blink-effect;
+  animation-duration: 1s;
+  animation-iteration-count:infinite;
+  animation-timing-function:step-end;
+  */
+  color: red;
+}
+</style>
     <!-- <div class="article-header">
         <h5>등록된 일지 리스트</h5>
         <small>등록된 일지 <span>총 24,844 건</span></small>
     </div> -->
     <div class="table-wrap list">
+{@
+$sTodayYyyymmdd = date('Ymd');
+}   
         <table class="table">
             <thead>
                 <tr>
@@ -162,8 +182,11 @@ $(document).ready(function(){
                     <td>{$oSingleWorkDiary->user_name}</td>
                     <td>
                         <a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700');" >{$oSingleWorkDiary->cc_name}</a>
+<block cond="$sTodayYyyymmdd==substr($oSingleWorkDiary->workdate, 0, 8)">
+                        <c class="blink">today!</c>
+</block>
                     </td>
-                    <td>{$oSingleWorkDiary->cl_date} <!--2022-12-14 , AM 11:00--></td>
+                    <td>{zdate($oSingleWorkDiary->workdate)} <!--2022-12-14 , AM 11:00--></td>
                     <td><a href="javascript:void();" onClick="LoadPopup('{getUrl('act', 'dispAngeclubWorkDiaryPopupUpdate', 'cl_idx', $oSingleWorkDiary->cl_idx)}', '800', '700);" >{$oSingleWorkDiary->cl_category}</a></td>
                     <td>
                         {$oSingleWorkDiary->cl_count_regi} / {$oSingleWorkDiary->cl_count_update} / {$oSingleWorkDiary->cl_count_center}
@@ -173,28 +196,8 @@ $(document).ready(function(){
             </tbody>
         </table>
     </div>
-    <!--//table-wrap list-->
-    <!-- <div class="btn-area">
-        <a href="" class="btn btn-xs btn-blue" style="float: right; width: 110px; ">공지글 등록</a>
-    </div> -->
 </article>
 
 <nav class="paging" aria-label="Page navigation">
 	<include target="_pagination.html" />
 </nav>
-<!-- <nav class="paging" aria-label="Page navigation">
-    <ul class="pagination">
-        <li class="previous"><a href="javascript:;" aria-label="Previous"><i class="icon-left-open-1"><span class="sr-only">이전</span></i></a></li>
-        <li class="active"><a href="javascript:;">1</a></li>
-        <li><a href="?submenu=clublog&category=&page=2&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">2</a></li>
-        <li><a href="?submenu=clublog&category=&page=3&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">3</a></li>
-        <li><a href="?submenu=clublog&category=&page=4&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">4</a></li>
-        <li><a href="?submenu=clublog&category=&page=5&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">5</a></li>
-        <li><a href="?submenu=clublog&category=&page=6&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">6</a></li>
-        <li><a href="?submenu=clublog&category=&page=7&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">7</a></li>
-        <li><a href="?submenu=clublog&category=&page=8&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">8</a></li>
-        <li><a href="?submenu=clublog&category=&page=9&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">9</a></li>
-        <li><a href="?submenu=clublog&category=&page=10&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=">10</a></li>
-        <li class="next"><a href="?submenu=clublog&category=&page=11&search=&search_start=&search_end=&cc_area=&cc_idx=&cc_city=" aria-label="Next"><i class="icon-right-open-2"><span class="sr-only">다음</span></i></a></li>
-    </ul>
-</nav> -->
