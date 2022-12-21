@@ -93,7 +93,7 @@ ul, ol {
   #header .logo-nav {
     position: relative;
     width: 100%;
-    /*text-align: center;*/ }
+    text-align: center; }
     #header .logo-nav h1 {
       display: inline-block; }
       #header .logo-nav h1 a {
