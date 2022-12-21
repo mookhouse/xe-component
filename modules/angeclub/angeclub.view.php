@@ -23,7 +23,12 @@ class angeclubView extends angeclub
 		$oGrant = $oModuleModel->getGrant($oModuleModel->getModuleInfoByModuleSrl($this->module_info->module_srl), $oLoggedInfo);
 		unset($oModuleModel);
 		if(!$oGrant->access)
-			return new BaseObject(-1, 'msg_invalid_approach');
+		{
+			// return new BaseObject(-1, 'msg_invalid_approach');
+			header('HTTP/1.1 301 Moved Permanently');
+			header('Location: /');
+			exit;
+		}
 
 		$oAngeclubModel = &getModel('angeclub');
 		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl);

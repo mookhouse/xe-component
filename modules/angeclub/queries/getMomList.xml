@@ -19,7 +19,7 @@
         <column name="m.email_address" alias="email_address" />
         <column name="m.birthday" alias="birthday" />
         <column name="m.mobile" alias="mobile" />
-        <column name="m.regdate" alias="regdate" />
+        <column name="r.regdate" alias="regdate" />
         <column name="r.member_srl_staff" alias="member_srl_staff" />
         <column name="c.cc_name" alias="cc_name" />
     </columns>

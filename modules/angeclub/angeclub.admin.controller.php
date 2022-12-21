@@ -351,7 +351,7 @@ private function _isAbandonedStaffId($sClubStaffId)
 		//$sClubRegdate = str_replace('-', '', $aClubRegdate[0]).'133030';
 		//$oAngeclubRegistArgs->regdate = $sClubRegdate; //$oComUser->CLUB_REG_DT;
 		$sClubRegdate = preg_replace("/[ \:-]/i", "", $oComUser->CLUB_REG_DT);  // 2012-01-26 21:12:12 수정
-		$oAngeclubRegistArgs->regdate = $aClubRegdate;
+		$oAngeclubRegistArgs->regdate = $sClubRegdate;
 
 		$oAngeclubRegistrationInsertRst = executeQuery('angeclub.insertClubRegistration', $oAngeclubRegistArgs);
 		if(!$oAngeclubRegistrationInsertRst->toBool())
