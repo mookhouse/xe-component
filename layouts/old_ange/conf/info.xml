@@ -2,8 +2,8 @@
 <layout version="0.2">
     <title xml:lang="ko">(구)앙쥬 PC 레이아웃</title>
     <description xml:lang="ko">(구)앙쥬 PC 레이아웃</description>
-    <version>1.0</version>
-    <date>2022-02-16</date>
+    <version>1.0.1</version>
+    <date>2022-12-21</date>
     <author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
         <name xml:lang="ko">singleview.co.kr</name>
     </author>
@@ -56,15 +56,35 @@
 			</var>
 		</group>
 		<group>
+			<title xml:lang="ko">글로벌 헤더 형태</title>
+			<var name="global_header_type" type="select">
+				<title xml:lang="ko">배너 표시/숨김</title>
+				<options value="banner">
+					<title xml:lang="ko">배너 표시형</title>
+				</options>
+				<options value="no_banner">
+					<title xml:lang="ko">배너 숨김형</title>
+				</options>
+			</var>
+		</group>
+		<group>
 			<title xml:lang="ko">최상단 롤링 배너 설정</title>
-				<var name="rolling_banner_1" type="image">
-					<title xml:lang="ko">배너 1 이미지</title>
-					<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
-				</var>
-				<var name="rolling_banner_2" type="image">
-					<title xml:lang="ko">배너 2 이미지</title>
-					<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
-				</var>
+			<var name="rolling_banner_img_1" type="image">
+				<title xml:lang="ko">배너 1 이미지</title>
+				<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+			</var>
+			<var name="rolling_banner_link_1" type="text">
+				<title xml:lang="ko">배너 1 링크 주소</title>
+				<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+			</var>
+			<var name="rolling_banner_img_2" type="image">
+				<title xml:lang="ko">배너 2 이미지</title>
+				<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+			</var>
+			<var name="rolling_banner_link_2" type="text">
+				<title xml:lang="ko">배너 2 링크 주소</title>
+				<description xml:lang="ko">PC 글로벌 롤링 배너 이미지</description>
+			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">좌 플로팅 배너 설정</title>

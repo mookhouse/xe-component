@@ -1,0 +1,225 @@
+<div class="top-banner" style='padding:5px; height: 30px; text-align: right;'>
+<!--@if($is_logged)-->
+	<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a>
+	<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
+<!--@else-->
+	<!--a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a--->
+	<a style='padding:0 10px; font-size: 15px;' sv-attr='mob_main_login' href="https://ange.co.kr">{$lang->cmd_login}/{$lang->cmd_signup}</a>
+<!--@end-->
+</div>
+<!---div class="top-banner">
+	<ul>
+		<li>
+			<a href="#">
+				<figure><img src="{$layout_info->rolling_banner_1}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></figure>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<figure><img src="{$layout_info->rolling_banner_2}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></figure>
+			</a>
+		</li>
+	</ul>
+</div--->
+<div class="logo-nav">  <!--- default.css --->
+	<h1><a href="/"><img style='height: 40px;' sv-attr='mob_main_top_logo' src="{$layout_info->LOGO_IMG}" alt="{$layout_info->LOGO_TEXT}"></a></h1>
+	<button type="button" class="btn-open-nav">
+		<img class="btn-open-nav" sv-attr='mob_main_leftmenu_open' src="/m.layouts/old_ange/images/btn_menu.jpg" alt="버튼 아이콘">
+	</button>
+	<div class="search-container">
+		<form id="comSearchForm" name="comSearchForm" action="{getUrl()}" method="get">
+			<input type="hidden" name="vid" value="{$vid}" />
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="act" value="IS" />
+			<input type="text" name="is_keyword" value="{$is_keyword}" placeholder="Search.."/>
+			<input type="submit" value='검색'>
+		</form>
+	  </div>
+	</div>
+	<!---button type="button" >
+		<img sv-attr='mob_rev2_main_rightmenu_open' src="/m.layouts/old_ange/images/btn_mypage.jpg" alt="버튼 아이콘">
+	</button---->
+</div>
+<div id="gnb">
+	<ul>
+		<li loop="$GNB->list=>$key1,$val1" cond="$val1['url']!='index'" >
+			<a sv-attr='mob_main_gnb_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+		</li>
+	</ul>
+</div>
+<div class="page-header">  <!--- sub.css --->
+	<!-- 폴더별 타이틀 -->
+	<div class="page-title">
+		<h2 class="dropdown_title"><a sv-attr='mob_main_top_notice' href="#"><i sv-attr='mob_main_favorite' class="icon-star"></i>[공지] 라파티 루이보스티 3종 친환경 티백으로 아이와 함께...</a></h2>
+		<!---div class="btn-controls">
+			<a href="javascript:;" class="moveMenu prev">
+			<i class="icon-left-open-big">
+			<span class="sr-only">이전 페이지</span>
+			</i>
+			</a>
+			<a href="javascript:;" class="moveMenu next">
+			<i class="icon-right-open-big">
+			<span class="sr-only">다음 페이지</span>
+			</i>
+			</a>
+		</div--->
+	</div>
+	<!-- dropdowns-menu -->
+	<!---button type="button" class="drop-open-btn">
+	<span sv-attr='mob_content_menu_open' class="sr-only">메뉴 열기</span>
+	</button--->
+</div>
+<!---div class="dropdowns-menu">
+	<div class="drop-container">
+		<ul>
+<block loop="$GNB->list=>$key1,$val1">
+{@
+$s1stClass = 'depth2_dropdown';
+if($val1['selected'])
+$s1stClass .= ' active';
+if($val1['list'])
+$s1stClass .= ' has-child';
+}
+		<li class="{$s1stClass}" cond="$val1['url']!='index'" >
+			<a sv-attr='mob_top_menu_{$val1["text"]}' href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+			<ul cond="$val1['list']">
+{@
+$s2ndClass = '';
+if($val2['selected'])
+$s2ndClass .= 'active';
+}
+				<li class="{$s2ndClass}" loop="$val1['list']=>$key2,$val2"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a></li>
+			</ul>
+		</li>
+</block>
+		</ul>
+		<button type="button" class="drop-close-btn">
+		<span sv-attr='mob_content_menu_close' class="sr-only">메뉴 닫기</span>
+		</button>
+	</div>
+</div--->
+
+<!-- nav menu -->
+<nav id="gnb-nav">
+	<div class="nav-backdrop"></div>
+	<div class="nav-container">
+		<div class="nav-header">
+			<button type="button" class="btn btn-close">
+			<img sv-attr='mob_main_leftmenu_close' src="/m.layouts/old_ange/images/nav_btn_close.png" alt="네비 닫기">
+			</button>
+			<!---div class="global-search">
+				<form id="comSearchForm" name="comSearchForm" method="get" action="/mobile">
+					<input type="hidden" name="menu" value="search_10"/>
+					<input type="hidden" name="submenu" value=""/>		
+					<div class="form-group">
+						<input type="text" id="comm_search_key" name="comm_search_key" sv-attr='mob_rev2_main_leftmenu_검색' class="form-control" placeholder="Search">
+						<label for="comm_search_key" class="sr-only">검색</label>
+					</div>
+					<div class="search-btn">
+						<button type="submit" class="btn btn-default">
+						<i sv-attr='mob_rev2_main_leftmenu_검색버튼' class="icon-search">
+						<span class="sr-only">검색버튼</span>
+						</i>
+						</button>
+					</div>
+				</form>
+			</div--->
+		</div>
+		<div class="nav-body">
+			<div class="gnb-banner">
+				<ul>
+					<a href="{$layout_info->floating_banner_link_1}" class="item" target="_blank"><img sv-attr='mob_left_floating_1' src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+					<a href="{$layout_info->floating_banner_link_2}" class="item" target="_blank"><img sv-attr='mob_left_floating_2' src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+					<a href="{$layout_info->floating_banner_link_3}" class="item" target="_blank"><img sv-attr='mob_left_floating_3' src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+					<a href="{$layout_info->floating_banner_link_4}" class="item" target="_blank"><img sv-attr='mob_left_floating_4' src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/m.layouts/old_ange/images/img_sample_list_none.png"' class="img-responsive"></a>
+				</ul>
+			</div>
+			<div class="sns-list">
+				<ul>
+					<li>
+						<a href="http://post.naver.com/my.nhn?memberNo=541939" target="_blank">
+						<img sv-attr='mob_main_bottom_nvrpost' src="/m.layouts/old_ange/images/icon_naver_post.png" alt="네이버 포스트">
+						</a>
+					</li>
+					<li>
+						<a href="http://blog.naver.com/angemoms" target="_blank">
+						<img sv-attr='mob_main_bottom_nvrblog' src="/m.layouts/old_ange/images/icon_naver_blog.png" alt="네이버 블로그">
+						</a>
+					</li>
+					<li>
+						<a href="https://story.kakao.com/ch/angemom" target="_blank">
+						<img sv-attr='mob_main_bottom_kkostory' src="/m.layouts/old_ange/images/icon_kakao.png" alt="카카오 스토리">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.facebook.com/angemoms" target="_blank">
+						<img sv-attr='mob_main_bottom_fb' src="/m.layouts/old_ange/images/icon_facebook.png" alt="페이스북">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/angemoms/" target="_blank">
+						<img sv-attr='mob_main_bottom_ig' src="/m.layouts/old_ange/images/icon_insta.png" alt="인스타그램">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.youtube.com/channel/UCWyXmO0AP0nW0sFCxzyCyig?sub_confirmation=1" target="_blank">
+						<img sv-attr='mob_main_bottom_yt' src="/m.layouts/old_ange/images/icon_youtube.png" alt="유튜브">
+						</a>
+					</li>
+					<li>
+						<a href="https://tv.naver.com/ange" target="_blank">
+						<img sv-attr='mob_main_bottom_nvrtv' src="/m.layouts/old_ange/images/icon_naver_tv.png" alt="네이버 TV">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- 로그인 하였을 경우만 -->
+<!-- mypage -->
+<!---nav id="mypage-nav">
+	<div class="nav-backdrop"></div>
+	<div class="nav-container">
+		<div class="nav-header">
+			<button type="button" class="btn btn-close">
+			<img src="https://ange.co.kr/mobile/_assets/images/nav_btn_close.png" alt="네비 닫기">
+			</button---->
+			<!-- 로그아웃 일때 -->
+			<!---div class="member-login">
+				<h2>로그인</h2>
+				<form action="#">
+					<div class="form-group">
+						<input type="email" id="header_loginId" class="form-control" sv-attr='mob_rev2_main_righttmenu_아이디 입력' placeholder="아이디">
+						<label for="header_loginId" class="sr-only">아이디 입력</label>
+						<input type="password" id="header_loginPwd" class="form-control" sv-attr='mob_rev2_main_rightmenu_비밀번호' placeholder="비밀번호">
+						<label for="header_loginPwd" class="sr-only">비밀번호</label>
+					</div>
+					<div class="member-btn">
+						<button type="button" class="btn btn-white btn-lg" sv-attr='mob_rev2_main_rightmenu_로그인' onclick="">로그인</button>
+					</div>
+					<ul class="join-confirm">
+						<li><a sv-attr='mob_rev2_main_rightmenu_회원가입' href="">회원가입</a></li>
+						<li><a sv-attr='mob_rev2_main_rightmenu_비밀번호 찾기' href="">아이디/비밀번호 찾기</a></li>
+					</ul>
+				</form>
+			</div>
+		</div--->
+		<!--div class="ange-event">
+			<a href="javascript:fn_menuUrlLink('naming_14','/mobile/?menu=naming_14&submenu=','0');">
+				<h3><img sv-attr='mob_rev2_main_rightmenu_이름짓기' src="https://ange.co.kr/mobile/_assets/images/main/sub_samplepack.png" alt=""> <small>우리아이 이름짓기</small></h3>
+			</a>
+			</div>
+		<div class="nav-body">
+			<div class="interest-keyword">
+				<a href="javascript:alert('로그인 후 사용 가능 합니다');" class="title">관심키워드</a>
+			</div>
+			<div class="experience-event">
+				<a sv-attr='mob_rev2_main_rightmenu_체험 이벤트' href="/mobile?menu=eventperformance&submenu=" class="title">체험 이벤트</a>
+			</div>
+			<div class="community">
+				<a sv-attr='mob_rev2_main_rightmenu_커뮤니티' href="/mobile?menu=ange_exhibit&submenu=" class="title">커뮤니티</a>
+			</div>
+		</div--->
+	<!---/div>
+</nav---->

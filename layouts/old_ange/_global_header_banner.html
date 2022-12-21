@@ -1,0 +1,76 @@
+<!-- Top-Nav -->
+<div id="top-nav">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="bookmark">
+					<ul>
+						<li><a sv-attr='pc_main_홈으로' href="/"><i sv-attr='pc_main_favorite' class="icon-star"></i>홈으로</a></li>
+						<!---li><a sv-attr='pc_main_즐겨찾기' href="javascript:fn_favorite()"><i sv-attr='pc_main_favorite' class="icon-star"></i>즐겨찾기</a></li>
+						<li><a sv-attr='pc_main_앙쥬이용백서' href="/usr?menu=use_detail_info1&submenu="><i class="icon-bookmark"></i>앙쥬이용백서</a></li--->
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="member">
+					<ul>
+<!--@if($is_logged)-->
+						<li><a sv-attr='pc_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a></li>
+						<li><a sv-attr='pc_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
+<!--@else-->
+						<li><a sv-attr='pc_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a></li>
+<!--@end-->
+						<!---li><a sv-attr='pc_main_회원가입' href='/usr?menu=signon&submenu='>회원가입</a></li>
+						<li><a sv-attr='pc_main_로그인' href="javascript:fn_login();">로그인</a></li>
+						<li><a sv-attr='pc_main_고객센터' href="/usr?menu=faq&submenu=">고객센터</a></li--->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- logo-nav -->
+<div class="logo-nav">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-2">
+{@
+if(!$layout_info->LOGO_IMG)
+	$layout_info->LOGO_IMG = '/layouts/old_ange/imgs/img_sample_list_none.png';
+}
+				<h1 class="logo" style="background-image: url({$layout_info->LOGO_IMG});"><a sv-attr='pc_main_앙쥬 로고' href="/usr"><span class="sr-only">앙쥬 로고</span></a></h1>
+			</div>
+			<div class="col-xs-4">
+				<div class="global-seearch">
+					<form id="comSearchForm" name="comSearchForm" action="{getUrl()}" method="get">
+						<input type="hidden" name="vid" value="{$vid}" />
+						<input type="hidden" name="mid" value="{$mid}" />
+						<input type="hidden" name="act" value="IS" />
+						<div class="form-group">
+						<input type="text" name="is_keyword" value="{$is_keyword}" class="form-control" placeholder="Search.."/>
+						</div>
+						<button type="submit" class="btn btn-default">
+						<i sv-attr='pc_main_검색버튼' class="icon-search"><span class="sr-only">{$lang->cmd_search}</span></i>
+						</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="top-banner" style="text-align:right;height:78px;">
+					<ul>
+						<li>
+							<a href="{$layout_info->rolling_banner_link_1}">
+								<figure><img src="{$layout_info->rolling_banner_img_1}" style="width:370px;height:78px;"></figure>
+							</a>
+						</li>
+						<!---li>
+							<a href="#">
+								<figure><img src="https://ange.co.kr/adm/upload/12월(370x78)-PC_1_1_1_1.jpg" style="width:370px;height:78px;"></figure>
+							</a>
+						</li--->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
