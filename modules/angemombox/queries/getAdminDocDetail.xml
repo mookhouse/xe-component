@@ -3,7 +3,35 @@
         <table name="angemombox_data_lake" />
     </tables>
 	<columns>
-        <column name="*" />
+        <column name="doc_srl" />
+        <column name="yr_mo" />
+        <column name="parent_member_srl" />
+        <column name="parent_birthday_yyyymmdd" />
+        <column name="parent_gender" />
+        <column name="parent_pregnant" />
+        <column name="baby_birth_name" />
+        <column name="baby_gender" />
+        <column name="baby_birthday_yyyymmdd" />
+        <column name="postcode" />
+        <column name="addr" />
+        <column name="addr_detail" />
+        <column name="addr_extra" />
+        <column name="sns_id" />
+        <column name="email_push" />
+        <column name="sms_push" />
+        <column name="post_push" />
+        <column name="sponsor_push" />
+        <column name="content" />
+        <column name="user_agent" />
+        <column name="init_referral" />
+        <column name="utm_source" />
+        <column name="utm_medium" />
+        <column name="utm_campaign" />
+        <column name="utm_term" />
+        <column name="is_mobile" />
+        <column name="is_accepted" />
+        <column name="ipaddress" />
+        <column name="regdate" />
     </columns>
     <conditions>
         <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />

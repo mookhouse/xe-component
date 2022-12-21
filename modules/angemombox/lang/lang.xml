@@ -90,6 +90,15 @@
 	<item name="yr_mo">
 		<value xml:lang="ko"><![CDATA[신청 연월]]></value>
 	</item>
+	<item name="pregnant">
+		<value xml:lang="ko"><![CDATA[임신 여부]]></value>
+	</item>
+	<item name="address">
+		<value xml:lang="ko"><![CDATA[배송 주소]]></value>
+	</item>
+	<item name="baby_info">
+		<value xml:lang="ko"><![CDATA[아기 정보]]></value>
+	</item>
 	<item name="angeclub_exclusive">
 		<value xml:lang="ko"><![CDATA[angeclub 전용 모듈]]></value>
 	</item>
@@ -104,6 +113,18 @@
 	</item>
 	<item name="cmd_winner_info">
 		<value xml:lang="ko"><![CDATA[당첨자 선정]]></value>
+	</item>
+	<item name="email_push">
+		<value xml:lang="ko"><![CDATA[이메일 수신 동의]]></value>
+	</item>
+	<item name="sms_push">
+		<value xml:lang="ko"><![CDATA[SMS 수신 동의]]></value>
+	</item>
+	<item name="post_push">
+		<value xml:lang="ko"><![CDATA[우편 수신 동의]]></value>
+	</item>
+	<item name="sponsor_push">
+		<value xml:lang="ko"><![CDATA[스폰서 광고 수신 동의]]></value>
 	</item>
 	<item name="cmd_manage_term_privacy_usage">
 		<value xml:lang="ko"><![CDATA[개인정보 수집,이용 약관]]></value>

@@ -32,6 +32,7 @@
 		<column name="utm_medium" var="utm_medium" />
 		<column name="utm_campaign" var="utm_campaign" />
 		<column name="utm_term" var="utm_term" />
+		<column name="ipaddress" var="ipaddress" default="ipaddress()" />
 		<column name="regdate" var="regdate" default="curdate()" />
 	</columns>
 </query>

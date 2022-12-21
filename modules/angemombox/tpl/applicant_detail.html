@@ -6,36 +6,68 @@
 <table class="x_table x_table-striped x_table-hover">
 	<tr>
 		<th scope="row" WIDTH='20%'>{$lang->member_id}</th>
-		<td class="text" WIDTH='80%'><a href="#popup_menu_area" class="member_{$angemombox_detail->member_srl}" title="Info">{$angemombox_detail->user_id}</a>&nbsp;일련번호({$angemombox_detail->member_srl})</td>
+		<td class="text" WIDTH='80%'><a href="#popup_menu_area" class="member_{$oMemberInfo->member_srl}" title="Info">{$oMemberInfo->user_id}</a>&nbsp;회원 일련번호({$oMemberInfo->member_srl})</td>
 	</tr>
 	<tr>
 		<th scope="row">{$lang->applicant_name}</th>
-		<td class="text">{$oMemberInfo->user_name}</td>
+		<td class="text">{$oMemberInfo->user_name} / 생일: {$angemombox_detail->parent_birthday_yyyymmdd} / 성별: {$angemombox_detail->parent_gender}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->pregnant}</th>
+		<td class="text"><!--@if($angemombox_detail->parent_pregnant)-->{$angemombox_detail->parent_pregnant}<!--@else-->모름<!--@end--></td>
 	</tr>
 	<tr>
 		<th scope="row">{$lang->applicant_phone}</th>
 		<td class="text">{$oMemberInfo->mobile}</td>
+	</tr>
+	<tr>
+		<th scope="row" WIDTH='20%'>{$lang->yr_mo}</th>
+		<td class="text">{$angemombox_detail->yr_mo}</td>
 	</tr>
 	<tr cond="$angemombox_detail->file_srl">
 		<th scope="row">{$lang->file}</th>
 		<td class="text"><img src="{angemomboxAdminView::dispImgUrl($angemombox_detail->file_srl, 500, 0, 'ratio')}"></td>
 	</tr>
 	<tr>
+		<th scope="row">{$lang->address}</th>
+		<td class="text">({$angemombox_detail->postcode}) {$angemombox_detail->addr} {$angemombox_detail->addr_detail} {$angemombox_detail->addr_extra}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->baby_info}</th>
+		<td class="text">{$angemombox_detail->baby_birthday_yyyymmdd} 출생 (예정)인 {$angemombox_detail->baby_birth_name}의 성별은 {$angemombox_detail->baby_gender}</td>
+	</tr>
+	<tr>
 		<th scope="row">{$lang->content}</th>
-		<td class="text"><p>{$angemombox_detail->content}</p></td>
+		<td class="text" WIDTH='80%'>{$angemombox_detail->content}</td>
 	</tr>
 	<tr>
 		<th scope="row">{$lang->sns_id}</th>
-		<td class="text">{$oMemberInfo->sns}</td>
+		<td class="text">{$angemombox_detail->sns_id}</td>
 	</tr>
 	<tr>
+		<th scope="row">{$lang->email_push}</th>
+		<td class="text">{$angemombox_detail->email_push}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->sms_push}</th>
+		<td class="text">{$angemombox_detail->sms_push}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->post_push}</th>
+		<td class="text">{$angemombox_detail->post_push}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->sponsor_push}</th>
+		<td class="text">{$angemombox_detail->sponsor_push}</td>
+	</tr>
+	<!-- <tr>
 		<th scope="row">{$lang->cmd_manage_term_privacy_usage}</th>
 		<td class="text">{$angemombox_detail->privacy_collection}</td>
 	</tr>
 	<tr>
 		<th scope="row">{$lang->cmd_manage_term_privacy_shr}</th>
 		<td class="text">{$angemombox_detail->privacy_sharing}</td>
-	</tr>
+	</tr> -->
 	<tr>
 		<th scope="row">{$lang->ipaddress}</th>
 		<td class="text">{$angemombox_detail->ipaddress}</td>

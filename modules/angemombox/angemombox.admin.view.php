@@ -64,6 +64,7 @@ class angemomboxAdminView extends angemombox
 			Context::set('search_keyword', $search_keyword);
 			$oMemberAdminModel = getAdminModel('member');
 			$oRst = $oMemberAdminModel->getMemberList();
+			unset($oMemberAdminModel);
 			$aMemberSrl = [];
 			foreach($oRst->data as $oSingleMember)
 				$aMemberSrl[] = $oSingleMember->member_srl;
@@ -80,17 +81,17 @@ class angemomboxAdminView extends angemombox
 			$oRst = executeQueryArray('angemombox.getAdminDocByModule', $oArgs);
 			unset($oArgs);
 		}
-		
 		$oMemberModel = &getModel('member');
 		foreach($oRst->data as $key => $val)
 		{
-			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl, 0);
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($val->parent_member_srl, 0);
 			$oRst->data[$key]->member_srl = $oMemberInfo->member_srl;
 			$oRst->data[$key]->user_id = $oMemberInfo->user_id;
 			$oRst->data[$key]->user_name = $oMemberInfo->user_name;
 			$oRst->data[$key]->mobile = $oMemberInfo->mobile;
+			unset($oMemberInfo);
 		}
-		unset($aColumnList);
+		unset($oMemberModel);
 
 		Context::set('angemombox_list', $oRst->data );
 		Context::set('total_count', $oRst->total_count);
@@ -138,7 +139,7 @@ class angemomboxAdminView extends angemombox
 		unset($oArgs);
 
 		$oMemberModel = &getModel('member');
-		$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl, 0);
+		$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->parent_member_srl, 0);
 
 		$oMemberInfo->user_id = $oMemberInfo->user_id ? $oMemberInfo->user_id : '탈퇴회원';
 		$oMemberInfo->user_name = $oMemberInfo->user_name ? $oMemberInfo->user_name : '탈퇴회원';
@@ -146,16 +147,24 @@ class angemomboxAdminView extends angemombox
 
 		Context::set('oMemberInfo', $oMemberInfo);
 		unset($oMemberInfo);
+		unset($oMemberModel);
 		
 		$oFileModel = getModel('file');
 		$aFile = $oFileModel->getFiles($oRst->data->upload_target_srl);
 		unset($oFileModel);
-
 		if(count((array)$aFile))
 			$oRst->data->file_srl = $aFile[0]->file_srl;
+
+		$oAngeclubModel = &getModel('angeclub');
+		$aBabyGender = $oAngeclubModel->getBabyGender();
+		unset($oAngeclub);
+
+		$oRst->data->parent_gender = $aBabyGender[$oRst->data->parent_gender];
+		$oRst->data->baby_gender = $aBabyGender[$oRst->data->baby_gender];
+		unset($aBabyGender);
 		
-		$oRst->data->privacy_collection = $oRst->data->privacy_collection ? 'agree' : 'disagree';
-		$oRst->data->privacy_sharing = $oRst->data->privacy_sharing ? 'agree' : 'disagree';
+		// $oRst->data->privacy_collection = $oRst->data->privacy_collection ? 'agree' : 'disagree';
+		// $oRst->data->privacy_sharing = $oRst->data->privacy_sharing ? 'agree' : 'disagree';
 		Context::set('angemombox_detail', $oRst->data);
 		
 		$this->setTemplateFile('applicant_detail');
@@ -183,7 +192,7 @@ class angemomboxAdminView extends angemombox
 		$page_list = $oModuleModel->addModuleExtraVars($output->data);
 		moduleModel::syncModuleToSite($page_list);
 
-		$oModuleAdminModel = getAdminModel('module'); /* @var $oModuleAdminModel moduleAdminModel */
+		$oModuleAdminModel = getAdminModel('module');
 
 		$tabChoice = array('tab1'=>1, 'tab3'=>1);
 		$selected_manage_content = $oModuleAdminModel->getSelectedManageHTML($this->xml_info->grant, $tabChoice, $this->module_path);

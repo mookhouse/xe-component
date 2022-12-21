@@ -3,7 +3,12 @@
         <table name="angemombox_data_lake" />
     </tables>
     <columns>
-        <column name="*" />
+        <column name="doc_srl" />
+        <column name="yr_mo" />
+        <column name="parent_member_srl" />
+        <column name="is_accepted" />
+        <column name="ipaddress" />
+        <column name="regdate" />
     </columns>
     <conditions>
         <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />

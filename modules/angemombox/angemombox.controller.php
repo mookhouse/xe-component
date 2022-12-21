@@ -278,6 +278,7 @@ exit;
             return new BaseObject(-1, 'msg_error_invalid_addr_detail');
         if(!$oArgs->baby_birthday)
             return new BaseObject(-1, 'msg_error_invalid_baby_birthday');
+		$oArgs->ipaddress = $_SERVER['REMOTE_ADDR'];
 		return executeQuery('angemombox.insertDataLake', $oArgs);
     }
 /**
