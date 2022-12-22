@@ -9,6 +9,10 @@
 		<td class="text" WIDTH='80%'><a href="#popup_menu_area" class="member_{$oMemberInfo->member_srl}" title="Info">{$oMemberInfo->user_id}</a>&nbsp;회원 일련번호({$oMemberInfo->member_srl})</td>
 	</tr>
 	<tr>
+		<th scope="row">{$lang->member_regdate}</th>
+		<td class="text">{zdate($oMemberInfo->regdate)}</td>
+	</tr>
+	<tr>
 		<th scope="row">{$lang->applicant_name}</th>
 		<td class="text">{$oMemberInfo->user_name} / 생일: {$angemombox_detail->parent_birthday_yyyymmdd} / 성별: {$angemombox_detail->parent_gender}</td>
 	</tr>

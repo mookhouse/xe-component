@@ -129,7 +129,7 @@ INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
 WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
 ORDER BY adhj_idx;
 
-전체 선택 php array로 복사하여 붙여넣기
+전체 선택 php array로 복사하여 UTF8 파일로 붙여넣기
 /files/angeclub/mombox_registration_log_array.php
 <?php
 $aMomboxRegistration = array(

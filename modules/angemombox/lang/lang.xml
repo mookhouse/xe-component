@@ -18,6 +18,9 @@
 	<item name="applicant_phone">
 		<value xml:lang="ko"><![CDATA[회원 핸드폰]]></value>
 	</item>
+	<item name="member_regdate">
+		<value xml:lang="ko"><![CDATA[회원 가입일]]></value>
+	</item>
 	<item name="sns_id">
 		<value xml:lang="ko"><![CDATA[응모자 sns id]]></value>
 	</item>
