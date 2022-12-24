@@ -1,23 +1,32 @@
+{@
+// refer to layouts/old_ange/info.xml
+if($module_info->side_nav_bar == 'FOOTER')
+	$oSideMenuVar = $FOOTER;
+else
+	$oSideMenuVar = '';
+}
+
 <link href="/modules/page/skins/ange_company/css/introduction.css" rel="stylesheet">
+<script src="/modules/board/skins/ange_old_bbs/js/common_sub.js"></script>
 
 <div class="container">
 	<div class="sub-wrapper">
 		<!-- 서브 lnb -->
 		<nav class="nav-lnb">
-			<h2 class="nav-title">회사소개</h2>
+			<h2 class="nav-title">{$module_info->browser_title}</h2>
 			<ul id="lnb-list">
-				<li class="active"><a href='#'>회사소개</a></li>
-				<!---li class="">
-					<a href='javascript:;'>비지니스 센터</a>
-					<ul>
-						<li class=""><a href='#'>광고마케팅</a></li>
-						<li class=""><a href='#'>온라인마케팅</a></li>
-						<li class=""><a href='#'>단행본/디자인</a></li>
-						<li class=""><a href='#'>촬영/스튜디오</a></li>
-						<li class=""><a href='#'>앙쥬클럽</a></li>
-					</ul>
-				</li--->
-				<li class=""><a href='/clients'>협력사소개</a></li>
+				<block loop="$oSideMenuVar->list=>$key1,$val1" cond="$val1['url']!='index'" >
+					<li class="active"|cond="$val1['selected']">
+						<a sv-attr="pc_sub_menu_{$val1['text']}" href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+						<!--ul cond="$val1['list']">
+							<block loop="$val1['list']=>$key2,$val2">
+								<li class="active"|cond="$val2['selected']">
+									<a sv-attr='pc_sub_menu_{$val2['text']}' href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a>
+								</li>
+							</block>
+						</ul--->
+					</li>
+				</block>
 			</ul>
 		</nav>
 		<!-- Content Start -->
@@ -29,6 +38,10 @@
 	<include target="_clients.html" />
 <!--@elseif($module_info->default_style=='inquiry')-->
 	<include target="_inquiry.html" />
+<!--@elseif($module_info->default_style=='angeclub_sponsor')-->
+	<include target="_angeclub_sponsor.html" />
+<!--@elseif($module_info->default_style=='angeclub_staff')-->
+	<include target="_angeclub_staff.html" />
 <!--@end-->
 </block>
 
@@ -38,4 +51,3 @@
 		</div>
 	</div>
 </div>
-

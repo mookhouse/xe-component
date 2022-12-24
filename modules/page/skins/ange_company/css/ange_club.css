@@ -1,0 +1,383 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700um+Myeongjo&subset=korean");
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+p {
+  margin-bottom: 0; }
+
+ul, ol {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none; }
+
+dl {
+  margin-bottom: 0; }
+
+address {
+  margin-bottom: 0; }
+
+.container {
+  width: 1200px !important; }
+
+/* 교육팀장 소개 */
+.education-intro .section-content .porofile {
+  font-size: 0; }
+  .education-intro .section-content .porofile > li {
+    position: relative;
+    padding-top: 5px;
+    margin-top: 30px; }
+    .education-intro .section-content .porofile > li:first-child {
+      margin-top: 0; }
+    .education-intro .section-content .porofile > li .bookmark {
+      position: absolute;
+      top: 0;
+      right: 50px;
+      z-index: 2; }
+      .education-intro .section-content .porofile > li .bookmark img {
+        width: 100%; }
+    .education-intro .section-content .porofile > li .profile-wrap {
+      display: table;
+      width: 100%;
+      border-radius: 30px;
+      border: 1px solid #e5e5e5;
+      background-color: #fbfbfb; box-sizing:border-box;}
+      .education-intro .section-content .porofile > li .profile-wrap > div {
+        display: table-cell; box-sizing:border-box;}
+        .education-intro .section-content .porofile > li .profile-wrap > div.profile-img {
+          position: relative;
+          width: 300px; }
+          .education-intro .section-content .porofile > li .profile-wrap > div.profile-img figure {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%; line-height:0; font-size:0;}
+            .education-intro .section-content .porofile > li .profile-wrap > div.profile-img figure img {
+              display: block;
+              margin: 0 auto; vertical-align:top;}
+        .education-intro .section-content .porofile > li .profile-wrap > div.details {
+          padding: 50px 20px 50px 0;
+          vertical-align: middle; }
+          .education-intro .section-content .porofile > li .profile-wrap > div.details small {
+            font-size: 14px;
+            color: #999; }
+          .education-intro .section-content .porofile > li .profile-wrap > div.details h3 {
+            color: #333;
+            font-size: 26px;
+            font-weight: 400;
+            margin-top: 20px;
+            margin-bottom: 40px; }
+            .education-intro .section-content .porofile > li .profile-wrap > div.details h3 strong {
+              display: inline-block;
+              font-size: 34px;
+              font-weight: bold; }
+          .education-intro .section-content .porofile > li .profile-wrap > div.details .info > li {
+            position: relative;
+            font-size: 14px;
+            line-height: 24px;
+            color: #555;
+            padding-left: 10px;
+            word-break: break-all;
+            letter-spacing: -0.5px;
+            opacity: .8; }
+            .education-intro .section-content .porofile > li .profile-wrap > div.details .info > li:before {
+              position: absolute;
+              left: 0;
+              font-size: 10px;
+              content: "\E803";
+              font-family: "fontello"; }
+
+/* 앙쥬클럽 회원혜택 */
+.member-benefit .section-content ul li {
+  float: left;
+  width: 400px;
+  height: 510px;
+  margin-top: 30px;
+  padding: 55px 30px 60px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px; }
+  .member-benefit .section-content ul li:nth-of-type(2n+1) {
+    clear: both;
+    margin-right: 40px; }
+  .member-benefit .section-content ul li:nth-of-type(1), .member-benefit .section-content ul li:nth-of-type(2) {
+    margin-top: 0; }
+  .member-benefit .section-content ul li figure img {
+    display: block;
+    margin: 0 auto; }
+  .member-benefit .section-content ul li figure figcaption {
+    padding-top: 30px; }
+    .member-benefit .section-content ul li figure figcaption h3 {
+      font-size: 22px;
+      color: #333;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 30px; }
+    .member-benefit .section-content ul li figure figcaption p {
+      font-size: 14px;
+      line-height: 26px;
+      color: #666;
+      font-weight: 400;
+      letter-spacing: -.5px; }
+      .member-benefit .section-content ul li figure figcaption p i {
+        font-style: normal;
+        color: #e25371; }
+
+/* 첫 방문이신가요 */
+.first-visit .section-content ul li h3 {
+  position: relative;
+  display: inline-block;
+  width: 750px;
+  padding-left: 110px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
+  line-height: 60px;
+  background-color: #7da7d9;
+  border-radius: 30px; }
+  .first-visit .section-content ul li h3:before {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    content: "Q";
+    width: 95px;
+    font-size: 26px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #658cba;
+    border-radius: 30px; }
+.first-visit .section-content ul li .answer {
+  padding-top: 20px;
+  padding-left: 70px; }
+  .first-visit .section-content ul li .answer p {
+    position: relative;
+    font-size: 14px;
+    line-height: 26px;
+    color: #666;
+    letter-spacing: -.5px;
+    padding-left: 40px;
+    padding-bottom: 60px; }
+    .first-visit .section-content ul li .answer p span {
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 10px; }
+    .first-visit .section-content ul li .answer p i {
+      font-style: normal;
+      color: #ff7875; }
+    .first-visit .section-content ul li .answer p:before {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      margin-right: 15px;
+      display: inline-block;
+      content: "A";
+      width: 27px;
+      height: 27px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      line-height: 27px;
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      border-radius: 50%;
+      background-color: #e25371; }
+
+/* 클럽소개 */
+.club-intro {
+  margin-bottom: 50px; }
+  .club-intro .section-content {
+    /*background-image: url(../images/community/bg_club_intro.png);*/
+    background-repeat: no-repeat;
+    background-position: 100% 240px; }
+    .club-intro .section-content h3 {
+      font-size: 36px;
+      line-height: 48px;
+      color: #666;
+      font-weight: 300;
+      margin-top: 40px;
+      margin-bottom: 70px; }
+      .club-intro .section-content h3 i {
+        font-style: normal;
+        color: #7da7d9;
+        font-weight: 500; }
+    .club-intro .section-content .explain {
+      font-size: 15px;
+      line-height: 26px;
+      color: #666; }
+      .club-intro .section-content .explain i {
+        font-style: normal;
+        color: #ff7875; }
+    .club-intro .section-content article {
+      display: table;
+      width: 100%;
+      margin-top: 150px; }
+      .club-intro .section-content article > div {
+        display: table-cell;
+        vertical-align: top; }
+        .club-intro .section-content article > div.summary-box {
+          display: inline-block;
+          width: 370px;
+          padding-right: 60px; }
+          .club-intro .section-content article > div.summary-box h4 {
+            font-size: 22px;
+            line-height: 35px;
+            color: #666;
+            font-weight: 300;
+            letter-spacing: -1px;
+            font-family: 'Nanum Myeongjo', serif; }
+            .club-intro .section-content article > div.summary-box h4 b {
+              font-weight: bold;
+              color: #333; }
+            .club-intro .section-content article > div.summary-box h4:before {
+              content: "";
+              display: block;
+              width: 50px;
+              height: 3px;
+              margin-bottom: 15px;
+              background-color: #666; }
+          .club-intro .section-content article > div.summary-box figure {
+            margin: 20px 60px 20px; }
+            .club-intro .section-content article > div.summary-box figure img {
+              margin: 0 auto; }
+        .club-intro .section-content article > div.details {
+          display: inline-block;
+          width: 430px; }
+          .club-intro .section-content article > div.details .club-company {
+            overflow: hidden; }
+            .club-intro .section-content article > div.details .club-company > li {
+              float: left; }
+              .club-intro .section-content article > div.details .club-company > li:nth-of-type(2n + 1) {
+                clear: both;
+                margin-right: 30px; }
+              .club-intro .section-content article > div.details .club-company > li ~ li {
+                margin-top: 20px; }
+              .club-intro .section-content article > div.details .club-company > li:nth-of-type(2) {
+                margin-top: 0; }
+              .club-intro .section-content article > div.details .club-company > li > div {
+                width: 200px;
+                height: 90px;
+                line-height: 88px;
+                text-align: center;
+                border: 1px solid #dfdfdf;
+                background-color: #fff; }
+                .club-intro .section-content article > div.details .club-company > li > div img {
+                  display: inline-block; }
+              .club-intro .section-content article > div.details .club-company > li > p {
+                font-size: 14px;
+                color: #666;
+                margin-top: 10px;
+                text-align: center; }
+          .club-intro .section-content article > div.details .decimal-list > li {
+            position: relative;
+            font-size: 15px;
+            color: #666;
+            line-height: 24px;
+            margin-top: 140px;
+            padding-left: 40px; }
+            .club-intro .section-content article > div.details .decimal-list > li i {
+              font-style: normal;
+              color: #ff7875; }
+            .club-intro .section-content article > div.details .decimal-list > li ~ li {
+              margin-top: 25px; }
+            .club-intro .section-content article > div.details .decimal-list > li span {
+              position: absolute;
+              top: 0;
+              left: 0;
+              display: block;
+              width: 30px;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+              font-size: 13px;
+              color: #fff;
+              font-weight: 500;
+              background-color: #ef564b;
+              border-radius: 50%;
+              font-family: 'Roboto', sans-serif; }
+
+.section-header {
+  position: relative; }
+  .section-header .partner-list {
+    position: absolute;
+    top: 0;
+    right: 0; }
+    .section-header .partner-list li {
+      display: inline-block; }
+      .section-header .partner-list li a {
+        display: block;
+        line-height: 31px;
+        margin: 0 2px; }
+        .section-header .partner-list li a img {
+          display: inline-block; }
+      .section-header .partner-list li:last-child a {
+        margin-right: 0; }
+
+/* 앙쥬클럽 회원사 */
+.club-member .section-content article {
+  border-bottom: 1px solid #ccc; }
+  .club-member .section-content article:last-child {
+    border-bottom: 0; }
+  .club-member .section-content article .article-header {
+    font-size: 0;
+    margin-top: 60px; }
+    .club-member .section-content article .article-header figure {
+      vertical-align: top;
+      width: 300px;
+      display: inline-block; }
+      .club-member .section-content article .article-header figure img {
+        width: 100%; }
+    .club-member .section-content article .article-header .details {
+      vertical-align: top;
+      display: inline-block;
+      width: 400px;
+      margin-left: 40px; }
+      .club-member .section-content article .article-header .details h3 {
+        font-size: 24px;
+        color: #333;
+        margin-top: 20px;
+        margin-bottom: 20px; }
+      .club-member .section-content article .article-header .details a {
+        font-size: 13px;
+        color: #7da7d9; }
+        .club-member .section-content article .article-header .details a i {
+          margin-right: 10px; }
+      .club-member .section-content article .article-header .details p {
+        font-size: 14px;
+        line-height: 28px;
+        color: #666;
+        margin-top: 20px;
+        text-align: justify;
+        letter-spacing: -.5px; }
+  .club-member .section-content article .article-content {
+    padding-top: 50px;
+    padding-bottom: 60px; }
+    .club-member .section-content article .article-content .information {
+      width: 100%;
+      padding: 30px 30px 35px;
+      background-color: #f5f5f5;
+      border-radius: 30px; }
+      .club-member .section-content article .article-content .information dl dt {
+        font-size: 18px;
+        color: #333;
+        font-weight: 500;
+        margin-top: 30px; }
+      .club-member .section-content article .article-content .information dl dd {
+        font-size: 14px;
+        line-height: 28px;
+        color: #999;
+        font-weight: 300;
+        margin-top: 20px;
+        text-align: justify;
+        letter-spacing: -.5px; }
+      .club-member .section-content article .article-content .information p {
+        font-size: 14px;
+        line-height: 28px;
+        color: #999;
+        font-weight: 300;
+        margin-top: 20px;
+        text-align: justify;
+        letter-spacing: -.5px; }
+
+/*# sourceMappingURL=ange_club.css.map */

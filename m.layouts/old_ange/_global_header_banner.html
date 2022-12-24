@@ -32,6 +32,66 @@
 		</li>
 	</ul>
 </div>
+<!-- mypage -->
+<nav id="mypage-nav">
+	<div class="nav-backdrop"></div>
+	<div class="nav-container">
+		<div class="nav-header">
+			<button type="button" class="btn btn-close">
+			<img src="/m.layouts/old_ange/images/nav_btn_close.png" alt="네비 닫기">
+			</button>
+			<!-- 로그아웃 일때 -->
+			<div class="member-login">
+<!--@if($is_logged)-->
+				<h2>{$logged_info->nick_name}님 환영합니다.</h2>
+<!--@else-->
+				<h2>로그인하세요.</h2>
+<!--@end-->
+				
+				<form action="#">
+					<!---div class="form-group">
+						<input type="email" id="header_loginId" class="form-control" sv-attr='mob_rev2_main_righttmenu_아이디 입력' placeholder="아이디">
+						<label for="header_loginId" class="sr-only">아이디 입력</label>
+						<input type="password" id="header_loginPwd" class="form-control" sv-attr='mob_rev2_main_rightmenu_비밀번호' placeholder="비밀번호">
+						<label for="header_loginPwd" class="sr-only">비밀번호</label>
+					</div>
+					<div class="member-btn">
+						<button type="button" class="btn btn-white btn-lg" sv-attr='mob_rev2_main_rightmenu_로그인' onclick="fn_loginSubmit($('#header_loginId'), $('#header_loginPwd'), 'md')">로그인</button>
+					</div--->
+					<ul class="join-confirm">
+<!--@if($is_logged)-->
+						<a sv-attr='mob_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a> /
+						<a sv-attr='mob_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
+<!--@else-->
+						<li><a sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a>
+						<!--li><a sv-attr='mob_rev2_main_rightmenu_회원가입' href="/mobile?menu=signon&submenu=">회원가입</a></li>
+						<li><a sv-attr='mob_rev2_main_rightmenu_비밀번호 찾기' href="/mobile?menu=forgot&submenu=">아이디/비밀번호 찾기</a></li--->
+<!--@end-->
+						
+					</ul>
+				</form>
+			</div>
+		</div>
+		<!--div class="ange-event">
+			<a href="javascript:fn_menuUrlLink('naming_14','/mobile/?menu=naming_14&submenu=','0');">
+				<h3><img sv-attr='mob_rev2_main_rightmenu_이름짓기' src="/mobile/_assets/images/main/sub_samplepack.png" alt=""> <small>우리아이 이름짓기</small></h3>
+			</a>
+			</div--->
+		<!--div class="nav-body">
+			<div class="interest-keyword"--->
+				<!--<a href="/mobile?menu=account&submenu=" class="title">관심키워드</a>-->
+				<!--<a href="javascript:fn_login();" class="title">관심키워드</a>-->
+				<!---a href="javascript:alert('로그인 후 사용 가능 합니다');" class="title">관심키워드</a>
+			</div>
+			<div class="experience-event">
+				<a sv-attr='mob_rev2_main_rightmenu_체험 이벤트' href="/mobile?menu=eventperformance&submenu=" class="title">체험 이벤트</a>
+			</div>
+			<div class="community">
+				<a sv-attr='mob_rev2_main_rightmenu_커뮤니티' href="/mobile?menu=ange_exhibit&submenu=" class="title">커뮤니티</a>
+			</div>
+		</div--->
+	</div>
+</nav>
 <!-- nav menu -->
 <nav id="gnb-nav">
 	<div class="nav-backdrop"></div>
@@ -205,65 +265,5 @@
 				</ul>
 			</div>
 		</div>
-	</div>
-</nav>
-<!-- mypage -->
-<nav id="mypage-nav">
-	<div class="nav-backdrop"></div>
-	<div class="nav-container">
-		<div class="nav-header">
-			<button type="button" class="btn btn-close">
-			<img src="/m.layouts/old_ange/images/nav_btn_close.png" alt="네비 닫기">
-			</button>
-			<!-- 로그아웃 일때 -->
-			<div class="member-login">
-<!--@if($is_logged)-->
-				<h2>{$logged_info->nick_name}님 환영합니다.</h2>
-<!--@else-->
-				<h2>로그인하세요.</h2>
-<!--@end-->
-				
-				<form action="#">
-					<!---div class="form-group">
-						<input type="email" id="header_loginId" class="form-control" sv-attr='mob_rev2_main_righttmenu_아이디 입력' placeholder="아이디">
-						<label for="header_loginId" class="sr-only">아이디 입력</label>
-						<input type="password" id="header_loginPwd" class="form-control" sv-attr='mob_rev2_main_rightmenu_비밀번호' placeholder="비밀번호">
-						<label for="header_loginPwd" class="sr-only">비밀번호</label>
-					</div>
-					<div class="member-btn">
-						<button type="button" class="btn btn-white btn-lg" sv-attr='mob_rev2_main_rightmenu_로그인' onclick="fn_loginSubmit($('#header_loginId'), $('#header_loginPwd'), 'md')">로그인</button>
-					</div--->
-					<ul class="join-confirm">
-<!--@if($is_logged)-->
-						<a sv-attr='mob_main_mypage' href="{getUrl('act','dispMemberInfo')}">{$logged_info->nick_name}님의 프로필</a> /
-						<a sv-attr='mob_main_logout' href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
-<!--@else-->
-						<li><a sv-attr='mob_main_login' href="{getUrl('act', 'dispMemberLoginForm')}">{$lang->cmd_login}/{$lang->cmd_signup}</a>
-						<!--li><a sv-attr='mob_rev2_main_rightmenu_회원가입' href="/mobile?menu=signon&submenu=">회원가입</a></li>
-						<li><a sv-attr='mob_rev2_main_rightmenu_비밀번호 찾기' href="/mobile?menu=forgot&submenu=">아이디/비밀번호 찾기</a></li--->
-<!--@end-->
-						
-					</ul>
-				</form>
-			</div>
-		</div>
-		<!--div class="ange-event">
-			<a href="javascript:fn_menuUrlLink('naming_14','/mobile/?menu=naming_14&submenu=','0');">
-				<h3><img sv-attr='mob_rev2_main_rightmenu_이름짓기' src="/mobile/_assets/images/main/sub_samplepack.png" alt=""> <small>우리아이 이름짓기</small></h3>
-			</a>
-			</div--->
-		<!--div class="nav-body">
-			<div class="interest-keyword"--->
-				<!--<a href="/mobile?menu=account&submenu=" class="title">관심키워드</a>-->
-				<!--<a href="javascript:fn_login();" class="title">관심키워드</a>-->
-				<!---a href="javascript:alert('로그인 후 사용 가능 합니다');" class="title">관심키워드</a>
-			</div>
-			<div class="experience-event">
-				<a sv-attr='mob_rev2_main_rightmenu_체험 이벤트' href="/mobile?menu=eventperformance&submenu=" class="title">체험 이벤트</a>
-			</div>
-			<div class="community">
-				<a sv-attr='mob_rev2_main_rightmenu_커뮤니티' href="/mobile?menu=ange_exhibit&submenu=" class="title">커뮤니티</a>
-			</div>
-		</div--->
 	</div>
 </nav>

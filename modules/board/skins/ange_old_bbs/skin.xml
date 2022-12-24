@@ -30,10 +30,10 @@
 				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
 				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
 				<options value="CONTENTS_NAV">
-					<title xml:lang="ko">CONTENTS_NAV 메뉴</title>
+					<title xml:lang="ko">임신출산/추천브랜드 서브메뉴</title>
 				</options>
-				<options value="COMMUNITY_NAV">
-					<title xml:lang="ko">COMMUNITY_NAV 메뉴</title>
+				<options value="EVENT_NAV">
+					<title xml:lang="ko">체험/이벤트 서브메뉴</title>
 				</options>
 			</var>
 		</group>

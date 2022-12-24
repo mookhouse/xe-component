@@ -1,0 +1,50 @@
+{@
+// refer to layouts/old_ange/info.xml
+if($module_info->sub_nav_bar == 'CONTENTS_NAV')
+	$oSideMenuVar = $CONTENTS_NAV;
+elseif($module_info->sub_nav_bar == 'EVENT_NAV')
+	$oSideMenuVar = $EVENT_NAV;
+else
+	$oSideMenuVar = '';
+}
+<div class="page-header"> <!---sub.scss:91--->
+	<!-- 폴더별 타이틀 -->
+	<div class="page-title">
+		<h2 class="dropdown_title">{$module_info->browser_title}</h2>
+		<!---div class="btn-controls">
+			<a href="javascript:;" class="moveMenu prev">
+				<i class="icon-left-open-big">
+					<span class="sr-only">이전 페이지</span>
+				</i>
+			</a>
+			<a href="javascript:;" class="moveMenu next">
+				<i class="icon-right-open-big">
+					<span class="sr-only">다음 페이지</span>
+				</i>
+			</a>
+		</div--->
+	</div>
+	<!-- dropdowns-menu -->
+	<button type="button" class="drop-open-btn">
+		<span class="sr-only">메뉴 열기</span>
+	</button>
+</div>
+<div class="dropdowns-menu">
+	<div class="drop-container">
+		<ul>
+			<block loop="$oSideMenuVar->list=>$key1,$val1" cond="$val1['url']!='index'" >
+				<li class="depth2_dropdown active has-child">
+					<a sv-attr="mob_sub_menu_{$val1['text']}" href="javascript:;">{$val1['link']|noescape}</a>
+					<ul cond="$val1['list']">
+						<block loop="$val1['list']=>$key2,$val2">
+							<li class='active'|cond="$val2['selected']"><a sv-attr="mob_sub_menu_{$val2['text']}" href="{$val2['href']}">{$val2['link']|noescape}</a></li>
+						</block>
+					</ul>
+				</li>
+			</block>
+		</ul>
+		<button type="button" class="drop-close-btn">
+			<span class="sr-only">메뉴 닫기</span>
+		</button>
+	</div>
+</div>

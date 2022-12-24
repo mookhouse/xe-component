@@ -4,8 +4,11 @@
 		<!-- NOTICE -->
 		<div class="section-header" id="dataHeader" loop="$notice_list=>$no,$document">
 			<div class="row">
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='ebook_url'">
+﻿{@$sEbookUrl = $val->getValueHTML()}
+</block>
 				<div class="col-xs-5">
-					<figure><a href="{$document->getPermanentUrl()}"><img src="{$document->getThumbnail(309, 400, 'crop')}" alt="" class="img-responsive"></a></figure>
+					<figure><a href="{@$sEbookUrl}" target='_new'><img src="{$document->getThumbnail(309, 400, 'crop')}" alt="" class="img-responsive"></a></figure>
 				</div>
 				<div class="col-xs-7">
 					<div class="details">
@@ -37,7 +40,7 @@
 				</div>
 			</div>
 			<div class="btn-ebook">
-				<p><a href="{$document->getPermanentUrl()}" class="btn btn-md btn-white" role="button">자세히보기</a><a href="#" class="btn btn-md btn-pink" role="button">e-book 보기</a></p>
+				<p><a href="{$document->getPermanentUrl()}" class="btn btn-md btn-white" role="button">자세히보기</a><a href="{$sEbookUrl}" target='_new' class="btn btn-md btn-pink" role="button">e-book 보기</a></p>
 			</div>
 		</div>
 		<!-- /NOTICE -->

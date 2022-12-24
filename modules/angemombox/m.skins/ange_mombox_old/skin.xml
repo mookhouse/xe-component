@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">Ange MOB 맘박스 신청 페이지 Skin</title>
+	<description xml:lang="ko">
+		 Ange MOB 임신맘박스 페이지의 기본 스킨입니다.
+	</description>
+	<version>1.0</version>
+	<date>2022-12-23</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">전체 설정</title>
+			<var name="default_style" type="radio">
+				<title xml:lang="ko">페이지 종류</title>
+				<options value="before">
+					<title xml:lang="ko">임신맘박스 신청</title>
+				</options>
+				<options value="after">
+					<title xml:lang="ko">출산맘박스 신청</title>
+				</options>
+			</var>
+			<var name="sub_nav_bar" type="radio">
+				<title xml:lang="ko">서브 메뉴 연결 선택</title>
+				<description xml:lang="ko">/m.layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="MOMBOX_NAV">
+					<title xml:lang="ko">MOMBOX_NAV 메뉴</title>
+				</options>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

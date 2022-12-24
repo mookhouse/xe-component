@@ -12,10 +12,13 @@
             <title xml:lang="ko">전역 네비게이션 바</title>
         </menu>
 		<menu name="CONTENTS_NAV" maxdepth="2">
-            <title xml:lang="ko">컨텐츠 섹션 네비게이션</title>
+            <title xml:lang="ko">임신출산/추천브랜드 서브메뉴</title>
         </menu>
-		<menu name="COMMUNITY_NAV" maxdepth="2">
-            <title xml:lang="ko">커뮤니티 섹션 네비게이션</title>
+		<menu name="EVENT_NAV" maxdepth="2">
+            <title xml:lang="ko">체험/이벤트 서브메뉴</title>
+        </menu>
+		<menu name="MOMBOX_NAV" maxdepth="2">
+            <title xml:lang="ko">맘박스 서브메뉴</title>
         </menu>
 		<menu name="FOOTER" maxdepth="2">
             <title xml:lang="ko">푸터 메뉴</title>

@@ -26,6 +26,16 @@
 					<title xml:lang="ko">잡지형</title>
 				</options>
 			</var>
+			<var name="sub_nav_bar" type="radio">
+				<title xml:lang="ko">서브 메뉴 연결 선택</title>
+				<description xml:lang="ko">/m.layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="CONTENTS_NAV">
+					<title xml:lang="ko">임신출산/추천브랜드 서브메뉴</title>
+				</options>
+				<options value="EVENT_NAV">
+					<title xml:lang="ko">체험/이벤트 서브메뉴</title>
+				</options>
+			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">추천글 위젯 설정</title>

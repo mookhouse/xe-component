@@ -4,7 +4,10 @@
 	<!-- NOTICE -->
 	<div class="section-header" loop="$notice_list=>$no,$document">
 		<div class="column column-4">
-			<figure><a href="{$document->getPermanentUrl()}"><img src="{$document->getThumbnail(350, 466, 'crop')}" alt="월간 잡지 표지" style="width:350px;height:466px;"></a></figure>
+<block loop="$document->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='ebook_url'">
+﻿{@$sEbookUrl = $val->getValueHTML()}
+</block>
+			<figure><a href="{$sEbookUrl}" target='_new'><img src="{$document->getThumbnail(350, 466, 'crop')}" alt="월간 잡지 표지" style="width:350px;height:466px;"></a></figure>
 			<p style="font-size:13px;"><br> - 위 표지를 클릭하시면 E-Book 을 보실 수 있습니다. </p>
 		</div>
 		<div class="column column-6">
@@ -32,7 +35,7 @@
 					<br>
 				</p>
 				<div class="btn-ebook">
-					<p><a href="{$document->getPermanentUrl()}" class="btn btn-white btn-more" role="button">자세히 보기</a><a href="#" class="btn btn-pink btn-more" role="button">e-book 보기</a></p>
+					<p><a href="{$document->getPermanentUrl()}" class="btn btn-white btn-more" role="button">자세히 보기</a><a href="{$sEbookUrl}" target='_new' class="btn btn-pink btn-more" role="button">e-book 보기</a></p>
 				</div>
 			</div>
 		</div>

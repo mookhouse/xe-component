@@ -3,18 +3,35 @@ $aPreMomNo = Array('05'=>'138', '06'=>'139', '07'=>'140', '08'=>'141', '09'=>'14
 $aPostMomNo = Array('05'=>'16', '06'=>'17', '07'=>'18', '08'=>'19', '09'=>'20', '10'=>'21', '11'=>'22', '12'=>'23');
 $sMonth = date("m", time());
 $sYearMonth = date("Y년 m월 ", time());
+
+// refer to layouts/old_ange/info.xml
+if($module_info->side_nav_bar == 'MOMBOX_NAV')
+	$oSideMenuVar = $MOMBOX_NAV;
+else
+	$oSideMenuVar = '';
 }
 
 <link href="/modules/page/skins/ange_mombox/css/samplepack.css" rel="stylesheet">
+<script src="/modules/board/skins/ange_old_bbs/js/common_sub.js"></script>
 
 <div class="container">
 	<div class="sub-wrapper">
 		<!-- 서브 lnb -->
 		<nav class="nav-lnb">
-			<h2 class="nav-title">앙쥬맘박스</h2>
+			<h2 class="nav-title">{$module_info->browser_title}</h2>
 			<ul id="lnb-list">
-				<li class="active"><a href='#'>앙쥬맘박스 신청하기</a></li>
-				<li class=""><a href='#'>앙쥬맘박스 후기</a></li>
+				<block loop="$oSideMenuVar->list=>$key1,$val1" cond="$val1['url']!='index'" >
+					<li class="active"|cond="$val1['selected']">
+						<a sv-attr="pc_sub_menu_{$val1['text']}" href="javascript:;" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+						<ul cond="$val1['list']">
+							<block loop="$val1['list']=>$key2,$val2">
+								<li class="active"|cond="$val2['selected']">
+									<a sv-attr='pc_sub_menu_{$val2['text']}' href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a>
+								</li>
+							</block>
+						</ul>
+					</li>
+				</block>
 			</ul>
 		</nav>
 		<!-- Content Start -->
@@ -38,4 +55,3 @@ $sYearMonth = date("Y년 m월 ", time());
 		</div>
 	</div>
 </div>
-

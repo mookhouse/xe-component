@@ -27,11 +27,8 @@
 			<var name="side_nav_bar" type="radio">
 				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
 				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
-				<options value="CONTENTS_NAV">
-					<title xml:lang="ko">CONTENTS_NAV 메뉴</title>
-				</options>
-				<options value="COMMUNITY_NAV">
-					<title xml:lang="ko">COMMUNITY_NAV 메뉴</title>
+				<options value="MOMBOX_NAV">
+					<title xml:lang="ko">MOMBOX_NAV 메뉴</title>
 				</options>
 			</var>
 		</group>

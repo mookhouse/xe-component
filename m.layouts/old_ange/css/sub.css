@@ -136,7 +136,8 @@ button {
 
 .page-header {
   position: fixed;
-  top: top: 88px; /*135px;*/
+  top: 135px;
+  /*top: 88px; */
   left: 0;
   width: 100%;
   text-align: center;
@@ -218,8 +219,7 @@ body .dropdowns-menu {
   .open-dropdown .dropdowns-menu {
     display: block;
     position: fixed;
-	top: 150px; 
-    /* top: 175px; */
+    top: 175px;
     left: 0;
     width: 100%;
     height: 100%;
