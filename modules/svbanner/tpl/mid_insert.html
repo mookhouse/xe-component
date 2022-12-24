@@ -25,6 +25,14 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->banner_menu_name}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" id="browser_title" value="{$module_info->browser_title}" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_banner_menu_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label" for="mid_description">{$lang->banner_mid_description}</label>
 			<div class="x_controls">
 				<textarea name="mid_description" id="mid_description">{$module_info->mid_description}</textarea>
