@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">Ange PC 이달의 선물 Page Skin</title>
+	<description xml:lang="ko">
+		 Ange PC 이달의 선물 페이지의 기본 스킨입니다. item_list.php 샘플은 README 파일 참조
+	</description>
+	<version>1.0</version>
+	<date>2022-12-25</date>
+	<author email_address="root@singleview.co.kr" link="http://singleview.co.kr">
+		<name xml:lang="ko">singleview.co.kr</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">전체 설정</title>
+			<var name="side_nav_bar" type="radio">
+				<title xml:lang="ko">좌측 메뉴 연결 선택</title>
+				<description xml:lang="ko">/layouts/old_ange/에서 설정한 메뉴 변수입니다.</description>
+				<options value="EVENT_NAV">
+					<title xml:lang="ko">체험/이벤트 서브메뉴</title>
+				</options>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

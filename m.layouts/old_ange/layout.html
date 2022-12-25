@@ -46,7 +46,7 @@ gaectkHeader.init(['{$layout_info->GAv3_ID}', '{$layout_info->GAv4_ID}']);
 <script src="/m.layouts/old_ange/js/common.js"></script>
 
 {@
-if($mid == 'event')
+if($mid == 'event' || $mid == 'giveaway')
 	$sBodyCssClassId = 'sub event';
 elseif($mid == 'media_kit' || $mid == 'clients' || $mid == 'inquiry')
 	$sBodyCssClassId = 'sub introduction';
@@ -62,6 +62,8 @@ if($act == 'dispMemberSignUpForm')
 
 if($mid == 'event' && !$document_srl)
 	$sMainCssClassId = 'experience-event';
+elseif($mid == 'giveaway')
+	$sMainCssClassId = 'reader-view reader-write';
 elseif($mid == 'event' && $document_srl)
 	$sMainCssClassId = 'event-info';
 else

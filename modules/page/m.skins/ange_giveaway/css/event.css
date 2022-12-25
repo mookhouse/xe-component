@@ -1,0 +1,940 @@
+@import url("../css/common.css");
+
+/* 이벤트 공통 */
+.event .section-header {
+    padding-bottom: 0;
+}
+
+.event .section-header .sample_banner {margin:15px 0 20px 0; text-align:left;}
+.event .section-header .sample_banner img {width:100%;}
+
+.event .sns-like {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    overflow: hidden;
+}
+.event .sns-like .sns-share {
+    float:left;
+    margin-top: 5px;
+}
+.event .sns-like .sns-share li p.icon-export:before {
+    content: "";
+    display: none;
+}
+.event .sns-like .sns-share li {
+    display: inline-block;
+    margin-right: 5px;
+}
+.event .sns-like .sns-share li:last-child {
+    margin-right: 0;
+}
+.event .sns-like .sns-share li {
+    width: 20px;
+}
+.event .sns-like .sns-share li > a > img {
+    width: 100%;
+}
+.event .sns-like .btn-like {
+    float: right;
+}
+.event .sns-like .btn-like .btn.btn-xs {
+    text-align: center;
+    width: 63px;
+    font-size: 10px;
+    color: #666;
+    line-height: 30px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+.event .sns-like .btn-like .btn.btn-xs .icon-heart {
+    color: #ff7875;
+}
+.event .information .info-head {
+    padding-bottom: 20px;
+}
+.event .information .info-head .subject {
+    font-size: 16px;
+    line-height: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+.event .information .info-head p {
+    font-size: 12px;
+    line-height: 15px;
+    color: #666;
+}
+.event .information .info-body {
+    padding: 10px 10px;
+    border-top: 1px solid #cecfd2;
+    border-bottom: 1px solid #cecfd2;
+    overflow: hidden;
+}
+.event .information .info-body dl {
+    overflow: hidden;
+}
+.event .information .info-body dl dt {
+    float: left;
+    clear: both;
+    width: 70px;
+    line-height: 23px;
+}
+.event .information .info-body dl dd {
+    color: #999;
+    line-height: 23px;
+    font-weight: 300;
+}
+.event .information .btn-area {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.event .information .btn-area p:nth-of-type(2) {
+    margin-top: 10px;
+}
+.event .information .btn-area p:nth-of-type(2) .btn.btn-lg{
+    /*max-width: 300px;*/
+}
+
+
+/* 이벤트 상세보기 */
+.event-info .section-content .tab-menu .tab-content figure img {
+    width: 100%;
+}
+.event-info .section-header .information .btn-area p .btn-lg {width: 100%;}
+.event-info .section-header .information .btn-area p .btn-md {width: 49%;}
+.event-info .section-header .information .btn-area p .btn-md {margin-right: 2%;}
+.event-info .section-header .information .btn-area p .btn-md:last-child {margin-right: 0;}
+
+.event-applicant .section-header .information .btn-area p .btn-lg {width: 100%;}
+.event-applicant .section-header .information .btn-area p .btn-md {width: 49%;}
+.event-applicant .section-header .information .btn-area p .btn-md {margin-right: 2%;}
+.event-applicant .section-header .information .btn-area p .btn-md:last-child {margin-right: 0;}
+
+.event-review .section-header .information .btn-area p .btn-lg {width: 100%;}
+.event-review .section-header .information .btn-area p .btn-md {width: 49%;}
+.event-review .section-header .information .btn-area p .btn-md {margin-right: 2%;}
+.event-review .section-header .information .btn-area p .btn-md:last-child {margin-right: 0;}
+
+.event-entry .section-header .information .btn-area p .btn-lg {width: 100%;}
+.event-entry .section-header .information .btn-area p .btn-md {width: 49%;}
+.event-entry .section-header .information .btn-area p .btn-md {margin-right: 2%;}
+.event-entry .section-header .information .btn-area p .btn-md:last-child {margin-right: 0;}
+
+.event-info .section-header .information .info-body dl dt {
+    line-height: 26px;
+    color: #333;
+}
+.event-info .section-header .information .info-body dl dd {
+    line-height: 26px;
+    color: #666;
+}
+
+.event-applicant .section-header .information .info-body dl dt {
+    line-height: 26px;
+    color: #333;
+}
+.event-applicant .section-header .information .info-body dl dd {
+    line-height: 26px;
+    color: #666;
+}
+
+.event-review .section-header .information .info-body dl dt {
+    line-height: 26px;
+    color: #333;
+}
+.event-review .section-header .information .info-body dl dd {
+    line-height: 26px;
+    color: #666;
+}
+
+/* 이벤트 신청자한마디 */
+.event-applicant .section-content .tab-content {
+    padding-top: 20px;
+}
+.event-applicant .section-content .tab-content .review li {
+    padding-left: 55px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dfdfdf;
+    position: relative;
+}
+.event-applicant .section-content .tab-content .review li figure {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.event-applicant .section-content .tab-content .review > li ~ li {
+    margin-top: 20px;
+}
+.event-applicant .section-content .tab-content .review li figure img {
+    width: 100%;
+    height: 100% !important;
+}
+.event-applicant .section-content .tab-content .review li .review-content 
+{
+    padding-left: 10px;
+}
+
+.event-applicant .section-content .tab-content .review li .review-content .user-info {
+    position: relative;
+}
+.event-applicant .section-content .tab-content .review li .review-content .user-info .user-name {
+    font-size: 12px;
+    color: #3d3d3d;
+}
+.event-applicant .section-content .tab-content .review li .review-content .user-info .date {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    color: #999;
+    font-family: 'Roboto', sans-serif;
+}
+.event-applicant .section-content .tab-content .review li .review-content .comment {
+    font-size: 11px;
+    line-height: 14px;
+    color: #515151;
+    margin-top: 10px;
+}
+.event-applicant .section-content .tab-content .paging {
+    margin-top: 20px;
+}
+
+/* 체험이벤트 후기 */
+.event-review .section-content .tab-menu .tab-content {
+    padding: 0;
+}
+.event-review .section-content .tab-menu .tab-content .board-type-2 .paging {
+    margin-top: 20px;
+}
+
+
+/* 체험이벤트 응모하기 */
+.event-entry .section-content .table-wrap .table ~ .table {
+    margin-top: 20px;
+}
+.event-entry .section-content .table-wrap .table.type-1 tbody tr .title {
+    font-weight: 400;
+}
+.event-entry .section-content .table-wrap .table tbody tr td dl dt {
+    font-weight: 300;
+}
+.event-entry .section-content .table-wrap .table tbody tr td dl dt label {
+    font-weight: 300;
+}
+.event-entry .section-content .table-wrap .table tbody tr td dl dd .add-input {
+    margin-top: 10px;
+}
+.event-entry .section-content .table-wrap .table tbody tr td.addition-list dl dd .form-group {
+    margin-top: 5px;
+}
+.event-entry .section-content .table-wrap .table tbody tr td.addition-list dl dd {
+    margin-bottom: 10px;
+}
+.event-entry .section-content .table-wrap .table tbody tr td.addition-list dl dd:last-child {
+    margin-bottom: 0;
+}
+.event-entry .section-content .table-wrap .table tbody tr td .form-group textarea {
+    height: 80px;
+}
+.event-entry .section-content .table-wrap .btn-area {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.event-entry .section-content .article-content .moms_regist .table tbody tr th {
+    width: 30% !important;
+}
+.event-entry .section-content .article-content .moms_regist .table tbody tr td {
+    width: 70% !important;
+    text-align: left !important;
+    padding: 10px !important;
+}
+.event-entry .section-content .article-content .moms_regist .table tbody tr td .form-group select {
+    display: inline-block !important;
+    width: 30% !important;
+    margin-right: 2%;
+}
+.event-entry .section-content .article-content .moms_regist .table tbody tr td .form-group select:last-child {
+    margin-right: 0;
+}
+
+
+
+/* 체험후기 리스트 */
+.review-list .section-header > h4 {
+    font-size: 12px;
+    color: #333;
+}
+.review-list .section-header .search-form {
+    margin: 15px 0;
+}
+.review-list .section-content .btn-area {
+    margin-top: 20px;
+    text-align: right;
+}
+.review-list .section-content .paging {
+    margin-top: 20px;
+}
+.review-list .section-content .btn-area .btn.btn-sm {
+    width: 90px;
+}
+
+/* 체험후기 보기 */
+.review-view .section-header .information .info-head {
+    padding-bottom: 0;
+}
+.review-view .section-header .information .info-head .subject {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.review-view .section-header .information .info-body dl dt {
+    width: 80px !important;
+}
+.review-view .section-header .information .info-body dl dd {
+    padding-left: 80px;
+}
+.review-view .section-header .information .info-body dl dd a {
+    color: #999;
+    text-decoration: none;
+}
+.review-view .section-header .information .btn-area p a .icon-heart {
+    color: #ff7875;
+}
+.review-view .review-details figure img {
+    width: 100%;
+    border-radius: 10px;
+}
+.review-view .review-details .btn-area {
+    margin: 20px 0;
+    overflow: hidden;
+}
+.review-view .review-details .btn-area p .btn-xs.btn-white {
+    float: left;
+}
+.review-view .review-details .btn-area p .btn-xs.btn-pink {
+    float: right;
+}
+.review-view .review-details .page-link {
+    clear: both;
+}
+.review-view .review-write {
+    margin-top: 20px;
+}
+.review-view .review-write .article-content .review-list li .review-content .btn-more .btn-xs.btn-pink {
+    background-color: #ff7875;
+}
+.review-view .review-write .article-content .paging {
+    margin-top: 20px;
+}
+.review-view .section-content .review-details img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* 체험후기 쓰기 */
+.review-write section h3 {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 15px;
+}
+.review-write section .section-title {
+    margin-bottom: 15px;
+}
+.review-write .table-wrap .table tbody tr td .form-group textarea {
+    border-radius: 0;
+}
+.review-write section .table-wrap .btn-area {
+    margin-top: 30px;
+    text-align: right;
+}
+.review-write section .table-wrap .btn-area .btn.btn-sm {
+    width: 90px;
+}
+
+/* 비밀번호 확인 */
+.pw-confirm .confirm-form {
+    padding: 35px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.pw-confirm .confirm-form figure {
+    width: 44px;
+    margin: 0 auto;
+}
+.pw-confirm .confirm-form figure img {
+    width: 100%;
+}
+.pw-confirm .confirm-form .details {
+    padding: 20px 0;
+}
+.pw-confirm .confirm-form .details h2 {
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+.pw-confirm .confirm-form .details .summary {
+    font-size: 11px;
+    text-align: center;
+    line-height: 16px;
+    color: #8f8f8f;
+    word-break: keep-all;
+}
+.pw-confirm .confirm-form .form-group .form-control {
+    width: 260px;
+    margin: 0 auto;
+}
+.pw-confirm .confirm-form .btn-area {
+    margin-top: 20px;
+}
+
+/* 당첨자발표 리스트 */
+.prizewinner-list .section-header h4 {
+    font-size: 12px;
+    color: #333;
+}
+.prizewinner-list .section-header .banner {
+    display: block;
+    margin-top: 20px;
+}
+.prizewinner-list .section-header .banner a {
+    display: block;
+}
+.prizewinner-list .section-header .banner a figure img {
+    width: 100%;
+}
+.prizewinner-list .section-header .search-form {
+    margin: 15px 0;
+}
+.prizewinner-list .section-content .board-type-2 .paging {
+    margin-top: 20px;
+}
+.prizewinner-list .section-content .board-type-2 .btn-area {
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* 당첨자발표 보기 */
+.prizewinner-view section > h3 {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 10px;
+}
+.prizewinner-view section .board-view {
+    padding-bottom: 20px;
+}
+.prizewinner-view section .review-write .article-content .review-list li .btn-more .btn-xs.btn-pink {
+    background-color: #ff7875;
+}
+.prizewinner-view section .review-write .paging {
+    margin-top: 20px;
+}
+.prizewinner-view section .review-write .article-content  .review-list > li .review-content .btn-more .btn-xs {
+    margin-right: 5px;
+}
+.prizewinner-view section .review-write .article-content  .review-list > li .review-content .btn-more .btn-xs:last-child {
+    margin-right: 0;
+}
+.prizewinner-view section .article-content .paging {
+    margin-top: 20px;
+}
+
+/* 애독자 엽서 보내기*/
+.reader-view .section-header figure img {
+    width: 100%;
+}
+.reader-view .section-header .details {
+    padding-left: 15px;
+}
+.reader-view .section-header .details small {
+    display: block;
+    padding-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+.reader-view .section-header .details h3 {
+    font-size: 15px;
+    color: #000;
+    line-height: 20px;
+    padding: 15px 0 30px;
+}
+.reader-view .section-header .details p {
+    font-size: 12px;
+    color: #333;
+    line-height: 16px;
+}
+.reader-view .section-header .attention {
+    font-size: 11px;
+    color: #666;
+    margin-top: 10px;
+}
+.reader-view .section-header .attention:before {
+    content: "*";
+}
+.reader-view .section-content .info {
+    margin-top: 20px;
+}
+.reader-view .section-content .info h5 {
+    font-size: 13px;
+    color: #000;
+    margin-bottom: 10px;
+}
+.reader-view .section-content .info dl {
+    padding: 15px 10px;
+    border-bottom: 1px solid #cecfd2;
+    border-top: 1px solid #cecfd2;
+    overflow: hidden;
+}
+.reader-view .section-content .info dl dt {
+    float: left;
+    clear: both;
+    width: 70px;
+    font-size: 12px;
+    color: #333;
+    line-height: 24px;
+}
+.reader-view .section-content .info dl dd {
+    float: left;
+    font-size: 12px;
+    color: #666;
+    line-height: 24px;
+    font-weight: 300;
+}
+.reader-view .section-content .attention-box {
+    margin: 20px 0 30px;
+}
+.reader-view .section-content .attention-box ul li {
+    position: relative;
+    color: #888;
+    line-height: 15px;
+    padding-left: 10px;
+}
+.reader-view .section-content .attention-box ul li:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "-";
+}
+.reader-view .section-content .btn-area {
+    text-align: center !important;
+}
+.reader-view .section-content .btn-area p .btn-md {
+    width: 48%;
+}
+
+
+/* 애독자 엽서 쓰기 */
+.reader-write section > h3 {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 15px;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr .essential:after {
+    color: #e25371;
+    content: " *";
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr:last-child td {
+    padding: 15px 10px;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr td .form-group textarea {
+    margin-top: 10px;
+    height: 80px;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr td dl dt {
+    color: #666;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr td.space dl dd .form-group {
+    margin-top: 10px;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr td dl dd label {
+    color: rgba(102, 102, 102, .8);
+    margin-right: 20px;
+    margin-top: 10px;
+    font-weight: 300;
+}
+.reader-write .section-content .post-form .table-wrap .table tbody tr td dl dt p {
+    font-size: 10px;
+    line-height: 15px;
+    font-weight: 300;
+    margin-top: 10px;
+    color: rgba(102, 102, 102, .8);
+}
+.reader-write .section-content .gift-list {
+    margin-top: 20px;
+}
+.reader-write .section-content .gift-list .article-header {
+    padding: 15px 10px;
+    background-color: #acacac;
+}
+.reader-write .section-content .gift-list .article-header h3 {
+    font-size: 15px;
+    color: #fff;
+    font-weight: 400;
+}
+.reader-write .section-content .gift-list .article-content > ul > li {
+    padding: 0 20px 30px;
+    background-color: #fff;
+}
+.reader-write .section-content .gift-list .article-content ul li .gift-item {
+    position: relative;
+    padding-top: 20px;
+    border-top: 1px solid #dfdfdf;
+}
+.reader-write .section-content .gift-list .article-content ul li:first-child .gift-item {
+    border: none;
+}
+.reader-write .section-content .gift-list .article-content ul li .gift-item figure {
+/*    width: 133px;*/
+    margin: 0 auto;
+}
+.reader-write .section-content .gift-list .article-content ul li .gift-item figure img {
+    width: 100%;
+}
+.reader-write .section-content .gift-list .article-content ul li .gift-item .person {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 13px;
+    border-top-left-radius: 0;
+    background-color: #ff7875;
+}
+.reader-write .section-content .gift-list .article-content ul li .details {
+    padding-top: 20px;
+}
+.reader-write .section-content .gift-list .article-content ul li .details h4 {
+    font-size: 15px;
+    color: #000;
+    font-weight: 500;
+    line-height: 21px;
+}
+.reader-write .section-content .gift-list .article-content ul li .details > p {
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: justify;
+    color: #333;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul {
+    overflow: hidden;
+    
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li {
+    position: relative;
+    color: #333;
+    margin-top: 5px;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li:first-child:before {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    font-family: "fontello";
+    content: "\E820"; 
+    float: left;
+    clear: both;
+    padding-right: 10px;
+    color: #666;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li:nth-of-type(2):before {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    font-family: "fontello";
+    content: "\E821"; 
+    float: left;
+    clear: both;
+    padding-right: 8px;
+    color: #666;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li dl {
+    overflow: hidden;
+    
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li dl dt {
+    float: left;
+    clear: both;
+    padding-left: 18px;
+    font-weight: 300;
+    color: #666;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li dl dt:after {
+    content: ":";
+    margin:0 3px;
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li dl dd {
+    font-weight: 300;
+    
+}
+.reader-write .section-content .gift-list .article-content ul li .details ul li dl dd a {
+    color: #666;
+    text-decoration: none;
+}
+.reader-write .section-content .attention-box {
+    margin: 20px 0 30px;
+}
+.reader-write .section-content .attention-box ul li {
+    position: relative;
+    color: #999;
+    line-height: 16px;
+    padding-left: 10px;
+}
+.reader-write .section-content .attention-box ul li:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "-";
+}
+.reader-write .section-content .btn-area {
+    text-align: right;
+    margin-top: 30px;
+}
+
+/* 이벤트 목록 */
+.experience-event .section-header .prizewinner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    padding-left: 105px;
+}
+.experience-event .section-header .prizewinner dt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 105px;
+    color: #fff;
+    font-size: 12px;
+    padding-left: 10px;
+    line-height: 30px;
+    background-color: #ff7875;
+}
+.experience-event .section-header .prizewinner dd {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 10px;
+    background-image: url(../images/event/bg_prizewinner.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: auto 30px;
+    background-color: #fff;
+}
+.experience-event .section-header .prizewinner dd a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    line-height: 30px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 300;
+}
+.experience-event .section-content .form-group {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.experience-event .section-content .form-group .form-control {
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    font-size: 12px;
+    color: #333;
+    padding-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #dfdfdf;
+}
+.experience-event .section-content .form-group .form-control:last-child {
+    margin: 0;
+}
+.experience-event .section-content .list-wrap {
+    margin-top: 15px;
+}
+/*.experience-event .section-content .list-wrap .event-list > li {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.experience-event .section-content .list-wrap .event-list > li ~ .experience-event .section-content .list-wrap .event-list > li {
+    margin-top: 20px;
+}
+.experience-event .section-content .list-wrap .event-list > li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}*/
+.experience-event .section-content .list-wrap .event-list .event-item a .details {
+    padding-top: 20px;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .title {
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+    font-weight: 400;
+    text-align: center;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information {
+    overflow: hidden;
+    margin-top: 20px;
+    text-align: center;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul {
+    display: inline-block;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 11px;
+    font-family: 'Roboto', sans-serif;
+    color: #999;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li:last-child {
+    margin-right: 0;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li i.icon-heart:before {
+    content: "\E80F";
+    margin-right: 5px;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li i.icon-calendar-empty:before {
+    content: "\F133";
+    margin-right: 5px;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li i.icon-user:before {
+    content: "\E817";
+    margin-right: 5px;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information ul li i.icon-database:before {
+    content: "\E818";
+    margin-right: 5px;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information p.event-sucess {
+    display: inline-block;
+    width: 50px;
+    height: 16px;
+    margin-left: 20px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 16px;
+    color: #fff;
+    background-color: #ccc;
+}
+.experience-event .section-content .list-wrap .event-list .event-item a .details .event-information p.event-before {
+    display: inline-block;
+    width: 50px;
+    height: 16px;
+    margin-left: 20px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 14px;
+    color: #999;
+    border: 1px solid #ccc;
+}
+.experience-event .section-content .list-wrap .paging {
+    margin-top: 40px;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-viewport ul li a figure {
+    overflow: hidden;
+    border-radius: 10px;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-viewport ul li a figure img {
+    width: 100%;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-controls {
+    margin: 10px 0;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-controls .bx-pager {
+     text-align: center;   
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-controls .bx-pager .bx-pager-item {
+    display: inline-block;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-controls .bx-pager .bx-pager-item a {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 3px;
+    text-indent: -9999px;
+    border: 1px solid #999;
+}
+.experience-event .section-header .event-slider .bx-wrapper .bx-controls .bx-pager .bx-pager-item .active {
+    background-color: #999;
+}
+
+.share-list {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    font-size: 0;
+    margin-bottom: 20px; 
+}
+.share-list li {
+    display: inline-block; 
+}
+.share-list li a {
+    display: block;
+    font-size: 10px;
+    width: 19px;
+    height: 19px;
+    margin: 0 3px;
+    border-radius: 50%;
+    background-position: 50% 50%;
+    background-size: 19px 19px;
+    background-repeat: no-repeat; 
+}
+.share-list li.naver-blog a {
+    background-image: url(../images/e_magazine/icon_blog.png); 
+}
+.share-list li.naver a {
+    background-image: url(../images/e_magazine/icon_naver.png); 
+}
+.share-list li.naver-cafe a {
+    background-image: url(../images/e_magazine/icon_cafe.png); 
+}
+.share-list li.naver-post a {
+    background-image: url(../images/e_magazine/icon_post.png); 
+}
+.share-list li.insta a {
+    background-image: url(../images/e_magazine/icon_insta.png); 
+}
+.share-list li.kakao a {
+    background-image: url(../images/e_magazine/icon_kakao.png); 
+}
+.share-list li.facebook a {
+    background-image: url(../images/e_magazine/icon_facebook.png); 
+}
+.share-list li.export a {
+    background-image: url(../images/e_magazine/icon_export.png); 
+}
+.share-list li.last-ebook {
+    position: absolute;
+    top: 0;
+    right: 0; 
+}
+.share-list li.last-ebook .btn-ebook {
+    font-size: 10px;
+    color: #fff;
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #ff7875;
+    border-radius: 30px; 
+}
+
+
+
+
+
+
+
+

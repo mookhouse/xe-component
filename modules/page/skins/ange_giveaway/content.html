@@ -1,0 +1,105 @@
+{@
+include _XE_PATH_.'files/ange/giveaways/item_list.php';
+
+// refer to layouts/old_ange/info.xml
+if($module_info->side_nav_bar == 'EVENT_NAV')
+	$oSideMenuVar = $EVENT_NAV;
+else
+	$oSideMenuVar = '';
+}
+
+<link href="/modules/page/skins/ange_giveaway/css/event.css" rel="stylesheet">
+
+<div class="container">
+	<div class="sub-wrapper">
+		<!-- 서브 lnb -->
+		<nav class="nav-lnb">
+			<h2 class="nav-title">{$module_info->browser_title}</h2>
+			<ul id="lnb-list">
+				<block loop="$oSideMenuVar->list=>$key1,$val1" cond="$val1['url']!='index'" >
+					<li class="active"|cond="$val1['selected']">
+						<a sv-attr="pc_sub_menu_{$val1['text']}" href="javascript:;" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']|noescape}</a>
+						<ul cond="$val1['list']">
+							<block loop="$val1['list']=>$key2,$val2">
+								<li class="active"|cond="$val2['selected']">
+									<a sv-attr='pc_sub_menu_{$val2['text']}' href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']|noescape}</a>
+								</li>
+							</block>
+						</ul>
+					</li>
+				</block>
+			</ul>
+		</nav>
+		<!-- Content Start -->
+		<div class="sub-content">
+			<h2 class="sub-title">이달의 선물 안내</h2>
+			<section class="postcard">
+				<div class="section-header">
+					<figure style="text-align:center;">
+						<img src="/modules/page/skins/ange_giveaway/imgs/banner.jpg" >
+					</figure>
+				</div>
+				<div class="section-content">
+					<div class="gift-box">
+						<article class="gift-list">
+							<div class="article-header">
+								<h3><strong>이달의 선물 안내</strong></h3>
+							</div>
+							<div class="article-content">
+								<ul>
+									<li loop="$aGiftList=>$nIdx,$oGift">
+										<div class="colum colum-4">
+											<div class="gift-item">
+												<img src="/files/ange/giveaways/{sprintf('%02d',$nIdx+1)}.jpg" alt="">
+												<p class="person">
+													<b>{$oGift->nWinner}</b>명
+												</p>
+											</div>
+										</div>
+										<div class="colum colum-6">
+											<div class="details">
+												<h4>{$oGift->sTitle}</h4>
+												<p>{$oGift->sDesc}</p>
+												<ul class="contact">
+													<li class="tel">
+														<dl>
+															<dt>연락처</dt>
+															<dd><a href="tel:{$oGift->sTel}">{$oGift->sTel}</a></dd>
+														</dl>
+													</li>
+													<li class="homepage">
+														<dl>
+															<dt>홈페이지</dt>
+															<dd><a href="//{$oGift->sHomepage}" target="_blank">{$oGift->sHomepage}</a></dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</article>
+					</div>
+					<div class="attention-box">
+						<h5>주의사항</h5>
+						<ul>
+							<li>선물은 매달 진행되는 앙쥬 이벤트 및 콘텐츠 제작에 도움을 주신 분들 선물로 사용됩니다.</li>
+							<li>선물의 이미지는 실제와 다를 수 있으며, 종류과 수량은 업체 사정으로 공지 없이 변경될 수 있습니다.</li>
+							<li>선물은 모두 착불 발송(당첨자 택배비 부담) 되오며, 택배비는 선물의 크기와 주소지에 따라 상이합니다.</li>
+							<li>당첨 발표 후 별도 주소 확인은 하지 않으며 주소가 불분명(주소 오타, 상세 주소 누락 등) 할 경우 선물은 발송되지 않습니다.</li>
+							<li>당첨 선물은 이벤트 응모 시 확인한 정보로 발송되며, 부정 응모 방지를 위해 당첨 발표 이후 연락처 및 주소지 변경이 불가합니다.</li>
+							<li>부정한 방법(1인이 다수 아이디 생성, 타인 정보 도용 등)을 통해 응모한 사실이 발견될 경우 당첨 제외 혹은 당첨 취소 처리가 되어 선물을 받으실 수 없습니다.</li>
+							<li>회원 탈퇴 후 재가입하더라도 기존 이력은 남아 있기 때문에 이벤트 응모에 제한이 주어 질 수 있습니다.</li>
+							<li>선물 수령 방법은 이벤트마다 상이하며, 각 이벤트 당첨 공지 및 알림 내 안내 사항을 따라 주시기 바랍니다.</li>
+							<li>기타 문의사항은 고객센터>회원문의 게시판을 이용해 주시기 바랍니다.</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+<block cond="!$oDocument">
+{$lang->none_content}
+</block>
+		</div>
+	</div>
+</div>

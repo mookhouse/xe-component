@@ -58,6 +58,8 @@ elseif($mid == 'media_kit' || $mid == 'clients' || $mid == 'inquiry')
 	$sBodyCssClassId = 'sub introduction';
 elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
 	$sBodyCssClassId = 'sub samplepack';
+elseif($mid == 'giveaway')
+	$sBodyCssClassId = 'sub event';
 elseif($mid == 'club_sponsor' || $mid == 'club_staff')
 	$sBodyCssClassId = 'sub ange_club';
 else
@@ -83,6 +85,8 @@ elseif($mid == 'e_magazine' && !$document_srl)
 	$sMainCssClassId = 'e-book';
 elseif($mid == 'club_sponsor' || $mid == 'club_staff')
 	$sMainCssClassId = 'club';
+elseif($mid == 'giveaway')
+	$sMainCssClassId = 'reader-list reader';
 elseif($mid == 'event' && !$document_srl)
 	$sMainCssClassId = 'event-list';
 elseif($mid == 'event' && $document_srl)
