@@ -4,7 +4,7 @@
 <link href="/layouts/old_ange/css/fontello.css" rel="stylesheet">
 <link href="/layouts/old_ange/css/default.css" rel="stylesheet">
 
-<!--@if($mid=='index' && $act!='dispMemberSignUpForm')-->
+<!--@if($mid=='index' && strpos($act,'dispMember') === false)-->
 <link href="/layouts/old_ange/css/main.css" rel="stylesheet">
 <!--@else-->
 <link href="/layouts/old_ange/css/sub.css" rel="stylesheet">
@@ -65,7 +65,7 @@ elseif($mid == 'club_sponsor' || $mid == 'club_staff')
 else
 	$sBodyCssClassId = 'sub e_magazine';
 
-if($act == 'dispMemberSignUpForm')
+if(strpos($act,'dispMember') !== false)
 	$sBodyCssClassId = 'sub customer';
 elseif($act == 'IS')
 	$sBodyCssClassId = 'sub';
@@ -98,7 +98,7 @@ elseif($mid == 'mombox_before_apply' || $mid == 'mombox_after_apply')
 	$sMainCssClassId = 'sample-apply';
 elseif($mid == 'clients')
 	$sMainCssClassId = 'cooperative';
-elseif($act == 'dispMemberSignUpForm')
+elseif(strpos($act,'dispMember') !== false)
 	$sMainCssClassId = 'agreement';
 
 if($act == 'dispBoardWrite')
@@ -230,12 +230,12 @@ if($act == 'dispBoardWrite')
 		</div>
 	</footer>
 	<!-- Quick Banner -->
-	<nav id="quick-banner">
+	<!-- <nav id="quick-banner">
 		<a href="{$layout_info->floating_banner_link_1}" class="item"><img sv-attr='pc_left_floating_1' src="{$layout_info->floating_banner_img_1}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
 		<a href="{$layout_info->floating_banner_link_2}" class="item"><img sv-attr='pc_left_floating_2' src="{$layout_info->floating_banner_img_2}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
 		<a href="{$layout_info->floating_banner_link_3}" class="item"><img sv-attr='pc_left_floating_3' src="{$layout_info->floating_banner_img_3}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
 		<a href="{$layout_info->floating_banner_link_4}" class="item"><img sv-attr='pc_left_floating_4' src="{$layout_info->floating_banner_img_4}" alt="" onerror='this.src="/layouts/old_ange/imgs/img_sample_list_none.png"'></a>
-	</nav>
+	</nav> -->
 	<!-- Quick Top -->
 	<!---div class="login-layer">
 		<div class="login-bg"></div>

@@ -1,31 +1,52 @@
 <include target="./common_header.html" />
 <load target="filter/find_member_account.xml" />
-<section>
-	<h1>{$lang->cmd_find_member_account_with_email}</h1>
-	<p>{$lang->about_find_member_account}</p>
+
+<!-- Content Start -->
+<div class="sub-content" style="padding: 0px 29px 75px 64px;">
+    <h2 class="sub-title">{$lang->cmd_find_member_account_with_email}</h2>
+    <p>{$lang->about_find_member_account}</p>
 	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skin/default/find_member_account/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
-	<form action="{getUrl('', 'act', 'procMemberFindAccount')}" method="get" ruleset="findAccount">
+    <form action="{getUrl('', 'act', 'procMemberFindAccount')}" method="get" ruleset="findAccount">
 		<input type="hidden" name="mid" value="{$mid}" />
 		<input type="hidden" name="act" value="procMemberFindAccount" />
 		<input type="hidden" name="document_srl" value="{$document_srl}" />
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="xe_validator_id" value="modules/member/skin/default/find_member_account/1" />
-		<span class="input-append">
-			<input type="email" name="email_address" required placeholder="{$lang->email_address}" title="{$lang->email_address}" /> 
-			<input type="submit" class="btn btn-inverse" value="{$lang->cmd_find_member_account}" />
-		</span>
-	</form>
-</section>
-<hr>
-<section cond="count($lang->find_account_question_items)>1">
-	<h1>{$lang->cmd_find_member_account_with_email_question}</h1>
+        <div class="agreement-content">
+            <article class="write-form">
+                <div class="table-wrap">
+                    <table class="table table-bordered type-1">
+                        <tbody>
+                            <tr class="control-group">
+                                <th>{$lang->email_address}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="email" name="email_address" required placeholder="{$lang->email_address}" title="{$lang->email_address}" /> 
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-pink btn-write-submit">{$lang->cmd_find_member_account}</button>
+                    <a href="{getUrl('act','','member_srl','')}" class="btn btn-white" role="button">{$lang->cmd_cancel}</a>
+                </p>
+            </div>
+        </div>
+    </form>
+<block cond="count($lang->find_account_question_items)>1">
+    <hr>
+    <h1>{$lang->cmd_find_member_account_with_email_question}</h1>
 	<p>{$lang->about_find_account_question}</p>
 	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skin/default/find_member_account/2'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
-	<form action="{getUrl('', 'act', 'procMemberFindAccountByQuestion')}" method="get" ruleset="@find_member_account_by_question">
+    <form action="{getUrl('', 'act', 'procMemberFindAccountByQuestion')}" method="get" ruleset="@find_member_account_by_question">
 		<input type="hidden" name="module" value="member" />
 		<input type="hidden" name="mid" value="{$mid}" />
 		<input type="hidden" name="document_srl" value="{$document_srl}" />	
@@ -33,41 +54,97 @@
 		<input type="hidden" name="success_return_url" value="{getUrl('', 'act', 'dispMemberGetTempPassword')}" />
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="xe_validator_id" value="modules/member/skin/default/find_member_account/2" />
-		<div>
-			<input type="text" name="user_id" required placeholder="{$lang->user_id}" title="{$lang->user_id}" cond="$identifier == 'user_id'" />
-		</div>
-		<div>
-			<input type="email" name="email_address" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
-		</div>
-		<div>
-			<select name="find_account_question">
-			<!--@for($i=1,$c=count($lang->find_account_question_items);$i<=$c;$i++)-->
-				<option value="{$i}">{$lang->find_account_question_items[$i]}</option>
-			<!--@end-->
-			</select>
-		</div>
-		<div>
-			<input type="text" name="find_account_answer" value="" required placeholder="{$lang->find_account_question}" title="{$lang->find_account_question}" />
-		</div>
-		<input type="submit" class="btn btn-inverse" value="{$lang->cmd_get_temp_password}" style="min-width:220px" />
-	</form>
-</section>
-<hr>
-<section>
-	<h1>{$lang->cmd_resend_auth_mail}</h1>
+        <div class="agreement-content">
+            <article class="write-form">
+                <div class="table-wrap">
+                    <table class="table table-bordered type-1">
+                        <tbody>
+                            <tr class="control-group">
+                                <th>{$lang->user_id}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="text" name="user_id" required placeholder="{$lang->user_id}" title="{$lang->user_id}" cond="$identifier == 'user_id'" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="control-group">
+                                <th>{$lang->email_address}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="email" name="email_address" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="control-group">
+                                <th>{$lang->find_account_question}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <select name="find_account_question">
+                                        <!--@for($i=1,$c=count($lang->find_account_question_items);$i<=$c;$i++)-->
+                                            <option value="{$i}">{$lang->find_account_question_items[$i]}</option>
+                                        <!--@end-->
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="control-group">
+                                <th>{$lang->find_account_answer}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="text" name="find_account_answer" value="" required placeholder="{$lang->find_account_question}" title="{$lang->find_account_question}" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-pink btn-write-submit">{$lang->cmd_get_temp_password}</button>
+                    <a href="{getUrl('act','','member_srl','')}" class="btn btn-white" role="button">{$lang->cmd_cancel}</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</block>    
+    <hr>
+    <h1>{$lang->cmd_resend_auth_mail}</h1>
 	<p>{$lang->about_resend_auth_mail}</p>
 	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skin/default/find_member_account/3'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
-	<form ruleset="resendAuthMail" action="{getUrl('', 'act', 'procMemberResendAuthMail')}" method="post">
-		<input type="hidden" name="module" value="member" />
-		<input type="hidden" name="act" value="procMemberResendAuthMail" />
-		<input type="hidden" name="success_return_url" value="{getUrl(act, $act)}" />
-		<input type="hidden" name="xe_validator_id" value="modules/member/skin/default/find_member_account/3" />
-		<span class="input-append">
-			<input type="email" id="email_address" name="email_address" value="" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
-			<input type="submit" value="{$lang->cmd_resend_auth_mail}" class="btn btn-inverse" />
-		</span>
-	</form>
-</section>
+    <form action="{getUrl('', 'act', 'procMemberFindAccountByQuestion')}" method="get" ruleset="@find_member_account_by_question">
+        <form ruleset="resendAuthMail" action="{getUrl('', 'act', 'procMemberResendAuthMail')}" method="post">
+        <input type="hidden" name="module" value="member" />
+        <input type="hidden" name="act" value="procMemberResendAuthMail" />
+        <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+        <input type="hidden" name="xe_validator_id" value="modules/member/skin/default/find_member_account/3" />
+        <div class="agreement-content">
+            <article class="write-form">
+                <div class="table-wrap">
+                    <table class="table table-bordered type-1">
+                        <tbody>
+                            <tr class="control-group">
+                                <th>{$lang->email_address}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="email" id="email_address" name="email_address" value="" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-pink btn-write-submit">{$lang->cmd_resend_auth_mail}</button>
+                    <a href="{getUrl('act','','member_srl','')}" class="btn btn-white" role="button">{$lang->cmd_cancel}</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+
 <include target="./common_footer.html" />

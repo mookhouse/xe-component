@@ -1,33 +1,73 @@
-<load target="css/mlogin.css" />
-<div class="bd">
-<div class="hx h2">
-	<h2>{$lang->cmd_login}</h2>
-</div>
-	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/login_form/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-		<p>{$XE_VALIDATOR_MESSAGE}</p>
-	</div>
+<include target="./common_header.html" />
+
+<section class="agreement-list">
+	<!-- 페이지명 클래스 -->
 	<form action="./" method="POST" class="ff">
 		<input type="hidden" name="module" value="member" />
 		<input type="hidden" name="act" value="procMemberLogin" />
 		<input type="hidden" name="redirect_url" value="{getUrl('act','')}" />
 		<input type="hidden" name="xe_validator_id" value="modules/member/m.skin/default/login_form/1" />
-		<ul>
-			<li><label for="id"><!--@if($identifier == 'user_id')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end--></label><input name="user_id" type="<!--@if($identifier == 'user_id')-->text<!--@else-->email<!--@end-->" id="id" value="" /></li>
-			<li><label for="pw">{$lang->password}</label><input name="password" type="password" id="pw" value="" /></li>
-		</ul>
-		<div class="hp" id="keep_msg" style="display:none;">
-			<p>{$lang->about_keep_warning}</p>
+		<div class="container">
+			<section class="join-write">
+				<div class="section-header" style="padding-bottom: 0px;">
+					<h3 class="section-title">{$lang->cmd_login}</h3>
+					<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/login_form/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+                        <p>{$XE_VALIDATOR_MESSAGE}</p>
+                    </div>
+				</div>
+				<div class="section-content">
+					<article class="join-form">
+						<div class="table-wrap">
+							<table class="table table-bordered type-1">
+								<tbody>
+                                    <!-- <ul>
+                                        <li><label for="id"><!--@if($identifier == 'user_id')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end--></label><input name="user_id" type="<!--@if($identifier == 'user_id')-->text<!--@else-->email<!--@end-->" id="id" value="" /></li>
+                                        <li><label for="pw">{$lang->password}</label><input name="password" type="password" id="pw" value="" /></li>
+                                    </ul> -->
+
+									<tr>
+										<th><label for="id"><!--@if($identifier == 'user_id')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end--></label></th>
+										<td class="overlap-confirm usr-id">
+											<div class="form-group">
+												<input name="user_id" type="<!--@if($identifier == 'user_id')-->text<!--@else-->email<!--@end-->" id="id" value="" />
+											</div>
+										</td>
+									</tr>
+                                    <tr>
+										<th><label for="pw">{$lang->password}</label></th>
+										<td class="overlap-confirm usr-id">
+											<div class="form-group">
+												<input name="password" type="password" id="pw" value="" />
+											</div>
+										</td>
+									</tr>
+
+                                </tbody>
+							</table>
+						</div>
+					</article>
+                    <div class="btn-area">
+                        <div class="check-box">
+                            <p>
+                                <button type="submit" class="btn btn-sm btn-pink" onclick="$scope.click_next()" sv-attr='mob_rev2_signon1_next'>{$lang->cmd_login}</button>
+                                <a href="{getUrl('','act','dispMemberFindAccount')}" class="btn btn-sm btn-white" role="button">{$lang->cmd_find_member_account}</a>
+                                <a href="{getUrl('','act','dispMemberSignUpForm')}" class="btn btn-sm btn-white" role="button">{$lang->cmd_signup}</a>
+                                <!-- <a href="{getUrl('act','','member_srl','')}" class="btn btn-sm btn-white" role="button">{$lang->cmd_cancel}</a> -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="btn-area">
+                        <div class="check-box">
+                            <p>
+                                
+                            </p>
+                        </div>
+                    </div>
+				</div>
+			</section>
 		</div>
-		<div class="bna">
-			<div class="fl"><input name="keep_signed" type="checkbox" value="Y" id="autoLogin" /> <label for="autoLogin">{$lang->keep_signed}</label></div>
-			<div class="fr"><button type="submit" class="bn dark">{$lang->cmd_login}</button></div>
-		</div>
-		<ul class="hp">
-			<li><a href="{getUrl('','act','dispMemberFindAccount')}"><span>{$lang->cmd_find_member_account}</span></a></li>
-			<li><a href="{getUrl('','act','dispMemberSignUpForm')}"><span>{$lang->cmd_signup}</span></a></li>
-		</ul>
-	</form>
-</div>
+    </form>
+</section>
 
 <script>
 jQuery(function($){

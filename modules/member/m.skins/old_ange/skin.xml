@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title xml:lang="ko">앙쥬 회원 기본 스킨</title>
-	<description xml:lang="ko">
-		앙쥬 회원 기본 스킨
+	<title xml:lang="ko">(구)앙쥬 회원 기본 MOB 스킨</title>
+    <description xml:lang="ko">
+        (구)앙쥬 회원 기본 MOB 스킨
         singleview.co.kr (root@singleview.co.kr)
-	</description>
-	<version>0.1</version>
-    <date>2022-09-27</date>
+    </description>
+    <version>0.1</version>
+    <date>2022-12-25</date>
     <author email_address="root@singleview.co.kr" link="https://singleview.co.kr">
         <name xml:lang="ko">singleview</name>
     </author>

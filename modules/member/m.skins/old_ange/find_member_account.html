@@ -1,63 +1,121 @@
-<load target="css/msignup.css" />
-<div class="hx h2"><h2>{$lang->cmd_find_member_account_with_email}</h2></div>
-<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/find_member_account/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
-</div>
-<form action="./" ruleset="findAccount" method="post" class="ff">
-	<input type="hidden" name="module" value="member" />
-	<input type="hidden" name="act" value="procMemberFindAccount" />
-	<input type="hidden" name="mid" value="{$mid}" />
-	<input type="hidden" name="document_srl" value="{$document_srl}" />
-	<input type="hidden" name="page" value="{$page}" />
-	<input type="hidden" name="success_return_url" value="{getUrl('act', 'dispMemberFindAccount')}" />
-	<input type="hidden" name="xe_validator_id" value="modules/member/m.skin/default/find_member_account/1" />
-	<ul>
-		<li>
-			<label for="email_address1">{$lang->email_address}</label>
-			<input id="email_address1" type="email" name="email_address" />
-		</li>
-	</ul>
-	<div class="bna">
-		<input type="submit" class="bn dark" value="{$lang->cmd_send_mail}" />
-	</div>
-</form>
-<block cond="count($lang->find_account_question_items)>1">
-	<div class="hx h2"><h2>{$lang->cmd_find_member_account_with_email_question}</h2></div>
-	<p style="margin:3px 10px;color:#666">{$lang->about_find_account_question}</p>
+<include target="./common_header.html" />
 
-	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/find_member_account/2'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-		<p>{$XE_VALIDATOR_MESSAGE}</p>
-	</div>
+<section class="agreement-list">
+	<!-- 페이지명 클래스 -->
+    <div class="container">
+        <form action="./" ruleset="findAccount" method="post" class="ff">
+            <input type="hidden" name="module" value="member" />
+            <input type="hidden" name="act" value="procMemberFindAccount" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="document_srl" value="{$document_srl}" />
+            <input type="hidden" name="page" value="{$page}" />
+            <input type="hidden" name="success_return_url" value="{getUrl('act', 'dispMemberFindAccount')}" />
+            <input type="hidden" name="xe_validator_id" value="modules/member/m.skin/default/find_member_account/1" />
+            <section class="join-write">
+                <div class="section-header" style="padding-bottom: 0px;">
+                    <h3 class="section-title">{$lang->cmd_find_member_account_with_email}</h3>
+                    <div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/find_member_account/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+                        <p>{$XE_VALIDATOR_MESSAGE}</p>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <article class="join-form">
+                        <div class="table-wrap">
+                            <table class="table table-bordered type-1">
+                                <tbody>
+                                    <tr>
+                                        <th><label for="email_address1">{$lang->email_address}</label></th>
+                                        <td class="overlap-confirm usr-id">
+                                            <div class="form-group">
+                                                <input id="email_address1" type="email" name="email_address" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <div class="btn-area">
+                        <div class="check-box">
+                            <p>
+                                <button type="submit" class="btn btn-sm btn-pink">{$lang->cmd_send_mail}</button>
+                                <a href="{getUrl('act','','member_srl','')}" class="btn btn-sm btn-white" role="button">{$lang->cmd_cancel}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+</section>
 
-	<form action="./" method="post" class="ff" ruleset="@find_member_account_by_question">
-		<input type="hidden" name="module" value="member" />
-		<input type="hidden" name="mid" value="{$mid}" />
-		<input type="hidden" name="document_srl" value="{$document_srl}" />	
-		<input type="hidden" name="act" value="procMemberFindAccountByQuestion" />
-		<input type="hidden" name="success_return_url" value="{getUrl('', 'act', 'dispMemberGetTempPassword')}" />
-		<input type="hidden" name="page" value="{$page}" />
-		<input type="hidden" name="xe_validator_id" value="modules/member/m.skin/default/find_member_account/2" />
-		<ul>
-			<li cond="$identifier == 'user_id'">
-				<label for="user_id2">{$lang->user_id}</label>
-				<input type="text" name="user_id" id="user_id2" />
-			</li>
-			<li>
-				<label for="email_address2">{$lang->email_address}</label>
-				<input type="email" name="email_address" id="email_address2" />
-			</li>
-			<li>
-				<label for="question">{$lang->find_account_question}</label>
-				<select id="question" name="find_account_question" style="width:290px;display:block;">
-				<!--@for($i=1,$c=count($lang->find_account_question_items);$i<=$c;$i++)-->
-					<option value="{$i}">{$lang->find_account_question_items[$i]}</option>
-				<!--@end-->
-				</select>
-				<input type="text" name="find_account_answer" value="" />
-			</li>
-		</ul>
-		<div class="bna">
-			<input type="submit" class="bn dark" value="{$lang->cmd_get_temp_password}" />
-		</div>
-	</form>
-</block>
+<section class="agreement-list" cond="count($lang->find_account_question_items)>1">
+	<!-- 페이지명 클래스 -->
+    <div class="container">
+        <form action="./" method="post" class="ff" ruleset="@find_member_account_by_question">
+            <input type="hidden" name="module" value="member" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="document_srl" value="{$document_srl}" />	
+            <input type="hidden" name="act" value="procMemberFindAccountByQuestion" />
+            <input type="hidden" name="success_return_url" value="{getUrl('', 'act', 'dispMemberGetTempPassword')}" />
+            <input type="hidden" name="page" value="{$page}" />
+            <input type="hidden" name="xe_validator_id" value="modules/member/m.skin/default/find_member_account/2" />
+            <section class="join-write">
+                <div class="section-header" style="padding-bottom: 0px;">
+                    <h3 class="section-title">{$lang->cmd_find_member_account_with_email_question}</h3>
+                    <p style="margin:3px 10px;color:#666">{$lang->about_find_account_question}</p>
+                    <div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/m.skin/default/find_member_account/2'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+                        <p>{$XE_VALIDATOR_MESSAGE}</p>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <article class="join-form">
+                        <div class="table-wrap">
+                            <table class="table table-bordered type-1">
+                                <tbody>
+                                    <tr cond="$identifier == 'user_id'">
+                                        <th><label for="user_id2">{$lang->user_id}</label></th>
+                                        <td class="overlap-confirm usr-id">
+                                            <div class="form-group">
+                                                <input type="text" name="user_id" id="user_id2" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="email_address2">{$lang->email_address}</label></th>
+                                        <td class="overlap-confirm usr-id">
+                                            <div class="form-group">
+                                                <input type="email" name="email_address" id="email_address2" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="question">{$lang->find_account_question}</label></th>
+                                        <td class="overlap-confirm usr-id">
+                                            <div class="form-group">
+                                                <select id="question" name="find_account_question" style="width:290px;display:block;">
+                                                    <!--@for($i=1,$c=count($lang->find_account_question_items);$i<=$c;$i++)-->
+                                                        <option value="{$i}">{$lang->find_account_question_items[$i]}</option>
+                                                    <!--@end-->
+                                                    </select>
+                                                    <input type="text" name="find_account_answer" value="" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <div class="btn-area">
+                        <div class="check-box">
+                            <p>
+                                <button type="submit" class="btn btn-sm btn-pink" style="width:150px;">{$lang->cmd_get_temp_password}</button>
+                                <a href="{getUrl('act','','member_srl','')}" class="btn btn-sm btn-white" role="button">{$lang->cmd_cancel}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+</section>

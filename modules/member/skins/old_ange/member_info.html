@@ -1,27 +1,71 @@
+
 <include target="./common_header.html" />
-<h1>{$lang->member_info}</h1>
-<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins/default/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+
+<!-- Content Start -->
+<div class="sub-content" style="padding: 0px 29px 75px 64px;">
+    <h2 class="sub-title">{$lang->member_info}</h2>
+    <div class="step-list" cond="$is_logged && $logged_info->menu_list && (!$member_srl || $member_srl == $logged_info->member_srl)">
+        <ol>
+            <li loop="$logged_info->menu_list=>$key,$val" class="active"|cond="$key==$act">
+                <a href="{getUrl('', 'act',$key, 'mid', $mid, 'vid', $vid)}">{Context::getLang($val)}</a>
+            </li>
+        </ol>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins/default/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <div class="agreement-content">
+        <article class="write-form">
+            <div class="table-wrap">
+                <table class="table table-bordered type-1">
+                    <tbody>
+                        <tr class="control-group" loop="$displayDatas => $item">
+                            <th><em cond="$item->required || $item->mustRequired">*</em> {$item->title}</th>
+                            <td class="user-id">
+                                <div class="form-group basic-group">
+                                    <block cond="$item->value">{$item->value|noescape}</block>
+                                    <block cond="!$item->value" style="color:#ccc">&hellip;</block>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="control-group">
+                            <th>{$lang->member_group}</th>
+                            <td class="user-id">
+                                <div class="form-group basic-group">
+                                    {implode(', ', $memberInfo['group_list'])}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="control-group">
+                            <th>{$lang->signup_date}</th>
+                            <td class="user-id">
+                                <div class="form-group basic-group">
+                                    {zdate($memberInfo['regdate'],"Y-m-d")}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="control-group" cond="$memberInfo['member_srl'] == $logged_info->member_srl || $logged_info->is_admin == 'Y'">
+                            <th>{$lang->last_login}</th>
+                            <td class="user-id">
+                                <div class="form-group basic-group">
+                                    {zdate($memberInfo['last_login'],"Y-m-d")}
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </article>
+        <!-- <hr> -->
+        <div class="btn-area" cond="$memberInfo['member_srl'] == $logged_info->member_srl">
+            <p>
+                <a href="{getUrl('act', 'dispMemberModifyEmailAddress')}" class="btn" cond="$member_config->identifier == 'email_address'">{$lang->cmd_modify_member_email_address}</a>
+                <a href="{getUrl('act','dispMemberModifyInfo','member_srl','')}" class="btn">{$lang->cmd_modify_member_info}</a>
+                <a href="{getUrl('act','dispMemberModifyPassword','member_srl','')}" class="btn">{$lang->cmd_modify_member_password}</a>
+                <a href="{getUrl('act','dispMemberLeave','member_srl','')}" class="btn">{$lang->cmd_leave}</a>
+            </p>
+        </div>
 </div>
-<dl class="dl-horizontal">
-	<block loop="$displayDatas => $item">
-		<dt><em cond="$item->required || $item->mustRequired">*</em> {$item->title}</dt>
-		<dd cond="$item->value">{$item->value|noescape}</dd>
-		<dd cond="!$item->value" style="color:#ccc">&hellip;</dd>
-	</block>
-	<dt>{$lang->member_group}</dt>
-	<dd>{implode(', ', $memberInfo['group_list'])}</dd>
-	<dt>{$lang->signup_date}</dt>
-	<dd>{zdate($memberInfo['regdate'],"Y-m-d")}</dd>
-	<block cond="$memberInfo['member_srl'] == $logged_info->member_srl || $logged_info->is_admin == 'Y'">
-		<dt>{$lang->last_login}</dt>
-		<dd>{zdate($memberInfo['last_login'],"Y-m-d")}</dd>
-	</block>
-</dl>
-<div class="btnArea btn-group" cond="$memberInfo['member_srl'] == $logged_info->member_srl">
-	<a href="{getUrl('act', 'dispMemberModifyEmailAddress')}" class="btn" cond="$member_config->identifier == 'email_address'">{$lang->cmd_modify_member_email_address}</a>
-	<a href="{getUrl('act','dispMemberModifyInfo','member_srl','')}" class="btn">{$lang->cmd_modify_member_info}</a>
-	<a href="{getUrl('act','dispMemberModifyPassword','member_srl','')}" class="btn">{$lang->cmd_modify_member_password}</a>
-	<a href="{getUrl('act','dispMemberLeave','member_srl','')}" class="btn">{$lang->cmd_leave}</a>
-</div>
+
 <include target="./common_footer.html" />

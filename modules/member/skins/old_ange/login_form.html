@@ -1,39 +1,60 @@
 <include target="./common_header.html" />
 <load target="./css/social_login.css" />
 
-<div class="signin">
-	<div class="login-header">
-		<h1><i class="icon-user"></i> {$lang->cmd_login}</h1>
-	</div>
-	<div class="login-body">
-        
-		<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-			<p>{$XE_VALIDATOR_MESSAGE}</p>
-		</div>
-      
-		<form ruleset="@login" action="{getUrl('', 'act', 'procMemberLogin')}" method="post" id="fo_member_login">
-			<input type="hidden" name="success_return_url" value="{$referer_url}" />
-			<input type="hidden" name="act" value="procMemberLogin" />
-			<input type="hidden" name="xe_validator_id" value="modules/member/skins" />
-			<fieldset>
-				<div class="control-group">
-					<input type="text" cond="$identifier == 'user_id'" name="user_id" id="uid" required placeholder="{$lang->user_id}" title="{$lang->user_id}" />
-					<input type="email" cond="$identifier != 'user_id'" name="user_id" id="uid" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
-					<input type="password" name="password" id="upw" required placeholder="{$lang->password}" title="{$lang->password}" />
-				</div>
-				<div class="control-group">
-					<label for="keepid_opt">
-						<input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" />
-						{$lang->keep_signed}
-					</label>
-					<div id="warning">
-						<p>{$lang->about_keep_warning}</p>
-					</div>
-					<input type="submit" value="{$lang->cmd_login}" class="submit btn btn-inverse" />
-				</div>
-			</fieldset>
-		</form>
-        <block cond="$enable_naver_login">
+<!-- Content Start -->
+<div class="sub-content" style="padding: 0px 29px 75px 64px;">
+    <h2 class="sub-title"><i class="icon-user"></i> {$lang->cmd_login}</h2>
+    <div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <form ruleset="@login" action="{getUrl('', 'act', 'procMemberLogin')}" method="post" id="fo_member_login">
+        <input type="hidden" name="success_return_url" value="{$referer_url}" />
+        <input type="hidden" name="act" value="procMemberLogin" />
+        <input type="hidden" name="xe_validator_id" value="modules/member/skins" />
+
+        <div class="agreement-content">
+            <article class="write-form">
+                <div class="table-wrap">
+                    <table class="table table-bordered type-1">
+                        <tbody>
+                            <tr class="control-group">
+                                <th>{Context::getLang($identifier)}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="text" cond="$identifier == 'user_id'" name="user_id" id="uid" required placeholder="{$lang->user_id}" title="{$lang->user_id}" />
+                                        <input type="email" cond="$identifier != 'user_id'" name="user_id" id="uid" required placeholder="{$lang->email_address}" title="{$lang->email_address}" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="control-group">
+                                <th>{$lang->password}</th>
+                                <td class="user-id">
+                                    <div class="form-group basic-group">
+                                        <input type="password" name="password" id="upw" required placeholder="{$lang->password}" title="{$lang->password}" />
+                                    </div>
+                                    <div class="form-group basic-group">
+                                        <input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" /> {$lang->keep_signed}
+                                    </div>
+                                    <div id="warning">
+                                        <p>{$lang->about_keep_warning}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+            <!-- <hr> -->
+            <div class="btn-area">
+                <p>
+                    <button type="submit" class="btn btn-pink btn-write-submit">{$lang->cmd_login}</button>
+                    <a href="{getUrl('act','dispMemberFindAccount')}" class="btn btn-white" role="button">{$lang->cmd_find_member_account}</a>
+                    <a href="{getUrl('act','dispMemberSignUpForm')}" class="btn btn-white" role="button">{$lang->cmd_signup}</a>
+                </p>
+            </div>
+        </div>
+    </form>
+    <block cond="$enable_naver_login">
             <div class="social_login" cond="!$logged_info">
                 <span class="social_label">소셜 {$lang->cmd_login}</span>
         <block cond="$naver_client_id && $naver_cb_mid">
@@ -42,13 +63,6 @@
         </block>
             </div>
     </block>  
-    </div>
-    
-	<div class="login-footer">
-		<a href="{getUrl('act','dispMemberFindAccount')}">{$lang->cmd_find_member_account}</a>
-		|
-		<a href="{getUrl('act','dispMemberSignUpForm')}">{$lang->cmd_signup}</a>
-	</div>
 </div>
 
 <script>

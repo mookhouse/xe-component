@@ -1,4 +1,4 @@
-@import url("../css/common.css");
+/* @import url("../css/common.css"); */
 
 /* 고객센터 공통 */
 .search-form .btn-search .btn-default {
@@ -10,11 +10,13 @@
     border-radius: 30px;
 }
 .customer .step-list > ol li {
-    width: 33.3333%;
+    /*width: 33.3333%;*/
+    width: 25%;
     float: left;
     color: #999;
     text-align: center;
-    line-height: 56px;
+    /* line-height: 56px; */
+    line-height: 36px;
     border-right: 1px solid #eaeaea;
 }
 .customer .step-list > ol li:last-child {margin-right: 0; position: relative;}
