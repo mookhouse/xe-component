@@ -5,7 +5,6 @@
  * @author singleview(root@singleview.co.kr)
  * @brief  angeclubAdminController
 **/ 
-
 class angeclubAdminController extends angeclub
 {
 	const PREGNANT = 0;  // for data migration, to be deleted
@@ -1254,6 +1253,9 @@ private function _isAbandonedStaffId($sClubStaffId)
         $sPasswordPrefix = Context::get('password_prefix');
         if(strlen($sPasswordPrefix))
             $oArgs->password_prefix = $sPasswordPrefix;
+		$sAllowInsecureConnections = Context::get('allow_insecure_connections');
+        if(strlen($sAllowInsecureConnections))
+            $oArgs->allow_insecure_connections = $sAllowInsecureConnections;
 
 		$sSenderEmailHost = Context::get('sender_email_host');
 		if(strlen($sSenderEmailHost))

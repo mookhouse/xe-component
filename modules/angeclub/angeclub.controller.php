@@ -39,6 +39,18 @@ class angeclubController extends angeclub
 		require_once(_XE_PATH_.'libs/PHPMailer.6.7.1/src/SMTP.php');
 
 		$oMail = new PHPMailer(true);
+		// allow insecure connections via the SMTPOptions
+		// Connection failed. Error #2: stream_socket_client(): SSL operation failed with code 1. OpenSSL Error messages:error:14090086:SSL 발생 시 허용해야 함
+		if($oConfig->allow_insecure_connections == 'Y')
+		{
+			$oMail->SMTPOptions = [
+				'ssl' => [
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true,
+				]
+			];
+		}
 		$oMail->SMTPDebug = 0;
 		$oMail->isSMTP();
 		$oMail->SMTPAuth = true; //Set this to true if SMTP host requires authentication to send email
@@ -65,7 +77,7 @@ class angeclubController extends angeclub
 		$oMail->addAddress($oConfig->sender_email_id, '앙쥬'); //받는 사람
 		$oMail->Subject = $oArgs->scomapnyname."의 ".$oArgs->scategorygb.'입니다.';
 		
-		$sBody = "안녕하세요. ".$oArgs->scomapnyname."의 문의 내용입니다.".PHP_EOL;
+		$sBody = "안녕하세요. ".$oArgs->scomapnyname."의 문의 내용입니다.".PHP_EOL.PHP_EOL.PHP_EOL;
 		$sBody .= "문의구분 : ".$oArgs->scategorygb.PHP_EOL;
 		$sBody .= "기업명 : ".$oArgs->scomapnyname.PHP_EOL;
 		$sBody .= "담당자 : ".$oArgs->schargename.PHP_EOL;

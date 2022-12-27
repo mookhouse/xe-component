@@ -24,6 +24,12 @@
 	<item name="about_sender_email_pw">
 		<value xml:lang="ko"><![CDATA[SMTP 인증 메일 암호 입력]]></value>
 	</item>
+	<item name="allow_insecure_connections">
+		<value xml:lang="ko"><![CDATA[비보안 SMTP 연결 허용]]></value>
+	</item>
+	<item name="about_allow_insecure_connections">
+		<value xml:lang="ko"><![CDATA[Connection failed. Error #2: stream_socket_client(): SSL operation failed with code 1. OpenSSL Error messages:error:14090086:SSL 발생 시 허용해야 함<BR>https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting#updating-ca-certificates 참조 ]]></value>
+	</item>
 	<item name="basic_settings">
 		<value xml:lang="ko"><![CDATA[기본/SMTP 설정]]></value>
 	</item>
