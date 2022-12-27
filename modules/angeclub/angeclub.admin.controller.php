@@ -57,7 +57,7 @@ class angeclubAdminController extends angeclub
 		echo __FILE__.':'.__LINE__.'<BR>';
 		ini_set('memory_limit', '2048M');  // php.ini default 512M
 		set_time_limit(720);  // sec
-		
+
 		$sSeqLogFilePath = './files/angeclub/5xe_translate_cu_id_seq.txt';
 		$sSeqLogFileContent = FileHandler::readFile($sSeqLogFilePath);
 		if($sSeqLogFileContent)
@@ -1254,6 +1254,17 @@ private function _isAbandonedStaffId($sClubStaffId)
         $sPasswordPrefix = Context::get('password_prefix');
         if(strlen($sPasswordPrefix))
             $oArgs->password_prefix = $sPasswordPrefix;
+
+		$sSenderEmailHost = Context::get('sender_email_host');
+		if(strlen($sSenderEmailHost))
+			$oArgs->sender_email_host = $sSenderEmailHost;
+		$sSenderEmailId = Context::get('sender_email_id');
+		if(strlen($sSenderEmailId))
+			$oArgs->sender_email_id = $sSenderEmailId;
+		$sSenderEmailPw= Context::get('sender_email_pw');
+		if(strlen($sSenderEmailPw))
+			$oArgs->sender_email_pw = $sSenderEmailPw;
+	
 		$oRst = $this->_saveModuleConfig($oArgs);
 		if(!$oRst->toBool())
 			$this->setMessage('error_occured');

@@ -37,6 +37,33 @@
 			</div>
 		</div>
 	</section>
+	<section class="section">
+		<h1>SMTP 메일 전송 설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="sender_email_host">{$lang->sender_email_host}</label>
+			<div class="x_controls">
+				<input type="text" name="sender_email_host" id="sender_email_host" value="{$oConfig->sender_email_host}" />
+				<a href="#aboutSenderEmailHost" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutSenderEmailHost" hidden>{$lang->about_sender_email_host}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="sender_email_id">{$lang->sender_email_id}</label>
+			<div class="x_controls">
+				<input type="text" name="sender_email_id" id="sender_email" value="{$oConfig->sender_email_id}" />
+				<a href="#aboutSenderEmailId" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutSenderEmailId" hidden>{$lang->about_sender_email_id}</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="sender_email_pw">{$lang->sender_email_pw}</label>
+			<div class="x_controls">
+				<input type="text" name="sender_email_pw" id="sender_email_pw" value="{$oConfig->sender_email_pw}" />
+				<a href="#aboutSenderEmailPw" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutSenderEmailPw" hidden>{$lang->about_sender_email_pw}</p>
+			</div>
+		</div>
+	</section>
 	<div class="btnArea">
 		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
 	</div>

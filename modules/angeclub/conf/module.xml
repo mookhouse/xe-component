@@ -36,6 +36,7 @@
 		<action name="procAngeclubAddMom" type="controller" />
 		<action name="procAngeclubAddWorkDiary" type="controller" />
 		<action name="procAngeclubAddCenter" type="controller" />
+		<action name="procAngeclubSendMail" type="controller" />
 	</actions>
 	<menus>
 	</menus>

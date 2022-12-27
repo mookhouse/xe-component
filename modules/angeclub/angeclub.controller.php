@@ -4,7 +4,11 @@
  * @class  angeclubController
  * @author singleview(root@singleview.co.kr)
  * @brief  angeclubController
-**/ 
+**/
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class angeclubController extends angeclub
 {
 /**
@@ -12,6 +16,77 @@ class angeclubController extends angeclub
  **/
 	public function init()
 	{
+	}
+/**
+ * @brief /inquiry 페이지의 광고 문의 메일 전송
+ * https://seokd.tistory.com/6
+ **/
+	public function procAngeclubSendMail()
+	{
+		$oAngeclubModel = &getModel ('angeclub');
+		$oConfig = $oAngeclubModel->getModuleConfig();
+		unset($oAngeclubModel);
+
+		$oArgs = Context::getRequestVars();
+		unset($oArgs->module);
+		unset($oArgs->act);
+
+		foreach($oArgs as $sName => $sVal)
+			$oArgs->$sName = strip_tags($sVal);
+
+		require_once(_XE_PATH_.'libs/PHPMailer.6.7.1/src/Exception.php');
+		require_once(_XE_PATH_.'libs/PHPMailer.6.7.1/src/PHPMailer.php');
+		require_once(_XE_PATH_.'libs/PHPMailer.6.7.1/src/SMTP.php');
+
+		$oMail = new PHPMailer(true);
+		$oMail->SMTPDebug = 0;
+		$oMail->isSMTP();
+		$oMail->SMTPAuth = true; //Set this to true if SMTP host requires authentication to send email
+		$oMail->CharSet = "utf-8"; //이거 설정해야 한글 안깨짐
+		//Provide username and password     
+		$oMail->Username = $oConfig->sender_email_id; //발송 이메일
+		$oMail->Password = $oConfig->sender_email_pw; // 비밀번호 STMP 비번
+
+		// daum STMP 설정
+		//$oMail->Host = "smtp.daum.net";  //Set SMTP host name
+		//$oMail->SMTPSecure = "ssl";  
+		//$oMail->Port = 465;  //Set TCP port to connect to
+		// 네이버 STMP 설정
+		// $oMail->Host = "smtp.naver.com";
+		// $oMail->SMTPSecure = "tls";  //If SMTP requires TLS encryption then set it
+		// $oMail->Port = 587;
+		// 메일 플러그 SMTP 설정
+		$oMail->Host = $oConfig->sender_email_host;
+		$oMail->SMTPSecure = "ssl";
+		$oMail->Port = 465;
+
+		$oMail->From = $oConfig->sender_email_id; //발송 이메일
+		$oMail->FromName = "앙쥬";
+		$oMail->addAddress($oConfig->sender_email_id, '앙쥬'); //받는 사람
+		$oMail->Subject = $oArgs->scomapnyname."의 ".$oArgs->scategorygb.'입니다.';
+		
+		$sBody = "안녕하세요. ".$oArgs->scomapnyname."의 문의 내용입니다.".PHP_EOL;
+		$sBody .= "문의구분 : ".$oArgs->scategorygb.PHP_EOL;
+		$sBody .= "기업명 : ".$oArgs->scomapnyname.PHP_EOL;
+		$sBody .= "담당자 : ".$oArgs->schargename.PHP_EOL;
+		$sBody .= "홈페이지 : ".$oArgs->surl.PHP_EOL;
+		$sBody .= "이메일 : ".$oArgs->semail.PHP_EOL;
+		$sBody .= "전화 : ".$oArgs->phone.PHP_EOL;
+		$sBody .= "내용 : ".$oArgs->snote.PHP_EOL;
+		$oMail->Body = $sBody;
+		$oMail->AltBody = "";
+		try 
+		{
+			$oMail->send();
+			$this->add('isSent', 1);
+		}
+		catch (Exception $e) //echo "Mailer Error: " . $oMail->ErrorInfo;
+		{
+			$this->add('isSent', 0);
+		}
+		unset($oMail);
+		unset($oConfig);
+		unset($oArgs);
 	}
 /**
  * @brief 산후조리원 엄마 추가 / 변경 메소드

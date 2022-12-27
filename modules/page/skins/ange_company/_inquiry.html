@@ -1,3 +1,77 @@
+<script type="text/javascript">
+function sendEmail(){
+	var sCategoryGb = $('#CATEGORY_GB').val();
+	if(sCategoryGb.length==0)
+	{
+		alert('문의 구분을 선택하세요');
+		return;
+	}
+
+	var sComapnyName = $('#company_nm').val();
+	if(sComapnyName.length==0)
+	{
+		alert('기업명을 입력하세요');
+		return;
+	}
+
+	var sChargeName = $('#charge_nm').val();
+	if(sChargeName.length==0)
+	{
+		alert('담당자명을 입력하세요');
+		return;
+	}
+
+	var sUrl = $('#url').val();
+	if(sUrl.length==0)
+	{
+		alert('홈페이지를 입력하세요');
+		return;
+	}
+
+	var sUemail = $('#u-email').val();
+	var sEmailType = $('#EMAIL_TYPE').val();
+	if(sUemail.length==0 || sEmailType.length==0)
+	{
+		alert('이메일을 입력하세요');
+		return;
+	}
+
+	var sNote = $('#note').val();
+	if(sNote.length==0)
+	{
+		alert('문의 내용을 입력하세요');
+		return;
+	}
+	
+	var checked = $('#COMPANY_AGREE_YN').is(':checked');
+	if(!checked)
+	{
+		alert('개인정보 취급방침을 동의하세요');
+		return;
+	}
+
+	var params = new Array();
+	params['sCategoryGb'] = sCategoryGb;
+	params['sComapnyName'] = sComapnyName;
+	params['sChargeName'] = sChargeName;
+	params['sUrl'] = sUrl;
+	params['sEmail'] = sUemail + '@' + sEmailType;
+	params['phone'] = $('#phone_1').val() + $('#phone_2').val() + $('#phone_3').val();
+	params['sNote'] = sNote;
+	var response = ['isSent'];
+	exec_xml('angeclub', 'procAngeclubSendMail', params, function(ret_obj) {
+		if(ret_obj['message'] == 'success')
+		{
+			if(ret_obj['isSent'] == 1){
+				alert('문의가 접수되었습니다.');
+			}
+			else{
+				alert('문의가 접수 실패입니다.');
+			}
+		}
+	}, response);
+}
+</script>
 <section class="affiliates">
 	<div class="section-header">
 		<h2 class="sub-title">오프라인 광고 및 온라인 마케팅 문의</h2>
@@ -18,7 +92,7 @@
 							<th class="essential">구분</th>
 							<td class="separation">
 								<div class="form-group">
-									<select class="form-control" name="CATEGORY_GB2">
+									<select class="form-control" id="CATEGORY_GB">
 										<!--
 										<option value="월간 앙쥬(잡지) 광고 문의">월간 앙쥬(잡지) 광고 문의</option>
 										<option value="온라인 광고 및 제휴 문의">온라인 광고 및 제휴 문의</option>
@@ -82,11 +156,11 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
+						<!---tr>
 							<th>유선전화</th>
 							<td class="contact">
 								<div class="form-group">
-									<select class="form-control" name="PHONE_1_1">
+									<select class="form-control" id="PHONE_1_1">
 										<option value="" selected>지번</option>
 										<option value="02">02</option>
 										<option value="031">031</option>
@@ -105,22 +179,22 @@
 										<option value="064">064</option>
 									</select>
 									 -
-									<input type="text" id="u-tel2" class="form-control" name="PHONE_1_2"> -
+									<input type="text" id="u-tel2" class="form-control" id="PHONE_1_2" value='5555'> -
 									<label for="u-tel2" class="sr-only">전화번호</label>
-									<input type="text" id="u-tel3" class="form-control" name="PHONE_1_3">
+									<input type="text" id="u-tel3" class="form-control" id="PHONE_1_3" value='6666'>
 									<label for="u-tel3" class="sr-only">전화번호</label>
 								</div>
 							</td>
-						</tr>
+						</tr--->
 						<tr>
-							<th class="essential">휴대폰</th>
+							<th class="essential">연락처</th>
 							<td class="contact">
 								<div class="form-group">
-									<input type="text" id="phone_1" class="form-control" name="PHONE_2_1"> -
+									<input type="text" id="phone_1" class="form-control"> -
 									<label for="phone_1" class="sr-only">전화번호</label>
-									<input type="text" id="phone_2" class="form-control" name="PHONE_2_2"> -
+									<input type="text" id="phone_2" class="form-control"> -
 									<label for="phone_2" class="sr-only">전화번호</label>
-									<input type="text" id="phone_3" class="form-control" name="PHONE_2_3">
+									<input type="text" id="phone_3" class="form-control">
 									<label for="phone_3" class="sr-only">전화번호</label>
 								</div>
 							</td>
@@ -154,11 +228,11 @@
 					<li>보유 기간: 업무 종료일까지</li>
 				</ul>
 				<div class="form-group">
-					<label><input type="checkbox" name="COMPANY_AGREE_YN"> 개인정보 취급방침에 동의합니다.</label>
+					<label><input type="checkbox" id="COMPANY_AGREE_YN"> 개인정보 취급방침에 동의합니다.</label>
 				</div>
 			</div>
 			<div class="btn-area">
-				<p><a href="javascript:window.history.back();" class="btn btn-white" role="button">취소</a> <button type="button" class="btn btn-pink" onclick="$scope.click_comp()">문의</button></p>
+				<p><a href="javascript:window.history.back();" class="btn btn-white" role="button">취소</a> <button type="button" class="btn btn-pink" onclick="sendEmail();">문의</button></p>
 			</div>
 		</form>
 	</div>

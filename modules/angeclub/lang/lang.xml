@@ -6,8 +6,26 @@
 	<item name="angeclub_management">
 		<value xml:lang="ko"><![CDATA[앙쥬클럽 관리]]></value>
 	</item>
+	<item name="sender_email_host">
+		<value xml:lang="ko"><![CDATA[SMTP 메일 호스트]]></value>
+	</item>
+	<item name="about_sender_email_host">
+		<value xml:lang="ko"><![CDATA[SMTP 인증 서버 주소 입력]]></value>
+	</item>
+	<item name="sender_email_id">
+		<value xml:lang="ko"><![CDATA[SMTP 메일 아이디]]></value>
+	</item>
+	<item name="about_sender_email_id">
+		<value xml:lang="ko"><![CDATA[SMTP 인증 메일 아이디 입력]]></value>
+	</item>
+	<item name="sender_email_pw">
+		<value xml:lang="ko"><![CDATA[SMTP 메일 암호]]></value>
+	</item>
+	<item name="about_sender_email_pw">
+		<value xml:lang="ko"><![CDATA[SMTP 인증 메일 암호 입력]]></value>
+	</item>
 	<item name="basic_settings">
-		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+		<value xml:lang="ko"><![CDATA[기본/SMTP 설정]]></value>
 	</item>
     <item name="password_prefix">
 		<value xml:lang="ko"><![CDATA[암호에 자동 부여되는 전치사]]></value>

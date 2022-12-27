@@ -2,7 +2,7 @@
 <skin version="0.2">
 	<title xml:lang="ko">Ange MOB 회사소개 Page Skin</title>
 	<description xml:lang="ko">
-		 Ange MOB 회사소개 페이지의 기본 스킨입니다.
+		 Ange MOB 회사소개 페이지의 기본 스킨입니다. SMTP 메일 발송은 angeclub.controller.php::procAngeclubSendMail()로 처리함
 	</description>
 	<version>1.0</version>
 	<date>2022-09-05</date>
