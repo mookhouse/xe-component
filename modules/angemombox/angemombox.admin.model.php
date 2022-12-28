@@ -14,8 +14,12 @@ class angemomboxAdminModel extends angemombox
 	function init()
 	{
 	}
-	
-	function getModuleConfig($nModuleSrl)
+	function getModuleConfig()
+	{
+		$oModuleModel = &getModel('module');
+		return $oModuleModel->getModuleConfig('angemombox');
+	}	
+	function getMidConfig($nModuleSrl)
 	{
 		$oModuleModel = &getModel('module');
 		if( $nModuleSrl )
@@ -29,54 +33,6 @@ class angemomboxAdminModel extends angemombox
 		}
 		else
 			return $oModuleModel->getModuleConfig('angemombox');
-	}
-/**
- * @brief must be alinged with angemombox.model.php::getPrivacyTerm()
- */
-	function getPrivacyTerm($nModuleSrl, $sTermType)
-	{
-		if(!(int)$nModuleSrl)
-			return 'invalid_module_srl';
-		switch($sTermType)
-		{
-			case 'privacy_usage_term':
-			case 'privacy_shr_term':
-				break;
-			default:
-				return null;
-		}
-
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_'.$sTermType.'_'.Context::get('lang_type').'.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		$db_info = Context::getDBInfo();
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_'.$sTermType.'_'.$db_info->lang_type.'.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		$lang_selected = Context::loadLangSelected();
-		foreach($lang_selected as $key => $val)
-		{
-			$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_'.$sTermType.'_'.$key.'.txt';
-			if(is_readable($agreement_file))
-				return nl2br(FileHandler::readFile($agreement_file));
-		}
-		// member module의 약관 가져오기
-		$oMemberAdminModel = &getAdminModel('member');
-		if(method_exists($oMemberAdminModel, 'getPrivacyTerm'))  // means core is later than v1.13.2
-		{
-			$sMemberTermType = str_replace('_term', '', $sTermType);
-			return $oMemberAdminModel->getPrivacyTerm($sMemberTermType);
-		}
-		unset($oMemberAdminModel);
-		
-		// 최종 실패할 경우 angemombox 기본 약관 출력
-		$agreement_file = _XE_PATH_.'modules/angemombox/tpl/'.$sTermType.'_template.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		return null;
 	}
 /**
  * 응모자 삭제 호출 callback 함수

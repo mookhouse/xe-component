@@ -8,6 +8,7 @@
 
 class angemombox extends ModuleObject
 {
+	var $_g_aGender = ['여'=>'F', '남'=>'M'];
 	/**
 	 * constructor
 	 *
@@ -17,21 +18,12 @@ class angemombox extends ModuleObject
 	{
 	}
 
-	function installTriggers()
-	{
-		// $oModuleModel = &getModel('module');
-		//  $oModuleController = &getController('module');
-		// display menu in sitemap, custom menu add
-		// if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'angemombox', 'model', 'triggerModuleListInSitemap', 'after'))
-		// 	$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'angemombox', 'model', 'triggerModuleListInSitemap', 'after');
-	}
-
 	/**
 	 * @brief install the module
 	 **/
 	function moduleInstall()
 	{
-		$this->installTriggers();
+		return new BaseObject();
 	}
 
 	/**
@@ -39,7 +31,15 @@ class angemombox extends ModuleObject
 	 **/
 	function checkUpdate()
 	{
-		$this->installTriggers();
+		$oModuleModel = &getModel('module');
+		if(!$oModuleModel->getTrigger('member.insertMember', 'angemombox', 'controller', 'triggerInsertMemberAfter', 'after'))
+			return true;
+		if(!$oModuleModel->getTrigger('member.updateMember', 'angemombox', 'controller', 'triggerUpdateMemberAfter', 'after'))
+			return true;
+		// if(!$oModuleModel->getTrigger('member.deleteMember', 'svauth', 'controller', 'triggerDeleteMemberBefore', 'before'))
+		// 	return true;
+		unset($oModuleModel);
+		return false;
 	}
 
 	/**
@@ -47,11 +47,16 @@ class angemombox extends ModuleObject
 	 **/
 	function moduleUpdate()
 	{
-		$this->installTriggers();
+		$oModuleController = &getController('module');
+		$oModuleController->insertTrigger('member.insertMember', 'angemombox', 'controller', 'triggerInsertMemberAfter', 'after');
+		$oModuleController->insertTrigger('member.updateMember', 'angemombox', 'controller', 'triggerUpdateMemberAfter', 'after');
+		// $oModuleController->insertTrigger('member.deleteMember', 'svauth', 'controller', 'triggerDeleteMemberBefore', 'before');
+		unset($oModuleController);
+		return new BaseObject(0, 'success_updated');
 	}
 
 	function moduleUninstall()
 	{
-		return FALSE;
+		return new BaseObject();
 	}
 }

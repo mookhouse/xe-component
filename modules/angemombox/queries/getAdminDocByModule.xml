@@ -1,11 +1,11 @@
 <query id="getAdminDocByModule" action="select">
     <tables>
-        <table name="angemombox_data_lake" />
+        <table name="angemombox_apply" />
     </tables>
     <columns>
         <column name="doc_srl" />
         <column name="yr_mo" />
-        <column name="parent_member_srl" />
+        <column name="member_srl" />
         <column name="is_accepted" />
         <column name="ipaddress" />
         <column name="regdate" />
@@ -20,7 +20,7 @@
 		</group> -->
     </conditions>
 	 <navigation>
-        <index var="sort_index" default="regdate" order="desc" />
+        <index var="sort_index" default="doc_srl" order="desc" />
         <list_count var="list_count" default="20" />
         <page_count var="page_count" default="10" />
         <page var="page" default="1" />

@@ -1,10 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <lang>
 	<item name="about_angemombox">
-		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 정보를 관리할 수 있습니다. /addons/svtracker가 필수입니다.]]></value>
+		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 정보를 관리할 수 있습니다.
+								/addons/svtracker가 필수입니다.<BR>
+								아래의 회원 정보 사용정의 필드를 추가해야 합니다.
+								주소 - addr
+								gender - 성별 - 단일선택 - 여 남 - 필수
+								sms_push - SMS 수신동의 - 단일선택 - Y N - 필수
+								email_push - 이메일 수신동의 - 단일선택 - Y N - 선택
+								post_push - 우편 수신동의 - 단일선택 - Y N - 선택
+								sponsor_push - 스폰서 수신동의 - 단일선택 - Y N - 선택]]></value>
 	</item>
 	<item name="angemombox_management">
 		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 관리]]></value>
+	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
 	</item>
 	<item name="member_id">
 		<value xml:lang="ko"><![CDATA[회원 ID]]></value>
@@ -17,9 +28,6 @@
 	</item>
 	<item name="applicant_phone">
 		<value xml:lang="ko"><![CDATA[회원 핸드폰]]></value>
-	</item>
-	<item name="member_regdate">
-		<value xml:lang="ko"><![CDATA[회원 가입일]]></value>
 	</item>
 	<item name="sns_id">
 		<value xml:lang="ko"><![CDATA[응모자 sns id]]></value>
@@ -36,17 +44,35 @@
 	<item name="about_member_addr_field_name">
 		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 배송 주소 필드명을 입력하세요.]]></value>
 	</item>
-	<item name="member_give_birth_date_field_name">
-		<value xml:lang="ko"><![CDATA[회원 정보의 출산일 사용자 정의 필드명]]></value>
+	<item name="member_gender_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 성별 사용자 정의 필드명]]></value>
 	</item>
-	<item name="about_member_give_birth_date_field_name">
-		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 출산일 필드명을 입력하세요.]]></value>
+	<item name="about_member_gender_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 성별 필드명을 입력하세요.]]></value>
 	</item>
-	<item name="member_sns_field_name">
-		<value xml:lang="ko"><![CDATA[회원 정보의 SNS 사용자 정의 필드명]]></value>
+	<item name="member_sms_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 SMS 수신동의 사용자 정의 필드명]]></value>
 	</item>
-	<item name="about_member_sns_field_name">
-		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 SNS 필드명을 입력하세요.]]></value>
+	<item name="about_member_sms_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 SMS 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_email_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 이메일 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_email_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 이메일 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_post_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 우편 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_post_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 우편 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_sponsor_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 스폰서 홍보 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_sponsor_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 스폰서 홍보 수신동의 필드명을 입력하세요.]]></value>
 	</item>
 	<item name="title_prefix">
 		<value xml:lang="ko"><![CDATA[게시판 제목에 추가할 말머리]]></value>

@@ -1,0 +1,17 @@
+<table name="angemombox_member_extra">
+	<column name="member_srl" type="number" size="11" default="0" notnull="notnull" unique="unique_member_srl" />
+    <column name="angeclub_registration_log_srl" type="number" size="11" index="idx_angeclub_registration_log_srl" />
+	<column name="user_name" type="varchar" size="40" notnull="notnull" />
+	<column name="mobile" type="char" size="12" notnull="notnull" />
+    <column name="gender" type="char" size="1" notnull="notnull" />
+    <column name="postcode" type="varchar" size="10" notnull="notnull" />
+    <column name="addr" type="varchar" size="300" />
+    <column name="addr_detail" type="varchar" size="300" />
+    <column name="addr_extra" type="varchar" size="300" />
+    <column name="email_push" type="char" size="1" />
+    <column name="sms_push" type="char" size="1" />
+    <column name="post_push" type="char" size="1" />
+    <column name="sponsor_push" type="char" size="1" />
+	<column name="update_date" type="date" />
+    <column name="regdate" type="date" />
+</table>

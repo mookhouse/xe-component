@@ -84,7 +84,7 @@ class angemomboxAdminView extends angemombox
 		$oMemberModel = &getModel('member');
 		foreach($oRst->data as $key => $val)
 		{
-			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($val->parent_member_srl, 0);
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl, 0);
 			$oRst->data[$key]->member_srl = $oMemberInfo->member_srl;
 			$oRst->data[$key]->user_id = $oMemberInfo->user_id;
 			$oRst->data[$key]->user_name = $oMemberInfo->user_name;
@@ -139,7 +139,7 @@ class angemomboxAdminView extends angemombox
 		unset($oArgs);
 
 		$oMemberModel = &getModel('member');
-		$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->parent_member_srl, 0);
+		$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRst->data->member_srl, 0);
 
 		$oMemberInfo->user_id = $oMemberInfo->user_id ? $oMemberInfo->user_id : '탈퇴회원';
 		$oMemberInfo->user_name = $oMemberInfo->user_name ? $oMemberInfo->user_name : '탈퇴회원';
@@ -223,7 +223,7 @@ class angemomboxAdminView extends angemombox
 		$nModuleSrl = Context::get('module_srl');
 
 		$oAngemomboxAdminModel = &getAdminModel('angemombox');
-		$module_info = $oAngemomboxAdminModel->getModuleConfig($nModuleSrl);
+		$module_info = $oAngemomboxAdminModel->getMidConfig($nModuleSrl);
 		
 		// If the layout is destined to add layout information haejum (layout_title, layout)
 		if($module_info->layout_srl)
@@ -260,6 +260,16 @@ class angemomboxAdminView extends angemombox
 		$this->setTemplateFile('angemombox_info');
 	}
 /**
+ * @brief 
+ */
+public function dispAngemomboxAdminConfig()
+{
+	$oAngemomboxAdminModel = &getAdminModel('angemombox');
+	Context::set('oConfig', $oAngemomboxAdminModel->getModuleConfig());
+	unset($oAngemomboxAdminModel);
+	$this->setTemplateFile('config');
+}
+/**
  * @brief Information output of the selected page
  */
 	public function dispAngemomboxAdminWinnerList()
@@ -282,62 +292,6 @@ class angemomboxAdminView extends angemombox
 		}
 		unset($oAngemomboxAdminModel);
 		$this->setTemplateFile('winner_list');
-	}
-/**
-* @brief display the selected promotion admin information
-**/
-	public function dispAngemomboxAdminTermsPrivacyUsage() 
-	{
-		$nModuleSrl = (int)$this->module_info->module_srl;
-		if(!$nModuleSrl) 
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-
-		$oAngemomboxAdminModel = &getAdminModel('angemombox');
-		Context::set('privacy_usage_term', $oAngemomboxAdminModel->getPrivacyTerm($nModuleSrl, 'privacy_usage_term'));
-		Context::set('mid', $this->module_info->mid);
-
-		// get a privacy_usage_term editor
-		$option = new stdClass();
-		$option->primary_key_name = 'temp_srl';
-		$option->content_key_name = 'privacy_usage_term';
-		$option->allow_fileupload = false;
-		$option->enable_autosave = false;
-		$option->enable_default_component = true;
-		$option->enable_component = true;
-		$option->resizable = true;
-		$option->height = 200;
-		$oEditorModel = getModel('editor');
-		$editor = $oEditorModel->getEditor(0, $option);
-		Context::set('editor', $editor);
-		$this->setTemplateFile('terms_privacy_usage');
-	}
-/**
-* @brief display the selected promotion admin information
-**/
-	public function dispAngemomboxAdminTermsPrivacyShr() 
-	{
-		$nModuleSrl = (int)$this->module_info->module_srl;
-		if(!$nModuleSrl) 
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-
-		$oAngemomboxAdminModel = &getAdminModel('angemombox');
-		Context::set('privacy_shr_term', $oAngemomboxAdminModel->getPrivacyTerm($nModuleSrl, 'privacy_shr_term'));
-		Context::set('mid', $this->module_info->mid);
-
-		// get a privacy_usage_term editor
-		$option = new stdClass();
-		$option->primary_key_name = 'temp_srl';
-		$option->content_key_name = 'privacy_shr_term';
-		$option->allow_fileupload = false;
-		$option->enable_autosave = false;
-		$option->enable_default_component = true;
-		$option->enable_component = true;
-		$option->resizable = true;
-		$option->height = 200;
-		$oEditorModel = getModel('editor');
-		$editor = $oEditorModel->getEditor(0, $option);
-		Context::set('editor', $editor);
-		$this->setTemplateFile('terms_privacy_shr');
 	}
 /**
  * Display skin setting page

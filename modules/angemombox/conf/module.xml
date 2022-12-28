@@ -10,13 +10,12 @@
 		<action name="dispAngemomboxAdminInfo" type="view" />
 		<action name="dispAngemomboxAdminGrantInfo" type="view" />
 		<action name="dispAngemomboxAdminSkinInfo" type="view" />
+		<action name="dispAngemomboxAdminConfig" type="view" />
 		<action name="dispAngemomboxAdminMobileSkinInfo" type="view" />
 		<action name="dispAngemomboxAdminDelete" type="view" />
 		<action name="dispAngemomboxAdminApplicantsList" type="view" />
 		<action name="dispAngemomboxAdminDocDetail" type="view" />
 		<action name="dispAngemomboxAdminWinnerList" type="view" />
-		<action name="dispAngemomboxAdminTermsPrivacyUsage" type="view" />
-		<action name="dispAngemomboxAdminTermsPrivacyShr" type="view" />
 
 		<action name="getAngemomboxAdminDeleteDoc" type="model" />
 		
@@ -25,13 +24,11 @@
 				
 		<action name="procAngemomboxAdminUpdate" type="controller" ruleset="updatePage" />
 		<action name="procAngemomboxAdminAddWinner" type="controller" />
-		<action name="procAngemomboxAdminTermPrivacyUsageUpdate" type="controller" />
-		<action name="procAngemomboxAdminTermPrivacyShrUpdate" type="controller" />
 		<action name="procAngemomboxAdminDelete" type="controller" />
 		<action name="procAngemomboxAdminDeleteDoc" type="controller" />
 		<action name="procAngemomboxAdminCSVDownloadByModule" type="controller" />
-
 		<action name="procAngemomboxAdminApproveApplicant" type="controller" />
+		<action name="procAngemomboxAdminConfig" type="controller" />
 
 		<action name="procAngemomboxRegistration" type="controller" />
 		<action name="procAngemomboxUpdate" type="controller" />

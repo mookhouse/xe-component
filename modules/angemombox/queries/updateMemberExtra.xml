@@ -1,0 +1,22 @@
+<query id="updateMemberExtra" action="update" priority="LOW">
+    <tables>
+		<table name="angemombox_member_extra" />
+	</tables>
+	<columns>
+        <column name="user_name" var="user_name" />
+        <column name="mobile" var="mobile" />
+        <column name="gender" var="gender" />
+        <column name="postcode" var="postcode" />
+        <column name="addr" var="addr" />
+        <column name="addr_detail" var="addr_detail" />
+        <column name="addr_extra" var="addr_extra" />
+        <column name="email_push" var="email_push" />
+        <column name="sms_push" var="sms_push" />
+        <column name="post_push" var="post_push" />
+        <column name="sponsor_push" var="sponsor_push" />
+		<column name="update_date" var="update_date" default="curdate()" />
+	</columns>
+    <conditions>
+        <condition operation="equal" column="member_srl" var="member_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

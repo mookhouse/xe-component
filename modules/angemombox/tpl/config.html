@@ -1,0 +1,64 @@
+<include target="header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procAngemomboxAdminConfig" />
+	<section class="section">
+		<h1>회원 정보 입력 설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_addr_field_name">{$lang->member_addr_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_addr_field_name" id="member_addr_field_name" value="{$oConfig->member_addr_field_name}" />
+				<a href="#aboutMemberAddrFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberAddrFieldName" hidden>{$lang->about_member_addr_field_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_give_birth_member_gender_field_namedate_field_name">{$lang->member_gender_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_gender_field_name" id="member_gender_field_name" value="{$oConfig->member_gender_field_name}" />
+				<a href="#aboutMemberGenderFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberGenderFieldName" hidden>{$lang->about_member_gender_field_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_sms_push_field_name">{$lang->member_sms_push_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_sms_push_field_name" id="member_sms_push_field_name" value="{$oConfig->member_sms_push_field_name}" />
+				<a href="#aboutMemberSmspushFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberSmspushFieldName" hidden>{$lang->about_member_sms_push_field_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_email_push_field_name">{$lang->member_email_push_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_email_push_field_name" id="member_email_push_field_name" value="{$oConfig->member_email_push_field_name}" />
+				<a href="#aboutMemberEmailpushFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberEmailpushFieldName" hidden>{$lang->about_member_email_push_field_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_post_push_field_name">{$lang->member_post_push_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_post_push_field_name" id="member_post_push_field_name" value="{$oConfig->member_post_push_field_name}" />
+				<a href="#aboutMemberPostpushFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberPostpushFieldName" hidden>{$lang->about_member_post_push_field_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="member_sponsor_push_field_name">{$lang->member_sponsor_push_field_name}</label>
+			<div class="x_controls">
+				<input type="text" name="member_sponsor_push_field_name" id="member_sponsor_push_field_name" value="{$oConfig->member_sponsor_push_field_name}" />
+				<a href="#aboutMemberSponsorpushFieldName" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="aboutMemberSponsorpushFieldName" hidden>{$lang->about_member_sponsor_push_field_name}</p>
+			</div>
+		</div>
+	</section>
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
+	</div>
+</form>

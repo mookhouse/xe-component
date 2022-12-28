@@ -14,19 +14,51 @@ class angemomboxModel extends module
 	{
 	}
 /**
- * @brief return module name in sitemap
- **/
-    function triggerModuleListInSitemap(&$obj)
-    {
-        array_push($obj, 'angemombox');
-    }
-/**
  * @brief 모듈 default setting 불러오기
  */
 	function getModuleConfig()
 	{
 		$oModuleModel = &getModel('module');
 		return $oModuleModel->getModuleConfig('angemombox');
+	}
+/**
+ * @brief member 사용자 정의 필드 연동 설정
+ */
+	function getMemberFieldConnection()
+	{
+		$oConfig = $this->getModuleConfig();
+		$sMemberAddrFieldName = $oConfig->member_addr_field_name;
+		if(strlen($sMemberAddrFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_addr_field_name');
+
+		$sMemberGenderFieldName = $oConfig->member_gender_field_name;
+		if(strlen($sMemberGenderFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_gender_field_name');
+		
+		$sMemberSmspushFieldName = $oConfig->member_sms_push_field_name;
+		if(strlen($sMemberSmspushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_sms_push_field_name');
+
+		$sMemberEmailpushFieldName = $oConfig->member_email_push_field_name;
+		if(strlen($sMemberEmailpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_email_push_field_name');
+		
+		$sMemberPostpushFieldName = $oConfig->member_post_push_field_name;
+		if(strlen($sMemberPostpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_post_push_field_name');
+
+		$sMemberSponsorpushFieldName = $oConfig->member_sponsor_push_field_name;
+		if(strlen($sMemberSponsorpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_sponsor_push_field_name');
+
+		$oRst = new BaseObject();
+		$oRst->add('sMemberAddrFieldName', $sMemberAddrFieldName);
+		$oRst->add('sMemberGenderFieldName', $sMemberGenderFieldName);
+		$oRst->add('sMemberSmspushFieldName', $sMemberSmspushFieldName);
+		$oRst->add('sMemberEmailpushFieldName', $sMemberEmailpushFieldName);
+		$oRst->add('sMemberPostpushFieldName', $sMemberPostpushFieldName);
+		$oRst->add('sMemberSponsorpushFieldName', $sMemberSponsorpushFieldName);
+		return $oRst;
 	}
 /**
  * @brief 
@@ -43,8 +75,6 @@ class angemomboxModel extends module
  */
 	public function checkDuplicatedApply($nModuleSrl, $nMemberSrl, $nYrMo)
 	{
-		return new BaseObject();
-
 		$oArgs = new stdClass();
 		$oArgs->parent_member_srl = $nMemberSrl;
 		$oArgs->module_srl = $nModuleSrl;

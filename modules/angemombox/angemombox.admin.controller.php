@@ -207,53 +207,48 @@ class angemomboxAdminController extends angemombox
         return $oRst;
 	}
 /**
- * @brief update privacy usage term
- */
-	function procAngemomboxAdminTermPrivacyUsageUpdate()
-	{
-		$nModuleSrl = Context::get('module_srl');
-		if( !$nModuleSrl )
-			return new BaseObject(-1, 'msg_invalid_module_srl');
+ * @brief 
+ **/
+public function procAngemomboxAdminConfig()
+{
+// 	$oArgs = Context::getRequestVars();
+// var_dump($oArgs);
+// 	exit;
 
-		$sTerm = trim(strip_tags(Context::get('privacy_usage_term')));
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_privacy_usage_term_' . Context::get('lang_type') . '.txt';
-		if(!$sTerm)
-			FileHandler::removeFile($agreement_file);
+	$oArgs = new stdClass();
+	$sMemberAddrFieldName = Context::get('member_addr_field_name');
+	if(strlen($sMemberAddrFieldName))
+		$oArgs->member_addr_field_name = $sMemberAddrFieldName;
+	$sMemberGenderFieldName = Context::get('member_gender_field_name');
+	if(strlen($sMemberGenderFieldName))
+		$oArgs->member_gender_field_name = $sMemberGenderFieldName;
+	$sMemberSmspushFieldName = Context::get('member_sms_push_field_name');
+	if(strlen($sMemberSmspushFieldName))
+		$oArgs->member_sms_push_field_name = $sMemberSmspushFieldName;
+	$sMemberEmailpushFieldName = Context::get('member_email_push_field_name');
+	if(strlen($sMemberEmailpushFieldName))
+		$oArgs->member_email_push_field_name = $sMemberEmailpushFieldName;
+	$sMemberPostpushFieldName = Context::get('member_post_push_field_name');
+	if(strlen($sMemberPostpushFieldName))
+		$oArgs->member_post_push_field_name = $sMemberPostpushFieldName;
+	$sMemberSponsorpushFieldName = Context::get('member_sponsor_push_field_name');
+	if(strlen($sMemberSponsorpushFieldName))
+		$oArgs->member_sponsor_push_field_name = $sMemberSponsorpushFieldName;
 
-		// check agreement value exist
-		if($sTerm)
-			$output = FileHandler::writeFile($agreement_file, $sTerm);
-
-		$this->setRedirectUrl(Context::get('success_return_url'));
-	}
+	$oRst = $this->_saveModuleConfig($oArgs);
+	if(!$oRst->toBool())
+		$this->setMessage('error_occured');
+	else
+		$this->setMessage('success_updated');
+	$this->setRedirectUrl(getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispAngemomboxAdminConfig'));
+}
 /**
- * @brief update privacy share term
- */
-	function procAngemomboxAdminTermPrivacyShrUpdate()
+ * @brief arrange and save module config
+ **/
+	private function _saveModuleConfig($oArgs)
 	{
-		$nModuleSrl = Context::get('module_srl');
-		if( !$nModuleSrl )
-			return new BaseObject(-1, 'msg_invalid_module_srl');
-		
-		$bShowTerm = Context::get('is_hide_privacy_shr_term');
-		$args->module = 'angemombox';
-		$args->mid = Context::get('mid');
-		$args->module_srl = $nModuleSrl;
-		$args->is_hide_privacy_shr_term = $bShowTerm;
-		$output = $this->_saveConfigByMid($args);
-		if(!$output->toBool()) 
-			return $output;
-
-		$sTerm = trim(strip_tags(Context::get('privacy_shr_term')));
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_privacy_shr_term_' . Context::get('lang_type') . '.txt';
-		if(!$sTerm)
-			FileHandler::removeFile($agreement_file);
-
-		// check agreement value exist
-		if($sTerm)
-			$output = FileHandler::writeFile($agreement_file, $sTerm);
-
-		$this->setRedirectUrl(Context::get('success_return_url'));
+		$oModuleControll = getController('module');
+		return $oModuleControll->insertModuleConfig('angemombox', $oArgs);
 	}
 /**
  * @brief mask multibyte string

@@ -31,6 +31,13 @@ class angemomboxView extends angemombox
 	{
 		$oAngemomboxModel = &getModel('angemombox');
 		
+		$oMemberConnectionRst = $oAngemomboxModel->getMemberFieldConnection();
+		if(!$oMemberConnectionRst->toBool())
+			return $oMemberConnectionRst;
+		$sMemberAddrFieldName = $oMemberConnectionRst->get('sMemberAddrFieldName');
+		$sMemberSmspushFieldName = $oMemberConnectionRst->get('sMemberSmspushFieldName');
+		unset($oMemberConnectionRst);
+		
 		$oDocInfo = $oAngemomboxModel->getDocInfo($this->module_srl);
 		if($oDocInfo->angeclub_exclusive == 'Y')
 		{
@@ -43,12 +50,24 @@ class angemomboxView extends angemombox
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
 
+		$oLoggedInfo->address = $oLoggedInfo->$sMemberAddrFieldName;
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$bAllowSubmit = true;
+		$aDenyMsg = [];
 		if(!$oLoggedInfo->mobile)  // 회원 정보에 핸드폰 번호가 없으면 등록 거부
+		{
+			$aDenyMsg[] = '핸드폰 정보를 입력하세요.';
 			$bAllowSubmit = false;
+		}
+		if($oLoggedInfo->$sMemberSmspushFieldName != 'Y' )  // 회원 정보에 SMS 수신 동의 없으면 등록 거부
+		{
+			$aDenyMsg[] = 'SMS 수신 동의하세요.';
+			$bAllowSubmit = false;
+		}
 		Context::set('bAllowSubmit', $bAllowSubmit);
+		Context::set('sDenyMsg', implode('<BR>', $aDenyMsg));
+		unset($aDenyMsg);
 
 		$oOpenRst = $oAngemomboxModel->checkOpenDay($this->module_srl);
 		if(!$oOpenRst->toBool())
@@ -59,9 +78,6 @@ class angemomboxView extends angemombox
 		$oWinnerRst = $oAngemomboxModel->checkDuplicatedApply($this->module_srl, $oLoggedInfo->member_srl, $nYrMo);
 		if(!$oWinnerRst->toBool())
 			return $oWinnerRst;
-
-		//Context::set('privacy_usage_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_usage_term'));
-		//Context::set('privacy_shr_term', $oAngemomboxModel->getPrivacyTerm($this->module_srl, 'privacy_shr_term'));
 		unset($oAngemomboxModel);
 
 		if($this->module_srl) 

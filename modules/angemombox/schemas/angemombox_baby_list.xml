@@ -1,0 +1,8 @@
+<table name="angemombox_baby_list">
+	<column name="baby_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
+	<column name="member_srl_parent" type="number" size="11" default="0" notnull="notnull" index="idx_member_srl_parent" />
+    <column name="baby_birth_name" type="varchar" size="20" />
+    <column name="baby_gender" type="char" size="1" />
+    <column name="baby_birthday" type="char" size="8" />
+	<column name="regdate" type="date" />
+</table>

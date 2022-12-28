@@ -1,6 +1,6 @@
 <query id="updateSingleDocDeleted" action="update" priority="LOW">
     <tables>
-        <table name="angemombox_data_lake" />
+        <table name="angemombox_apply" />
     </tables>
     <columns>
         <column name="is_deleted_doc" var="is_deleted_doc" filter="number" default="1" />
