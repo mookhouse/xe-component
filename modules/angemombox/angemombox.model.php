@@ -61,6 +61,30 @@ class angemomboxModel extends module
 		return $oRst;
 	}
 /**
+ * @brief UX for index.php?mid=index&act=dispMemberInfo
+ */
+    public function getBabyList($nMemberSrl)
+    {
+        $oArgs = new stdClass();
+		$oArgs->member_srl = $nMemberSrl;
+		$oRst = executeQueryArray('angemombox.getBabyList', $oArgs);
+		unset($oArgs);
+        if(count($oRst->data))
+        {
+            $oAngeclubModel = getModel('angeclub');
+            $aBabyGender = $oAngeclubModel->getBabyGender();
+            unset($oAngeclubModel);
+            foreach($oRst->data as $nIdx => $oBaby)
+            {
+                $oBaby->gender_ui = $aBabyGender[$oBaby->gender];
+                $oBaby->birthday_yr = substr($oBaby->birthday, 0,4);
+                $oBaby->birthday_mo = substr($oBaby->birthday, 4,2);
+                $oBaby->birthday_day = substr($oBaby->birthday, 6,2);
+            }
+        }
+        return $oRst->data;
+    }
+/**
  * @brief 
  */
 	public function checkOpenDay($nModuleSrl)
@@ -119,79 +143,12 @@ class angemomboxModel extends module
 		/*$oDocInfo->member_addr_field_name = $oModuleInfo->member_addr_field_name;
 		$oDocInfo->member_give_birth_date_field_name = $oModuleInfo->member_give_birth_date_field_name;
 		$oDocInfo->member_sns_field_name = $oModuleInfo->member_sns_field_name;
-
 		$oDocInfo->connected_board_srl = $oModuleInfo->connected_board_srl;
 		$oDocInfo->title_prefix = $oModuleInfo->title_prefix;
 		$oDocInfo->title_cut_size = $oModuleInfo->title_cut_size;*/
-
 		unset($oModuleInfo);
 		unset($oModuleModel);
 		return $oDocInfo;
-	}
-/**
- * @brief must be alinged with angemombox.admin.model.php::getPrivacyTerm()
- */
-	function getPrivacyTerm($nModuleSrl, $sTermType)
-	{
-		if( !(int)$nModuleSrl )
-			return 'invalid_module_srl';
-
-		switch($sTermType)
-		{
-			case 'privacy_usage_term':
-			case 'privacy_shr_term':
-				break;
-			default:
-				return null;
-		}
-		$agreement_file = _XE_PATH_.'files/Angemombox/'.$nModuleSrl.'_'.$sTermType.'_' . Context::get('lang_type') . '.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		$db_info = Context::getDBInfo();
-		$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_'.$sTermType.'_' . $db_info->lang_type . '.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		$lang_selected = Context::loadLangSelected();
-		foreach($lang_selected as $key => $val)
-		{
-			$agreement_file = _XE_PATH_.'files/angemombox/'.$nModuleSrl.'_'.$sTermType.'_' . $key . '.txt';
-			if(is_readable($agreement_file))
-				return nl2br(FileHandler::readFile($agreement_file));
-		}
-		// member module의 약관 가져오기
-		$oMemberAdminModel = &getAdminModel('member');
-		if(method_exists($oMemberAdminModel, 'getPrivacyTerm'))  // means core is later than v1.13.2
-		{
-			$sMemberTermType = str_replace('_term', '', $sTermType);
-			return $oMemberAdminModel->getPrivacyTerm($sMemberTermType);
-		}
-		unset($oMemberAdminModel);
-		
-		// 최종 실패할 경우 기본 약관 출력
-		$agreement_file = _XE_PATH_.'modules/angemombox/tpl/'.$sTermType.'_template.txt';
-		if(is_readable($agreement_file))
-			return nl2br(FileHandler::readFile($agreement_file));
-
-		return null;
-	}
-/**
- * @brief 
- */
-	public function getAngemomboxUpdatePermission()
-	{
-		$nModuleSrl = (int)Context::get('module_srl');
-		$oDocInfo = $this->getDocInfo( $nModuleSrl );
-		
-		if( $oDocInfo->is_allow_update == 'Y' )
-		{
-			$this->add('is_update_allowed', 1 );
-			$this->add('target_mid', $oDocInfo->mid );
-		}
-		else
-			$this->add('is_update_allowed', 0 );
-		return new BaseObject();
 	}
 /**
  * @brief 

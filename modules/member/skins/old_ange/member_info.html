@@ -52,7 +52,27 @@
                                 </div>
                             </td>
                         </tr>
-
+                        <tr cond="getClass('angemombox')">
+{@
+$oAngemomboxModel = getModel('angemombox');
+$aBabyList = $oAngemomboxModel->getBabyList($logged_info->member_srl);
+unset($oAngemomboxModel);
+}
+                            <th class="essential v-top">아이정보</th>
+                            <td class="kids-info">
+                                <ul>
+                                    <li loop="$aBabyList=>$_,$oBaby">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    {$oBaby->name} / {$oBaby->gender_ui} / {zdate($oBaby->birthday, 'Y-m-d')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -1,0 +1,12 @@
+<query id="insertBaby" action="insert">
+	<tables>
+		<table name="angemombox_baby_list" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" filter="number" />
+        <column name="name" var="name" />
+        <column name="gender" var="gender" />
+        <column name="birthday" var="birthday" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

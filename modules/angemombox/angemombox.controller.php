@@ -21,7 +21,9 @@ class angemomboxController extends angemombox
 		$oArgs = $this->_constructMemberExtraInfo($oMemberObj);
 		$oRst = executeQuery('angemombox.insertMemberExtra', $oArgs);
 		unset($oArgs);
-		return $oRst;
+        unset($oRst);
+        $this->_registerBabyList($oMemberObj->member_srl);
+		return new BaseObject();
 	}
 /**
  * @brief 회원 수정 후 SMS 발송 대상 추출을 위한 extra tbl에 저장
@@ -29,12 +31,65 @@ class angemomboxController extends angemombox
 	public function triggerUpdateMemberAfter(&$oMemberObj) 
 	{
 		$oArgs = $this->_constructMemberExtraInfo($oMemberObj);
-		$oRst = executeQuery('angemombox.updateMemberExtra', $oArgs);
+        $oRst = executeQuery('angemombox.updateMemberExtra', $oArgs);
 		unset($oArgs);
-		return $oRst;
+        unset($oRst);
+        $this->_registerBabyList($oMemberObj->member_srl);
+		return new BaseObject();
 	}
 /**
- *
+ * SMS 발송 대상 추출을 위한 baby_list tbl 구성
+ */
+    private function _registerBabyList($nMemberSrl)
+    {
+        $oBabyArgs = Context::getRequestVars();
+        $aBabyList = [];  // 아이 3명으로 제한
+        if($oBabyArgs->BABY_NM0 && $oBabyArgs->BABY_SEX_GB0 && $oBabyArgs->BABY_YEAR0 && 
+            $oBabyArgs->BABY_MONTH0 && $oBabyArgs->BABY_DAY0)
+        {
+            $oBaby = new stdClass();
+            $oBaby->name = $oBabyArgs->BABY_NM0;
+            $oBaby->gender = $oBabyArgs->BABY_SEX_GB0;
+            $oBaby->birthday = $oBabyArgs->BABY_YEAR0.$oBabyArgs->BABY_MONTH0.$oBabyArgs->BABY_DAY0;
+            $aBabyList[] = $oBaby;
+        }
+        if($oBabyArgs->BABY_NM1 && $oBabyArgs->BABY_SEX_GB1 && $oBabyArgs->BABY_YEAR1 && 
+            $oBabyArgs->BABY_MONTH1 && $oBabyArgs->BABY_DAY1)
+        {
+            $oBaby = new stdClass();
+            $oBaby->name = $oBabyArgs->BABY_NM1;
+            $oBaby->gender = $oBabyArgs->BABY_SEX_GB1;
+            $oBaby->birthday = $oBabyArgs->BABY_YEAR1.$oBabyArgs->BABY_MONTH1.$oBabyArgs->BABY_DAY1;
+            $aBabyList[] = $oBaby;
+        }
+        if($oBabyArgs->BABY_NM2 && $oBabyArgs->BABY_SEX_GB2 && $oBabyArgs->BABY_YEAR2 && 
+            $oBabyArgs->BABY_MONTH2 && $oBabyArgs->BABY_DAY2)
+        {
+            $oBaby = new stdClass();
+            $oBaby->name = $oBabyArgs->BABY_NM2;
+            $oBaby->gender = $oBabyArgs->BABY_SEX_GB2;
+            $oBaby->birthday = $oBabyArgs->BABY_YEAR2.$oBabyArgs->BABY_MONTH2.$oBabyArgs->BABY_DAY2;
+            $aBabyList[] = $oBaby;
+        }
+        unset($oBabyArgs);
+
+        $oBabyArgs = new stdClass();
+        $oBabyArgs->member_srl = $nMemberSrl;
+        $oRst = executeQuery('angemombox.deleteBabiesByMemberSrl', $oBabyArgs);
+        foreach($aBabyList as $_=>$oSingleBaby)
+        {
+            $oBabyArgs->name = $oSingleBaby->name;
+            $oBabyArgs->gender = $oSingleBaby->gender;
+            $oBabyArgs->birthday = $oSingleBaby->birthday;
+            $oRst = executeQuery('angemombox.insertBaby', $oBabyArgs);
+            if(!$oRst->toBool())
+			    return $oRst;
+        }
+        unset($oBabyArgs);
+        return new BaseObject();
+    }
+/**
+ * SMS 발송 대상 추출을 위한 extra tbl 구성
  */
 	private function _constructMemberExtraInfo($oMemberObj)
 	{

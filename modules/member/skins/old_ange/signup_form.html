@@ -51,68 +51,150 @@
 									</div>
 								</td>
 							</tr>
-							<!-- <tr>
-								<th class="essential">휴대폰</th>
-								<td class="phone">
-									<div class="form-group">
-										<select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0">
-											<option value="">010</option>
-											<option value="2023">011</option>
-											<option value="2022">017</option>
-											<option value="2021">019</option>
-											<option value="2020">018</option>
-										</select> - 
-										<label for="u-phone1" class="sr-only">전화번호</label>
-										<input type="text" name="PHONE_2_2" maxlength="4" class="form-control"> -
-										<label for="u-phone2" class="sr-only">전화번호</label>
-										<input type="text" name="PHONE_2_3" maxlength="4" class="form-control">
-										<label for="u-phone3" class="sr-only">전화번호</label>
-										<a href="javascript:$scope.click_certUser('phone');" class="btn btn-white" role="button">휴대폰 인증하기</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th class="essential"><label for="NICK_NM">인증번호</label></th>
-								<td class="user-id">
-									<div class="form-group basic-group">
-										<input type="text" id="NICK_NM"	name="NICK_NM" class="form-control">
-									</div>
-								</td>
-							</tr> -->
-							<!-- <tr>
-								<th class="essential"><label for="USER_ID">아이디</label></th>
-								<td class="user-id">
-									<div class="form-group basic-group">
-										<input type="text" id="USER_ID"	name="USER_ID" class="form-control">
-									</div>
-									<p class="overlap-confirm" id="confirm_id">6~12자리 영문,숫자 (특수문자 사용불가)</p>
-								</td>
-							</tr>
-							<tr>
-								<th class="essential"><label for="u-email">이메일</label></th>
-								<td class="mail">
-									<div class="form-group">
-										<input type="text" id="EMAIL_ID"   name="EMAIL_ID"   class="form-control"> @
-										<input type="text" id="EMAIL_TYPE" name="EMAIL_TYPE" class="form-control">
-										<label for="domain" class="sr-only">도메인주소</label>
-										<select class="form-control" name="EMAIL_SELECT" onchange="$('#EMAIL_TYPE').val(this.value)">
-											<option>직접입력</option>
-											<option value="naver.com">네이버</option>
-											<option value="daum.net" >다음</option>
-											<option value="gmail.com">구글</option>
-										</select>
-									</div>
-								</td>
-							</tr> -->
-							<!-- <tr>
-								<th class="essential">성별</th>
-								<td>
-									<div class="form-group">
-										<label><input type="radio" name="SEX_GB" type="radio" value="F" checked>여</label>
-										<label><input type="radio" name="SEX_GB" type="radio" value="M">남</label>
-									</div>
-								</td>
-							</tr> -->
+                            <tr cond="getClass('angemombox')">
+{@
+$nBabyBirthBeginYr = date('Y')+1;
+$nBabyBirthEndYr = $nBabyBirthBeginYr - 20;
+
+$oAngeclubModel = getModel('angeclub');
+$aBabyGender = $oAngeclubModel->getBabyGender();
+unset($oAngeclubModel);
+}
+                                <th class="essential v-top">아이정보</th>
+                                <td class="kids-info">
+                                    <p style="color:#347cff;font-weight:600;font-size:15px;">* 출산예정이신 경우 태명과 출산예정일을 입력해주세요</p>
+                                    <ul>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="form-group">
+                                                        <input type="text" id="BABY_NM0" class="form-control" placeholder="이름" name="BABY_NM0" value="">
+                                                        <label for="BABY_NM0" class="sr-only">이름/태명</label>
+                                                        <label>
+                                                            <select name="BABY_SEX_GB0" class="form-control" style="margin-right:0px;" id="BABY_SEX_GB_0">
+                                                                <option value="">선택</option>
+                                                                <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <dl>
+                                                        <dt>생년월일</dt>
+                                                        <dd>
+                                                            <div class="form-group">
+                                                                <select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0">
+                                                                    <option value="">년도</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                                    <option value="{$nBirthYr}">{$nBirthYr}</option>
+<!--@end-->
+                                                                </select>
+                                                                <select class="form-control" id="BABY_MONTH0" name="BABY_MONTH0">
+                                                                    <option value="">월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->
+                                                                </select>
+                                                                <select class="form-control" id="BABY_DAY0" name="BABY_DAY0">
+                                                                    <option value="">일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+                                                                </select>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="form-group">
+                                                        <input type="text" id="BABY_NM1" class="form-control" placeholder="이름" name="BABY_NM1" value="">
+                                                        <label for="BABY_NM1" class="sr-only">이름/태명</label>
+                                                        <label>
+                                                            <select name="BABY_SEX_GB1" class="form-control" style="margin-right:0px;" id="BABY_SEX_GB_1">
+                                                                <option value="">선택</option>
+                                                                <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <dl>
+                                                        <dt>생년월일</dt>
+                                                        <dd>
+                                                            <div class="form-group">
+                                                                <select class="form-control" id="BABY_YEAR1" name="BABY_YEAR1">
+                                                                    <option value="">년도</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                                    <option value="{$nBirthYr}">{$nBirthYr}</option>
+<!--@end-->
+                                                                </select>
+                                                                <select class="form-control" id="BABY_MONTH1" name="BABY_MONTH1">
+                                                                    <option value="">월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->                                                                </select>
+                                                                <select class="form-control" id="BABY_DAY1" name="BABY_DAY1">
+                                                                    <option value="">일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end-->
+                                                                </select>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="form-group">
+                                                        <input type="text" id="BABY_NM2" class="form-control" placeholder="이름" name="BABY_NM2" value="">
+                                                        <label for="BABY_NM2" class="sr-only">이름/태명</label>
+                                                        <label>
+                                                            <select name="BABY_SEX_GB2" class="form-control" style="margin-right:0px;" id="BABY_SEX_GB_2">
+                                                                <option value="">선택</option>
+                                                                <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <dl>
+                                                        <dt>생년월일</dt>
+                                                        <dd>
+                                                            <div class="form-group">
+                                                                <select class="form-control" id="BABY_YEAR2" name="BABY_YEAR2" >
+                                                                    <option value="">년도</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                                    <option value="{$nBirthYr}">{$nBirthYr}</option>
+<!--@end-->
+                                                                </select>
+                                                                <select class="form-control" id="BABY_MONTH2" name="BABY_MONTH2" >
+                                                                    <option value="">월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->
+                                                                </select>
+                                                                <select class="form-control" id="BABY_DAY2" name="BABY_DAY2" >
+                                                                    <option value="">일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                                    <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end-->
+                                                                </select>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
 							<!---tr>
 								<th>정보수신동의</th>
 								<td class="consent">
@@ -124,187 +206,6 @@
 									<p class="summary" style="color:#e00000;padding-top:10px;">*앙쥬맘박스/체험단/이벤트에 응모하시려면 수신동의 해주셔야합니다.</p>
 								</td>
 							</tr---->
-							<!---tr>
-								<th class="essential">임신여부</th>
-								<td>
-									<div class="row">
-										<div class="col-xs-5">
-											<div class="form-group">
-												<label><input type="radio" name="PREGNENT_FL" value="N" >해당없음</label>
-												<label><input type="radio" name="PREGNENT_FL" value="Y" >해당됨</label>
-											</div>
-										</div>
-										<div class="col-xs-7">
-											<dl>
-												<dt>출산예정일</dt>
-												<dd>
-													<div class="form-group">
-														<select class="form-control" name="YEAR1">
-															<option value="">년도</option>
-															<option value="2022">2022</option>
-															<option value="2023">2023</option>
-														</select>
-														<select class="form-control" name="MONTH1">
-															<option value="">월</option>
-															<option value="01">01</option>
-															<option value="02">02</option>
-															<option value="03">03</option>
-															<option value="04">04</option>
-															<option value="05">05</option>
-															<option value="06">06</option>
-															<option value="07">07</option>
-															<option value="08">08</option>
-															<option value="09">09</option>
-															<option value="10">10</option>
-															<option value="11">11</option>
-															<option value="12">12</option>
-														</select>
-														<select class="form-control" name="DAY1">
-															<option value="">일</option>
-															<option value="01">01</option>
-															<option value="02">02</option>
-															<option value="03">03</option>
-															<option value="04">04</option>
-															<option value="05">05</option>
-															<option value="06">06</option>
-															<option value="07">07</option>
-															<option value="08">08</option>
-															<option value="09">09</option>
-															<option value="10">10</option>
-															<option value="11">11</option>
-															<option value="12">12</option>
-															<option value="13">13</option>
-															<option value="14">14</option>
-															<option value="15">15</option>
-															<option value="16">16</option>
-															<option value="17">17</option>
-															<option value="18">18</option>
-															<option value="19">19</option>
-															<option value="20">20</option>
-															<option value="21">21</option>
-															<option value="22">22</option>
-															<option value="23">23</option>
-															<option value="24">24</option>
-															<option value="25">25</option>
-															<option value="26">26</option>
-															<option value="27">27</option>
-															<option value="28">28</option>
-															<option value="29">29</option>
-															<option value="30">30</option>
-															<option value="31">31</option>
-														</select>
-													</div>
-												</dd>
-											</dl>
-										</div>
-									</div>
-								</td>
-							</tr---->
-							<!---tr>
-								<th class="v-top essential">출산예정일</th>
-								<td class="kids-info">
-									<p style="color:#347cff;font-weight:600;font-size:15px;">* 출산예정이신 경우 태명과 출산예정일을 입력해주세요</p>
-									<ul style="padding-top:10px;">
-										<li>
-											<div class="row">
-												<div class="col-xs-5">
-													<div class="form-group">
-														<input type="text" id="BABY_NM0" class="form-control" placeholder="이름" name="BABY_NM0" value="">
-														<select name="BABY_SEX_GB0" class="form-control" style="margin-right:0px;" id="BABY_SEX_GB_0">
-															<option value="">성별</option>
-															<option value="M" >남</option>
-															<option value="F" >여</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-xs-7">
-													<dl>
-														<dt>생년월일</dt>
-														<dd>
-															<div class="form-group">
-																<select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0">
-																	<option value="">년도</option>
-																	<option value="2023">2023</option>
-																	<option value="2022">2022</option>
-																	<option value="2021">2021</option>
-																	<option value="2020">2020</option>
-																	<option value="2019">2019</option>
-																	<option value="2018">2018</option>
-																	<option value="2017">2017</option>
-																	<option value="2016">2016</option>
-																	<option value="2015">2015</option>
-																	<option value="2014">2014</option>
-																	<option value="2013">2013</option>
-																	<option value="2012">2012</option>
-																	<option value="2011">2011</option>
-																	<option value="2010">2010</option>
-																	<option value="2009">2009</option>
-																	<option value="2008">2008</option>
-																	<option value="2007">2007</option>
-																	<option value="2006">2006</option>
-																	<option value="2005">2005</option>
-																	<option value="2004">2004</option>
-																	<option value="2003">2003</option>
-																	<option value="2002">2002</option>
-																</select>
-																<select class="form-control" id="BABY_MONTH0" name="BABY_MONTH0">
-																	<option value="">월</option>
-																	<option value="01">01</option>
-																	<option value="02">02</option>
-																	<option value="03">03</option>
-																	<option value="04">04</option>
-																	<option value="05">05</option>
-																	<option value="06">06</option>
-																	<option value="07">07</option>
-																	<option value="08">08</option>
-																	<option value="09">09</option>
-																	<option value="10">10</option>
-																	<option value="11">11</option>
-																	<option value="12">12</option>
-																</select>
-																<select class="form-control" id="BABY_DAY0" name="BABY_DAY0">
-																	<option value="">일</option>
-																	<option value="01">01</option>
-																	<option value="02">02</option>
-																	<option value="03">03</option>
-																	<option value="04">04</option>
-																	<option value="05">05</option>
-																	<option value="06">06</option>
-																	<option value="07">07</option>
-																	<option value="08">08</option>
-																	<option value="09">09</option>
-																	<option value="10">10</option>
-																	<option value="11">11</option>
-																	<option value="12">12</option>
-																	<option value="13">13</option>
-																	<option value="14">14</option>
-																	<option value="15">15</option>
-																	<option value="16">16</option>
-																	<option value="17">17</option>
-																	<option value="18">18</option>
-																	<option value="19">19</option>
-																	<option value="20">20</option>
-																	<option value="21">21</option>
-																	<option value="22">22</option>
-																	<option value="23">23</option>
-																	<option value="24">24</option>
-																	<option value="25">25</option>
-																	<option value="26">26</option>
-																	<option value="27">27</option>
-																	<option value="28">28</option>
-																	<option value="29">29</option>
-																	<option value="30">30</option>
-																	<option value="31">31</option>
-																</select>
-															</div>
-														</dd>
-													</dl>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</td>
-							</tr--->
 						</tbody>
 					</table>
 				</div>
