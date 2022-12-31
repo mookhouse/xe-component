@@ -1,4 +1,4 @@
-<query id="getTmpAdminComUserTransferredByUserId" action="select">
+<query id="getTmpAdminComUserTransferredByUserIdDest" action="select">
     <tables>
         <table name="angeclub_tmp_com_user_transferred" />
     </tables>

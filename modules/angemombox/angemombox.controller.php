@@ -38,58 +38,70 @@ class angemomboxController extends angemombox
 		return new BaseObject();
 	}
 /**
+ * @brief 앙쥬 클럽에서 수기 회원 추가 후 extra tbl에 태그
+ **/
+	public function updateMemberExtraAngeclubRegistrationLogSrl($oArgs) 
+	{
+		return executeQuery('angemombox.updateMemberExtraAngeclubRegistrationLogSrl', $oArgs);
+	}
+/**
  * SMS 발송 대상 추출을 위한 baby_list tbl 구성
  */
-    private function _registerBabyList($nMemberSrl)
-    {
-        $oBabyArgs = Context::getRequestVars();
-        $aBabyList = [];  // 아이 3명으로 제한
-        if($oBabyArgs->BABY_NM0 && $oBabyArgs->BABY_SEX_GB0 && $oBabyArgs->BABY_YEAR0 && 
-            $oBabyArgs->BABY_MONTH0 && $oBabyArgs->BABY_DAY0)
-        {
-            $oBaby = new stdClass();
-            $oBaby->name = $oBabyArgs->BABY_NM0;
-            $oBaby->gender = $oBabyArgs->BABY_SEX_GB0;
-            $oBaby->birthday = $oBabyArgs->BABY_YEAR0.$oBabyArgs->BABY_MONTH0.$oBabyArgs->BABY_DAY0;
-            $aBabyList[] = $oBaby;
-        }
-        if($oBabyArgs->BABY_NM1 && $oBabyArgs->BABY_SEX_GB1 && $oBabyArgs->BABY_YEAR1 && 
-            $oBabyArgs->BABY_MONTH1 && $oBabyArgs->BABY_DAY1)
-        {
-            $oBaby = new stdClass();
-            $oBaby->name = $oBabyArgs->BABY_NM1;
-            $oBaby->gender = $oBabyArgs->BABY_SEX_GB1;
-            $oBaby->birthday = $oBabyArgs->BABY_YEAR1.$oBabyArgs->BABY_MONTH1.$oBabyArgs->BABY_DAY1;
-            $aBabyList[] = $oBaby;
-        }
-        if($oBabyArgs->BABY_NM2 && $oBabyArgs->BABY_SEX_GB2 && $oBabyArgs->BABY_YEAR2 && 
-            $oBabyArgs->BABY_MONTH2 && $oBabyArgs->BABY_DAY2)
-        {
-            $oBaby = new stdClass();
-            $oBaby->name = $oBabyArgs->BABY_NM2;
-            $oBaby->gender = $oBabyArgs->BABY_SEX_GB2;
-            $oBaby->birthday = $oBabyArgs->BABY_YEAR2.$oBabyArgs->BABY_MONTH2.$oBabyArgs->BABY_DAY2;
-            $aBabyList[] = $oBaby;
-        }
-        unset($oBabyArgs);
+	private function _registerBabyList($nMemberSrl)
+	{
+		$oBabyParams = Context::getRequestVars();
+	// var_dump($oBabyParams);
+			$aBabyList = [];  // 아이 3명으로 제한
+		if($oBabyParams->baby_nm0 && $oBabyParams->baby_sex_gb0 && $oBabyParams->baby_year0 && 
+			$oBabyParams->baby_month0 && $oBabyParams->baby_day0)
+		{
+			$oBaby = new stdClass();
+			$oBaby->name = $oBabyParams->baby_nm0;
+			$oBaby->gender = $oBabyParams->baby_sex_gb0;
+			$oBaby->birthday = $oBabyParams->baby_year0.$oBabyParams->baby_month0.$oBabyParams->baby_day0;
+			$aBabyList[] = $oBaby;
+		}
+		if($oBabyParams->baby_nm1 && $oBabyParams->baby_sex_gb1 && $oBabyParams->baby_year1 && 
+			$oBabyParams->baby_month1 && $oBabyParams->baby_day1)
+		{
+			$oBaby = new stdClass();
+			$oBaby->name = $oBabyParams->baby_nm1;
+			$oBaby->gender = $oBabyParams->baby_sex_gb1;
+			$oBaby->birthday = $oBabyParams->baby_year1.$oBabyParams->baby_month1.$oBabyParams->baby_day1;
+			$aBabyList[] = $oBaby;
+		}
+		if($oBabyParams->baby_nm2 && $oBabyParams->baby_sex_gb2 && $oBabyParams->baby_year2 && 
+			$oBabyParams->baby_month2 && $oBabyParams->baby_day2)
+		{
+			$oBaby = new stdClass();
+			$oBaby->name = $oBabyParams->baby_nm2;
+			$oBaby->gender = $oBabyParams->baby_sex_gb2;
+			$oBaby->birthday = $oBabyParams->baby_year2.$oBabyParams->baby_month2.$oBabyParams->baby_day2;
+			$aBabyList[] = $oBaby;
+		}
 
         $oBabyArgs = new stdClass();
+		if($oBabyParams->_care_center)  // angeclub 모듈에서 수기 입력하는 경우
+			$oBabyArgs->cc_idx = $oBabyParams->_care_center;
+
         $oBabyArgs->member_srl = $nMemberSrl;
         $oRst = executeQuery('angemombox.deleteBabiesByMemberSrl', $oBabyArgs);
-        foreach($aBabyList as $_=>$oSingleBaby)
+		foreach($aBabyList as $_=>$oSingleBaby)
         {
             $oBabyArgs->name = $oSingleBaby->name;
             $oBabyArgs->gender = $oSingleBaby->gender;
             $oBabyArgs->birthday = $oSingleBaby->birthday;
             $oRst = executeQuery('angemombox.insertBaby', $oBabyArgs);
-            if(!$oRst->toBool())
+			if(!$oRst->toBool())
 			    return $oRst;
         }
         unset($oBabyArgs);
+		unset($oBabyParams);
         return new BaseObject();
     }
 /**
  * SMS 발송 대상 추출을 위한 extra tbl 구성
+ * angeclub.controller.php::_addMemberInfo()의 코드 블록과 일관성 유지해야 함
  */
 	private function _constructMemberExtraInfo($oMemberObj)
 	{

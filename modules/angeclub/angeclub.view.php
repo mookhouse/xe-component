@@ -218,26 +218,26 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubMemberPopupAdd()
 	{
+		// 시작 - dispAngeclubMemberPopupUpdate() 공통
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
-
-		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
 		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
-
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aBabyGender', $this->_g_aBabyGender);
-		
 		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForMemberAdd();
 		Context::set('aArea', $oRst->get('aArea'));
 		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
 		unset($oRst);
+		Context::set('sBtbLblAdd', '회원 정보 등록');
+		Context::set('sBtbLblUpdate', '회원 정보 수정');
+		// 끝 - dispAngeclubMemberPopupUpdate() 공통
 
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
 		// 핸폰 번호로 자동 생성되는 암호의 전치사 설정 가져오기
 		$oConfig = $oAngeclubModel->getModuleConfig();
 		Context::set('sPasswordPrefix', $oConfig->password_prefix);
 		unset($oAngeclubModel);
-
 		$this->setTemplateFile('mom_popup_add');
 	}
 /**
@@ -245,24 +245,29 @@ class angeclubView extends angeclub
 */
 	public function dispAngeclubMemberPopupUpdate()
 	{
+		// dispAngeclubMemberPopupAdd() 공통
 		$this->module_info->layout_srl = 0;  // 팝업을 위해 layout 제거
-
-		Context::addJsFilter($this->module_path.'tpl/filter', 'update_mom.xml');
 		$oLoggedInfo = Context::get('logged_info');
 		Context::set('oLoggedInfo', $oLoggedInfo);
-
 		$oAngeclubModel = &getModel('angeclub');
 		Context::set('aUserInfo', $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl));
 		Context::set('aBabyGender', $this->_g_aBabyGender);
-		
-		$oMomMemberInfo = $oAngeclubModel->getMomMemberInfoBySrl(Context::get('member_srl_mom'));
-		Context::set('oMomMemberInfo', $oMomMemberInfo);
+		$oRst = $oAngeclubModel->getCenterListByStaffIdJsonStringfiedForMemberAdd();
+		Context::set('aArea', $oRst->get('aArea'));
+		Context::set('aJsonStringfyCenterByStaff', $oRst->get('aJsonStringfyCenterByStaff'));
 		unset($oRst);
+		Context::set('sBtbLblAdd', '회원 정보 등록');
+		Context::set('sBtbLblUpdate', '회원 정보 수정');
+		// 끝 - dispAngeclubMemberPopupAdd() 공통
+		
+		Context::addJsFilter($this->module_path.'tpl/filter', 'insert_mom.xml');
+		$oMemberModel = &getModel('member');
+		$oMomMemberInfo = $oMemberModel->getMemberInfoByMemberSrl((int)Context::get('member_srl_mom'));
+		unset($oMemberModel);
+		$oMomMemberInfo = $oAngeclubModel->rebuildMomInfo($oMomMemberInfo);
+		Context::set('oMomMemberInfo', $oMomMemberInfo);
 		unset($oAngeclubModel);
-
-		Context::set('aBabyGender', $this->_g_aBabyGender);
-
-		$this->setTemplateFile('mom_popup_update');
+		$this->setTemplateFile('mom_popup_add');
 	}
 /**
  * @brief 조리원 센터 메인 화면

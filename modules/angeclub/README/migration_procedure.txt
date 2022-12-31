@@ -97,8 +97,8 @@ addr   배송주소 주소
 cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
 (무시) mocha	총괄	c4650	김경희(a)	01047428413	angeclub@ange.co.kr	51025	
 
-(가입했음) mocha2	강남	c4650	김경희	01047428413	angeclub@ange.co.kr	51025	
-(가입했음) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208
+(너무 오래 전 가입했음) mocha2	강남	c4650	김경희	01047428413	angeclub@ange.co.kr	51025	
+(수기가입) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208
 (whzhwzh로 가입했음) whzhwhzh	강북	770722	김성경	01062752710	whzhwhzh@naver.com	220926	
 (ju7886로 가입했음)  juhyun0451	부산	910517	신주현	01048900451	juhyun0451@gmail.com	211126	220731
 (수기가입) sooga7	부산	761015	이성숙	01065514405	sooga76@naver.com	2018-05-28	211125
@@ -106,9 +106,10 @@ cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
 (수기가입) myheromyth89	강동	891001	남가은	01091611247	myheromyth89@naver.com	200810	201224
 
 *. angeclug migration tool 순서대로 실행
-1. 중복 핸폰 번호 추출
-2. 핸폰 번호 기준 정제된 COM_USER 생성
-3. 정제된 COM_USER 정보를 xe_member에 입력
+1. sooga7 hya1021 myheromyth89 가입 실행
+2. 중복 핸폰 번호 추출
+3. 핸폰 번호 기준 정제된 COM_USER 생성
+4. 정제된 COM_USER 정보를 xe_member에 입력
 
 angeadmin4650, angestory, momsfood 아이디를 보존할 수 없는 이유
 
@@ -120,10 +121,9 @@ mook1004 가 보존됨
 368152	angeadmin4650	관리자	관리자	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
 585493	angestory	편집팀2	편집팀22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
 
-*. 4. 정제된 COM_USER 정보를 mombox_datalake에 입력 실행 전
-정제된 COM_USER 정보를 mombox_datalake에 입력하기 위해 구홈페이지에서 맘박스 신청 내역 추출하고
+*. 4. 홈피 맘박스 신청 내역 이전하기 위해 위해 구홈페이지에서 맘박스 신청 내역 추출하고
 
-SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request
+SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request, adm_history_join.adhj_answers
 FROM adm_history_join
 INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
 WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'

@@ -1,9 +1,10 @@
-<query id="insertMemberExtra" action="insert">
+<query id="insertTmpAdminMemberExtra" action="insert">
 	<tables>
 		<table name="angemombox_member_extra" />
 	</tables>
 	<columns>
 		<column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+        <column name="angeclub_registration_log_srl" var="angeclub_registration_log_srl" filter="number" />
         <column name="user_name" var="user_name" />
         <column name="mobile" var="mobile" />
         <column name="gender" var="gender" />

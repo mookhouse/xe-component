@@ -14,6 +14,45 @@ class angeclubModel extends module
 	{
 	}
 /**
+ * @brief member 사용자 정의 필드 연동 설정
+ */
+	function getMemberFieldConnection()
+	{
+		$oConfig = $this->getModuleConfig();
+		$sMemberAddrFieldName = $oConfig->member_addr_field_name;
+		if(strlen($sMemberAddrFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_addr_field_name');
+
+		$sMemberGenderFieldName = $oConfig->member_gender_field_name;
+		if(strlen($sMemberGenderFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_gender_field_name');
+		
+		$sMemberSmspushFieldName = $oConfig->member_sms_push_field_name;
+		if(strlen($sMemberSmspushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_sms_push_field_name');
+
+		$sMemberEmailpushFieldName = $oConfig->member_email_push_field_name;
+		if(strlen($sMemberEmailpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_email_push_field_name');
+		
+		$sMemberPostpushFieldName = $oConfig->member_post_push_field_name;
+		if(strlen($sMemberPostpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_post_push_field_name');
+
+		$sMemberSponsorpushFieldName = $oConfig->member_sponsor_push_field_name;
+		if(strlen($sMemberSponsorpushFieldName) == 0) // 스킨의 주소 입력 UX 처리
+			return new BaseObject(-1, 'invalid_config_member_sponsor_push_field_name');
+
+		$oRst = new BaseObject();
+		$oRst->add('sMemberAddrFieldName', $sMemberAddrFieldName);
+		$oRst->add('sMemberGenderFieldName', $sMemberGenderFieldName);
+		$oRst->add('sMemberSmspushFieldName', $sMemberSmspushFieldName);
+		$oRst->add('sMemberEmailpushFieldName', $sMemberEmailpushFieldName);
+		$oRst->add('sMemberPostpushFieldName', $sMemberPostpushFieldName);
+		$oRst->add('sMemberSponsorpushFieldName', $sMemberSponsorpushFieldName);
+		return $oRst;
+	}
+/**
  * @brief return baby gender list
  **/
 	public function getMomList($oInParams)
@@ -62,7 +101,7 @@ class angeclubModel extends module
 			$aMomMemberInfo = [];
 			$aCenterInfo = [];
 			$oInParams->member_srl_staff = $oLoggedInfo->member_srl;
-			$oRst = executeQueryArray('angeclub.getRegistrationByStaffMemberSrl', $oInParams);
+			$oRst = executeQueryArray('angeclub.getRegistrationByMemberSrlStaff', $oInParams);
 			foreach($oRst->data as $_=>$oSingleRegist)
 			{
 				// ["is_existing_parent_member"]=> string(1) "N"
@@ -315,82 +354,6 @@ class angeclubModel extends module
 		return $oRst;
 	}
 /**
- * @brief return mom member detail
- **/
-	public function getMomMemberInfoBySrl($nMomMemberSrl)
-	{
-		$oRegistArgs = new stdClass();
-		$oRegistArgs->member_srl_parent = $nMomMemberSrl;
-		$oRegistRst = executeQueryArray('angeclub.getRegistrationByMomMemberSrl', $oRegistArgs);
-		unset($oRegistArgs);
-		if(!$oRegistRst->toBool())
-			return $oRegistRst;
-		
-		$oMemberModel = &getModel('member');
-
-		$aDataLakeHistory = [];
-		$nLatestDatalakeDocSrl = 0;
-		$sEmailPush = 'N';
-		$sSmsPush = 'N';
-		$sPostPush = 'N';
-		$sSponsorPush = 'N';
-		foreach($oRegistRst->data as $_=>$oSingleRegist)
-		{
-			$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleRegist->member_srl_staff);
-
-			$oCenterRst = $this->getCenterInfoByIdx($oSingleRegist->cc_idx);
-			if(!$oCenterRst->toBool())
-				return $oCenterRst;
-			$oDataLakeArgs = new stdClass();
-			$oDataLakeArgs->angeclub_registration_log_srl = $oSingleRegist->log_srl;
-			$oDataLakeRst = executeQueryArray('angemombox.getDataLakeByRegistSrl', $oDataLakeArgs);
-			unset($oRegistArgs);
-			foreach($oDataLakeRst->data as $_=>$oSingleDl)
-			{
-				$oSingleDlAppend = new stdClass();
-				$oSingleDlAppend->doc_srl = $oSingleDl->doc_srl;
-				$nLatestDatalakeDocSrl = $oSingleDl->doc_srl;
-				// $oSingleDlAppend->module_srl = $oSingleDl->module_srl;
-				$oSingleDlAppend->user_name_staff = $oStaffMemberInfo->user_name;
-				$oSingleDlAppend->cc_city = $oCenterRst->data->cc_city;
-				$oSingleDlAppend->cc_area = $oCenterRst->data->cc_area;
-				$oSingleDlAppend->cc_name = $oCenterRst->data->cc_name;
-				$oSingleDlAppend->baby_birth_name = $oSingleDl->baby_birth_name;
-				$oSingleDlAppend->baby_gender = $oSingleDl->baby_gender;
-				$oSingleDlAppend->baby_birthday = $oSingleDl->baby_birthday_yyyymmdd;
-				$oSingleDlAppend->regdate = $oSingleRegist->regdate;
-				$aDataLakeHistory[] = $oSingleDlAppend;
-				
-				$sEmailPush = $oSingleDl->email_push;  // identify latest status only
-				$sSmsPush = $oSingleDl->sms_push;  // identify latest status only
-				$sPostPush = $oSingleDl->post_push;  // identify latest status only
-				$sSponsorPush = $oSingleDl->sponsor_push;  // identify latest status only
-			}
-			unset($oStaffMemberInfo);
-			unset($oCenterRst);
-			unset($oDataLakeRst);
-		}
-		$oMomMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nMomMemberSrl);
-		unset($oMemberModel);
-
-		$oModuleInfo = $this->getModuleConfig();
-		$sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
-		if($sMemberAddrFieldName != 'address')
-		{
-			$oMomMemberInfo->address = $oMomMemberInfo->$sMemberAddrFieldName;
-			unset($oMomMemberInfo->$sMemberAddrFieldName);
-		}
-		unset($oModuleInfo);
-
-		$oMomMemberInfo->aDatalakeHistory = $aDataLakeHistory;
-		$oMomMemberInfo->nLatestDatalakeDocSrl = $nLatestDatalakeDocSrl;
-		$oMomMemberInfo->sEmailPush = $sEmailPush;
-		$oMomMemberInfo->sSmsPush = $sSmsPush;
-		$oMomMemberInfo->sPostPush = $sPostPush;
-		$oMomMemberInfo->sSponsorPush = $sSponsorPush;
-		return $oMomMemberInfo;
-	}
-/**
  * @brief return work diary detail
  **/
 	public function getWorkDiaryByIdx($nClIdx)
@@ -466,46 +429,75 @@ class angeclubModel extends module
 					$bDuplicated = 1;
 				break;
 		}
+		unset($oMemberModel);
 		if($oMemberInfo)
-		{
-			unset($oMemberInfo->allow_mailing);
-			unset($oMemberInfo->allow_message);
-			unset($oMemberInfo->blog);
-			unset($oMemberInfo->change_password_date);
-			unset($oMemberInfo->email_address);
-			unset($oMemberInfo->denied);
-			unset($oMemberInfo->description);
-			unset($oMemberInfo->profile_image);
-			unset($oMemberInfo->referral);
-			unset($oMemberInfo->find_account_answer);
-			unset($oMemberInfo->find_account_question);
-			unset($oMemberInfo->group_list);
-			unset($oMemberInfo->homepage);
-			unset($oMemberInfo->image_mark);
-			unset($oMemberInfo->image_name);
-			unset($oMemberInfo->is_admin);
-			unset($oMemberInfo->limit_date);
-			unset($oMemberInfo->list_order);
-			unset($oMemberInfo->password);
-			unset($oMemberInfo->signature);
-		}
+			$oMemberInfo = $this->rebuildMomInfo($oMemberInfo);
 		else
 			$oMemberInfo = new stdClass();
+		$this->add('isDuplicated', $bDuplicated);
+        $this->add('sJsonMemberInfo', json_encode($oMemberInfo));
+		unset($oMemberInfo);
+		return new BaseObject();
+	}
+/**
+ * @brief return mom member detail
+ **/
+	public function rebuildMomInfo($oMemberInfo)
+	{
+		$aIgnoreMemberVars = ['allow_mailing', 'allow_message', 'blog', 'change_password_date', 'email_address', 'denied', 
+								'description', 'profile_image', 'referral', 'find_account_answer', 'find_account_question',
+								'group_list', 'homepage', 'image_mark', 'image_name', 'is_admin', 'limit_date', 'list_order',
+								'password', 'signature', 'xe_validator_id', 'last_login', 'regdate'];
+		foreach($aIgnoreMemberVars as $sValLabel)
+			unset($oMemberInfo->$sValLabel);
+		foreach($oMemberInfo as $sVarName => $sVal)  // member::extra_Vars에 우연히 입력된 아이 정보 무시
+		{
+			if(strpos($sVarName, 'baby_') !== false)
+				unset($oMemberInfo->$sVarName);
+		}
+		$nMomMemberSrl = $oMemberInfo->member_srl;
+		$oRegistArgs = new stdClass();
+		$oRegistArgs->member_srl_parent = $nMomMemberSrl;
+		$oRegistRst = executeQuery('angeclub.getRegistrationByMemberSrlParent', $oRegistArgs);
+		unset($oRegistArgs);
+		if(!$oRegistRst->toBool())
+			return $oRegistRst;
+		
+		$oMemberModel = &getModel('member');
+		$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oRegistRst->data->member_srl_staff);
+		unset($oMemberModel);
+
+		$oClubInfo = new stdClass();
+		$oClubInfo->center_visit_cnt = $oRegistRst->data->center_visit_cnt;
+		$oClubInfo->education_cnt = $oRegistRst->data->education_cnt;
+		$oClubInfo->user_name_staff = $oStaffMemberInfo->user_name;
+		$oClubInfo->member_srl_staff = $oStaffMemberInfo->member_srl;
+		$oClubInfo->regdate = $oRegistRst->data->regdate;
+		unset($oStaffMemberInfo);
+
+		$oCenterRst = $this->getCenterInfoByIdx($oRegistRst->data->cc_idx);
+		if(!$oCenterRst->toBool())
+			return $oCenterRst;
+		$oClubInfo->cc_city = $oCenterRst->data->cc_city;
+		$oClubInfo->cc_area = $oCenterRst->data->cc_area;
+		$oClubInfo->cc_name = $oCenterRst->data->cc_name;
+	// var_dump($oClubInfo);
+		unset($oCenterRst);
+		$oMemberInfo->oClubInfo = $oClubInfo;
 
 		$oModuleInfo = $this->getModuleConfig();
 		$sMemberAddrFieldName = $oModuleInfo->member_addr_field_name;
+		unset($oModuleInfo);
 		if($sMemberAddrFieldName != 'address')
 		{
 			$oMemberInfo->address = $oMemberInfo->$sMemberAddrFieldName;
 			unset($oMemberInfo->$sMemberAddrFieldName);
 		}
-		unset($oModuleInfo);
-
-		$this->add('isDuplicated', $bDuplicated);
-        $this->add('sJsonMemberInfo', json_encode($oMemberInfo));
-		unset($oMemberInfo);
-		unset($oMemberModel);
-		return new BaseObject();
+		$oAngemomboxModel = getModel('angemombox');
+		$aBabyList = $oAngemomboxModel->getBabyList($nMomMemberSrl);
+		unset($oAngemomboxModel);
+		$oMemberInfo->aBabyList = $aBabyList;
+		return $oMemberInfo;
 	}
 /**
  * @brief return center list by center name

@@ -1,8 +1,9 @@
 <table name="angemombox_baby_list">
 	<column name="baby_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
 	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+    <column name="cc_idx" type="number" size="11" index="cc_idx"/>
     <column name="name" type="varchar" size="20" notnull="notnull" />
     <column name="gender" type="char" size="1" notnull="notnull" />
-    <column name="birthday" type="char" size="8" notnull="notnull" />
+    <column name="birthday" type="char" size="8" notnull="notnull" index="idx_birthday" />
     <column name="regdate" type="date" />
 </table>

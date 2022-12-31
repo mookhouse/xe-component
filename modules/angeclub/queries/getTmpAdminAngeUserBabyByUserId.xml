@@ -1,4 +1,4 @@
-<query id="getTmpAdminBabyList" action="select">
+<query id="getTmpAdminAngeUserBabyByUserId" action="select">
     <tables>
         <table name="angeclub_tmp_ange_user_baby" />
     </tables>
@@ -6,6 +6,7 @@
         <column name="BABY_NM" />
         <column name="BABY_BIRTH" />
         <column name="BABY_SEX_GB" />
+        <column name="CARE_CENTER" />
     </columns>
     <conditions>
         <condition operation="equal" column="USER_ID" var="USER_ID" notnull="notnull" />

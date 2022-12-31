@@ -16,322 +16,381 @@ input[id="cb2"]:checked + label {
 display: none;
 }
 </style>
-<section class="popup">
 
 <script>
-    $( document ).ready(function() {
-        // 주소가 없는 유저는 "주소없음"을 체크한다.
-        if ($('#_ZIP_CODE').val()=="000000") {
-            $('#addr_null').attr("checked", true);
-            $('#_ZONE_CODE').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-            $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-            $('#_ADDR').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-            $('#_ADDR_DETAIL').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-        }
-        $('#_PHONE_2').focus();
-        // 핸드폰 유효확인 처리
-        $("#accountform").submit(function() {
-            phone_format();
-            //alert(phoneCheck("mobile"));
-            if(!phoneCheck("mobile")) {
-                alert("유효하지 않은 휴대전화입니다.");
-                $('#_PHONE_2').focus();
-                return false;
+var json_center = {{$aJsonStringfyCenterByStaff}}
+function SetCenter(t_area,t_center){
+    t_options = '';
+    // t_area = 선택값
+    for( lkey in json_center){
+        if (json_center[lkey]['area']==t_area){
+            if (t_center!=undefined && t_center==json_center[lkey]['name']){
+                t_options = t_options + '<option value="'+json_center[lkey]['idx']+'" selected>'+json_center[lkey]['name']+'</option>';
+            }else{
+                t_options = t_options + '<option value="'+json_center[lkey]['idx']+'">'+json_center[lkey]['name']+'</option>';
             }
-        });
-    });
-    
-    //핸드폰번호/전화번호 자동 하이픈(대시)
-    function phone_format() {
-        var num = $("#_PHONE_2").val();
-        var phone_num = num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-        //$("#_PHONE_2").val(phone_num);
-        $("#mobile1").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1"));
-        $("#mobile2").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$2"));
-        $("#mobile3").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$3"));
+        }
     }
-    
-    // 핸드폰번호/전화번호 유효성 검사
-    function phoneCheck(type) {
-        var phoneNum1 = $("#" + type + "1").val();
-        var phoneNum2 = $("#" + type + "2").val();
-        var phoneNum3 = $("#" + type + "3").val();
-        var phoneNumber = phoneNum1 + "-" + phoneNum2 + "-" + phoneNum3;
-        var regExp = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
-        var result = regExp.exec(phoneNumber);
-        if(result) return true;
-        else return false;
-    }
-    
-    var json_center = {{$aJsonStringfyCenterByStaff}}
-    function SetCenter(t_area,t_center){
-        t_options = '';
-        // t_area = 선택값
+    $('#_care_center').html(t_options);
+    // 산후조리원 동기화
+    // i_care = $('#_care_center').val();
+    // $('#I_care_center').val(i_care);
+}
+
+$(document).ready(function() {
+    // 인덱스가 지정되었을 경우, 지역 선택 박스 설정
+    t_center = '{$oMomMemberInfo->oClubInfo->cc_name}';
+    if (t_center!=''){
         for( lkey in json_center){
-            if (json_center[lkey]['area']==t_area){
-                if (t_center!=undefined && t_center==json_center[lkey]['name']){
-                    t_options = t_options + '<option value="'+json_center[lkey]['idx']+'" selected>'+json_center[lkey]['name']+'</option>';
-                }else{
-                    t_options = t_options + '<option value="'+json_center[lkey]['idx']+'">'+json_center[lkey]['name']+'</option>';
-                }
+            if (json_center[lkey]['name']==t_center){
+                $('#_care_area').val(json_center[lkey]['area']);
+                SetCenter(json_center[lkey]['area'],'{$oMomMemberInfo->oClubInfo->cc_name}');
             }
         }
-        $('#_CARE_CENTER').html(t_options);
-        // 산후조리원 동기화
-        i_care = $('#_CARE_CENTER').val();
-        $('#I_CARE_CENTER').val(i_care);
     }
-    
-    // var json_user = { "김성경":{ "id":"whzhwhzh"    , "name":"김성경" }, "신주현":{ "id":"juhyun0451"    , "name":"신주현" }, "남가은":{ "id":"myheromyth89"    , "name":"남가은" }, "손미연":{ "id":"sugarprime"    , "name":"손미연" }, "김경희(a)":{ "id":"mocha"    , "name":"김경희(a)" }, "웹관리자":{ "id":"admin"    , "name":"웹관리자" }, "김경희":{ "id":"mocha2"    , "name":"김경희" }};
-    // function SetUser(t_name){
-    //     u_options = '';
-    //     for( lkey in json_user){
-    //         if (json_user[lkey]['name']==t_name){
-    //             if (t_name!=undefined && t_name==json_user[lkey]['name']){
-    //                 u_options = json_user[lkey]['id'];
-    //             }
-    //         }
-    //     }
-    //     $('#_CONTACT_ID').val(u_options);
-    // }
-    
-    // 아이정보 중 산후조리원 동기화
-    // function SetCenterBaby(t_center){
-    //     $('#I_CARE_CENTER').val(t_center);
-    // }
-    
-    $( document ).ready(function() {
-        // 인덱스가 지정되었을 경우, 지역 선택 박스 설정
-        t_center = '';
-        if (t_center!=''){
-            for( lkey in json_center){
-                if (json_center[lkey]['name']==t_center){
-                    $('#_CARE_AREA').val(json_center[lkey]['area']);
-                    SetCenter(json_center[lkey]['area'],'');
-                }
-            }
-        }
-        t_center = '';
-    
-        // 기본적으로 처음값으로 처리
-        i_care = $('#_CARE_CENTER').val();
-        $('#I_CARE_CENTER').val(i_care);
-    });
-    
-    function CheckMobile(){
-        t_value = $('#_PHONE_2').val();
-        if(t_value.length)
-        {
-            var params = new Array();
-            params['check_attr'] = 'mobile';
-            params['mobile'] = t_value;
-            var response = ['isDuplicated', 'sJsonMemberInfo'];
-            exec_xml('angeclub', 'getDuplicatedUserAjax', params, function(ret_obj) {
-                if(ret_obj['message'] == 'success')
-                {
-                    if(ret_obj['isDuplicated'] == 0){
-                        $('#_PHONE_2_check').css('color','#73B9FF');
-                        $('#_PHONE_2_check').html('새로운 핸드폰 번호입니다.');
-                        $('#password').val('{$sPasswordPrefix}'+t_value);
-                    }else{
-                        $('#_PHONE_2_check').css('color','#FF7373');
-                        $('#_PHONE_2_check').html('등록된 핸드폰 번호를 기준으로 회원 정보를 가져왔습니다.');
-                        const oMemberInfo = JSON.parse(ret_obj['sJsonMemberInfo']);
-                        drawOldMemberInfo(oMemberInfo);
-                    }
-                }
-            }, response);
-        }
-    }
+    // t_center = '';
 
-    function CheckId(){
-        t_value = $('#_USER_ID').val();
-        if(t_value.length)
-        {
-            var params = new Array();
-            params['check_attr'] = 'user_id';
-            params['user_id'] = t_value;
-            var response = ['isDuplicated'];
-            exec_xml('angeclub', 'getDuplicatedUserAjax', params, function(ret_obj) {
-                if(ret_obj['message'] == 'success')
-                {
-                    if(ret_obj['isDuplicated'] == 0){
-                        $('#_USER_ID_check').css('color','#73B9FF');
-                        $('#_USER_ID_check').html('새로운 아이디입니다.');
-        
-                    }else{
-                        $('#_USER_ID_check').css('color','#FF7373');
-                        $('#_USER_ID_check').html('등록된 아이디입니다.');
-                    }
-                }
-            }, response);
-        }
-    }
-    
-    function drawOldMemberInfo(oMemberInfo){
-console.log(oMemberInfo);
-        $('#existing_member_srl').val(oMemberInfo.member_srl);
-        $('#_USER_ID').val(oMemberInfo.user_id);
-        $('#_USER_ID').prop('readonly', true);
-        $('#email_id').val(oMemberInfo.email_id);
-        $('#email_id').prop('readonly', true);
-        $('#email_server').val(oMemberInfo.email_host);
-        $('#email_server').prop('readonly', true);
-        $('#email_server_option').prop('disabled', true);
-        SetEmailValue();
-        $('#password').prop('disabled', true);
-        $('#_USER_NM').val(oMemberInfo.user_name);
-        $('#_USER_NM').prop('disabled', true);
-        $('#_BIRTH').val(oMemberInfo.birthday);
-        $('#_BIRTH').prop('disabled', true);
-        $('#_ZONE_CODE').val(oMemberInfo.address[0]);
-        $('#_ADDR').val(oMemberInfo.address[1]);
-        $('#_ADDR_DETAIL').val(oMemberInfo.address[2]);
-        $('#btn_submit').html('기존 회원 변경');
-    }
+    // 기본적으로 처음값으로 처리
+    // i_care = $('#_care_center').val();
+    // $('#I_care_center').val(i_care);
+});
 
-    function emailChk(){
-        mailid = $('#email_id').val();
-        mailsever = $('#email_server').val();
-        if(mailid.length=='0' || mailsever.length=='0'){
-            alert('이메일을 입력하세요');
-            return;
-        }
+function CheckMobile(){
+    t_value = $('#_phone_2').val();
+    if(t_value.length)
+    {
         var params = new Array();
-        params['check_attr'] = 'email';
-        params['email'] = mailid+'@'+mailsever;
-        var response = ['isDuplicated'];
+        params['check_attr'] = 'mobile';
+        params['mobile'] = t_value;
+        var response = ['isDuplicated', 'sJsonMemberInfo'];
         exec_xml('angeclub', 'getDuplicatedUserAjax', params, function(ret_obj) {
-            console.log('checked');
             if(ret_obj['message'] == 'success')
             {
                 if(ret_obj['isDuplicated'] == 0){
-                    $('#_EMAIL_check').css('color','#73B9FF');
-                    $('#_EMAIL_check').html('새로운 이메일입니다.');
-    
+                    $('#_phone_2_check').css('color','#73B9FF');
+                    $('#_phone_2_check').html('새로운 핸드폰 번호입니다.');
+                    $('#password').val('{$sPasswordPrefix}'+t_value);
                 }else{
-                    $('#_EMAIL_check').css('color','#FF7373');
-                    $('#_EMAIL_check').html('등록된 이메일입니다.');
+                    $('#_phone_2_check').css('color','#FF7373');
+                    $('#_phone_2_check').html('등록된 핸드폰 번호를 기준으로 회원 정보를 가져왔습니다.');
+                    const oMemberInfo = JSON.parse(ret_obj['sJsonMemberInfo']);
+                    drawOldMemberInfo(oMemberInfo);
                 }
             }
         }, response);
     }
+}
+
+function CheckId(){
+    t_value = $('#_user_id').val();
+    if(t_value.length)
+    {
+        var params = new Array();
+        params['check_attr'] = 'user_id';
+        params['user_id'] = t_value;
+        var response = ['isDuplicated'];
+        exec_xml('angeclub', 'getDuplicatedUserAjax', params, function(ret_obj) {
+            if(ret_obj['message'] == 'success')
+            {
+                if(ret_obj['isDuplicated'] == 0){
+                    $('#_user_id_check').css('color','#73B9FF');
+                    $('#_user_id_check').html('새로운 아이디입니다.');
     
-    // 다음 우편번호 사용자 선택 처리
-        function zipcode_execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var fullAddr = ''; // 최종 주소 변수
-                    var extraAddr = ''; // 조합형 주소 변수
-
-                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        fullAddr = data.roadAddress;
-
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        fullAddr = data.jibunAddress;
-                    }
-
-                    // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                    if(data.userSelectedType === 'R'){
-                        //법정동명이 있을 경우 추가한다.
-                        if(data.bname !== ''){
-                            extraAddr += data.bname;
-                        }
-                        // 건물명이 있을 경우 추가한다.
-                        if(data.buildingName !== ''){
-                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                        }
-                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById("_ZONE_CODE").value = data.zonecode;
-                    document.getElementById("_ZIP_CODE").value = data.postcode1+data.postcode2;
-                    document.getElementById("_ADDR").value = fullAddr;
-
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("_ADDR_DETAIL").focus();
+                }else{
+                    $('#_user_id_check').css('color','#FF7373');
+                    $('#_user_id_check').html('등록된 아이디입니다.');
                 }
-            }).open();
-        }
+            }
+        }, response);
+    }
+}
+
+function drawOldMemberInfo(oMemberInfo){
+// console.log(oMemberInfo);
+    $('#old_member_srl').val(oMemberInfo.member_srl);
+    $('#is_existing_member_parent').val('Y');  // 홈피 가입 회원을 조리원에서 만나면 Y
+    $('#_phone_2').prop('readonly', true);
+    $('#_user_id').val(oMemberInfo.user_id);
+    $('#_user_id').prop('readonly', true);
+    $('#email_id').val(oMemberInfo.email_id);
+    $('#email_id').prop('readonly', true);
+    $('#email_server').val(oMemberInfo.email_host);
+    $('#email_server').prop('readonly', true);
+    $('#email_server_option').prop('disabled', true);
+    $('#btn_email_host').prop('disabled', true);
+    SetEmailValue();
+    $('#password').prop('disabled', true);
+    $('#_user_nm').val(oMemberInfo.user_name);
+    $('#_user_nm').prop('disabled', true);
+    $('#_birth').val(oMemberInfo.birthday);
+    $('#_birth').prop('disabled', true);
+
+    $('#_center_cnt').val(oMemberInfo.oClubInfo.center_visit_cnt);
+    $('#_clubedu_cnt').val(oMemberInfo.oClubInfo.education_cnt);
     
-    function SetEmailValue(){
-        // 숫자 및 영문자만 가능
-        var t_id = $('#email_id').val();
-        t_id = t_id.replace(/[^\0-9a-z._\s]/gi,'');
-        var t_server = $('#email_server').val();
-        t_server = t_server.replace(/[^\0-9a-z._\s]/gi,'');
+    $('#sms_send').val(oMemberInfo.sms_push);
+    if(oMemberInfo.sms_push == 'Y')
+        $("#sms_send1").trigger("click");
+    else
+        $("#sms_send2").trigger("click");
+
+    $('#email_send').val(oMemberInfo.email_push);
+    if(oMemberInfo.email_push == 'Y')
+        $("#email_send1").trigger("click");
+    else
+        $("#email_send2").trigger("click");
     
-        $('#email_id').val(t_id);
-        $('#email_server').val(t_server);
+    $('#addr_send').val(oMemberInfo.post_push);
+    if(oMemberInfo.post_push == 'Y')
+        $("#addr_send1").trigger("click");
+    else
+        $("#addr_send2").trigger("click");
     
-        var t_email = t_id + '@' + t_server;
-        $('#_EMAIL').val(t_email);
+    $('#sponsor').val(oMemberInfo.sponsor_push);
+    if(oMemberInfo.sponsor_push == 'Y')
+        $("#sponsor1").trigger("click");
+    else
+        $("#sponsor2").trigger("click");
+
+    if(oMemberInfo.aBabyList[0]?.name.length)
+    {
+        $('#baby_nm0').val(oMemberInfo.aBabyList[0].name);
+        $("#baby_sex_gb0").val(oMemberInfo.aBabyList[0].gender).prop("selected", true);
+        $("#baby_year0").val(oMemberInfo.aBabyList[0].birthday_yr).prop("selected", true);
+        $("#baby_month0").val(oMemberInfo.aBabyList[0].birthday_mo).prop("selected", true);
+        $("#baby_day0").val(oMemberInfo.aBabyList[0].birthday_day).prop("selected", true);
+    }
+    if(oMemberInfo.aBabyList[1]?.name.length)
+    {
+        $('#baby_nm1').val(oMemberInfo.aBabyList[1].name);
+        $("#baby_sex_gb1").val(oMemberInfo.aBabyList[1].gender).prop("selected", true);
+        $("#baby_year1").val(oMemberInfo.aBabyList[1].birthday_yr).prop("selected", true);
+        $("#baby_month1").val(oMemberInfo.aBabyList[1].birthday_mo).prop("selected", true);
+        $("#baby_day1").val(oMemberInfo.aBabyList[1].birthday_day).prop("selected", true);
+    }
+    if(oMemberInfo.aBabyList[2]?.name.length)
+    {
+        $('#baby_nm2').val(oMemberInfo.aBabyList[2].name);
+        $("#baby_sex_gb2").val(oMemberInfo.aBabyList[2].gender).prop("selected", true);
+        $("#baby_year2").val(oMemberInfo.aBabyList[2].birthday_yr).prop("selected", true);
+        $("#baby_month2").val(oMemberInfo.aBabyList[2].birthday_mo).prop("selected", true);
+        $("#baby_day2").val(oMemberInfo.aBabyList[2].birthday_day).prop("selected", true);
     }
     
-    function SelectEmailServer(p_value){
-        if (p_value!='custom'){
-            $('#email_server').val(p_value);
-            $("#email_server").attr("readonly",true);
-        }else{
-            $('#email_server').val('');
-            $("#email_server").attr("readonly",false);
+    $('#_zone_code').val(oMemberInfo.address[0]);
+    $('#_addr').val(oMemberInfo.address[1]);
+    $('#_addr_detail').val(oMemberInfo.address[2]);
+
+    $("#_contact_id").val(oMemberInfo.oClubInfo.member_srl_staff).prop("selected", true);
+    SetCenter(oMemberInfo.oClubInfo.cc_area, oMemberInfo.oClubInfo.cc_name);
+    $('#_center_visit_ymd').val(oMemberInfo.oClubInfo.regdate.substr(0, 8));
+
+    $('#btn_submit').html('{$sBtbLblUpdate}');
+}
+
+function emailChk(){
+    mailid = $('#email_id').val();
+    mailsever = $('#email_server').val();
+    if(mailid.length=='0' || mailsever.length=='0'){
+        alert('이메일을 입력하세요');
+        return;
+    }
+    var params = new Array();
+    params['check_attr'] = 'email';
+    params['email'] = mailid+'@'+mailsever;
+    var response = ['isDuplicated'];
+    exec_xml('angeclub', 'getDuplicatedUserAjax', params, function(ret_obj) {
+        console.log('checked');
+        if(ret_obj['message'] == 'success')
+        {
+            if(ret_obj['isDuplicated'] == 0){
+                $('#_EMAIL_check').css('color','#73B9FF');
+                $('#_EMAIL_check').html('새로운 이메일입니다.');
+
+            }else{
+                $('#_EMAIL_check').css('color','#FF7373');
+                $('#_EMAIL_check').html('등록된 이메일입니다.');
+            }
         }
-        SetEmailValue();
+    }, response);
+}
+
+// 다음 우편번호 사용자 선택 처리
+    function zipcode_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("_zone_code").value = data.zonecode;
+                // document.getElementById("_ZIP_CODE").value = data.postcode1+data.postcode2;
+                document.getElementById("_addr").value = fullAddr;
+
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("_addr_detail").focus();
+            }
+        }).open();
     }
 
-    $(document).on("click", ".agree_label", function(){
-        var target = $(this).attr("data-target");
-        var radio_val = $(this).attr("data-str");
-        switch(radio_val){
-            case "Y":
-                $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_on.png");
-                $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
-                break;
-            case "N":
-                $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
-                $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_red_on.png");
-                break;
-        }
-                $("#"+target).val(radio_val);
-    });
-    
-    // 이메일 공백으로 넘기기
-    // function CheckEmailNull() {
-    //     if ($('#email_null').is(":checked")) {
-    //         $('#email_id').val('angeclubemailnullXnvtOmF6gLyRHNz').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //         $('#email_server').val('ange.co.kr').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //         $('#_EMAIL').val($('#email_id').val()+'@'+$('#email_server').val());
-    //     } else {
-    //         $('#email_id').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");
-    //         $('#email_server').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");
-    //         $('#_EMAIL').val('');
-    //     }
-    // }
-    
-    // 주소 공백으로 넘기기
-    // function CheckAddrNull() {
-    //     if ($('#addr_null').is(":checked")) {
-    //         $('#_ZONE_CODE').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //         $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //         $('#_ADDR').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //         $('#_ADDR_DETAIL').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
-    //     } else {
-    //         $('#_ZONE_CODE').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
-    //         $('#_ZIP_CODE').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
-    //         $('#_ADDR').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
-    //         $('#_ADDR_DETAIL').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
-    //     }
-    // }
-    
+function SetEmailValue(){
+    // 숫자 및 영문자만 가능
+    var t_id = $('#email_id').val();
+    t_id = t_id.replace(/[^\0-9a-z._\s]/gi,'');
+    var t_server = $('#email_server').val();
+    t_server = t_server.replace(/[^\0-9a-z._\s]/gi,'');
+
+    $('#email_id').val(t_id);
+    $('#email_server').val(t_server);
+
+    // var t_email = t_id + '@' + t_server;
+    // $('#_EMAIL').val(t_email);
+}
+
+function SelectEmailServer(p_value){
+    if (p_value!='custom'){
+        $('#email_server').val(p_value);
+        $("#email_server").attr("readonly",true);
+    }else{
+        $('#email_server').val('');
+        $("#email_server").attr("readonly",false);
+    }
+    SetEmailValue();
+}
+
+$(document).on("click", ".agree_label", function(){
+    var target = $(this).attr("data-target");
+    var radio_val = $(this).attr("data-str");
+    switch(radio_val){
+        case "Y":
+            $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_on.png");
+            $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
+            break;
+        case "N":
+            $("#"+target+"1").attr("src","/modules/angeclub/skins/default/images/radio_nor_off.png");
+            $("#"+target+"2").attr("src","/modules/angeclub/skins/default/images/radio_red_on.png");
+            break;
+    }
+    $("#"+target).val(radio_val);
+});
+
+// $( document ).ready(function() {
+//     // 주소가 없는 유저는 "주소없음"을 체크한다.
+//     if ($('#_ZIP_CODE').val()=="000000") {
+//         $('#addr_null').attr("checked", true);
+//         $('#_zone_code').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_addr').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_addr_detail').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//     }
+//     $('#_phone_2').focus();
+//     // 핸드폰 유효확인 처리
+//     $("#accountform").submit(function() {
+//         phone_format();
+//         //alert(phoneCheck("mobile"));
+//         if(!phoneCheck("mobile")) {
+//             alert("유효하지 않은 휴대전화입니다.");
+//             $('#_phone_2').focus();
+//             return false;
+//         }
+//     });
+// });
+
+// //핸드폰번호/전화번호 자동 하이픈(대시)
+// function phone_format() {
+//     var num = $("#_phone_2").val();
+//     var phone_num = num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+//     //$("#_phone_2").val(phone_num);
+//     $("#mobile1").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1"));
+//     $("#mobile2").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$2"));
+//     $("#mobile3").val(num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$3"));
+// }
+
+// 핸드폰번호/전화번호 유효성 검사
+// function phoneCheck(type) {
+//     var phoneNum1 = $("#" + type + "1").val();
+//     var phoneNum2 = $("#" + type + "2").val();
+//     var phoneNum3 = $("#" + type + "3").val();
+//     var phoneNumber = phoneNum1 + "-" + phoneNum2 + "-" + phoneNum3;
+//     var regExp = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
+//     var result = regExp.exec(phoneNumber);
+//     if(result) return true;
+//     else return false;
+// }
+
+// var json_user = { "김성경":{ "id":"whzhwhzh"    , "name":"김성경" }, "신주현":{ "id":"juhyun0451"    , "name":"신주현" }, "남가은":{ "id":"myheromyth89"    , "name":"남가은" }, "손미연":{ "id":"sugarprime"    , "name":"손미연" }, "김경희(a)":{ "id":"mocha"    , "name":"김경희(a)" }, "웹관리자":{ "id":"admin"    , "name":"웹관리자" }, "김경희":{ "id":"mocha2"    , "name":"김경희" }};
+// function SetUser(t_name){
+//     u_options = '';
+//     for( lkey in json_user){
+//         if (json_user[lkey]['name']==t_name){
+//             if (t_name!=undefined && t_name==json_user[lkey]['name']){
+//                 u_options = json_user[lkey]['id'];
+//             }
+//         }
+//     }
+//     $('#_contact_id').val(u_options);
+// }
+
+// 아이정보 중 산후조리원 동기화
+// function SetCenterBaby(t_center){
+//     $('#I_care_center').val(t_center);
+// }
+
+// 이메일 공백으로 넘기기
+// function CheckEmailNull() {
+//     if ($('#email_null').is(":checked")) {
+//         $('#email_id').val('angeclubemailnullXnvtOmF6gLyRHNz').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#email_server').val('ange.co.kr').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_EMAIL').val($('#email_id').val()+'@'+$('#email_server').val());
+//     } else {
+//         $('#email_id').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");
+//         $('#email_server').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");
+//         $('#_EMAIL').val('');
+//     }
+// }
+
+// 주소 공백으로 넘기기
+// function CheckAddrNull() {
+//     if ($('#addr_null').is(":checked")) {
+//         $('#_zone_code').val('00000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_ZIP_CODE').val('000000').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_addr').val('ADDR_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//         $('#_addr_detail').val('ADDR_DETAIL_NULL').attr("readonly",true).css("background-color","#fdd1d1").css("color","#fdd1d1");
+//     } else {
+//         $('#_zone_code').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
+//         $('#_ZIP_CODE').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
+//         $('#_addr').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
+//         $('#_addr_detail').val('').attr("readonly",false).css("background-color","#fff").css("color","#000");;
+//     }
+// }
 </script>
-    
+<section class="popup">
     <div class="section-header">
         <h4 class="modal-title" id="popup-contentLabel">신규 회원 등록</h4>
     </div>
@@ -347,8 +406,8 @@ console.log(oMemberInfo);
             </div> -->
             <div class="article-content">
                 <form method="post" action="./" onsubmit="return procFilter(this, window.insert_mom)" class="x_form-horizontal" enctype="multipart/form-data">
-                    <input type="hidden" name="existing_member_srl" id="existing_member_srl" value="">
-                    <input type="hidden" name="_EMAIL" id="_EMAIL" value="">
+                    <input type="hidden" name="old_member_srl" id="old_member_srl" value="{$oMomMemberInfo->member_srl}">
+                    <input type="hidden" name="is_existing_member_parent" id="is_existing_member_parent" value="N"> <!--- 홈피 가입 회원을 조리원에서 만나면 Y -->
                     <div class="table-wrap write">
                         <table class="table">
                             <colgroup>
@@ -361,32 +420,29 @@ console.log(oMemberInfo);
                                 <tr>
                                     <th class="essential">휴대전화</th>
                                     <td>
-                                        <input type="text" class="form-control" name="_PHONE_2" id="_PHONE_2" value="" title="휴대전화번호" onblur="CheckMobile();" maxlength="11" style="ime-mode:disabled;width: 200px;">
-                                        <p id='_PHONE_2_check'></p>
+                                        <input type="text" class="form-control" name="_phone_2" id="_phone_2" value="{$oMomMemberInfo->mobile}" title="휴대전화번호" onblur="CheckMobile();" maxlength="11" style="ime-mode:disabled;width: 200px;" readonly|cond="$oMomMemberInfo->mobile">
+                                        <p id='_phone_2_check'></p>
                                     </td>
                                     <th class="essential">아이디</td>
-                                        <td ><input type="text" class="form-control" name="_USER_ID" id="_USER_ID" onblur="CheckId();" value="" style="ime-mode:active;width: 200px;" ><p id='_USER_ID_check'></p></td>
+                                        <td ><input type="text" class="form-control" name="_user_id" id="_user_id" onblur="CheckId();" value="{$oMomMemberInfo->user_id}" style="ime-mode:active;width: 200px;" readonly|cond="$oMomMemberInfo->user_id"><p id='_user_id_check'></p></td>
                                 </tr>
                                 <tr>
                                     <th class="essential">이메일</th>
                                     <td colspan='3' class="phone">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="email_id" id="email_id" value="" onChange="SetEmailValue();" onkeypress="SetEmailValue();" title="이메일" style="width: 150px; ime-mode:disabled;">
-                                            <input type="text" class="form-control" name="email_server" id="email_server" onChange="SetEmailValue();" onkeypress="SetEmailValue();" value="" style="width: 120px;">
-                                            <select class="form-control" id="email_server_option" value="" onchange="SelectEmailServer(this.value);" style="width: 120px; margin-left: 10px;">
+                                            <input type="text" class="form-control" name="email_id" id="email_id" onChange="SetEmailValue();" onkeypress="SetEmailValue();" title="이메일" value="{$oMomMemberInfo->email_id}" style="width: 150px; ime-mode:disabled;" readonly|cond="$oMomMemberInfo->email_id">
+                                            <input type="text" class="form-control" name="email_server" id="email_server" onChange="SetEmailValue();" onkeypress="SetEmailValue();" value="{$oMomMemberInfo->email_host}" style="width: 120px;" readonly|cond="$oMomMemberInfo->email_host">
+                                            <select class="form-control" id="email_server_option" value="" onchange="SelectEmailServer(this.value);" style="width: 120px; margin-left: 10px;" disabled|cond="$oMomMemberInfo->email_host">
                                                 <option value="">선택하세요</option>
                                                 <option value="naver.com" >naver.com</option>
                                                 <option value="hanmail.net" >hanmail.net</option>
                                                 <option value="daum.net" >daum.net</option>
                                                 <option value="nate.com" >nate.com</option>
                                                 <option value="gmail.com" >gmail.com</option>
-                                                <!-- <option value="live.co.kr" >live.co.kr</option>
-                                                <option value="hotmail.com" >hotmail.com</option>
-                                                <option value="yahoo.com" >yahoo.com</option> -->
                                                 <option value="custom">직접 입력</option>
                                             </select>
                                             <!-- <input type="checkbox" name="email_null" id="email_null" value="1" onclick="CheckEmailNull();"> 이메일 없음 -->
-                                            <input type="button" class="button" name="" value="중복체크" title="" onclick="emailChk();">
+                                            <input type="button" class="button" id="btn_email_host" value="중복체크" onclick="emailChk();" disabled|cond="$oMomMemberInfo->email_host">
                                         </div>
                                         <p id='_EMAIL_check'></p>
                                     </td>
@@ -394,59 +450,71 @@ console.log(oMemberInfo);
                                 <tr>
                                     <th class="essential">비밀번호</td>
                                     <td colspan='3'>
-                                        <input type="text" class="form-control" id="password" name="password" value="" placeholder="비밀번호" style="ime-mode:disabled;width: 200px;">
-                                        <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
-                                        <!-- <script>
-                                            $('#_CENTER_VISIT_YMD').datetimepicker({
-                                                timepicker:false,
-                                                closeOnDateSelect:true,
-                                                format:'Ymd',
-                                                style:'z-index: 101000;',
-                                                lang: 'ko'
-                                            });
-                                        </script> -->
+                                        <input type="text" class="form-control" id="password" name="password" value="" placeholder="비밀번호" style="ime-mode:disabled;width: 200px;" disabled|cond="$oMomMemberInfo->user_id">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="essential">엄마이름</tㅗ>
-                                    <td><input type="text" class="form-control" name="_USER_NM" id="_USER_NM" value="" style="ime-mode:active;width: 200px;"></td>
+                                    <td><input type="text" class="form-control" name="_user_nm" id="_user_nm" value="{$oMomMemberInfo->user_name}" style="ime-mode:active;width: 200px;" readonly|cond="$oMomMemberInfo->user_name"></td>
                                     <th class="essential">엄마 생년월일</th>
                                     <td >
-                                        <input type="text" class="form-control" name="_BIRTH" id="_BIRTH" value="" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;">
+                                        <input type="text" class="form-control" name="_birth" id="_birth" value="{$oMomMemberInfo->birthday}" placeholder='yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 200px;" readonly|cond="$oMomMemberInfo->birthday">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="essential">출산횟수</th>
+                                    <th class="essential">조리원 방문수</th>
                                     <td >
-                                        <input type="number" min="0" max="15" class="form-control" name="_CENTER_CNT" id="_CENTER_CNT" value="1" title="출산횟수"  maxlength="1" style="ime-mode:disabled;width: 200px;">
+                                        <input type="number" min="0" max="15" class="form-control" name="_center_cnt" id="_center_cnt" value="{$oMomMemberInfo->oClubInfo->center_visit_cnt ? $oMomMemberInfo->oClubInfo->center_visit_cnt : 1}" title="출산횟수"  maxlength="1" style="ime-mode:disabled;width: 200px;">
                                     </td>
                                     <th class="essential">교육횟수(중복여부)</th>
                                     <td >
-                                        <input type="text" min="0" max="15" class="form-control" name="_CLUBEDU_CNT" id="_CLUBEDU_CNT" value="1" title="교육횟수"  maxlength="1" style="ime-mode:disabled;width: 70px;display:inline-block;">
+                                        <input type="number" min="0" max="15" class="form-control" name="_clubedu_cnt" id="_clubedu_cnt" value="{$oMomMemberInfo->oClubInfo->education_cnt ? $oMomMemberInfo->oClubInfo->education_cnt : 1}" title="교육횟수"  maxlength="1" style="ime-mode:disabled;width: 70px;display:inline-block;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="essential">동의</th>
                                     <td colspan='3'>
                                         <b>이메일</b>&nbsp;&nbsp;
-                                        <input type="hidden" name="EMAIL_SEND" id="EMAIL_SEND" value="Y" /> 
-                                        <label style="margin-right:8px;" class="agree_label" data-target="EMAIL_SEND" data-str="Y" ><img id="EMAIL_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
-                                        <label style="margin-right:15px;" class="agree_label" data-target="EMAIL_SEND" data-str="N"><img id="EMAIL_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
-                                        
+                                        <input type="hidden" name="email_send" id="email_send" value="{$oMomMemberInfo->email_push?$oMomMemberInfo->email_push:'N'}" /> 
+                                    <block cond="$oMomMemberInfo->email_push=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="email_send" data-str="Y" ><img id="email_send1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="email_send" data-str="N"><img id="email_send2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->email_push || $oMomMemberInfo->email_push=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="email_send" data-str="Y" ><img id="email_send1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="email_send" data-str="N"><img id="email_send2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block>
                                         <b>SMS</b>&nbsp;&nbsp;
-                                        <input type="hidden" name="SMS_SEND" id="SMS_SEND" value="Y" /> 
-                                        <label style="margin-right:8px;" class="agree_label" data-target="SMS_SEND" data-str="Y"><img id="SMS_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
-                                        <label style="margin-right:15px;" class="agree_label" data-target="SMS_SEND" data-str="N"><img id="SMS_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                        <input type="hidden" name="sms_send" id="sms_send" value="{$oMomMemberInfo->sms_push?$oMomMemberInfo->sms_push:'N'}" /> 
+                                    <block cond="$oMomMemberInfo->sms_push=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="sms_send" data-str="Y"><img id="sms_send1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="sms_send" data-str="N"><img id="sms_send2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sms_push || $oMomMemberInfo->sms_push=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="sms_send" data-str="Y"><img id="sms_send1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="sms_send" data-str="N"><img id="sms_send2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block>
                                         <BR>
                                         <b>스폰서 정보공유</b>&nbsp;&nbsp;
-                                        <input type="hidden" name="SPONSOR" id="SPONSOR" value="Y" />  
-                                        <label style="margin-right:8px;" class="agree_label" data-target="SPONSOR" data-str="Y"><img id="SPONSOR1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
-                                        <label style="margin-right:15px;" class="agree_label" data-target="SPONSOR" data-str="N"><img id="SPONSOR2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
-                                        
+                                        <input type="hidden" name="sponsor" id="sponsor" value="{$oMomMemberInfo->sponsor_push?$oMomMemberInfo->sponsor_push:'N'}" />  
+                                    <block cond="$oMomMemberInfo->sponsor_push=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="sponsor" data-str="Y"><img id="sponsor1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="sponsor" data-str="N"><img id="sponsor2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->sponsor_push || $oMomMemberInfo->sponsor_push=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="sponsor" data-str="Y"><img id="sponsor1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="sponsor" data-str="N"><img id="sponsor2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block> 
                                         <b>우편발송동의</b>&nbsp;&nbsp;
-                                        <input type="hidden" name="ADDR_SEND" id="ADDR_SEND" value="Y" />  
-                                        <label style="margin-right:8px;" class="agree_label" data-target="ADDR_SEND" data-str="Y"><img id="ADDR_SEND1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
-                                        <label style="margin-right:15px;" class="agree_label" data-target="ADDR_SEND" data-str="N"><img id="ADDR_SEND2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                        <input type="hidden" name="addr_send" id="addr_send" value="{$oMomMemberInfo->post_push?$oMomMemberInfo->post_push:'N'}" />  
+                                    <block cond="$oMomMemberInfo->post_push=='Y'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="addr_send" data-str="Y"><img id="addr_send1" src="/modules/angeclub/skins/default/images/radio_nor_on.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="addr_send" data-str="N"><img id="addr_send2" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 미동의</label>
+                                    </block>
+                                    <block cond="!$oMomMemberInfo->post_push || $oMomMemberInfo->post_push=='N'">
+                                        <label style="margin-right:8px;" class="agree_label" data-target="addr_send" data-str="Y"><img id="addr_send1" src="/modules/angeclub/skins/default/images/radio_nor_off.png"> 동의</label>
+                                        <label style="margin-right:15px;" class="agree_label" data-target="addr_send" data-str="N"><img id="addr_send2" src="/modules/angeclub/skins/default/images/radio_red_on.png"> 미동의</label>
+                                    </block> 
                                     </td>
                                 </tr>
                                 <tr>
@@ -457,35 +525,141 @@ console.log(oMemberInfo);
                                                 input.button_address { padding: 7px 10px !important; border-radius: 7px; background-color: #aaa; color: #fff; border: 0px; cursor: pointer; }
                                                 input.button_address:hover { background-color: #000; }
                                             </style>
-                                            <input type="text" class="form-control" name="_ZONE_CODE" id="_ZONE_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title="새우편번호"  style="width: 80px;">
-                                            <input type="text" class="form-control" name="_ZIP_CODE" id="_ZIP_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title=""  style="width: 80px;">
+                                            <input type="text" class="form-control" name="_zone_code" id="_zone_code" onClick="zipcode_execDaumPostcode();" readonly value="{$oMomMemberInfo->address[0]}" title="새우편번호"  style="width: 80px;">
+                                            <!-- <input type="text" class="form-control" name="_ZIP_CODE" id="_ZIP_CODE" onClick="zipcode_execDaumPostcode();" readonly value="" title=""  style="width: 80px;"> -->
                                             <input type="button" value="우편번호 검색" onClick="zipcode_execDaumPostcode();" class="button_address" >
                                             <!-- <input type="checkbox" name="addr_null" id="addr_null" value="1" onclick="CheckAddrNull();"> 주소 없음 -->
                                             <br/>
-                                            <input type="text" class="form-control" name="_ADDR" id="_ADDR" value="" title=""  style="width: 90%;margin-left:0px;"><br/>
-                                            <input type="text" class="form-control" name="_ADDR_DETAIL" id="_ADDR_DETAIL" value="" title=""  style="width: 90%;margin-left:0px;">
+                                            <input type="text" class="form-control" name="_addr" id="_addr" value="{$oMomMemberInfo->address[1]}" style="width: 90%;margin-left:0px;"><br/>
+                                            <input type="text" class="form-control" name="_addr_detail" id="_addr_detail" value="{$oMomMemberInfo->address[2]}" style="width: 90%;margin-left:0px;">
                                         </div>
                                     </td>
                                 </tr>
+<!-- <script>
+$('#I_BABY_BIRTH').datetimepicker({
+    timepicker:false,
+    closeOnDateSelect:true,
+    format:'Ymd',
+    style:'z-index: 101000;',
+    lang: 'ko'
+});
+</script> -->
+{@
+$nBabyBirthBeginYr = date('Y')+1;
+$nBabyBirthEndYr = $nBabyBirthBeginYr - 20;
+}
                                 <tr>
                                     <th class="essential">아이정보</th>
                                     <td colspan='3' class="phone">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="I_BABY_NM" value="" placeholder='아이 이름' style="width: 180px; border-color: #777;">
-                                            <input type="text" class="form-control" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" placeholder='아이 생일 yyyymmdd' maxlength="8" style="ime-mode:disabled;width: 180px;border-color: #777;">
-                                                <!-- <script>
-                                                    $('#I_BABY_BIRTH').datetimepicker({
-                                                        timepicker:false,
-                                                        closeOnDateSelect:true,
-                                                        format:'Ymd',
-                                                        style:'z-index: 101000;',
-                                                        lang: 'ko'
-                                                    });
-                                                </script> -->
-                                            <select class="form-control" id="I_BABY_SEX_GB" name="I_BABY_SEX_GB" class="input01" title="아이 성별" style="width: 120px; margin-left: 10px;">
-                                                <option value="">성별 선택</option>
-                                                <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
-                                            </select>
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="이름" value="{$oMomMemberInfo->aBabyList[0]->name}" id="baby_nm0" name="baby_nm0">
+                                                    <label for="baby_nm0" class="sr-only">이름/태명</label>
+                                                    <label>
+                                                        <select class="form-control" style="margin-right:0px;" id="baby_sex_gb0" name="baby_sex_gb0" >
+                                                            <option value="">선택</option>
+                                                            <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$oMomMemberInfo->aBabyList[0]->gender">{$sLabel}</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="baby_year0" name="baby_year0">
+                                                        <option value="">출생년</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                        <option value="{$nBirthYr}" selected|cond="$nBirthYr==$oMomMemberInfo->aBabyList[0]->birthday_yr">{$nBirthYr}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_month0" name="baby_month0">
+                                                        <option value="">출생월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                        <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$oMomMemberInfo->aBabyList[0]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_day0" name="baby_day0">
+                                                        <option value="">출생일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                        <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$oMomMemberInfo->aBabyList[0]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <BR><BR><BR>
+                                        <div class="form-group">
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="이름" value="{$oMomMemberInfo->aBabyList[1]->name}" id="baby_nm1" name="baby_nm1">
+                                                    <label for="baby_nm1" class="sr-only">이름/태명</label>
+                                                    <label>
+                                                        <select class="form-control" style="margin-right:0px;" id="baby_sex_gb1" name="baby_sex_gb1" >
+                                                            <option value="">선택</option>
+                                                            <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$oMomMemberInfo->aBabyList[1]->gender">{$sLabel}</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="baby_year1" name="baby_year1">
+                                                        <option value="">출생년</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                        <option value="{$nBirthYr}" selected|cond="$nBirthYr==$oMomMemberInfo->aBabyList[1]->birthday_yr">{$nBirthYr}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_month1" name="baby_month1">
+                                                        <option value="">출생월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                        <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$oMomMemberInfo->aBabyList[1]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_day1" name="baby_day1">
+                                                        <option value="">출생일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                        <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$oMomMemberInfo->aBabyList[1]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <BR><BR><BR>
+                                        <div class="form-group">
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="이름" value="{$oMomMemberInfo->aBabyList[2]->name}" id="baby_nm2" name="baby_nm2">
+                                                    <label for="baby_nm2" class="sr-only">이름/태명</label>
+                                                    <label>
+                                                        <select class="form-control" style="margin-right:0px;" id="baby_sex_gb2" name="baby_sex_gb2" >
+                                                            <option value="">선택</option>
+                                                            <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$oMomMemberInfo->aBabyList[2]->gender">{$sLabel}</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="baby_year2" name="baby_year2">
+                                                        <option value="">출생년</option>
+<!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
+                                                        <option value="{$nBirthYr}" selected|cond="$nBirthYr==$oMomMemberInfo->aBabyList[2]->birthday_yr">{$nBirthYr}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_month2" name="baby_month2">
+                                                        <option value="">출생월</option>
+<!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
+                                                        <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$oMomMemberInfo->aBabyList[2]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
+<!--@end-->
+                                                    </select>
+                                                    <select class="form-control" id="baby_day2" name="baby_day2">
+                                                        <option value="">출생일</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+                                                        <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$oMomMemberInfo->aBabyList[2]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -493,37 +667,35 @@ console.log(oMemberInfo);
                                     <th class="essential">담당자</th>
                                     <td colspan='3'>
                                         <!-- <select id="_CONTACT_NM" name="_CONTACT_NM" class="form-control" title="관리자이름" onChange="SetUser(this.value);" style="width: 100px;"> -->
-                                        <select id="_CONTACT_ID" name="_CONTACT_ID" class="form-control" title="관리자이름" style="width: 100px;">
-                                            <option loop="$aUserInfo=>$nStaffMemberSrl,$sName" value="{$sId}" selected|cond="$nStaffMemberSrl==$oLoggedInfo->member_srl">{$sName}</option>
+                                        <select id="_contact_id" name="_contact_id" class="form-control" title="관리자이름" style="width: 100px;">
+                                            <option loop="$aUserInfo=>$nStaffMemberSrl,$sName" value="{$nStaffMemberSrl}" selected|cond="$nStaffMemberSrl==$oLoggedInfo->member_srl">{$sName}</option>
                                         </select>
-                                        <!-- <input type="hidden" id="_CONTACT_ID" name="_CONTACT_ID" value="admin"> -->
+                                        <!-- <input type="hidden" id="_contact_id" name="_contact_id" value="admin"> -->
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="essential">지역</th>
                                     <td colspan='3' class="phone">
                                         <div class="form-group">
-                                            <select id="_CARE_AREA" name="_CARE_AREA" class="form-control" title="단위기준" onChange="SetCenter(this.value);" style="width: 100px;">
+                                            <select id="_care_area" name="_care_area" class="form-control" title="단위기준" onChange="SetCenter(this.value);" style="width: 100px;">
                                                 <option value="" selected >미지역</option>
                                                 <option loop="$aArea=>$sAreaName,$_" value="{$sAreaName}">{$sAreaName}</option>
                                             </select>
-                                            <!-- <select id="_CARE_CENTER" name="_CARE_CENTER" class="form-control" onChange="SetCenterBaby(this.value);" style="width: 230px; line-height: 2.6em;"> -->
-                                            <select id="_CARE_CENTER" name="_CARE_CENTER" class="form-control" onChange="SetCenterBaby(this.value);" style="width: 230px; line-height: 2.6em;"></select>
+                                            <select id="_care_center" name="_care_center" class="form-control" style="width: 230px; line-height: 2.6em;"></select>
                                             </select>
-                                            <!-- <input type="hidden" id="cc_name" name="cc_name" value=""> -->
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="essential">교육일자</td>
                                     <td colspan='3'>
-                                        <input type="text" class="form-control" id="_CENTER_VISIT_YMD" name="_CENTER_VISIT_YMD" value="{date('Ymd')}" placeholder="yyyymmdd" maxlength="8" style="ime-mode:disabled;width: 200px;">
+                                        <input type="text" class="form-control" id="_center_visit_ymd" name="_center_visit_ymd" value="{$oMomMemberInfo->oClubInfo->regdate ? zdate($oMomMemberInfo->oClubInfo->regdate, 'Ymd') : date('Ymd')}" placeholder="yyyymmdd" maxlength="8" style="ime-mode:disabled;width: 200px;">
                                         <!-- 최초등록일시 : 2022-12-02 14:13:54				<span style="margin-left:30px;">최종수정일시 : </span> -->
                                         <!-- <script>
-                                            $('#_CENTER_VISIT_YMD').datetimepicker({
+                                            $('#_center_visit_ymd').datetimepicker({
                                                 timepicker:false,
                                                 closeOnDateSelect:true,
-                                                format:'Ymd',
+                                                format:'Y-m-d',
                                                 style:'z-index: 101000;',
                                                 lang: 'ko'
                                             });
@@ -537,141 +709,12 @@ console.log(oMemberInfo);
                             </tbody>
                         </table>
                         <div class="btn-area">
-                            <p><button type="submit" id="btn_submit" class="btn btn-xs btn-blue" style="width:150px;">신규 회원 등록</button></p>
+                            <p><button type="submit" id="btn_submit" class="btn btn-xs btn-blue" style="width:150px;">
+                                <!--@if($member_srl_mom)-->{$sBtbLblUpdate}<!--@else-->{$sBtbLblAdd}<!--@end--></button></p>
                         </div>
                     </div>
-                    <!-- <div class="article-header">
-                        <h5>아이정보</h5>
-                    </div>
-                    <div class="table-wrap list">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th class="txtc">아이 이름</th>
-                                    <th class="txtc">성별</td>
-                                    <th class="txtc">생일&nbsp; <b>ex)151012</b></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="input01" name="I_BABY_NM" value="" title="아이 이름" style="width: 80px; border-color: #777;">
-                                    </td>
-                                    <td>
-                                        <select id="I_BABY_SEX_GB" name="I_BABY_SEX_GB" class="input01" title="아이 성별" style="width: 90px; border-color: #777;">
-                                            <option value="M"  >남</option>
-                                            <option value="F"  >여</option>
-                                            <option value="T"  >쌍둥이</option>
-                                            <option value="D"  >모름</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="input01" name="I_BABY_BIRTH" id="I_BABY_BIRTH" value="" title="아이 생일" maxlength="6" style="ime-mode:disabled;width: 100px;border-color: #777;">
-                                        <script>
-                                            $('#I_BABY_BIRTH').datetimepicker({
-                                                timepicker:false,
-                                                closeOnDateSelect:true,
-                                                format:'ymd',
-                                                style:'z-index: 101000;',
-                                                lang: 'ko'
-                                            });
-                                        </script>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
                 </form>
             </div>
         </article>
     </div>
-    <script>
-        /* 폼을 전송합니다. */
-        // function SendForm_add(p_obj,p_gotourl,p_checkvalue){
-        //     p_checkvalue = typeof p_checkvalue !== 'undefined' ? p_checkvalue : false;
-        //     //event.preventDefault();
-        //     // 폼검사
-        //     var t_pattern = { 'id':/^[a-zA-Z0-9_]+$/,'email':/^[a-zA-Z0-9_@.]+$/,'number':/^[0-9]+$/ };
-        
-        //     if (typeof(CKEDITOR_NAME)!='undefined' && CKEDITOR_NAME!=''){
-        //         CKEDITOR.instances[CKEDITOR_NAME].updateElement();
-        //     }
-        
-        //     if ($('#queform_0').length>0){
-        //         SetQuestion();
-        //     }
-        
-        //     if (p_checkvalue){
-        
-        //         for(var t_cnt=0; t_cnt< p_obj.length; t_cnt++){
-        //             t_obj = p_obj.elements[t_cnt];
-        
-        //             // 유효한 항목인지 확인
-        //             if (typeof t_obj!='undefined' && t_obj.name!=''){
-        //                 // 검사 대상인지 확인
-        //                 if (t_obj.title!='' && t_obj.type!='radio' && t_obj.type!='button' && t_obj.type!='submit' )
-        //                 {
-        //                     console.log(t_obj.name);
-        //                     t_item = t_obj.name.split(':');
-        
-        //                     if (!t_obj.value){
-        //                         alert(t_obj.title+'란은 꼭 입력하셔야만 합니다.');
-        //                         t_obj.focus();
-        //                         return false;
-        //                     }
-        
-        //                     if (t_obj.alt!='' && Number(t_obj.alt)>t_obj.value.length ){
-        //                         alert(t_obj.title+'\n최소길이를 확인하여 주십시오.');
-        //                         t_obj.focus();
-        //                         return false;
-        //                     }
-        
-        //                     if (t_item.length>1) {
-        //                         if (t_pattern[t_item[1]].test(t_obj.value)==false) {
-        //                             alert('적절하지 않은 값이 입력되었습니다.');
-        //                             t_obj.focus();
-        //                             return false;
-        //                         }
-        //                     }
-        //                 }
-        
-        //                 if(t_obj.name=='I_BABY_BIRTH' || t_obj.name=='_BABY_BIRTH'){
-        //                     var str = '20'+t_obj.value;
-        //                     var t_baby_year = str.substr(0,4);
-        //                     var t_baby_month = str.substr(4,2);
-        //                     var t_baby_day = str.substr(6,2);
-        //                     if ( parseInt(t_baby_year)<2000 || ( parseInt(t_baby_month)<1 || parseInt(t_baby_month)>12 )  || ( parseInt(t_baby_day)<1 || parseInt(t_baby_day)>31 ) ){
-        //                         if(t_obj.value!='20000000'){
-        //                             alert('아이생일을 확인하여 주십시오.');
-        //                             return false;
-        //                         }
-        //                     }
-                            
-        //                 }
-        //             }
-        //         }
-        //     }
-        
-        //     $.ajax({
-        //         method : 'post',
-        //         url : p_obj.action,
-        //         data: $(p_obj).serializeArray(),
-        //         success : function(data) {
-        //             t_result = data;
-        //             if (t_result.substr(0,4)=='true'){
-        //                 p_gotourl = p_gotourl.replace('#insert_id#',t_result.substr(5));
-        //                 opener.location.href = p_gotourl;
-        //                 window.close();
-        //             }else{
-        //                 data = data.replace('false#','');
-        //                 ShowAlert('완료하지 못했습니다./r/n'+data);
-        //             }
-        //         },
-        //         error : function(data, status, err) {
-        //             console.log(data);
-        //             alert('error');
-        //         }
-        //     });
-        //     return false;
-        // }
-        
-    </script>
 </section>

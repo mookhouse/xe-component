@@ -110,194 +110,173 @@ class angeclubController extends angeclub
 			return new BaseObject(-1, '로그인 하세요.');
 
 		$oArgs = Context::getRequestVars();
+		$oArgs->old_member_srl = (int)$oArgs->old_member_srl;
+		// 무의미한 변수 제거
 		unset($oArgs->_filter);
 		unset($oArgs->error_return_url);
 		unset($oArgs->act);
 		unset($oArgs->mid);
 		unset($oArgs->module);
-		// 무의미한 변수 제거
-		unset($oArgs->_sex_gb);// ["_sex_gb"]=>string(1) "F"
+		unset($oArgs->_sex_gb);
 		unset($oArgs->_contact_nm);// ["_contact_nm"]=>string(12) "웹관리자"
 		unset($oArgs->_care_area);// ["_care_area"]=>string(6) "강서"
-		unset($oArgs->email_id);// ["email_id"]=>string(3) "dfg"
-		unset($oArgs->email_server);// ["email_server"]=>string(11) "hanmail.net"
 
-		$oAngemomboxController = &getController ('angemombox');
-		$oInArgs = new stdClass();
+		if(!$oArgs->email_id || !$oArgs->email_server )
+			return new BaseObject(-1, '이메일을 입력1하세요.');
+		if(!$oArgs->_user_id)
+			return new BaseObject(-1, '아이디를 입력하세요.');
+		if(!$oArgs->_phone_2)
+			return new BaseObject(-1, '핸드폰 번호를 입력하세요.');
 		
-		$nDatalakeDocSrl = (int)Context::get('datalake_doc_srl');
-        if(!$nDatalakeDocSrl)  // append new member
+        if(!$oArgs->old_member_srl)  // append new member
         {
-			if(!$oArgs->_email)
-				return new BaseObject(-1, '이메일을 입력하세요.');
-			if(!$oArgs->_user_id)
-				return new BaseObject(-1, '아이디를 입력하세요.');
-			if(!$oArgs->_phone_2)
-				return new BaseObject(-1, '핸드폰 번호를 입력하세요.');
-			
-			$oAngeclubModel = &getModel('angeclub');
-			$oModuleInfo = $oAngeclubModel->getModuleConfig();
-			unset($oAngeclubModel);
-			
-            // ["_user_nm"]=>string(12) "엄마이름"
-            // ["_birth"]=>string(6) "19801212"
-            $oRst = $this->_addMemberInfo($oModuleInfo->member_addr_field_name);
-            if(!$oRst->toBool()) 
-                return $oRst;
-            $nMemberSrl = $oRst->get('member_srl');
-			unset($oModuleInfo);
-			unset($oRst);
-			unset($oArgs->_email);  // ["_email"]=> string(15) "dfg@hanmail.net"
-			unset($oArgs->_user_id);  // ["_user_id"]=>string(9) "아이디"
+            // $oMemberRst = $this->_addMemberInfo();  // angemombox_member_extra tbl과 baby_list도 trigger로 등록됨
+			$oMemberRst = $this->_constructMemberInfo('insert');
+			if(!$oMemberRst->toBool()) 
+				return $oMemberRst;
+			$oMemberArgs = $oMemberRst->get('oArgs');
+			unset($oMemberRst);
+			$oMemberController = &getController('member');
+			// angemombox_member_extra tbl도 trigger로 등록됨
+			$oMemberRst = $oMemberController->insertMember($oMemberArgs);
+			unset($oMemberArgs);
+			unset($oMemberController);
+            if(!$oMemberRst->toBool()) 
+                return $oMemberRst;
+            $nMemberSrl = $oMemberRst->get('member_srl');
+			unset($oMemberRst);
 			// end - member info registration
 
 			// begin - nurse performance registration
-			// $oInArgs = new stdClass();
-			$oInArgs->cc_idx = $oArgs->_care_center;  // ["_care_center"]=>string(30) "637"  // replace cc_name to cc_idx
-			// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
-			$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
-			$oInArgs->member_srl_parent = $nMemberSrl;
-			$oInArgs->center_visit_cnt = $oArgs->_center_cnt;  // ["_center_cnt"]=>string(1) "1"  // 해당 조리원 방문 횟수
-			$oInArgs->education_cnt = 1;
-			if($oArgs->_center_visit_ymd)
-				$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';  // ["_center_visit_ymd"]=>string(6) "20221203"
-			if($nExistingMemberSrl)  // 기존 회원 수정이면 표시함
-				$oInArgs->is_existing_parent_member = 'Y';
-				
-			$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
-			unset($oInArgs);
-			if(!$oRst->toBool()) 
-				return $oRst;
-			unset($oRst);
-			$oDB = DB::getInstance();
-			$nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
-			unset($oDB);
-			unset($oArgs->_contact_id);
-			unset($oArgs->_care_center);
-			unset($oArgs->_center_cnt);
+			$oClubRst = $this->_registerClubRegistration($oLoggedInfo->member_srl, $nMemberSrl);
+			if(!$oClubRst->toBool()) 
+				return $oClubRst;
+			$nAngeclubRegistrationLogSrl = $oClubRst->get('nAngeclubRegistrationLogSrl');
+			unset($oClubRst);
 			// end - nurse performance registration
 
-			// begin - push into angemombox data lake
-			$oInArgs = new stdClass();
-			$oAngeclubModel = &getModel ('angeclub');
-			$oConfig = $oAngeclubModel->getModuleConfig();
-			unset($oAngeclubModel);
-			$oModuleModel = &getModel ('module');
-			$oAngemomboxDataLakeMidInfo = $oModuleModel->getModuleInfoByMid($oConfig->connected_mombox_mid);
-			unset($oConfig);
-			$oInArgs->module_srl = $oAngemomboxDataLakeMidInfo->module_srl;
-			unset($oAngemomboxDataLakeMidInfo);
-			$oInArgs->yr_mo = substr($oArgs->_center_visit_ymd, 0, 6);  //date('Ym');
-			$oInArgs->angeclub_registration_log_srl = $nAngeclubRegistrationLogSrl;
-
-			// construct mom's info
-			$oInArgs->parent_member_srl = $nMemberSrl;  // mom's member srl
-			$oInArgs->parent_birthday = $oArgs->_birth;
-			$oInArgs->parent_gender = 'F';  // 산후 조리원이므로 반드시 여성
-			$oInArgs->parent_pregnant = 'N';  // 산후 조리원이므로 반드시 출산 후
-			$oInArgs->mobile = $oArgs->_phone_2;
+// 			$oInArgs = new stdClass();
+// 			$oInArgs->cc_idx = $oArgs->_care_center;
+// 			// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
+// 			$oInArgs->member_srl_staff = $oLoggedInfo->member_srl;
+// 			$oInArgs->member_srl_parent = $nMemberSrl;
+// 			$oInArgs->center_visit_cnt = $oArgs->_center_cnt;
+// 			$oInArgs->education_cnt = $oArgs->_clubedu_cnt;
+// 			if($oArgs->_center_visit_ymd)
+// 				$oInArgs->regdate = $oArgs->_center_visit_ymd.'000001';
+// 			if($nExistingMemberSrl)  // 기존 회원 수정이면 표시함
+// 				$oInArgs->is_existing_parent_member = 'Y';
+// // var_dump($oArgs);
+// 			$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
+// 			unset($oInArgs);
+// 			if(!$oRst->toBool()) 
+// 				return $oRst;
+// 			unset($oRst);
+// 			$oDB = DB::getInstance();
+// 			$nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
+// 			unset($oDB);
 			
-			$oInArgs->postcode = strip_tags($oArgs->_zone_code);  // ["_zone_code"]=>string(5) "04078"
-			$oInArgs->addr = strip_tags($oArgs->_addr);  // ["_addr"]=>string(44) "서울 마포구 독막로 126-1 (창전동)"
-			$oInArgs->addr_detail = strip_tags($oArgs->_addr_detail);  // ["_addr_detail"]=>string(13) "상세 주소"
-			$oInArgs->addr_extra = '';
-
-			// construct push agreement
-			$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-			$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-			$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-			$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
-
-			// construct baby info
-			$oInArgs->baby_birth_name = strip_tags($oArgs->i_baby_nm);  // ["i_baby_nm"]=>string(12) "아이이름"
-			$oInArgs->baby_gender = $oArgs->i_baby_sex_gb;  // ["i_baby_sex_gb"]=>string(1) "T"
-			$oInArgs->baby_birthday = $oArgs->i_baby_birth;   // ["i_baby_birth"]=>string(6) "221215"
-
-			$oInArgs->is_mobile = Mobile::isMobileCheckByAgent() ? 'Y' : 'N';
-			$oInArgs->user_agent = $_SERVER['HTTP_USER_AGENT'];
-			$oRst = $oAngemomboxController->insertDataLake($oInArgs);
-// var_dump($oInArgs);
+			// begin - update angeclub_registration_log_srl for angemombox_member_extra tbl
+			$oMemberExtraArgs = new stdClass();
+			$oMemberExtraArgs->member_srl = $nMemberSrl;
+			$oMemberExtraArgs->angeclub_registration_log_srl = $nAngeclubRegistrationLogSrl;
+			$oAngemomboxController = &getController('angemombox');
+			$oRst = $oAngemomboxController->updateMemberExtraAngeclubRegistrationLogSrl($oMemberExtraArgs);
+			unset($oMemberExtraArgs);
+			unset($oAngemomboxController);
 			if(!$oRst->toBool())
 				return $oRst;
 			unset($oRst);
-			// end - push into angemombox data lake
+			// end - update angeclub_registration_log_srl for angemombox_member_extra tbl
         }
-        else  // update existing datalake log
+        else  // update existing old member
         {
-			// construct push agreement
-			$oInArgs->email_push = $oArgs->email_send == 'Y' ? 'Y' : 'N';  // ["email_send"]=>string(1) "Y"
-			$oInArgs->sms_push = $oArgs->sms_send == 'Y' ? 'Y' : 'N';  // ["sms_send"]=>string(1) "Y"
-			$oInArgs->post_push = $oArgs->addr_send == 'Y' ? 'Y' : 'N';  // ["addr_send"]=>string(1) "Y"
-			$oInArgs->sponsor_push = $oArgs->sponsor == 'Y' ? 'Y' : 'N';  // ["sponsor"]=>string(1) "Y"
+			// $oMemberRst = $this->_updateMemberInfo();  // angemombox_member_extra tbl과 baby_list도 trigger로 등록됨
+			// if(!$oMemberRst->toBool()) 
+			// 	return $oMemberRst;
+			$oMemberRst = $this->_constructMemberInfo('update');
+			if(!$oMemberRst->toBool()) 
+				return $oMemberRst;
+			$oMemberArgs = $oMemberRst->get('oArgs');
+			unset($oMemberRst);
+			$oMemberController = &getController('member');
+			// angemombox_member_extra tbl도 trigger로 등록됨
+			$oMemberRst = $oMemberController->updateMember($oMemberArgs, TRUE);  // angemombox_member_extra tbl과 baby_list도 trigger로 등록됨
+			unset($oMemberController);
+			if(!$oMemberRst->toBool()) 
+				return $oMemberRst;
+			unset($oMemberArgs);
+			unset($oMemberRst);
 
-			$oInArgs->datalake_doc_srl = $nDatalakeDocSrl;
-			$oRst = $oAngemomboxController->updateDataLake($oInArgs);
-			if(!$oRst->toBool())
-				return $oRst;
-			unset($oRst);
-        } 
+			// begin - nurse performance registration
+			$oClubRst = $this->_registerClubRegistration($oLoggedInfo->member_srl, $oArgs->old_member_srl);
+			if(!$oClubRst->toBool()) 
+				return $oClubRst;
+			unset($oClubRst);
+			// end - nurse performance registration
+        }
+echo __FILE__.':'.__LINE__;
+exit;	
 		unset($oInArgs);
-		unset($oAngemomboxController);  
 		$this->add('bRst', 1);
 	}
 /**
- * add member profile
+ * register club registration
  */
-	private function _addMemberInfo($sMemberAddrFieldName)
+	private function _registerClubRegistration($nMemberSrlStaff, $nMemberSrlParent)
+	{
+		$oRegistArgs = new stdClass();
+		$oRegistArgs->member_srl_parent = $nMemberSrlParent;
+		$oRegistRst = executeQuery('angeclub.getRegistrationByMemberSrlParent', $oRegistArgs);
+		unset($oRegistArgs);
+		if(!$oRegistRst->toBool())
+			return $oRegistRst;
+		
+		$oInArgs = new stdClass();
+		$oInArgs->cc_idx = Context::get('_care_center');
+		// $oInArgs->cu_id = $oArgs->_contact_id;  // ["_contact_id"]=>string(5) "hya1021"
+		$oInArgs->member_srl_staff = $nMemberSrlStaff;
+		$oInArgs->member_srl_parent = $nMemberSrlParent;
+		$oInArgs->center_visit_cnt = Context::get('_center_cnt');
+		$oInArgs->education_cnt = Context::get('_clubedu_cnt');
+		$oInArgs->regdate = Context::get('_center_visit_ymd').'000001';
+		if($oRegistRst->data->log_srl > 0)  // update an existing registration
+			$oRst = executeQuery('angeclub.updateClubRegistration', $oInArgs);
+		else  // update a new registration
+		{
+			if(Context::get('is_existing_member_parent') == 'Y')  // 홈피 가입 회원을 조리원에서 만나면 Y
+				$oInArgs->is_existing_member_parent = 'Y';
+			$oRst = executeQuery('angeclub.insertClubRegistration', $oInArgs);
+		}
+// var_dump($oRst);
+		unset($oInArgs);
+		if(!$oRst->toBool()) 
+			return $oRst;
+		unset($oRst);
+		$oDB = DB::getInstance();
+		$nAngeclubRegistrationLogSrl = $oDB->db_insert_id();
+		unset($oDB);
+		$oRst = new BaseObject();
+		$oRst->add('nAngeclubRegistrationLogSrl', $nAngeclubRegistrationLogSrl);
+		return $oRst;
+	}
+/**
+ * pre process for member info
+ */
+	private function _constructMemberInfo($sMode)
 	{
 		if(Context::getRequestMethod () == "GET") 
 			return new BaseObject(-1, "msg_invalid_request");
 
-		$oMemberModel = &getModel ('member');
-		$oConfig = $oMemberModel->getMemberConfig();
-		if($oConfig->enable_join != 'Y')
-			return $this->stop ('msg_signup_disabled');
-		// Check if the user accept the license terms (only if terms exist)
-		if($oConfig->agreement && Context::get('accept_agreement')!='Y') 
-			return $this->stop('msg_accept_agreement');
-		if($oConfig->privacy_usage && Context::get('accept_privacy_usage')!='Y') 
-			return $this->stop('msg_accept_privacy_usage');
-		if($oConfig->privacy_shr && Context::get('accept_privacy_shr')!='Y') 
-			return $this->stop('msg_accept_privacy_shr');
-
-		$oArgs = new stdClass;
-		$oArgs->user_id = strip_tags(Context::get('_user_id'));
-		$oArgs->email_address = strip_tags(Context::get('_email'));
-		$oArgs->mobile = strip_tags(Context::get('_phone_2'));
-		$oArgs->password = strip_tags(Context::get('password'));
-		$oArgs->user_name = strip_tags(Context::get('_user_nm'));
-
-		$sMomBirth = strip_tags(Context::get('_birth'));  
-		$oArgs->birthday = strip_tags(Context::get('_birth'));  // $this->_completeBirthday($sMomBirth);
-		// check password strength
-		if(!$oMemberModel->checkPasswordStrength($oArgs->password, $oConfig->password_strength))
-		{
-			$message = Context::getLang('about_password_strength');
-			return new BaseObject(-1, $message[$oConfig->password_strength]);
-		}
-		unset($oMemberModel);
-		unset($oConfig);
-
-		// Remove some unnecessary variables from all the vars
 		$oAllArgs = Context::getRequestVars();
+		// Remove unnecessary variables from all the vars
 		unset($oAllArgs->_filter);
 		unset($oAllArgs->error_return_url);
 		unset($oAllArgs->act);
 		unset($oAllArgs->mid);
 		unset($oAllArgs->module);
-		unset($oAllArgs->_email);
-		unset($oAllArgs->_phone_2);
-		unset($oAllArgs->_user_id);
-		unset($oAllArgs->email_id);
-		unset($oAllArgs->email_server);
-		unset($oAllArgs->_user_nm);
-		unset($oAllArgs->_birth);
 		unset($oAllArgs->_center_cnt);
 		unset($oAllArgs->_clubedu_cnt);
-		unset($oAllArgs->email_send);
-		unset($oAllArgs->sms_send);
-		unset($oAllArgs->sponsor);
-		unset($oAllArgs->addr_send);
 		unset($oAllArgs->i_baby_nm);
 		unset($oAllArgs->i_baby_birth);
 		unset($oAllArgs->i_baby_sex_gb);
@@ -305,6 +284,60 @@ class angeclubController extends angeclub
 		unset($oAllArgs->_care_area);
 		unset($oAllArgs->_care_center);
 		unset($oAllArgs->_center_visit_ymd);
+
+		$oArgs = new stdClass;
+		$oArgs->user_id = strip_tags($oAllArgs->_user_id);
+		$oArgs->user_name = strip_tags($oAllArgs->_user_nm);
+		$oArgs->email_address = strip_tags($oAllArgs->email_id).'@'.strip_tags($oAllArgs->email_server);
+		$oArgs->mobile = strip_tags($oAllArgs->_phone_2);
+		$oArgs->birthday = strip_tags($oAllArgs->_birth);
+		unset($oAllArgs->_user_id);
+		unset($oAllArgs->_user_nm);
+		unset($oAllArgs->email_id);
+		unset($oAllArgs->email_server);
+		unset($oAllArgs->_phone_2);
+		unset($oAllArgs->_birth);
+
+		if($sMode == 'insert')  // add member
+		{
+			$oMemberModel = &getModel ('member');
+			$oConfig = $oMemberModel->getMemberConfig();
+			if($oConfig->enable_join != 'Y')
+				return $this->stop ('msg_signup_disabled');
+
+			$oArgs->password = strip_tags($oAllArgs->password);
+			unset($oAllArgs->password);
+			// check password strength
+			if(!$oMemberModel->checkPasswordStrength($oArgs->password, $oConfig->password_strength))
+			{
+				$message = Context::getLang('about_password_strength');
+				return new BaseObject(-1, $message[$oConfig->password_strength]);
+			}
+			unset($oMemberModel);
+			unset($oConfig);
+		}
+		elseif($sMode == 'update')  // update member
+		{
+			unset($_SESSION['rechecked_password_step']);
+			$oArgs->member_srl = (int)$oAllArgs->old_member_srl;
+		}
+		else
+			return new BaseObject(-1, "msg_invalid_request");
+
+		unset($oAllArgs->password);
+
+		$oAngeclubModel = &getModel('angeclub');
+		$oMemberConnectionRst = $oAngeclubModel->getMemberFieldConnection();
+		unset($oAngeclubModel);
+		if(!$oMemberConnectionRst->toBool())
+			return $oMemberConnectionRst;
+		$sMemberAddrFieldName = $oMemberConnectionRst->get('sMemberAddrFieldName');
+		$sMemberGenderFieldName = $oMemberConnectionRst->get('sMemberGenderFieldName');
+		$sMemberSmspushFieldName = $oMemberConnectionRst->get('sMemberSmspushFieldName');
+		$sMemberEmailpushFieldName = $oMemberConnectionRst->get('sMemberEmailpushFieldName');
+		$sMemberPostpushFieldName = $oMemberConnectionRst->get('sMemberPostpushFieldName');
+		$sMemberSponsorpushFieldName = $oMemberConnectionRst->get('sMemberSponsorpushFieldName');
+		unset($oMemberConnectionRst);
 
 		// 시작 - 주소를 extra var로 변경
 		// O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
@@ -317,9 +350,22 @@ class angeclubController extends angeclub
 		unset($oAllArgs->_addr_detail);
 		// 끝 - 주소를 extra var로 변경
 
+		$oAllArgs->$sMemberGenderFieldName = '여';  // 산후 조리원이므로 반드시 여성  성별을 extra var로 변경
+		$oAllArgs->$sMemberSmspushFieldName = strip_tags($oAllArgs->sms_send);  // sms 수신 동의를 extra var로 변경
+		$oAllArgs->$sMemberEmailpushFieldName = strip_tags($oAllArgs->email_send);  // 이메일 수신 동의를 extra var로 변경
+		$oAllArgs->$sMemberPostpushFieldName = strip_tags($oAllArgs->addr_send);  // 우편 수신 동의를 extra var로 변경
+		$oAllArgs->$sMemberSponsorpushFieldName = strip_tags($oAllArgs->sponsor);  // 후원사 정보 수신 동의를 extra var로 변경
+		unset($oAllArgs->email_send);
+		unset($oAllArgs->sms_send);
+		unset($oAllArgs->sponsor);
+		unset($oAllArgs->addr_send);
+
 		// Add extra vars after excluding necessary information from all the requested arguments
 		$oExtraVars = delObjectVars($oAllArgs, $oArgs);
 		$oArgs->extra_vars = serialize($oExtraVars);
+		unset($oExtraVars);
+		unset($oAllArgs);
+
 		// remove whitespace
 		$aCheckInfos = array('user_id', 'user_name', 'nick_name', 'email_address');
 		foreach($aCheckInfos as $val)
@@ -327,107 +373,229 @@ class angeclubController extends angeclub
 			if(isset($oArgs->{$val}))
 				$oArgs->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($oArgs->{$val}));
 		}
-		$oMemberController = &getController('member');
-		$oRst = $oMemberController->insertMember($oArgs);
-        return $oRst;
+		$oRst = new BaseObject();
+		$oRst->add('oArgs', $oArgs);
+		unset($oArgs);
+		return $oRst;
 	}
 /**
- * Edit member profile
+ * update member profile
  */
-    private function _modifyMemberInfo($oMemberInfo)
-    {
-        unset($_SESSION['rechecked_password_step']);
+	private function _updateMemberInfo()
+	{
+		// if(Context::getRequestMethod () == "GET") 
+		// 	return new BaseObject(-1, "msg_invalid_request");
 
-        // never touch unrelated member info
-        unset($oMemberInfo->referral);
-        unset($oMemberInfo->password);
-        unset($oMemberInfo->find_account_question);
-        unset($oMemberInfo->find_account_answer);
-        unset($oMemberInfo->user_name);
-        unset($oMemberInfo->user_id);
-        unset($oMemberInfo->nick_name);
-        unset($oMemberInfo->description);
-        unset($oMemberInfo->birthday);
-        unset($oMemberInfo->group_srl_list);
-        unset($oMemberInfo->email_id);
-        unset($oMemberInfo->email_host);
-        unset($oMemberInfo->denied);
-        unset($oMemberInfo->limit_date);
-        unset($oMemberInfo->regdate);
-        unset($oMemberInfo->last_login);
-        unset($oMemberInfo->change_password_date);
-        unset($oMemberInfo->list_order);
-        unset($oMemberInfo->profile_image);
-        unset($oMemberInfo->image_name);
-        unset($oMemberInfo->image_mark);
-        unset($oMemberInfo->group_list);
-        // never touch unrelated member info
+		// unset($_SESSION['rechecked_password_step']);
+		
+		// $oAllArgs = Context::getRequestVars();
+		// // Remove unnecessary variables from all the vars
+		// unset($oAllArgs->_filter);
+		// unset($oAllArgs->error_return_url);
+		// unset($oAllArgs->act);
+		// unset($oAllArgs->mid);
+		// unset($oAllArgs->module);
+		// unset($oAllArgs->_center_cnt);
+		// unset($oAllArgs->_clubedu_cnt);
+		// unset($oAllArgs->i_baby_nm);
+		// unset($oAllArgs->i_baby_birth);
+		// unset($oAllArgs->i_baby_sex_gb);
+		// unset($oAllArgs->_contact_id);
+		// unset($oAllArgs->_care_area);
+		// unset($oAllArgs->_care_center);
+		// unset($oAllArgs->_center_visit_ymd);
 
-        $oInParams = Context::getRequestVars();
-        $oMemberModel = &getModel('member');
-        $config = $oMemberModel->getMemberConfig ();
-        $getVars = array('find_account_answer','allow_mailing','allow_message');
-        if($config->signupForm)
-        {
-            foreach($config->signupForm as $formInfo)
-            {
-                if($formInfo->isDefaultForm && ($formInfo->isUse || $formInfo->required || $formInfo->mustRequired))
-                {
-                    $getVars[] = $formInfo->name;
-                }
-            }
-        }
-        $args = new stdClass;
-        foreach($getVars as $val)
-        {
-            $args->{$val} = $oMemberInfo->$val;
-            if($val == 'birthday') $args->birthday_ui = Context::get('birthday_ui');
-            if($val == 'find_account_answer' && !Context::get($val)) {
-                unset($args->{$val});
-            }
-        }
-        // Login Information
-        $args->member_srl = $oMemberInfo->member_srl;
-        $args->birthday = $oMemberInfo->birthday_yyyymmdd;
+		// $oArgs = new stdClass;
+		// $oArgs->member_srl = (int)$oAllArgs->old_member_srl;
+		// $oArgs->user_id = strip_tags($oAllArgs->_user_id);
+		// $oArgs->user_name = strip_tags($oAllArgs->_user_nm);
+		// $oArgs->email_address = strip_tags($oAllArgs->email_id).'@'.strip_tags($oAllArgs->email_server);
+		// $oArgs->mobile = strip_tags($oAllArgs->_phone_2);
+		// $oArgs->birthday = strip_tags($oAllArgs->_birth);
+		// unset($oAllArgs->old_member_srl);
+		// unset($oAllArgs->_user_id);
+		// unset($oAllArgs->_user_nm);
+		// unset($oAllArgs->email_id);
+		// unset($oAllArgs->email_server);
+		// unset($oAllArgs->_phone_2);
+		// unset($oAllArgs->_birth);
+		// unset($oAllArgs->password);
 
-        // Remove some unnecessary variables from all the vars
-        $all_args = $oMemberInfo; //Context::getRequestVars();
-        unset($all_args->module);
-        unset($all_args->act);
-        unset($all_args->member_srl);
-        unset($all_args->is_admin);
-        unset($all_args->description);
-        unset($all_args->group_srl_list);
-        unset($all_args->body);
-        unset($all_args->accept_agreement);
-        unset($all_args->signature);
-        unset($all_args->_filter);
-        unset($all_args->mid);
-        unset($all_args->error_return_url);
-        unset($all_args->ruleset);
-        unset($all_args->password);
+		// $oAngeclubModel = &getModel('angeclub');
+		// $oMemberConnectionRst = $oAngeclubModel->getMemberFieldConnection();
+		// unset($oAngeclubModel);
+		// if(!$oMemberConnectionRst->toBool())
+		// 	return $oMemberConnectionRst;
+		// $sMemberAddrFieldName = $oMemberConnectionRst->get('sMemberAddrFieldName');
+		// $sMemberGenderFieldName = $oMemberConnectionRst->get('sMemberGenderFieldName');
+		// $sMemberSmspushFieldName = $oMemberConnectionRst->get('sMemberSmspushFieldName');
+		// $sMemberEmailpushFieldName = $oMemberConnectionRst->get('sMemberEmailpushFieldName');
+		// $sMemberPostpushFieldName = $oMemberConnectionRst->get('sMemberPostpushFieldName');
+		// $sMemberSponsorpushFieldName = $oMemberConnectionRst->get('sMemberSponsorpushFieldName');
+		// unset($oMemberConnectionRst);
 
-        // Add extra vars after excluding necessary information from all the requested arguments
-        $extra_vars = delObjectVars($all_args, $args);
-        $args->extra_vars = serialize($extra_vars);
+		// // 시작 - 주소를 extra var로 변경
+		// // O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
+		// $oAllArgs->$sMemberAddrFieldName[0] = strip_tags($oAllArgs->_zone_code);
+		// $oAllArgs->$sMemberAddrFieldName[1] = strip_tags($oAllArgs->_addr);
+		// $oAllArgs->$sMemberAddrFieldName[2] = strip_tags($oAllArgs->_addr_detail);
+		// $oAllArgs->$sMemberAddrFieldName[3] = '';
+		// unset($oAllArgs->_zone_code);
+		// unset($oAllArgs->_addr);
+		// unset($oAllArgs->_addr_detail);
+		// // 끝 - 주소를 extra var로 변경
 
-        // remove whitespace
-        $checkInfos = array('user_id', 'user_name', 'nick_name', 'email_address');
-        foreach($checkInfos as $val)
-        {
-            if(isset($args->{$val}))
-            {
-                $args->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($args->{$val}));
-            }
-        }
-        // Execute insert or update depending on the value of member_srl
-        $oMemberController = &getController('member');
-        $output = $oMemberController->updateMember($args);
-        if(!$output->toBool()) return $output;
-        unset($oMemberController);
-        // Return result
-        return new BaseObject();
-    }
+		// $oAllArgs->$sMemberGenderFieldName = '여';  // 산후 조리원이므로 반드시 여성  성별을 extra var로 변경
+		// $oAllArgs->$sMemberSmspushFieldName = strip_tags($oAllArgs->sms_send);  // sms 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberEmailpushFieldName = strip_tags($oAllArgs->email_send);  // 이메일 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberPostpushFieldName = strip_tags($oAllArgs->addr_send);  // 우편 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberSponsorpushFieldName = strip_tags($oAllArgs->sponsor);  // 후원사 정보 수신 동의를 extra var로 변경
+		// unset($oAllArgs->email_send);
+		// unset($oAllArgs->sms_send);
+		// unset($oAllArgs->sponsor);
+		// unset($oAllArgs->addr_send);
+
+		// // Add extra vars after excluding necessary information from all the requested arguments
+		// $oExtraVars = delObjectVars($oAllArgs, $oArgs);
+		// $oArgs->extra_vars = serialize($oExtraVars);
+		// unset($oExtraVars);
+
+		// // remove whitespace
+		// $aCheckInfos = array('user_id', 'user_name', 'nick_name', 'email_address');
+		// foreach($aCheckInfos as $val)
+		// {
+		// 	if(isset($oArgs->{$val}))
+		// 		$oArgs->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($oArgs->{$val}));
+		// }
+		unset($_SESSION['rechecked_password_step']);
+		$oMemberRst = $this->_constructMemberInfo('update');
+		if(!$oMemberRst->toBool()) 
+			return $oMemberRst;
+		$oArgs = $oMemberRst->get('oArgs');
+
+		$oMemberController = &getController('member');
+		// angemombox_member_extra tbl도 trigger로 등록됨
+		$oMemberRst = $oMemberController->updateMember($oArgs, TRUE);
+		unset($oMemberController);
+		unset($oArgs);
+		// unset($oAllArgs);
+		return $oMemberRst;
+	}
+/**
+ * add member profile
+ */
+	private function _addMemberInfo()
+	{
+		// if(Context::getRequestMethod () == "GET") 
+		// 	return new BaseObject(-1, "msg_invalid_request");
+
+		// $oAllArgs = Context::getRequestVars();
+		// // Remove unnecessary variables from all the vars
+		// unset($oAllArgs->_filter);
+		// unset($oAllArgs->error_return_url);
+		// unset($oAllArgs->act);
+		// unset($oAllArgs->mid);
+		// unset($oAllArgs->module);
+		// unset($oAllArgs->_center_cnt);
+		// unset($oAllArgs->_clubedu_cnt);
+		// unset($oAllArgs->i_baby_nm);
+		// unset($oAllArgs->i_baby_birth);
+		// unset($oAllArgs->i_baby_sex_gb);
+		// unset($oAllArgs->_contact_id);
+		// unset($oAllArgs->_care_area);
+		// unset($oAllArgs->_care_center);
+		// unset($oAllArgs->_center_visit_ymd);
+
+		// $oArgs = new stdClass;
+		// $oArgs->user_id = strip_tags($oAllArgs->_user_id);
+		// $oArgs->user_name = strip_tags($oAllArgs->_user_nm);
+		// $oArgs->email_address = strip_tags($oAllArgs->email_id).'@'.strip_tags($oAllArgs->email_server);
+		// $oArgs->mobile = strip_tags($oAllArgs->_phone_2);
+		// $oArgs->birthday = strip_tags($oAllArgs->_birth);
+		// unset($oAllArgs->_user_id);
+		// unset($oAllArgs->_user_nm);
+		// unset($oAllArgs->email_id);
+		// unset($oAllArgs->email_server);
+		// unset($oAllArgs->_phone_2);
+		// unset($oAllArgs->_birth);
+
+		// if($oAllArgs->password && !(int)$oAllArgs->old_member_srl)  // add member
+		// {
+		// 	$oMemberModel = &getModel ('member');
+		// 	$oConfig = $oMemberModel->getMemberConfig();
+		// 	if($oConfig->enable_join != 'Y')
+		// 		return $this->stop ('msg_signup_disabled');
+
+		// 	$oArgs->password = strip_tags($oAllArgs->password);  // strip_tags(Context::get('password'));
+		// 	unset($oAllArgs->password);
+		// 	// check password strength
+		// 	if(!$oMemberModel->checkPasswordStrength($oArgs->password, $oConfig->password_strength))
+		// 	{
+		// 		$message = Context::getLang('about_password_strength');
+		// 		return new BaseObject(-1, $message[$oConfig->password_strength]);
+		// 	}
+		// 	unset($oMemberModel);
+		// 	unset($oConfig);
+		// }
+
+		// $oAngeclubModel = &getModel('angeclub');
+		// $oMemberConnectionRst = $oAngeclubModel->getMemberFieldConnection();
+		// unset($oAngeclubModel);
+		// if(!$oMemberConnectionRst->toBool())
+		// 	return $oMemberConnectionRst;
+		// $sMemberAddrFieldName = $oMemberConnectionRst->get('sMemberAddrFieldName');
+		// $sMemberGenderFieldName = $oMemberConnectionRst->get('sMemberGenderFieldName');
+		// $sMemberSmspushFieldName = $oMemberConnectionRst->get('sMemberSmspushFieldName');
+		// $sMemberEmailpushFieldName = $oMemberConnectionRst->get('sMemberEmailpushFieldName');
+		// $sMemberPostpushFieldName = $oMemberConnectionRst->get('sMemberPostpushFieldName');
+		// $sMemberSponsorpushFieldName = $oMemberConnectionRst->get('sMemberSponsorpushFieldName');
+		// unset($oMemberConnectionRst);
+
+		// // 시작 - 주소를 extra var로 변경
+		// // O:8:"stdClass":3:{s:15:"xe_validator_id";s:20:"modules/member/tpl/1";s:7:"address";a:4:{i:0;s:5:"06307";i:1;s:30:"서울 서울구 서울로 202";i:2;s:19:"각각동 아파트";i:3;s:11:"(서울동)";}s:15:"give_birth_date";s:8:"20221115";}
+		// $oAllArgs->$sMemberAddrFieldName[0] = strip_tags($oAllArgs->_zone_code);
+		// $oAllArgs->$sMemberAddrFieldName[1] = strip_tags($oAllArgs->_addr);
+		// $oAllArgs->$sMemberAddrFieldName[2] = strip_tags($oAllArgs->_addr_detail);
+		// $oAllArgs->$sMemberAddrFieldName[3] = '';
+		// unset($oAllArgs->_zone_code);
+		// unset($oAllArgs->_addr);
+		// unset($oAllArgs->_addr_detail);
+		// // 끝 - 주소를 extra var로 변경
+
+		// $oAllArgs->$sMemberGenderFieldName = '여';  // 산후 조리원이므로 반드시 여성  성별을 extra var로 변경
+		// $oAllArgs->$sMemberSmspushFieldName = strip_tags($oAllArgs->sms_send);  // sms 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberEmailpushFieldName = strip_tags($oAllArgs->email_send);  // 이메일 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberPostpushFieldName = strip_tags($oAllArgs->addr_send);  // 우편 수신 동의를 extra var로 변경
+		// $oAllArgs->$sMemberSponsorpushFieldName = strip_tags($oAllArgs->sponsor);  // 후원사 정보 수신 동의를 extra var로 변경
+		// unset($oAllArgs->email_send);
+		// unset($oAllArgs->sms_send);
+		// unset($oAllArgs->sponsor);
+		// unset($oAllArgs->addr_send);
+
+		// // Add extra vars after excluding necessary information from all the requested arguments
+		// $oExtraVars = delObjectVars($oAllArgs, $oArgs);
+		// $oArgs->extra_vars = serialize($oExtraVars);
+		// unset($oExtraVars);
+
+		// // remove whitespace
+		// $aCheckInfos = array('user_id', 'user_name', 'nick_name', 'email_address');
+		// foreach($aCheckInfos as $val)
+		// {
+		// 	if(isset($oArgs->{$val}))
+		// 		$oArgs->{$val} = preg_replace('/[\pZ\pC]+/u', '', html_entity_decode($oArgs->{$val}));
+		// }
+		$oMemberRst = $this->_constructMemberInfo('insert');
+		if(!$oMemberRst->toBool()) 
+			return $oMemberRst;
+		$oArgs = $oMemberRst->get('oArgs');
+		$oMemberController = &getController('member');
+		// angemombox_member_extra tbl도 trigger로 등록됨
+		$oMemberRst = $oMemberController->insertMember($oArgs);
+		unset($oArgs);
+		unset($oMemberController);
+		// unset($oAllArgs);
+        return $oMemberRst;
+	}
 /**
  * @brief 업무일지 추가 / 변경 메소드
  **/

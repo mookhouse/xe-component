@@ -1,0 +1,17 @@
+<query id="getTmpAdminComUserCleanedPaginationDesc" action="select">
+    <tables>
+        <table name="angeclub_tmp_com_user_cleaned" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="more" column="NO" var="NO" />
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="NO" order="desc" />
+        <list_count var="list_count" default="87000" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

@@ -1,4 +1,4 @@
-<query id="getRegistrationByStaffMemberSrl" action="select">
+<query id="getRegistrationByMemberSrlStaff" action="select">
     <tables>
         <table name="angeclub_registration" />
     </tables>
@@ -7,8 +7,8 @@
         <column name="cc_idx" />
         <column name="member_srl_staff" />
         <column name="member_srl_parent" />
-        <column name="is_existing_parent_member" />
-        <!-- <column name="center_visit_cnt" />
+        <!-- <column name="is_existing_member_parent" />
+        <column name="center_visit_cnt" />
         <column name="education_cnt" /> -->
         <column name="regdate" />
     </columns>

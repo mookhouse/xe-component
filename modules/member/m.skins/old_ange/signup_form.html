@@ -71,10 +71,10 @@ unset($oAngeclubModel);
                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM0" class="form-control" placeholder="이름" name="BABY_NM0" value="">
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm0" name="baby_nm0" value="">
                                                             <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_0" name="BABY_SEX_GB0" style="width:70px !important;">
+                                                                <select class="form-control" style="width:70px !important;" id="baby_sex_gb0" name="baby_sex_gb0" >
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
                                                                 </select>
@@ -86,19 +86,19 @@ unset($oAngeclubModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0" >
+                                                                    <select class="form-control" id="baby_year0" name="baby_year0" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}">{$nBirthYr}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_MONTH0" name="BABY_MONTH0" >
+                                                                    <select class="form-control" id="baby_month0" name="baby_month0" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY0" name="BABY_DAY0" >
+                                                                    <select class="form-control" id="baby_day0" name="baby_day0" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>
@@ -112,10 +112,10 @@ unset($oAngeclubModel);
                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM1" class="form-control" placeholder="이름" name="BABY_NM1" value="">
-                                                            <label for="BABY_NM1" class="sr-only">이름/태명</label>
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm1" name="baby_nm1" value="">
+                                                            <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_1" name="BABY_SEX_GB1" style="width:70px !important;">
+                                                                <select class="form-control" style="width:70px !important;" id="baby_sex_gb1" name="baby_sex_gb1" >
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
                                                                 </select>
@@ -127,19 +127,19 @@ unset($oAngeclubModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR1" name="BABY_YEAR1" >
+                                                                    <select class="form-control" id="baby_year1" name="baby_year1" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}">{$nBirthYr}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_MONTH1" name="BABY_MONTH1" >
+                                                                    <select class="form-control" id="baby_month1" name="baby_month1" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY1" name="BABY_DAY1" >
+                                                                    <select class="form-control" id="baby_day1" name="baby_day1" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>
@@ -153,10 +153,10 @@ unset($oAngeclubModel);
                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM2" class="form-control" placeholder="이름" name="BABY_NM2" value="">
-                                                            <label for="BABY_NM2" class="sr-only">이름/태명</label>
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm2" name="baby_nm2" value="">
+                                                            <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_2" name="BABY_SEX_GB2" style="width:70px !important;">
+                                                                <select class="form-control" style="width:70px !important;" id="baby_sex_gb2" name="baby_sex_gb2" >
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
                                                                 </select>
@@ -168,18 +168,19 @@ unset($oAngeclubModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR2" name="BABY_YEAR2" >
+                                                                    <select class="form-control" id="baby_year2" name="baby_year2" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}">{$nBirthYr}</option>
-<!--@end-->                                                                    </select>
-                                                                    <select class="form-control" id="BABY_MONTH2" name="BABY_MONTH2" >
+<!--@end-->
+                                                                    </select>
+                                                                    <select class="form-control" id="baby_month2" name="baby_month2" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY2" name="BABY_DAY2" >
+                                                                    <select class="form-control" id="baby_day2" name="baby_day2" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}">{sprintf('%02d',$nBirthDay)}</option>

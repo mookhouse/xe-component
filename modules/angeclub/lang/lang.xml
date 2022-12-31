@@ -45,10 +45,34 @@
 	<item name="about_member_addr_field_name">
 		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 배송 주소 필드명을 입력하세요.]]></value>
 	</item>
-    <item name="connected_mombox_mid">
-		<value xml:lang="ko"><![CDATA[출산맘 정보를 전송할 angemombox mid]]></value>
+	<item name="member_gender_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 성별 사용자 정의 필드명]]></value>
 	</item>
-	<item name="about_connected_mombox_mid">
-		<value xml:lang="ko"><![CDATA[angemombox에 이미 생성한 출산맘 정보를 전송할 angeclub 전용 모듈의 mid를 입력하세요.]]></value>
+	<item name="about_member_gender_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 성별 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_sms_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 SMS 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_sms_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 SMS 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_email_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 이메일 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_email_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 이메일 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_post_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 우편 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_post_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 우편 수신동의 필드명을 입력하세요.]]></value>
+	</item>
+	<item name="member_sponsor_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보의 스폰서 홍보 수신동의 사용자 정의 필드명]]></value>
+	</item>
+	<item name="about_member_sponsor_push_field_name">
+		<value xml:lang="ko"><![CDATA[회원 정보에 이미 추가한 사용자 정의 스폰서 홍보 수신동의 필드명을 입력하세요.]]></value>
 	</item>
 </lang>

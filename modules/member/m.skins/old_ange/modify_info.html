@@ -69,10 +69,10 @@ unset($oAngemomboxModel);
                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM0" class="form-control" placeholder="이름" name="BABY_NM0" value="{$aBabyList[0]->name}" readonly|cond="$aBabyList[0]->name">
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm0" name="baby_nm0" value="{$aBabyList[0]->name}" readonly|cond="$aBabyList[0]->name">
                                                             <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_0" name="BABY_SEX_GB0" style="width:70px !important;" readonly|cond="$aBabyList[0]->gender">
+                                                                <select class="form-control" id="baby_sex_gb0" name="baby_sex_gb0" style="width:70px !important;" readonly|cond="$aBabyList[0]->gender">
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$aBabyList[0]->gender">{$sLabel}</option>
                                                                 </select>
@@ -84,19 +84,19 @@ unset($oAngemomboxModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR0" name="BABY_YEAR0" readonly|cond="$aBabyList[0]->birthday_yr" >
+                                                                    <select class="form-control" id="baby_year0" name="baby_year0" readonly|cond="$aBabyList[0]->birthday_yr" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}" selected|cond="$nBirthYr==$aBabyList[0]->birthday_yr">{$nBirthYr}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_MONTH0" name="BABY_MONTH0" readonly|cond="$aBabyList[0]->birthday_mo" >
+                                                                    <select class="form-control" id="baby_month0" name="baby_month0" readonly|cond="$aBabyList[0]->birthday_mo" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$aBabyList[0]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY0" name="BABY_DAY0" readonly|cond="$aBabyList[0]->birthday_day" >
+                                                                    <select class="form-control" id="baby_day0" name="baby_day0" readonly|cond="$aBabyList[0]->birthday_day" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$aBabyList[0]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
@@ -110,10 +110,10 @@ unset($oAngemomboxModel);
                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM1" class="form-control" placeholder="이름" name="BABY_NM1" value="{$aBabyList[1]->name}" readonly|cond="$aBabyList[1]->name">
-                                                            <label for="BABY_NM1" class="sr-only">이름/태명</label>
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm1" name="baby_nm1" value="{$aBabyList[1]->name}" readonly|cond="$aBabyList[1]->name">
+                                                            <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_1" name="BABY_SEX_GB1" style="width:70px !important;" readonly|cond="$aBabyList[1]->gender">
+                                                                <select class="form-control" id="baby_sex_gb1" name="baby_sex_gb1" style="width:70px !important;" readonly|cond="$aBabyList[1]->gender">
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$aBabyList[1]->gender">{$sLabel}</option>
                                                                 </select>
@@ -125,19 +125,19 @@ unset($oAngemomboxModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR1" name="BABY_YEAR1" readonly|cond="$aBabyList[1]->birthday_yr" >
+                                                                    <select class="form-control" id="baby_year1" name="baby_year1" readonly|cond="$aBabyList[1]->birthday_yr" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}" selected|cond="$nBirthYr==$aBabyList[1]->birthday_yr">{$nBirthYr}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_MONTH1" name="BABY_MONTH1" readonly|cond="$aBabyList[1]->birthday_mo" >
+                                                                    <select class="form-control" id="baby_month1" name="baby_month1" readonly|cond="$aBabyList[1]->birthday_mo" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$aBabyList[1]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY1" name="BABY_DAY1" readonly|cond="$aBabyList[1]->birthday_day" >
+                                                                    <select class="form-control" id="baby_day1" name="baby_day1" readonly|cond="$aBabyList[1]->birthday_day" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$aBabyList[1]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
@@ -148,13 +148,13 @@ unset($oAngemomboxModel);
                                                         </dl>
                                                     </div>
                                                 </li>
-                                                <li>
+                                                 <li>
                                                     <div class="kids-name">
                                                         <div class="form-group">
-                                                            <input type="text" id="BABY_NM2" class="form-control" placeholder="이름" name="BABY_NM2" value="{$aBabyList[2]->name}" readonly|cond="$aBabyList[2]->name">
-                                                            <label for="BABY_NM2" class="sr-only">이름/태명</label>
+                                                            <input type="text" class="form-control" placeholder="이름" id="baby_nm2" name="baby_nm2" value="{$aBabyList[2]->name}" readonly|cond="$aBabyList[1]->name">
+                                                            <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                             <label>
-                                                                <select class="form-control" id="BABY_SEX_GB_2" name="BABY_SEX_GB2" style="width:70px !important;" readonly|cond="$aBabyList[2]->gender">
+                                                                <select class="form-control" id="baby_sex_gb2" name="baby_sex_gb2" style="width:70px !important;" readonly|cond="$aBabyList[2]->gender">
                                                                     <option value="">선택</option>
                                                                     <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}" selected|cond="$sIdx==$aBabyList[2]->gender">{$sLabel}</option>
                                                                 </select>
@@ -166,18 +166,19 @@ unset($oAngemomboxModel);
                                                             <dt>생년월일</dt>
                                                             <dd>
                                                                 <div class="form-group">
-                                                                    <select class="form-control" id="BABY_YEAR2" name="BABY_YEAR2" readonly|cond="$aBabyList[2]->birthday_yr" >
+                                                                    <select class="form-control" id="baby_year2" name="baby_year2" readonly|cond="$aBabyList[2]->birthday_yr" >
                                                                         <option value="">년도</option>
 <!--@for($nBirthYr=$nBabyBirthBeginYr;$nBirthYr>$nBabyBirthEndYr;$nBirthYr--)-->
                                                                         <option value="{$nBirthYr}" selected|cond="$nBirthYr==$aBabyList[2]->birthday_yr">{$nBirthYr}</option>
-<!--@end-->                                                         </select>
-                                                                    <select class="form-control" id="BABY_MONTH2" name="BABY_MONTH2" readonly|cond="$aBabyList[2]->birthday_mo" >
+<!--@end-->
+                                                                    </select>
+                                                                    <select class="form-control" id="baby_month2" name="baby_month2" readonly|cond="$aBabyList[2]->birthday_mo" >
                                                                         <option value="">월</option>
 <!--@for($nBirthMo=1;$nBirthMo<13;$nBirthMo++)-->
                                                                         <option value="{sprintf('%02d',$nBirthMo)}" selected|cond="$nBirthMo==$aBabyList[2]->birthday_mo">{sprintf('%02d',$nBirthMo)}</option>
 <!--@end-->
                                                                     </select>
-                                                                    <select class="form-control" id="BABY_DAY2" name="BABY_DAY2" readonly|cond="$aBabyList[2]->birthday_day" >
+                                                                    <select class="form-control" id="baby_day2" name="baby_day2" readonly|cond="$aBabyList[2]->birthday_day" >
                                                                         <option value="">일</option>
 <!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
                                                                         <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$aBabyList[2]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>

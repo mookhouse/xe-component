@@ -1,15 +1,15 @@
-<query id="insertClubRegistration" action="insert">
+<query id="updateClubRegistration" action="update">
 	<tables>
 		<table name="angeclub_registration" />
 	</tables>
 	<columns>
 		<column name="cc_idx" var="cc_idx" notnull="notnull" />
-		<!-- <column name="cu_id" var="cu_id" /> -->
 		<column name="member_srl_staff" var="member_srl_staff" />  <!-- 간호사 member_srl -->
-        <column name="member_srl_parent" var="member_srl_parent" />  <!-- 부모 member_srl -->
-        <column name="is_existing_member_parent" var="is_existing_member_parent" /> <!-- 기존 홈페이지 회원을 앙쥬클럽에서 교육한 경우 -->
         <column name="center_visit_cnt" var="center_visit_cnt" />
         <column name="education_cnt" var="education_cnt" />
 		<column name="regdate" var="regdate" default="curdate()"/>
 	</columns>
+    <conditions>
+        <condition operation="equal" column="member_srl_parent" var="member_srl_parent" />
+    </conditions>
 </query>

@@ -2,9 +2,9 @@
 	<column name="log_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment"/>
 	<column name="cc_idx" type="number" size="11" notnull="notnull" />  <!--- 조리원 srl -->
     <column name="member_srl_staff" type="number" size="11" />  <!--- cu_id 대치 예정 -->
-    <column name="member_srl_parent" type="number" size="11" notnull="notnull" index="idx_member_srl_parent"/>
-    <column name="is_existing_parent_member" type="char" size="1" notnull="notnull" default="N"/>
-    <column name="center_visit_cnt" type="number" size="11" notnull="notnull"/>
+    <column name="member_srl_parent" type="number" size="11" notnull="notnull" unique="uniq_member_srl_parent"/>
+    <column name="is_existing_member_parent" type="char" size="1" notnull="notnull" default="N"/>
+    <column name="center_visit_cnt" type="number" size="11" notnull="notnull"/>  <!--- 출산 횟수 -->
     <column name="education_cnt" type="number" size="11" notnull="notnull"/>
     <column name="regdate" type="date" />
 </table>

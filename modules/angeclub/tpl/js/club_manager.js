@@ -23,19 +23,21 @@ function completeMomInserted(ret_obj)
 	var mid = ret_obj.mid;
 	var document_srl = ret_obj.document_srl;
 
+	// if appended
 	opener.parent.location.reload();
 	window.close();
+	// if updated
 }
 
-function completeMomUpdated(ret_obj)
-{
-	var error = ret_obj.error;
-	var message = ret_obj.message;
-	var mid = ret_obj.mid;
-	var document_srl = ret_obj.document_srl;
+// function completeMomUpdated(ret_obj)
+// {
+// 	var error = ret_obj.error;
+// 	var message = ret_obj.message;
+// 	var mid = ret_obj.mid;
+// 	var document_srl = ret_obj.document_srl;
 
-	location.reload();
-}
+// 	location.reload();
+// }
 
 function completeWorkDiaryInserted(ret_obj)
 {
