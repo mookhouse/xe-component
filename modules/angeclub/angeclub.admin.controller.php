@@ -112,19 +112,18 @@ class angeclubAdminController extends angeclub
 					$oBabyRst = executeQueryArray('angeclub.getTmpAdminAngeUserBabyByUserId', $oBabyArgs);
 				}
 			}
-			// 구홈피 ange_user_baby tbl의 아이디가 뭐던 간에 회원 정보는 변형 후 아이디로 조회해야 함
-			$oXeMemberInfo = $oMemberModel->getMemberInfoByUserID($oComUser->USER_ID);  
-
 			unset($oBabyArgs);
 			if(count($oBabyRst->data))  // 아이 정보 최종 발견하면
 			{
+				// 구홈피 ange_user_baby tbl의 아이디가 뭐던 간에 회원 정보는 변형 후 아이디로 조회해야 함
+				$oXeMemberInfo = $oMemberModel->getMemberInfoByUserID($oComUser->USER_ID);  
 				foreach($oBabyRst->data as $_ => $oSingleBaby)
 				{
 					$oBabyInsertArgs = new stdClass();
 					$oBabyInsertArgs->member_srl = $oXeMemberInfo->member_srl;
-					$oBabyInsertArgs->name = $oSingleBaby->BABY_NM;
+					$oBabyInsertArgs->name = $oSingleBaby->BABY_NM ? $oSingleBaby->BABY_NM : '-';
 					$oBabyInsertArgs->birthday = $oSingleBaby->BABY_BIRTH;
-					$oBabyInsertArgs->gender = $oSingleBaby->BABY_SEX_GB;
+					$oBabyInsertArgs->gender = $oSingleBaby->BABY_SEX_GB ? $oSingleBaby->BABY_SEX_GB : '';
 					if($oSingleBaby->CARE_CENTER)
 					{
 						$oBabyCenter = new stdClass();
@@ -280,7 +279,6 @@ class angeclubAdminController extends angeclub
 				$oAngeclubRegistArgs->post_push = $oXeMemberInfo->$sMemberPostpushFieldName;
 				$oAngeclubRegistArgs->sponsor_push = $oXeMemberInfo->$sMemberSponsorpushFieldName ;
 				$oAngeclubRegistrationInsertRst = executeQuery('angemombox.insertApplication', $oAngeclubRegistArgs);
-				unset($oAngeclubRegistArgs);
 				if(!$oAngeclubRegistrationInsertRst->toBool())
 				{
 					var_Dump($oAngeclubRegistrationInsertRst);
@@ -288,6 +286,7 @@ class angeclubAdminController extends angeclub
 					var_Dump($oAngeclubRegistArgs);
 					exit;
 				}
+				unset($oAngeclubRegistArgs);
 			}
 		}
 		
@@ -321,8 +320,10 @@ class angeclubAdminController extends angeclub
 			$aFirstChunk =  explode(',', $aMombox['adhj_answers']);
 			$sBabybirth = str_replace('{"1":"', '', $aFirstChunk[0]);
 			$sBabybirth = str_replace('"', '', $sBabybirth);
-			$sBabybirth = str_replace('-', '', $sBabybirth).'000001';
-			// echo $sBabybirth.'<BR>';
+			$sBabybirth = str_replace('-', '', $sBabybirth);
+			$sBabybirth = substr($sBabybirth, 0, 8);
+			//echo $sBabybirth.'<BR>';
+			//exit;
 			$aSecondChunk = explode('""3":', $aFirstChunk[1]);
 			$sContent = strip_tags(str_replace('"2":"', '', $aSecondChunk[0]));
 			// echo $sContent.'<BR>';
@@ -575,7 +576,7 @@ private function _isAbandonedStaffId($sClubStaffId)
 				$oComUser->CARE_CENTER == '인천 미추홀 W여성부설 B동' || $oComUser->CARE_CENTER == '의정부 레피리움' ||
 				$oComUser->CARE_CENTER == '성남 곽생로부설' || $oComUser->CARE_CENTER == '성남 곽생로' || 
 				$oComUser->CARE_CENTER == '용인 포근포근' || $oComUser->CARE_CENTER == '부산 마미캠프(좌동)' || 
-				$oComUser->CARE_CENTER == 'jyujin0304')
+				$oComUser->CARE_CENTER == 'jyujin0304' || $oComUser->CARE_CENTER == 'ㅍ' )
 			{
 				$nLatestCenterId = -1;
 			}
@@ -966,8 +967,8 @@ private function _isAbandonedStaffId($sClubStaffId)
 		echo __FILE__.':'.__LINE__.'<BR>';
 		// cu_id		cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
 		$aStaff = [];
-		$aStaff[] = ['mocha2', 'c4650', '김경희', '01047428413', 'angeclub@ange.co.kr', '20051122'];  // 19691017
-		$aStaff[] = ['sugarprime', '830228', '손미연', '01071377707', 'sugarprime@naver.com', '20160208'];
+		//$aStaff[] = ['mocha2', 'c4650', '김경희', '01047428413', 'angeclub@ange.co.kr', '20051122'];  // 19691017
+		//$aStaff[] = ['sugarprime', '830228', '손미연', '01071377707', 'sugarprime@naver.com', '20160208'];
 		$aStaff[] = ['sooga7', '761015', '이성숙', '01065514405', 'sooga76@naver.com', '20180528'];
 		$aStaff[] = ['hya1021', '821021', '신명희', '01034972002', 'hya1021@naver.com', '20190422'];
 		$aStaff[] = ['myheromyth89', '891001', '남가은', '01091611247', 'myheromyth89@naver.com', '20200810'];
@@ -1031,9 +1032,9 @@ private function _isAbandonedStaffId($sClubStaffId)
 			$output = executeQuery('member.addMemberToGroup',$oGrpAddArgs);
 			unset($output);
 			unset($oGrpAddArgs);
-			unset($oArgs);
 			echo $aSingleStaff[2].' has been imported<BR>';
 		}
+		unset($oArgs);
 		unset($oMemberModel);
 		unset($aStaff);
 		echo '<BR><BR>succeed!';

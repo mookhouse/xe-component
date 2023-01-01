@@ -1,67 +1,76 @@
 *. tbl import
 
-adm_history_join
 ANGE_USER_BABY
 club_area
 club_center
 club_log
 COM_USER
 
-*. innodb tbl을 MyISAM으로 수동 변경
-
 *. club_center에서 896  양천 퀸즈마리 ->  양천 queensmarie
 
 *. com_user의 미사용 필드 수동 삭제
 
-`LUNAR_FL` char(1) DEFAULT NULL COMMENT '생일 양력 유무(0:양력, 1:음력)',
-`PHONE_1` varchar(15) DEFAULT NULL COMMENT '연락처',
-`USER_GB` varchar(20) DEFAULT NULL COMMENT '사용자 구분(MEMBER:일반, CLUB:클럽)',
-`SUPPORT_NO` tinyint(4) DEFAULT NULL COMMENT '서포터즈 기수',
-`USER_ST` char(1) DEFAULT NULL COMMENT '사용자 상태(W:대기, N:정상, P:불량, W:휴면) ',
-`UPDATE_DT` datetime DEFAULT NULL COMMENT '수정일',
-`INTRO` varchar(500) DEFAULT NULL COMMENT '소개',
-`NOTE` varchar(500) DEFAULT NULL COMMENT '메모',
-`MARRIED_FL` char(1) DEFAULT NULL COMMENT '결혼 유무(Y/N)',
-`BABY_CNT` tinyint(4) unsigned DEFAULT NULL COMMENT '아기수(데이터 정확하지 않음)',
-`BLOG_FL` char(1) DEFAULT NULL COMMENT '블로그 유무(데이터 정확하지 않음)',
-`JOIN_PATH` varchar(10) DEFAULT NULL COMMENT '유입경로',
-`CONTACT_NM` varchar(40) DEFAULT NULL COMMENT '담당자명',
-`CENTER_VISIT_YMD` varchar(10) DEFAULT NULL COMMENT '센터교육일자(구:조리원 입소일)',
-`CENTER_OUT_YMD` varchar(10) DEFAULT NULL COMMENT '조리원 퇴소일',
-`EN_FL` char(1) DEFAULT NULL,
-`EN_EMAIL_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
-`EN_POST_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
-`EN_SMS_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
-`EN_PHONE_FL` char(1) DEFAULT NULL COMMENT '삭제예정',
-`EN_ANGE_PHONE_FL` char(1) DEFAULT NULL COMMENT '앙쥬 소식 연락 유무(등록안함)',
-`EN_ALARM_EMAIL_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 메일발송 유무',
-`EN_ALARM_SMS_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 SMS 유무',
-`EN_ALARM_PHONE_FL` char(1) DEFAULT NULL COMMENT '스케쥴 알림 연락 유무(등록안함)',
-`EN_STORE_EMAIL_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 메일발송 유무',
-`EN_STORE_SMS_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 SMS 유무',
-`EN_STORE_PHONE_FL` char(1) DEFAULT NULL COMMENT '스토어 소식 연락 유무(등록안함)',
-`BABY_BIRTH_DT` varchar(30) DEFAULT NULL COMMENT '출산 예정일',
-`CERT_GB` varchar(10) DEFAULT NULL COMMENT '인증 구분(PHONE:휴대폰, EMAIL:이메일)',
-`CERT_DT` datetime DEFAULT NULL COMMENT '인증일',
-`CERT_HASH` varchar(100) DEFAULT NULL COMMENT '인증문자',
-`SUM_POINT` int(11) DEFAULT '0' COMMENT '적립 마일리지 총합',
-`USE_POINT` int(11) DEFAULT '0' COMMENT '사용 마일리지 총합',
-`REMAIN_POINT` int(11) DEFAULT '0' COMMENT '남은 마일리지 총합',
-`IP` varchar(20) DEFAULT NULL COMMENT 'IP',
-`MIG_NO` int(11) DEFAULT NULL COMMENT '마이그레이션 순번',
-`INTEREST01` varchar(20) DEFAULT NULL COMMENT '관심분야1(임신/출산)',
-`INTEREST02` varchar(20) DEFAULT NULL COMMENT '관심분야2(성장/건강)',
-`INTEREST03` varchar(20) DEFAULT NULL COMMENT '관심분야3(놀이/교육)',
-`INTEREST04` varchar(20) DEFAULT NULL COMMENT '관심분야4(리빙/헬스)',
-`INTEREST05` varchar(20) DEFAULT NULL COMMENT '관심분야5(체험/이벤트 진행중)',
-`INTEREST06` varchar(20) DEFAULT NULL COMMENT '관심분야6(당첨자발표)',
-`INTEREST07` varchar(20) DEFAULT NULL COMMENT '관심분야7(앙쥬POLL)',
-`INTEREST08` varchar(20) DEFAULT NULL COMMENT '관심분야8(육아노하우)',
-`INTEREST09` varchar(20) DEFAULT NULL COMMENT '관심분야9(레시피)',
-`INTEREST10` varchar(20) DEFAULT NULL COMMENT '관심분야10(아이 데리고 여기)',
-`INTEREST11` varchar(20) DEFAULT NULL COMMENT '관심분야11(아이 데리고 여기)',
-`MARRIED_DT` varchar(30) DEFAULT NULL COMMENT '결혼기념일',
-`PASSWORD_CHANGE_DT` varchar(30) DEFAULT NULL COMMENT '패스워드변경일자',
+alter table COM_USER DROP COLUMN LUNAR_FL;
+alter table COM_USER DROP COLUMN PHONE_1;
+alter table COM_USER DROP COLUMN USER_GB;
+alter table COM_USER DROP COLUMN SUPPORT_NO;
+alter table COM_USER DROP COLUMN USER_ST;
+alter table COM_USER DROP COLUMN UPDATE_DT;
+alter table COM_USER DROP COLUMN INTRO;
+alter table COM_USER DROP COLUMN NOTE;
+alter table COM_USER DROP COLUMN MARRIED_FL;
+alter table COM_USER DROP COLUMN BABY_CNT;
+alter table COM_USER DROP COLUMN BLOG_FL;
+alter table COM_USER DROP COLUMN JOIN_PATH;
+alter table COM_USER DROP COLUMN CONTACT_NM;
+alter table COM_USER DROP COLUMN CENTER_VISIT_YMD;
+alter table COM_USER DROP COLUMN CENTER_OUT_YMD;
+alter table COM_USER DROP COLUMN EN_FL;
+alter table COM_USER DROP COLUMN EN_EMAIL_FL;
+alter table COM_USER DROP COLUMN EN_POST_FL;
+alter table COM_USER DROP COLUMN EN_SMS_FL;
+alter table COM_USER DROP COLUMN EN_PHONE_FL;
+alter table COM_USER DROP COLUMN EN_ANGE_PHONE_FL;
+alter table COM_USER DROP COLUMN EN_ALARM_EMAIL_FL;
+alter table COM_USER DROP COLUMN EN_ALARM_SMS_FL;
+alter table COM_USER DROP COLUMN EN_ALARM_PHONE_FL;
+alter table COM_USER DROP COLUMN EN_STORE_EMAIL_FL;
+alter table COM_USER DROP COLUMN EN_STORE_SMS_FL;
+alter table COM_USER DROP COLUMN EN_STORE_PHONE_FL;
+alter table COM_USER DROP COLUMN BABY_BIRTH_DT;
+alter table COM_USER DROP COLUMN CERT_GB;
+alter table COM_USER DROP COLUMN CERT_DT;
+alter table COM_USER DROP COLUMN CERT_HASH;
+alter table COM_USER DROP COLUMN SUM_POINT;
+alter table COM_USER DROP COLUMN USE_POINT;
+alter table COM_USER DROP COLUMN REMAIN_POINT;
+alter table COM_USER DROP COLUMN IP;
+alter table COM_USER DROP COLUMN MIG_NO;
+alter table COM_USER DROP COLUMN INTEREST01;
+alter table COM_USER DROP COLUMN INTEREST02;
+alter table COM_USER DROP COLUMN INTEREST03;
+alter table COM_USER DROP COLUMN INTEREST04;
+alter table COM_USER DROP COLUMN INTEREST05;
+alter table COM_USER DROP COLUMN INTEREST06;
+alter table COM_USER DROP COLUMN INTEREST07;
+alter table COM_USER DROP COLUMN INTEREST08;
+alter table COM_USER DROP COLUMN INTEREST09;
+alter table COM_USER DROP COLUMN INTEREST10;
+alter table COM_USER DROP COLUMN INTEREST11;
+alter table COM_USER DROP COLUMN MARRIED_DT;
+alter table COM_USER DROP COLUMN PASSWORD_CHANGE_DT;
+
+*. ANGE_USER_BABY의 미사용 필드 수동 삭제
+alter table ANGE_USER_BABY DROP COLUMN CENTER_VISIT_YMD;
+alter table ANGE_USER_BABY DROP COLUMN CENTER_OUT_YMD;
+
+*. innodb tbl을 MyISAM으로 수동 변경
+
+ANGE_USER_BABY
+club_area
+club_center
+club_log
+COM_USER
 
 *. club_center에 XE 필드 수동 추가
 member_srl_staff -> bigint 11 null 허용 추가
@@ -74,7 +83,6 @@ regdate  -> varchar 14 null 허용으로 추가
 
 *.테이블 이름 변경
 
-adm_history_join -> xe_angeclub_tmp_adm_history_join
 ange_club_baby -> xe_angeclub_tmp_ange_user_baby
 club_area -> xe_angeclub_area
 club_center -> xe_angeclub_center
@@ -89,27 +97,48 @@ com_user -> xe_angeclub_tmp_com_user
 회원 필드 : 핸드폰 번호 활성화
 
 *. 사용자 정의 회원 필드 추가
-addr   배송주소 주소
+addr - 주소 -필수
+gender - 성별 - 단일선택 - 여남 - 필수
+sms_push - SMS 수신동의 - 단일선택 - YN - 필수
+email_push - 이메일 수신동의- 단일선택 - YN 
+post_push - 우편 수신동의- 단일선택 - YN 
+sponsor_push - 스폰서 광고 수신동의 - 단일선택 - YN 
 
-*. angeclub 모듈에 사용자 정의 회원 배송주소 필드명 추가
+*. angemombox 모듈에 사용자 정의 회원 필드명 추가
 
-*. 앙쥬클럽 간호사 회원 가입하고  [앙쥬클럽스태프] [앙쥬클럽관리자] 그룹에 추가
+*. angeclub 모듈에 사용자 정의 회원 필드명 추가
+
+*. 기존 회원 이전 내역이 있는지 확인
+DELETE FROM `xe_member` WHERE `member_srl`>300;
+DELETE FROM `xe_member_group_member` WHERE `member_srl`>300;
+
+/htdocs/files/angeclub 파일 제거
+
+*. angeclug migration tool 순서대로 실행
+
+1. sooga7, hya1021, myheromyth89 가입 실행
+2. 중복 핸폰 번호 추출
+3. 핸폰 번호 기준 정제된 COM_USER 생성
+4. 정제된 COM_USER 정보를 xe_member에 입력
+
+앙쥬클럽 간호사 회원 가입  
 cu_id	cu_zone	cu_pw	cu_name	cu_phone_1	cu_email	cu_st_date	cu_en_date
 (무시) mocha	총괄	c4650	김경희(a)	01047428413	angeclub@ange.co.kr	51025	
-
 (너무 오래 전 가입했음) mocha2	강남	c4650	김경희	01047428413	angeclub@ange.co.kr	51025	
-(수기가입) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208
+(가입했음) sugarprime	강서	830228	손미연	01071377707	sugarprime@naver.com	160208
 (whzhwzh로 가입했음) whzhwhzh	강북	770722	김성경	01062752710	whzhwhzh@naver.com	220926	
 (ju7886로 가입했음)  juhyun0451	부산	910517	신주현	01048900451	juhyun0451@gmail.com	211126	220731
 (수기가입) sooga7	부산	761015	이성숙	01065514405	sooga76@naver.com	2018-05-28	211125
 (수기가입) hya1021	강북	821021	신명희	01034972002	hya1021@naver.com	190422	201026
 (수기가입) myheromyth89	강동	891001	남가은	01091611247	myheromyth89@naver.com	200810	201224
 
-*. angeclug migration tool 순서대로 실행
-1. sooga7 hya1021 myheromyth89 가입 실행
-2. 중복 핸폰 번호 추출
-3. 핸폰 번호 기준 정제된 COM_USER 생성
-4. 정제된 COM_USER 정보를 xe_member에 입력
+mocha2 계정을 [앙쥬클럽스태프] [앙쥬클럽관리자] 그룹에 추가
+sugarprime 계정을 [앙쥬클럽스태프] 그룹에 추가
+whzhwzh 계정을 [앙쥬클럽스태프] 그룹에 추가
+ju7886 계정을 [앙쥬클럽스태프] 그룹에 추가
+sooga7 계정을 [앙쥬클럽스태프] 그룹에 추가
+hya1021 계정을 [앙쥬클럽스태프] 그룹에 추가
+myheromyth89 계정을 [앙쥬클럽스태프] 그룹에 추가
 
 angeadmin4650, angestory, momsfood 아이디를 보존할 수 없는 이유
 
@@ -121,30 +150,27 @@ mook1004 가 보존됨
 368152	angeadmin4650	관리자	관리자	sha256:1000:9rZhv0dvz//DZ7w0uZ/KU3sonRKeNwCm:9sw/LTsKe4pZuo0jJEXRufksz7p0S/0M
 585493	angestory	편집팀2	편집팀22	sha256:1000:y98kZAZyut4DWzw6nUbJURfFKbZLeBOp:FjSWfF+d5TT+lBeRcBGzhY6617sgDZT+
 
-*. 4. 홈피 맘박스 신청 내역 이전하기 위해 위해 구홈페이지에서 맘박스 신청 내역 추출하고
+*. 4. 홈피 맘박스 신청 내역 이전하기 위해 위해 구홈페이지에서 맘박스 신청 내역 추출
 
-SELECT adm_ad.ada_name, adm_history_join.adu_id, adm_history_join.adhj_date_request, adm_history_join.adhj_answers
-FROM adm_history_join
-INNER JOIN adm_ad ON adm_ad.ada_idx=adm_history_join.ada_idx
-WHERE adm_ad.ada_type='exp' AND ada_name LIKE '%맘박스%'
-ORDER BY adhj_idx;
+$ mkdir extract
+$ chmod 777 extract/
+$ cd extract
+$ vi extract.php
+$ php extract.php
 
-전체 선택 php array로 복사하여 UTF8 파일로 붙여넣기
-/files/angeclub/mombox_registration_log_array.php
-<?php
-$aMomboxRegistration = array(
-... 붙여넣기 ...
-);
-?>
+FTP 이전 후
+htdocs/files/angeclub/mombox_registration_log_array.php
 
 angemombox에 생성된 모듈명 확인
-1.angeclub
-2.mombox_after_apply
-3.mombox_before_apply
+1.mombox_after_apply
+2.mombox_before_apply
 
 *. angeclug migration tool 순서대로 실행
-4. 정제된 COM_USER 정보를 mombox_datalake에 입력
-5. club_log와 club_center에 XE 필드 설정
+5. 정제된 COM_USER 정보를 mombox_member_extra와 club_registration에 입력
+6. club_log와 club_center에 XE 필드 설정
+7. 기존 맘박스 신청 내역을 serialize
+8. 기존 맘박스 신청 내역을 mombox_apply에 이전
+9. ange_user_baby를 mombox_baby_list에 이전
 
 *. xe_angeclub_log에서 아래의 필드 삭제
 cu_id
