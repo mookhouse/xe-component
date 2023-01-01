@@ -45,6 +45,19 @@ $( document ).ready(function() {
     });
 });
 
+function deleteWorklog(){
+	var params = new Array();
+	params['cl_idx'] = '{$oWorkDiaryInfo->cl_idx}';
+    var response = ['isSucceed'];
+    exec_xml('angeclub', 'procWorklogDeleteAjax', params, function(ret_obj) {
+        if(ret_obj['message'] == 'success')
+        {
+			opener.parent.location.reload();
+            window.close();
+        }
+    }, response);
+}
+
 // function db_sum(clN, idN,tdN){
 //     var totalnum = 0;
 //     $('.'+clN).each(function(idx, ele) {
@@ -199,8 +212,9 @@ $( document ).ready(function() {
             </table>
             <div class="btn-area">
                 <p>
-                    <button type="submit" class="btn btn-blue btn-sm">등록하기</button>
-                    <button type="button" class="btn btn-blue btn-sm" onclick="window.close()">닫기</button>
+                    <button type="submit" class="btn btn-blue btn-sm"><!--@if($oWorkDiaryInfo->cl_idx)-->수정하기<!--@else-->등록하기<!--@end--></button>
+                    <button type="button" class="btn btn-pink btn-sm" onclick="deleteWorklog();">삭제하기</button>
+					<button type="button" class="btn btn-blue btn-sm" onclick="window.close();">닫기</button>
                 </p>
             </div>
         </div>

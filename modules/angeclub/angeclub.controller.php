@@ -629,14 +629,49 @@ exit;
 		// 	return new BaseObject(-1, '특이사항을 입력하세요.');
 
 		$oArgs->workdate = preg_replace("/[ :-]/i", "", $oArgs->workdate).'00';  // 2020-04-26 02:04:40 수정
-//var_dump($oArgs->workdate);
-//exit;		
 		if((int)$oArgs->cl_idx > 0) // update
 			$oRst = executeQuery('angeclub.updateWorkDiary', $oArgs);
 		else  // insert
 			$oRst = executeQuery('angeclub.insertWorkDiary', $oArgs);
 		if(!$oRst->toBool())
 			return $oRst;
+		$this->add('bRst', 1);
+	}
+	
+/**
+ * @brief 업무일지 삭제 ajax 메소드
+ **/
+	public function procWorklogDeleteAjax()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, '로그인 하세요.');
+
+		$oArgs = Context::getRequestVars();
+		unset($oArgs->_filter);
+		unset($oArgs->error_return_url);
+		unset($oArgs->act);
+		unset($oArgs->mid);
+		unset($oArgs->module);
+		//$oArgs->member_srl_staff = $oLoggedInfo->member_srl;
+		
+		$nClIdx = (int)$oArgs->cl_idx;
+		if(!$nClIdx)
+			return new BaseObject(-1, '잘못된 접근입니다.');
+
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getWorkDiaryByIdx($nClIdx);
+		unset($oAngeclubModel);
+		if(!$oRst->toBool())
+			return $oRst;
+		if($oRst->data->member_srl_staff != $oLoggedInfo->member_srl)
+			return new BaseObject(-1, '본인이 작성한 업무 일지가 아닙니다.');
+
+		$oRst = executeQuery('angeclub.deleteWorkDiaryByClIdx', $oArgs);
+		unset($oArgs );
+		if(!$oRst->toBool())
+			return $oRst;
+		unset($oRst );
 		$this->add('bRst', 1);
 	}
 /**
