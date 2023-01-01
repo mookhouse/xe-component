@@ -81,20 +81,21 @@ $(document).ready(function(){
 					</th> -->
 					<th style="height:50px;">담당자</th>
 					<th>합계</th>
-					<th>등록</th>
+					<th>DB수</th>
 					<th>중복</th>
 					<th>조리원</th>
-					<!-- <th>기타</th> -->
+					<th>기타</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr loop="$aStatisticsByStaffMemberSrl=>$_,$oSingleStatic">
 					<td>{$oSingleStatic->staff_name}</td>
 					<!-- <td>강남</td> -->
-					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center)}</td>
+					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
 					<td>{number_format($oSingleStatic->gross_new_member)}</td>
 					<td>{number_format($oSingleStatic->gross_update_member)}</td>
 					<td>{number_format($oSingleStatic->gross_new_center)}</td>
+					<td>{number_format($oSingleStatic->gross_new_error)}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -121,7 +122,7 @@ $(document).ready(function(){
 					<th>등록</th>
 					<th>중복</th>
 					<th>조리원</th>
-					<!-- <th>기타</th> -->
+					<th>기타</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -131,12 +132,14 @@ $oGrossTotal += $oSingleStatic->gross_new_member + $oSingleStatic->gross_update_
 $oGrossNewMember += $oSingleStatic->gross_new_member;
 $oGrossUpdateMember += $oSingleStatic->gross_update_member;
 $oGrossNewCenter += $oSingleStatic->gross_new_center;
+$oGrossNewError += $oSingleStatic->gross_new_error;
 }					
 					<td>{$oSingleStatic->city_name}</td>
-					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center)}</td>
+					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
 					<td>{number_format($oSingleStatic->gross_new_member)}</td>
 					<td>{number_format($oSingleStatic->gross_update_member)}</td>
 					<td>{number_format($oSingleStatic->gross_new_center)}</td>
+					<td>{number_format($oSingleStatic->gross_new_error)}</td>
 				</tr>
 				<tr style="height: 5px; background-color: #D9F5FF;">
 					<td>합계</td>
@@ -144,7 +147,7 @@ $oGrossNewCenter += $oSingleStatic->gross_new_center;
 					<td>{$oGrossNewMember}</td>
 					<td>{$oGrossUpdateMember}</td>
 					<td>{$oGrossNewCenter}</td>
-					<!-- <td>0</td> -->
+					<td>{$oGrossNewError}</td>
 				</tr>
 		</table>
 		</tbody>

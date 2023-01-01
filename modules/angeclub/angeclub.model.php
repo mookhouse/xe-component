@@ -236,7 +236,8 @@ class angeclubModel extends module
 				$oSingleCityStat->gross_new_member = $oRst->data->gross_new_member;
 				$oSingleCityStat->gross_update_member = $oRst->data->gross_update_member;
 				$oSingleCityStat->gross_new_center = $oRst->data->gross_new_center;
-				$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center;
+				$oSingleCityStat->gross_new_error = $oRst->data->gross_new_error;
+				$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center + $oRst->data->gross_new_error;
 				$aSort[$sCityName] = $nGross;
 				$aTmpStatisticsByCity[$sCityName] = $oSingleCityStat;
 			}
@@ -263,7 +264,6 @@ class angeclubModel extends module
 		$oArgs = new stdClass;
 		$oArgs->begin_date = $sBeginDate;
 		$oArgs->end_date = $sEndDate;
-
 		$aTmpStatisticsByStaffMemberSrl = [];
 		$aSort = [];
 		foreach($aUserInfo as $nStaffMemberSrl=>$sStaffName)
@@ -278,8 +278,9 @@ class angeclubModel extends module
 			$oSingleStat->gross_new_member = $oRst->data->gross_new_member;
 			$oSingleStat->gross_update_member = $oRst->data->gross_update_member;
 			$oSingleStat->gross_new_center = $oRst->data->gross_new_center;
+			$oSingleStat->gross_new_error = $oRst->data->gross_new_error;
 
-			$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center;
+			$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center + $oRst->data->gross_new_error;
 			$aSort[$nStaffMemberSrl] = $nGross;
 			unset($oRst);
 			$aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl] = $oSingleStat;

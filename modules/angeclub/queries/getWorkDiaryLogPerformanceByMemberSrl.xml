@@ -6,10 +6,11 @@
         <column name="sum(cl_count_regi)" alias="gross_new_member" />
         <column name="sum(cl_count_update)" alias="gross_update_member" />
         <column name="sum(cl_count_center)" alias="gross_new_center" />
+		<column name="sum(cl_count_error)" alias="gross_new_error" />
     </columns>
     <conditions>
         <condition operation="equal" column="member_srl_staff" var="member_srl_staff" notnull="notnull"/>
-        <condition operation="more" column="regdate" var="begin_date" notnull="notnull" pipe="and" />
-        <condition operation="less" column="regdate" var="end_date" notnull="notnull" pipe="and" />
+        <condition operation="more" column="workdate" var="begin_date" notnull="notnull" pipe="and" />
+        <condition operation="less" column="workdate" var="end_date" notnull="notnull" pipe="and" />
     </conditions>
 </query>
