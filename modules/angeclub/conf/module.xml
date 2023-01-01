@@ -3,6 +3,7 @@
 	<permissions>
 		<permission action="dispAngeclubWorkDiaryManager" target="manager" />
 		<permission action="dispAngeclubStaffManager" target="manager" />
+		<permission action="dispAngeclubStatisticsManager" target="manager" />
     </permissions>
 	<actions>
 		<action name="dispAngeclubAdminIndex" type="view" admin_index="true" menu_name="angeclub" menu_index="true" />
@@ -14,12 +15,13 @@
 		<action name="dispAngeclubAdminMigrate" type="view" />  <!-- temporary migration tool -->
 		
 		<action name="dispAngeclubIndex" type="view" index="true" />
+		<action name="dispAngeclubStatisticsManager" type="view" />  <!-- 총괄 관리자 전용 -->
 		<action name="dispAngeclubStatistics" type="view" />
 		<action name="dispAngeclubMember" type="view" />
 		<action name="dispAngeclubMemberPopupAdd" type="view" />
 		<action name="dispAngeclubMemberPopupUpdate" type="view" />
 		<action name="dispAngeclubWorkDiary" type="view" />
-		<action name="dispAngeclubWorkDiaryManager" type="view" />  <!-- 총괄 관리자 전용 -->
+		<action name="dispAngeclubWorkDiaryManager" type="view" />  
 		<action name="dispAngeclubWorkDiaryPopupAdd" type="view" />
 		<action name="dispAngeclubWorkDiaryPopupUpdate" type="view" />
 		<action name="dispAngeclubCenter" type="view" />

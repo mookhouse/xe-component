@@ -49,108 +49,71 @@ $(document).ready(function(){
 <div class="article-header">
 </div>
 <article>
-	<div class="article-header">
-		<h5>담당자별</h5>
-		<!--<small>Toral <span>145</span> item(s)</small>-->
-	</div>
-	<!-- list -->
 	<div class="table-wrap list">
-		<div class="btn-area" style="margin-top:0px;margin-bottom:10px;">
-			<p>
-				<a href="/adm/vm/club/logstate_export.svm.php?period_start=2022-11-01&period_end=2022-11-29&search_state=" target="_blank" class="btn btn-xs btn-gray" role="button">엑셀다운로드</a>
-			</p>
-		</div>
 		<table class="table">
 			<thead>
 				<tr>
-					<!-- <th class="subject none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst=cu_name&amp;sod=desc";'>
-						<a href="#">담당자
-						<span>
-						<i class="icon-up-micro"></i>
-						<i class="icon-down-micro"></i>
-						</span>
-						</a>
-					</th>
-					<th class="none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst=cu_zone&amp;sod=desc";'>
-						<a href="#">권역
-						<span>
-						<i class="icon-up-micro"></i>
-						<i class="icon-down-micro"></i>
-						</span>
-						</a>
-					</th> -->
-					<th style="height:50px;">담당자</th>
-					<th>합계</th>
-					<th>DB수</th>
-					<th>중복</th>
-					<th>조리원</th>
-					<th>기타</th>
+					<th style="width:15%"  class="none-order"><a href="javascript:;">담당자명</a></th>
+					<th style="width:15%">합계</th>
+					<th style="width:15%">DB수</th>
+					<th style="width:15%">중복</th>
+					<th style="">조리원</th>
+					<th style="width:15%">기타</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr loop="$aStatisticsByStaffMemberSrl=>$_,$oSingleStatic">
-					<td>{$oSingleStatic->staff_name}</td>
+				<tr loop="$aStatisticsByStaffMemberSrl=>$_,$oSingleStatic" class="compact" style=" background-color: #99CCFF; ">
+					<td>
+						<!---a href="/adm/?submenu=presentcenter&category=sugarprime&period_start=2022-12-05&period_end=2023-01-01" style="font-weight: 600;"--->
+						{$oSingleStatic->staff_name}
+						<!---/a---->
+					</td>
 					<!-- <td>강남</td> -->
-					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
-					<td>{number_format($oSingleStatic->gross_new_member)}</td>
-					<td>{number_format($oSingleStatic->gross_update_member)}</td>
-					<td>{number_format($oSingleStatic->gross_new_center)}</td>
-					<td>{number_format($oSingleStatic->gross_new_error)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_member)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_update_member)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_center)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_error)}</td>
+					<td>&nbsp;</td>
 				</tr>
+
 			</tbody>
 		</table>
 	</div>
 	<div class="article-header" style="padding-bottom:0px;padding-top:20px;">
-		<h5>지역별</h5>
+		<h5>교육장별 증정현황</h5>
 		<!--<small>Toral <span>145</span> item(s)</small>-->
 	</div>
-	<!-- list -->
-	<div class="table-wrap list" style="margin-top:20px;" id="tableList2">
+	<div class="table-wrap list" style="margin-top:20px;">
 		<table class="table">
 			<thead>
 				<tr>
-					<!-- <th class="subject none-order" onclick='location.href="/adm/index.php?submenu=home&amp;page=1&amp;period_start=&amp;period_end=&amp;sst2=cc.cc_city&amp;sod2=desc#tableList2";'>
-						<a href="#">지역
-						<span>
-						<i class="icon-up-micro"></i>
-						<i class="icon-down-micro"></i>
-						</span>
-						</a>
-					</th> -->
-					<th style="height:50px;">지역</th>
-					<th>합계</th>
-					<th>등록</th>
-					<th>중복</th>
-					<th>조리원</th>
-					<th>기타</th>
+					<th style="width:15%"  class="none-order"><a href="javascript:;">교육장명</a></th>
+					<th style="width:15%;">합계</th>
+					<th style="width:15%;">DB수</th>
+					<th style="width:15%;">중복</th>
+					<th style="">조리원</th>
+					<th style="width:15%;">기타</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr loop="$aStatisticsByCity=>$_,$oSingleStatic">
-{@
-$oGrossTotal += $oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center;
-$oGrossNewMember += $oSingleStatic->gross_new_member;
-$oGrossUpdateMember += $oSingleStatic->gross_update_member;
-$oGrossNewCenter += $oSingleStatic->gross_new_center;
-$oGrossNewError += $oSingleStatic->gross_new_error;
-}					
-					<td>{$oSingleStatic->city_name}</td>
-					<td>{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
-					<td>{number_format($oSingleStatic->gross_new_member)}</td>
-					<td>{number_format($oSingleStatic->gross_update_member)}</td>
-					<td>{number_format($oSingleStatic->gross_new_center)}</td>
-					<td>{number_format($oSingleStatic->gross_new_error)}</td>
+				<tr loop="$aStatisticsByCenter=>$_,$oSingleStatic" class="compact" >
+					<td style="text-align: left;">
+						<!---a href="javascript:void();" onClick="LoadPopup('/adm/vm/club/delivery_center.svm.php?index=637&period_start=2022-12-05&period_end=2023-01-01',true);" style="font-weight: 600;"--->
+						{$oSingleStatic->center_name}
+						<!---/a---->
+					</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_member + $oSingleStatic->gross_update_member + $oSingleStatic->gross_new_center + $oSingleStatic->gross_new_error)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_member)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_update_member)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_center)}</td>
+					<td class="number">{number_format($oSingleStatic->gross_new_error)}</td>
+
+					<td>&nbsp;</td>
 				</tr>
-				<tr style="height: 5px; background-color: #D9F5FF;">
-					<td>합계</td>
-					<td>{$oGrossTotal}</td>
-					<td>{$oGrossNewMember}</td>
-					<td>{$oGrossUpdateMember}</td>
-					<td>{$oGrossNewCenter}</td>
-					<td>{$oGrossNewError}</td>
-				</tr>
-		</table>
-		</tbody>
+			</tbody>
 		</table>
 	</div>
 </article>

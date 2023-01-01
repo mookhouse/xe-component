@@ -257,16 +257,15 @@ class angeclubModel extends module
 /**
  * @brief return period performance by staff
  **/
-	public function getPeriodPerfByStaff($nModuleSrl, $sBeginDate, $sEndDate)
+	public function getPeriodPerfByStaff($nModuleSrl, $sBeginDate, $sEndDate, $nStaffMemberSrl=null)
 	{
 		$aUserInfo = $this->getClubEffectiveUser($nModuleSrl);
-		
+
 		$oArgs = new stdClass;
 		$oArgs->begin_date = $sBeginDate;
 		$oArgs->end_date = $sEndDate;
-		$aTmpStatisticsByStaffMemberSrl = [];
-		$aSort = [];
-		foreach($aUserInfo as $nStaffMemberSrl=>$sStaffName)
+		$aStatisticsByStaffMemberSrl = [];
+		if($nStaffMemberSrl)
 		{
 			$oArgs->member_srl_staff = $nStaffMemberSrl;
 			$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByMemberSrl', $oArgs);
@@ -274,26 +273,89 @@ class angeclubModel extends module
 				return $oRst;
 			$oSingleStat = new stdClass();
 			$oSingleStat->member_srl = $nStaffMemberSrl;
-			$oSingleStat->staff_name = $sStaffName;
+			$oSingleStat->staff_name = $aUserInfo[$nStaffMemberSrl];
 			$oSingleStat->gross_new_member = $oRst->data->gross_new_member;
 			$oSingleStat->gross_update_member = $oRst->data->gross_update_member;
 			$oSingleStat->gross_new_center = $oRst->data->gross_new_center;
 			$oSingleStat->gross_new_error = $oRst->data->gross_new_error;
-
-			$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center + $oRst->data->gross_new_error;
-			$aSort[$nStaffMemberSrl] = $nGross;
 			unset($oRst);
-			$aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl] = $oSingleStat;
+			$aStatisticsByStaffMemberSrl[] = $oSingleStat;
 		}
-		unset($oArgs);
-		ksort($aSort);
+		else
+		{
+			$aTmpStatisticsByStaffMemberSrl = [];
+			$aSort = [];
+			foreach($aUserInfo as $nStaffMemberSrl=>$sStaffName)
+			{
+				$oArgs->member_srl_staff = $nStaffMemberSrl;
+				$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByMemberSrl', $oArgs);
+				if(!$oRst->toBool())
+					return $oRst;
+				$oSingleStat = new stdClass();
+				$oSingleStat->member_srl = $nStaffMemberSrl;
+				$oSingleStat->staff_name = $sStaffName;
+				$oSingleStat->gross_new_member = $oRst->data->gross_new_member;
+				$oSingleStat->gross_update_member = $oRst->data->gross_update_member;
+				$oSingleStat->gross_new_center = $oRst->data->gross_new_center;
+				$oSingleStat->gross_new_error = $oRst->data->gross_new_error;
 
-		$aStatisticsByStaffMemberSrl = [];
-		foreach($aSort as $nStaffMemberSrl=>$nGross)
-			$aStatisticsByStaffMemberSrl[] = $aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl];
-		unset($aTmpStatisticsByStaffMemberSrl);
+				$nGross = $oRst->data->gross_new_member + $oRst->data->gross_update_member + $oRst->data->gross_new_center + $oRst->data->gross_new_error;
+				$aSort[$nStaffMemberSrl] = $nGross;
+				unset($oRst);
+				$aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl] = $oSingleStat;
+			}
+			unset($oArgs);
+			ksort($aSort);
+			
+			foreach($aSort as $nStaffMemberSrl=>$nGross)
+				$aStatisticsByStaffMemberSrl[] = $aTmpStatisticsByStaffMemberSrl[$nStaffMemberSrl];
+			unset($aTmpStatisticsByStaffMemberSrl);
+		}
+		unset($aUserInfo);
 		$oRet = new BaseObject();
 		$oRet->add('aStatisticsByStaffMemberSrl', $aStatisticsByStaffMemberSrl);
+		return $oRet;
+	}
+	
+/**
+ * @brief return period performance by staff by center
+ **/
+	public function getPeriodPerfByStaffCenter($nModuleSr, $nStaffMemberSrl, $sBeginDate, $sEndDate)
+	{
+		$aUserInfo = $this->getClubEffectiveUser($nModuleSrl);
+
+		$oArgs = new stdClass;
+		$oArgs->begin_date = $sBeginDate;
+		$oArgs->end_date = $sEndDate;
+		$oArgs->member_srl_staff = $nStaffMemberSrl;
+		$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByMemberSrlByCenterGrp', $oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+		unset($oArgs);
+
+		$aStatisticsByCenter = [];
+		$oArgs = new stdClass();
+		foreach($oRst->data as $_ => $oSingleCenterPerf)
+		{
+			$oSingleCenter = new stdClass();
+			$oArgs->cc_idx = $oSingleCenterPerf->cc_idx;
+			$oRst = executeQuery('angeclub.getCenterByIdx', $oArgs);
+			if(count((array)$oRst->data))
+				$oSingleCenter->center_name = $oRst->data->cc_name;
+			
+			$oSingleCenter->member_srl = $nStaffMemberSrl;
+			$oSingleCenter->staff_name = $aUserInfo[$nStaffMemberSrl];
+			$oSingleCenter->gross_new_member = $oSingleCenterPerf->gross_new_member;
+			$oSingleCenter->gross_update_member = $oSingleCenterPerf->gross_update_member;
+			$oSingleCenter->gross_new_center = $oSingleCenterPerf->gross_new_center;
+			$oSingleCenter->gross_new_error = $oSingleCenterPerf->gross_new_error;
+			unset($oRst);
+			$aStatisticsByCenter[] = $oSingleCenter;
+		}
+		unset($oArgs);
+		unset($aUserInfo);
+		$oRet = new BaseObject();
+		$oRet->add('aStatisticsByCenter', $aStatisticsByCenter);
 		return $oRet;
 	}
 /**

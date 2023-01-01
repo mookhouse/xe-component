@@ -13,7 +13,7 @@
     <column name="cl_count_center" type="number" size="11" />  <!-- `cl_count_center` int(11) DEFAULT NULL COMMENT '센터증정수', -->
     <column name="cl_date_regi" type="date" />  <!-- `cl_date_regi` datetime DEFAULT NULL COMMENT '등록일', -->
     <column name="cl_site" type="number" size="11" />  <!--폐기 예정, `cl_site` int(11) DEFAULT NULL, -->
-    <column name="member_srl_staff" type="number" size="11" />  <!--- cu_id 대치 예정 -->
+    <column name="member_srl_staff" type="number" size="11" index="idx_member_srl_staff" />  <!--- cu_id 대치 예정 -->
     <column name="workdate" type="date" />  <!--- 업무일 -->
     <column name="regdate" type="date" />  <!--- 등록일 -->
 </table>

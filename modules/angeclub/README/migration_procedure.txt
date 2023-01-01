@@ -178,6 +178,9 @@ cc_name
 cl_date
 cl_date_regi
 
+*. xe_angeclub_log에서 아래의 인덱스 생성
+idx_member_srl_staff
+
 *. xe_angeclub_center에서 아래의 필드 삭제
 cu_id
 cc_date_regi

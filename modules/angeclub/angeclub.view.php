@@ -56,9 +56,9 @@ class angeclubView extends angeclub
 		$this->dispAngeclubWorkDiary();
 	}
 /**
- * @brief 담당자별 지역별 성과 대쉬보드 화면
+ * @brief 담당자별 지역별 성과 대쉬보드 화면 - 앙쥬클럽관리자용
  */
-	public function dispAngeclubStatistics()
+	public function dispAngeclubStatisticsManager()
 	{
 		$sBeginDate = Context::get('period_start');
 		$sEndDate = Context::get('period_end');
@@ -85,6 +85,44 @@ class angeclubView extends angeclub
 		if(!$oRst->toBool())
 			return $oRst;
 		Context::set('aStatisticsByCity', $oRst->get('aStatisticsByCity'));
+		unset($oRst);
+		unset($oAngeclubModel);
+
+		$this->setTemplateFile('statistics_manager');
+	}
+/**
+ * @brief 담당자별 지역별 성과 대쉬보드 화면 - 앙쥬클럽스탭용
+ */
+	public function dispAngeclubStatistics()
+	{
+		$oLoggedInfo = Context::get('logged_info');
+		if(!$oLoggedInfo)
+			return new BaseObject(-1, 'msg_not_loggedin');
+
+		$sBeginDate = Context::get('period_start');
+		$sEndDate = Context::get('period_end');
+		if(!$sBeginDate || !$sEndDate)
+		{
+			$sEndDate = date('Ymd',strtotime("-1 days")).'000000';  // means yesterday Yyyymmddhhiiss
+			$dtEnd = date_create($sEndDate);
+			$dtEnd->modify('-7 day');
+			$sBeginDate = $dtEnd->format('Ymd000000');
+			unset($dtEnd);
+		}
+
+		Context::set('sBeginDate', substr($sBeginDate, 0, 8));
+		Context::set('sEndDate', substr($sEndDate, 0, 8));
+
+		$oAngeclubModel = &getModel('angeclub');
+		$oRst = $oAngeclubModel->getPeriodPerfByStaff($this->module_info->module_srl, $sBeginDate, $sEndDate, $oLoggedInfo->member_srl);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('aStatisticsByStaffMemberSrl', $oRst->get('aStatisticsByStaffMemberSrl'));
+
+		$oRst = $oAngeclubModel->getPeriodPerfByStaffCenter($this->module_info->module_srl, $oLoggedInfo->member_srl, $sBeginDate, $sEndDate);
+		if(!$oRst->toBool())
+			return $oRst;
+		Context::set('aStatisticsByCenter', $oRst->get('aStatisticsByCenter'));
 		unset($oRst);
 		unset($oAngeclubModel);
 
