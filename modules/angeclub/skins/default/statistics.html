@@ -1,23 +1,26 @@
 <script>
-$('#period_start').datetimepicker({
-	timepicker:false,
-	closeOnDateSelect:true,
-	format:'Ymd',
-	style:'z-index: 101000;',
-	lang: 'ko'
-});
-$('#period_end').datetimepicker({
-	timepicker:false,
-	closeOnDateSelect:true,
-	format:'Ymd',
-	style:'z-index: 101000;',
-	lang: 'ko'
+$(document).ready(function(){
+	$('#period_start').datetimepicker({
+		timepicker:false,
+		closeOnDateSelect:true,
+		format:'Ymd',
+		style:'z-index: 101000;',
+		lang: 'ko'
+	});
+	$('#period_end').datetimepicker({
+		timepicker:false,
+		closeOnDateSelect:true,
+		format:'Ymd',
+		style:'z-index: 101000;',
+		lang: 'ko'
+	});
 });
 </script>
 <!-- 검색 영역 -->
 <div class="global-search">
-	<form action="?" method="get" name="searchFrm" id="searchFrm">
-		<input type="hidden" name="submenu"  value="home">
+	<form id="searchForm" action="./" method="post" class="x_input-append" >
+        <input type="hidden" name="mid" value="{$mid}" />
+        <input type="hidden" name="act" value="{$act}" />
 		<h4>검색하기</h4>
 		<!-- <div class="form-group">
 			<select class="form-control" name="search_state">
@@ -28,11 +31,11 @@ $('#period_end').datetimepicker({
 			</select>
 		</div> -->
 		<div class="form-group">
-			<input type="text" class="form-control" name="period_start" id="period_start" readonly  value="{$sBeginDate}" placeholder="조회기간" style="width:150px">
+			<input type="text" class="form-control" name="period_start" id="period_start" value="{$sBeginDate}" placeholder="조회기간" style="width:150px">
 			<label for="period_start" class="sr-only">조회기간 시작일자</label>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="period_end"   id="period_end"   readonly  value="{$sEndDate}" placeholder="조회기간" style="width:150px">
+			<input type="text" class="form-control" name="period_end"   id="period_end" value="{$sEndDate}" placeholder="조회기간" style="width:150px">
 			<label for="period_end" class="sr-only">조회기간 종료일자</label>
 		</div>
 		<div class="btn-area">

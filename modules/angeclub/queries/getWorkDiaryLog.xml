@@ -20,6 +20,8 @@
     <conditions>
         <condition operation="equal" column="member_srl_staff" var="member_srl_staff" />
         <condition operation="in" column="cc_idx" var="a_cc_idx" pipe="and" />
+		<condition operation="more" column="workdate" var="begin_date" pipe="and" />
+        <condition operation="less" column="workdate" var="end_date" pipe="and" />
     </conditions>
 	<navigation>
         <index var="sort_index" default="cl_idx" order="desc" />

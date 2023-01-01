@@ -60,11 +60,16 @@ class angeclubView extends angeclub
  */
 	public function dispAngeclubStatistics()
 	{
-		$sEndDate = date('Ymd',strtotime("-1 days")).'000000';  // means yesterday Yyyymmddhhiiss
-		$dtEnd = date_create($sEndDate);
-		$dtEnd->modify('-7 day');
-		$sBeginDate = $dtEnd->format('Ymd000000');
-		unset($dtEnd);
+		$sBeginDate = Context::get('period_start');
+		$sEndDate = Context::get('period_end');
+		if(!$sBeginDate || !$sEndDate)
+		{
+			$sEndDate = date('Ymd',strtotime("-1 days")).'000000';  // means yesterday Yyyymmddhhiiss
+			$dtEnd = date_create($sEndDate);
+			$dtEnd->modify('-7 day');
+			$sBeginDate = $dtEnd->format('Ymd000000');
+			unset($dtEnd);
+		}
 
 		Context::set('sBeginDate', substr($sBeginDate, 0, 8));
 		Context::set('sEndDate', substr($sEndDate, 0, 8));

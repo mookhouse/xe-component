@@ -547,7 +547,7 @@ class angeclubModel extends module
 		unset($oInParams->error_return_url);
 		unset($oInParams->mid);
 		unset($oInParams->act);
-		
+
 		$oCenterArgs = new stdClass();
 		if($oInParams->cc_idx)  // ["cc_idx"]=> string(6) "137" 
 		{
@@ -592,7 +592,8 @@ class angeclubModel extends module
 		if(count($aCenterIdx))
 			$oArgs->a_cc_idx = $aCenterIdx;  // 지역별 조리원 검색
 
-		// "search_start"]=> string(8) "20221207" ["search_end"]=> string(8) "20221214"
+		$oArgs->begin_date = $oInParams->search_start.'000000';
+		$oArgs->end_date = $oInParams->search_end.'235959';
 		$oRst = executeQueryArray('angeclub.getWorkDiaryLog', $oArgs);
 		unset($oArgs);
 		
