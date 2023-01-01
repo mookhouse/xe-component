@@ -166,11 +166,11 @@ $( document ).ready(function() {
                                 <td class="phone">
                                     <div class="form-group">
                                         신규
-                                        <input type="text" class="form-control" id="dbnum1" name="_cl_count_regi" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_regi}" title="정상등록수" style="width: 45px;"> &nbsp;
+                                        <input type="text" class="form-control" id="dbnum1" name="_cl_count_regi" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_regi ? $oWorkDiaryInfo->cl_count_regi : 0}" title="정상등록수" style="width: 45px;"> &nbsp;
                                         중복
-                                        <input type="text" class="form-control" id="dbnum2" name="_cl_count_update" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_update}" title="중복등록수" style="width: 45px;">
+                                        <input type="text" class="form-control" id="dbnum2" name="_cl_count_update" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_update ? $oWorkDiaryInfo->cl_count_update : 0}" title="중복등록수" style="width: 45px;">
                                         교육장
-                                        <input type="text" class="form-control" id="dbnum3" name="_cl_count_center" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_center}" title="조리원 증정수" style="width: 45px;">
+                                        <input type="text" class="form-control" id="dbnum3" name="_cl_count_center" onBlur='numberCheck(this);' value="{$oWorkDiaryInfo->cl_count_center ? $oWorkDiaryInfo->cl_count_center : 0}" title="조리원 증정수" style="width: 45px;">
                                         <!-- <br>기타
                                         <input type="text" class="form-control" id="dbnum4" name="_cl_count_error"  onBlur='db_sum("dbnum","dbtotal","dbnum4");numberCheck(this);' value="0" title="등록오류수" style="width: 45px;">
                                         총증정수
