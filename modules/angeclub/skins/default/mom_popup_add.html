@@ -215,6 +215,24 @@ function emailChk(){
     }, response);
 }
 
+function requestRandomEmail(){
+	var params = new Array();
+    var response = ['sEmailId', 'sEmailHost'];
+    exec_xml('angeclub', 'getRandomEmailAjax', params, function(ret_obj) {
+        if(ret_obj['message'] == 'success')
+        {
+            if(ret_obj['sEmailId'].length > 0 && ret_obj['sEmailHost'].length > 0){
+				$('#email_id').val(ret_obj['sEmailId']);
+				$('#email_id').prop('readonly', true);
+				$('#email_server').val(ret_obj['sEmailHost']);
+				$('#email_server').prop('readonly', true);
+            }else{
+                alert('임의 메일 주소 생성 실패했습니다.');
+            }
+        }
+    }, response);
+}
+
 // 다음 우편번호 사용자 선택 처리
     function zipcode_execDaumPostcode() {
         new daum.Postcode({
@@ -441,8 +459,8 @@ $(document).on("click", ".agree_label", function(){
                                                 <option value="gmail.com" >gmail.com</option>
                                                 <option value="custom">직접 입력</option>
                                             </select>
-                                            <!-- <input type="checkbox" name="email_null" id="email_null" value="1" onclick="CheckEmailNull();"> 이메일 없음 -->
                                             <input type="button" class="button" id="btn_email_host" value="중복체크" onclick="emailChk();" disabled|cond="$oMomMemberInfo->email_host">
+											<input type="button" class="button" id="btn_email_host" value="이메일 주소 생성 요청" onclick="requestRandomEmail();" disabled|cond="$oMomMemberInfo->email_host">
                                         </div>
                                         <p id='_EMAIL_check'></p>
                                     </td>

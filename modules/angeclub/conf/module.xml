@@ -28,6 +28,7 @@
 		<action name="dispAngeclubStaffManager" type="view" />  <!-- 총괄 관리자 전용 -->
 
 		<action name="getDuplicatedUserAjax" type="model" />
+		<action name="getRandomEmailAjax" type="model" />
 				
 		<action name="procAngeclubAdminUpdate" type="controller" />
 		<action name="procAngeclubAdminConfig" type="controller" />

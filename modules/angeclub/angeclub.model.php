@@ -400,6 +400,32 @@ class angeclubModel extends module
 		$oRst->add('aJsonStringfyCenterByStaff', implode( ',', $aJsonStringfyCenterByStaffId));
 		return $oRst;
 	}
+	
+/**
+ * @brief generate random email
+ **/
+	public function getRandomEmailAjax()
+	{
+		$this->add('sEmailId', $this->_getRandStr(7));
+        $this->add('sEmailHost', 'e.c');
+		return new BaseObject();
+	}
+/**
+ * @brief 
+ */
+	private function _getRandStr($length = 6, $bAllAhphaNumeric=FALSE) 
+	{
+		if($bAllAhphaNumeric)
+        	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		else
+			$characters = 'abcdefghijklmnopqrstuvwxyz';  // 숫자를 발생시키면 핸폰 번호 아이디 postfix에서 혼란스러움, 대문자 불허함
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 /**
  * @brief check duplicated user via ajax
  **/
