@@ -617,8 +617,8 @@ exit;
 			return new BaseObject(-1, '조리원을 선택하세요.');
 		if(!$oArgs->_cl_count_regi)
 			return new BaseObject(-1, '신규 DB 인원을 입력하세요.');
-		if(!$oArgs->_cl_count_update)
-			return new BaseObject(-1, '중복장 DB 인원을 입력하세요.');
+		//if(!$oArgs->_cl_count_update)
+		//	return new BaseObject(-1, '중복 DB 인원을 입력하세요.');
 		if(!$oArgs->_cl_category)
 			return new BaseObject(-1, '교육 유형을 입력하세요.');
 		// if(!$oArgs->_cl_count_center)
