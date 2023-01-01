@@ -14,24 +14,9 @@
         <column name="cl_count_regi" />
         <column name="cl_count_update" />
         <column name="cl_count_center" />
+		<column name="cl_count_error" />
     </columns>
     <conditions>
         <condition operation="equal" column="cl_idx" var="cl_idx" />
     </conditions>
 </query>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
