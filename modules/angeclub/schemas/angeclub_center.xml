@@ -17,7 +17,7 @@
     <column name="cc_delivery" type="varchar" size="45" />
     <column name="cc_memo" type="text" />
     <column name="cc_state" type="number" size="11" notnull="notnull" default="1" />  <!-- 1:사용 9:교육중지 2:리모델링 3:기타 0:폐업 -->
-    <column name="cc_date_regi" type="date" />
+    <column name="cc_date_regi" type="date" />  <!-- 폐기예정 -->
     <column name="cc_homepage" type="varchar" size="20" />
     <column name="member_srl_staff" type="number" size="11" />  <!--- cu_id 대치 예정 -->
     <column name="regdate" type="date" />  <!--- 등록일 -->

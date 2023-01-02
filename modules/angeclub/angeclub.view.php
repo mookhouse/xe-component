@@ -29,6 +29,7 @@ class angeclubView extends angeclub
 			header('Location: /');
 			exit;
 		}
+		Context::set('oGrant', $oGrant); // 템플릿용 권한 변수 설정
 
 		$oAngeclubModel = &getModel('angeclub');
 		$aEffectiveUserList = $oAngeclubModel->getClubEffectiveUser($this->module_info->module_srl);

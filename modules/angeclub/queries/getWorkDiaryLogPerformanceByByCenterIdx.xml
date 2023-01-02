@@ -1,0 +1,16 @@
+<query id="getWorkDiaryLogPerformanceByByCenterIdx" action="select">
+    <tables>
+        <table name="angeclub_log" />
+    </tables>
+    <columns>
+		<column name="sum(cl_count_regi)" alias="gross_new_member" />
+        <column name="sum(cl_count_update)" alias="gross_update_member" />
+        <column name="sum(cl_count_center)" alias="gross_new_center" />
+		<column name="sum(cl_count_error)" alias="gross_new_error" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="cc_idx" var="cc_idx" notnull="notnull"/>
+        <condition operation="more" column="workdate" var="begin_date" notnull="notnull" pipe="and" />
+        <condition operation="less" column="workdate" var="end_date" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

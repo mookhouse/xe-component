@@ -717,4 +717,147 @@ exit;
 			return $oRst;
 		$this->add('bRst', 1);
 	}
+/**
+ * @brief 조리원별 DB 성과 CSV 다운로드
+ */
+	function procAngeclubCSVDownloadCenterPerf() 
+	{
+		$sPeriodStart = Context::get('period_start_csv');
+		if(!$sPeriodStart)
+			return new BaseObject(-1, '잘못된 시작 시점');
+		$sPeriodEnd = Context::get('period_end_csv');
+		if(!$sPeriodEnd)
+			return new BaseObject(-1, '잘못된 종료 시점');
+
+		//header( 'Content-Type: text/html; charset=UTF-8' );
+		header( 'Content-Type: Application/octet-stream; charset=UTF-8' );
+		header( "Content-Disposition: attachment; filename=\"angeclub_delivery_center_list_".date('Y-m-d').".csv\"");
+		echo chr( hexdec( 'EF' ) );
+		echo chr( hexdec( 'BB' ) );
+		echo chr( hexdec( 'BF' ) );
+
+		echo '조리원별 증정현황';
+		echo "\r\n";
+		echo '증정기간 : '.$sPeriodStart.' ~ '.$sPeriodEnd;
+		echo "\r\n";
+
+		// 기본 컬럼 제목 설정 시작
+		$oDataConfig = Array('교육장명', '합계', 'DB수', '중복', '조리원', '기타');
+		foreach($oDataConfig as $_ => $sLabel)
+			echo "\"".$sLabel."\",";
+		// 기본 컬럼 제목 설정 끝
+
+		echo "\r\n";
+		$oArgs = new stdClass;
+		$oArgs->cc_state = [1]; // $this->_g_aCenterState[1=>'사용', 9=>'교육중지', 2=>'리모델링', 3=>'기타', 0=>'폐업']
+		$oRst = executeQueryArray('angeclub.getCenterAll', $oArgs);
+		unset($oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+
+		$aTmpPerfByCenterIdx = [];
+		$aSort = [];
+		$oArgs = new stdClass;
+		$oArgs->begin_date = $sPeriodStart.'000001';
+		$oArgs->end_date = $sPeriodEnd.'235959';
+		foreach($oRst->data as $_ => $oSingleCenter)
+		{
+			$oArgs->cc_idx = $oSingleCenter->cc_idx;
+			$oRst = executeQuery('angeclub.getWorkDiaryLogPerformanceByByCenterIdx', $oArgs);
+			$oAggregatedCenterPerf = new stdClass;
+			$oAggregatedCenterPerf->sCenterName = $oSingleCenter->cc_name;
+			$oAggregatedCenterPerf->nGrossNewMember = $oRst->data->gross_new_member ? $oRst->data->gross_new_member : 0;
+			$oAggregatedCenterPerf->nGrossUpdateMember = $oRst->data->gross_update_member ? $oRst->data->gross_update_member : 0;
+			$oAggregatedCenterPerf->nGrossNewCenter = $oRst->data->gross_new_center ? $oRst->data->gross_new_center : 0;
+			$oAggregatedCenterPerf->nGrossNewError = $oRst->data->gross_new_error ? $oRst->data->gross_new_error : 0;
+			$oAggregatedCenterPerf->nTotal = $oAggregatedCenterPerf->nGrossNewMember + $oAggregatedCenterPerf->nGrossUpdateMember
+												+ $oAggregatedCenterPerf->nGrossNewCenter + $oAggregatedCenterPerf->nGrossNewError;
+			$aTmpPerfByCenterIdx[$oSingleCenter->cc_idx] = $oAggregatedCenterPerf;
+			$aSort[$oSingleCenter->cc_idx] = $oAggregatedCenterPerf->nTotal;
+			unset($oRst);
+		}
+		unset($oArgs);
+		arsort($aSort);
+
+		$aStatisticsByCenter = [];
+		foreach($aSort as $nCenterIdx=>$nGross)
+			$aStatisticsByCenter[] = $aTmpPerfByCenterIdx[$nCenterIdx];
+		unset($aTmpPerfByCenterIdx);
+		unset($aSort);
+
+		foreach($aStatisticsByCenter as $_ => $oSingleCenter)
+		{
+			//if($oSingleCenter->nTotal)  // 기록이 있는 조리원만 표시
+			{
+				echo "\"".$oSingleCenter->sCenterName."\",";
+				echo "\"".$oSingleCenter->nTotal."\",";
+				echo "\"".$oSingleCenter->nGrossNewMember."\",";
+				echo "\"".$oSingleCenter->nGrossUpdateMember."\",";
+				echo "\"".$oSingleCenter->nGrossNewCenter."\",";
+				echo "\"".$oSingleCenter->nGrossNewError."\",";
+				//echo '<BR>';
+				echo "\r\n";
+			}
+		}
+		unset($aStatisticsByCenter);
+		exit(0);
+	}
+/**
+ * @brief 조리원 목록 CSV 다운로드
+ */	
+	function procAngeclubCSVDownloadCenterList() 
+	{
+		//header( 'Content-Type: text/html; charset=UTF-8' );
+		header( 'Content-Type: Application/octet-stream; charset=UTF-8' );
+		header( "Content-Disposition: attachment; filename=\"angeclub_center_list_".date('Y-m-d').".csv\"");
+		echo chr( hexdec( 'EF' ) );
+		echo chr( hexdec( 'BB' ) );
+		echo chr( hexdec( 'BF' ) );
+
+		// 기본 컬럼 제목 설정 시작
+		$oDataConfig = Array('지역구분', '교육장명', '담당자명', '전화', '우편번호', '주소', '홈페이지', '대표', '원장', '택배수량', '방갯수', /*'월평균디비수', '연평균디비수',*/ '메모', '등록일', '상태');
+		foreach($oDataConfig as $_ => $sLabel)
+			echo "\"".$sLabel."\",";
+		// 기본 컬럼 제목 설정 끝
+
+		echo "\r\n";
+		$oArgs = new stdClass;
+		$oArgs->cc_state = [1,3,9]; // $this->_g_aCenterState[1=>'사용', 9=>'교육중지', 2=>'리모델링', 3=>'기타', 0=>'폐업']
+		$oRst = executeQueryArray('angeclub.getCenterAll', $oArgs);
+		unset($oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+
+		$oMemberModel = &getModel('member');
+		$aStaffNameMap = [];
+		foreach($oRst->data as $_ => $oSingleCenter)
+		{
+			if(!$aStaffNameMap[$oSingleCenter->member_srl_staff])
+			{
+				$oStaffMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($oSingleCenter->member_srl_staff);
+				$aStaffNameMap[$oSingleCenter->member_srl_staff] = $oStaffMemberInfo->user_name;
+				unset($oStaffMemberInfo);
+			}
+			echo "\"".$oSingleCenter->cc_area."\",";
+			echo "\"".$oSingleCenter->cc_name."\",";
+			echo "\"".$aStaffNameMap[$oSingleCenter->member_srl_staff]."\",";
+			echo "\"".$oSingleCenter->cc_phone."\",";
+			echo "\"".$oSingleCenter->ZONE_CODE."\",";
+			echo "\"".$oSingleCenter->ADDR.' '.$oSingleCenter->ADDR_DETAIL."\",";
+			echo "\"".$oSingleCenter->cc_homepage."\",";
+			echo "\"".$oSingleCenter->cc_owner."\",";
+			echo "\"".$oSingleCenter->cc_boss."\",";
+			echo "\"".$oSingleCenter->cc_delivery."\",";
+			echo "\"".$oSingleCenter->cc_report."\",";
+			echo "\"".$oSingleCenter->cc_memo."\",";
+			echo "\"".zdate($oSingleCenter->regdate, 'Y-m-d')."\",";
+			echo "\"".$this->_g_aCenterState[$oSingleCenter->cc_state]."\",";
+			//echo '<BR>';
+			echo "\r\n";
+		}
+		unset($oRst);
+		unset($oMemberModel);
+		unset($aStaffNameMap);
+		exit(0);
+	}
 }

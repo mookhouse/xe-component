@@ -41,6 +41,8 @@
 		<action name="procAngeclubAddCenter" type="controller" />
 		<action name="procAngeclubSendMail" type="controller" />
 		<action name="procWorklogDeleteAjax" type="controller" />
+		<action name="procAngeclubCSVDownloadCenterList" type="controller" />  <!-- 조리원 목록 CSV 다운로드 -->
+		<action name="procAngeclubCSVDownloadCenterPerf" type="controller" />  <!-- 조리원별 DB 성과 CSV 다운로드 -->
 	</actions>
 	<menus>
 	</menus>

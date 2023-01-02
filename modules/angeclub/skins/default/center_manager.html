@@ -84,12 +84,12 @@ $( document ).ready(function() {
 	</div--->
 	<div class="btn-area">
 		<p style="margin: 20px 0;">
-			<a href="/adm/vm/export/export_center.svm.php?index=&category=&page=1&search=&cc_area=&cc_city=" target="_blank" class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a>
+			<a cond="$oGrant->manager" onClick='downloadCsv();' href='#' class="btn btn-down btn-sm btn-white" role="button">엑셀 다운로드</a>
 			<a href="javascript:LoadPopup('{getUrl('act', 'dispAngeclubCenterPopupAdd')}');" class="btn btn-sm btn-gray" role="button">+ 교육장 등록</a>
 		</p>
 	</div>
 	<div class="article-header">
-		<small><span>총 ??? 개</span></small>
+		<small><span>총 {number_format($total_count)} 개</span></small>
 	</div>
 	<div class="search-form">
 		<form id="searchForm" action="./" method="post" class="x_input-append" >
@@ -160,3 +160,16 @@ $( document ).ready(function() {
 <nav class="paging" aria-label="Page navigation">
 	<include target="_pagination.html" />
 </nav>
+
+<!--- hidden form to download CSV begin ----->
+<form action="./" method="post" id='frmCsvDownloadCenter' name="frmCsvDownloadCenter">
+<input type="hidden" name="module" value="{$module}" />
+<input type='hidden' name='act' id='act' value='procAngeclubCSVDownloadCenterList'/>
+</form>
+<script type="text/javascript">
+function downloadCsv()
+{
+	document.frmCsvDownloadCenter.submit();
+}
+</script>
+<!--- hidden form to download CSV end ----->

@@ -1,0 +1,26 @@
+<query id="getCenterAll" action="select">
+    <tables>
+        <table name="angeclub_center" />
+    </tables>
+    <columns>
+        <column name="cc_idx" />
+		<column name="cc_area" />
+		<column name="cc_name" />
+		<column name="member_srl_staff" />
+		<column name="cc_phone" />
+		<column name="ZONE_CODE" />
+		<column name="ADDR" />
+		<column name="ADDR_DETAIL" />
+		<column name="cc_homepage" />
+		<column name="cc_owner" />
+		<column name="cc_boss" />
+		<column name="cc_delivery" />
+		<column name="cc_report" />
+		<column name="cc_memo" />
+		<column name="regdate" />
+		<column name="cc_state" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="cc_state" var="cc_state" filter="number" notnull="notnull" />
+    </conditions>
+</query>

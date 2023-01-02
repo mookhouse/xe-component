@@ -35,7 +35,7 @@ $(document).ready(function(){
 			<label for="period_start" class="sr-only">조회기간 시작일자</label>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="period_end"   id="period_end" value="{$sEndDate}" placeholder="조회기간" style="width:150px">
+			<input type="text" class="form-control" name="period_end" id="period_end" value="{$sEndDate}" placeholder="조회기간" style="width:150px">
 			<label for="period_end" class="sr-only">조회기간 종료일자</label>
 		</div>
 		<div class="btn-area">
@@ -57,7 +57,7 @@ $(document).ready(function(){
 	<div class="table-wrap list">
 		<div class="btn-area" style="margin-top:0px;margin-bottom:10px;">
 			<p>
-				<a href="/adm/vm/club/logstate_export.svm.php?period_start=2022-11-01&period_end=2022-11-29&search_state=" target="_blank" class="btn btn-xs btn-gray" role="button">엑셀다운로드</a>
+				<a cond="$oGrant->manager" onClick='downloadCsv();' href='#' class="btn btn-xs btn-gray" role="button">엑셀 다운로드</a>
 			</p>
 		</div>
 		<table class="table">
@@ -154,3 +154,22 @@ $oGrossNewError += $oSingleStatic->gross_new_error;
 		</table>
 	</div>
 </article>
+
+<!--- hidden form to download CSV begin ----->
+<form action="./" method="post" id='frmCsvDownloadCenterPerf' name="frmCsvDownloadCenterPerf">
+<input type="hidden" name="module" value="{$module}" />
+<input type="hidden" name="period_start_csv" id="period_start_csv" value="" />
+<input type="hidden" name="period_end_csv" id="period_end_csv" value="" />
+<input type='hidden' name='act' id='act' value='procAngeclubCSVDownloadCenterPerf'/>
+</form>
+<script type="text/javascript">
+function downloadCsv()
+{
+	$('#period_start_csv').val($('#period_start').val());
+	$('#period_end_csv').val($('#period_end').val());
+	//console.log($('#period_start_csv').val());
+	//console.log($('#period_end_csv').val());
+	document.frmCsvDownloadCenterPerf.submit();
+}
+</script>
+<!--- hidden form to download CSV end ----->
