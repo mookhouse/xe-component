@@ -144,8 +144,6 @@ class angemomboxAdminController extends angemombox
 		unset($oArgs->page_name);
 		if($oArgs->use_mobile != 'Y') 
 			$oArgs->use_mobile = '';
-		if($oArgs->angeclub_exclusive != 'Y') 
-			$oArgs->angeclub_exclusive = '';
 		$oRst = $this->_saveConfigByMid($oArgs);
 		unset($oArgs);
 		if(!$oRst->toBool()) 

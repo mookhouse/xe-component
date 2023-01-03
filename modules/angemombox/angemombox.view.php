@@ -37,14 +37,6 @@ class angemomboxView extends angemombox
 		$sMemberAddrFieldName = $oMemberConnectionRst->get('sMemberAddrFieldName');
 		$sMemberSmspushFieldName = $oMemberConnectionRst->get('sMemberSmspushFieldName');
 		unset($oMemberConnectionRst);
-		
-		$oDocInfo = $oAngemomboxModel->getDocInfo($this->module_srl);
-		if($oDocInfo->angeclub_exclusive == 'Y')
-		{
-			unset($oDocInfo);
-			return new BaseObject(-1, 'invalid_approach');
-		}
-		unset($oDocInfo);
 
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)

@@ -26,14 +26,6 @@ class angemomboxMobile extends angemomboxView
 	{
         $oAngemomboxModel = &getModel('angemombox');
 		
-		$oDocInfo = $oAngemomboxModel->getDocInfo($this->module_srl);
-		if($oDocInfo->angeclub_exclusive == 'Y')
-		{
-			unset($oDocInfo);
-			return new BaseObject(-1, 'invalid_approach');
-		}
-		unset($oDocInfo);
-
 		$oLoggedInfo = Context::get('logged_info');
 		if(!$oLoggedInfo)
 			return new BaseObject(-1, 'msg_not_loggedin');
