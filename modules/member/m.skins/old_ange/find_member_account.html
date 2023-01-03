@@ -1,7 +1,92 @@
 <include target="./common_header.html" />
 
+<script src="/modules/member/tpl/js/mobile_change_password.js"></script>
+<div class="container">
+    <section class="pw-find">
+        <div class="section-header">
+            <h3 class="section-title">{$lang->cmd_reset_pw_with_mobile}</h3>
+            <p class="summary">{$lang->about_reset_pw_with_mobile}</p>
+        </div>
+        <div class="section-content">
+            <form id="confirmFrm">
+                <input type="hidden" name="auth_key" id="auth_key" value="" />
+                <input type="hidden" name="member_srl" id="member_srl" value="" />  
+                <div class="table-wrap">
+                    <table class="table table-bordered table-write type-1">
+                        <tbody>
+                            <tr>
+                                <th class="essential"><label for="USER_ID">{$lang->user_id}</label></th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" id="user_id_sms" name="user_id_sms" required placeholder="{$lang->user_id}" title="{$lang->user_id}" class="form-control" maxlength="30">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="essential"><label for="PHONE_2">{$lang->mobile}</label></th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" id="mobile" name="mobile" class="form-control" required placeholder="{$lang->mobile}" title="{$lang->mobile}" onkeyup="onlyNumberCheck(this)" maxlength="13">
+                                    </div>
+                                    <BR>
+                                    <div class="form-group">
+                                        <input type="button" onClick="requestSmsAuth();" class="form-control" value="{$lang->cmd_request_auth_sms}" style="background-color: #b3b3b3; color: #fff;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <article class="authentication" id="p_confirmInfo" style="padding-top:20px;">
+                    <b>{$lang->cmd_input_auth_sms}</b>
+                    <p>SMS로 전송된 인증번호를 입력하시면 비밀번호를 변경할 수 있습니다.<br>일치하는 정보가 없으면 메세지가 전송되지 않습니다.</p>
+                    <div class="form">
+                        <div class="form-group">
+                            <input type="text" id="sms_phrase" class="form-control" id="sms_phrase" placeholder="{$lang->sms_phrase}" title="{$lang->sms_phrase}">
+                            <button type="button" class="btn btn-gray" style="width:100px;" onclick="validateSmsAuth();">{$lang->cmd_confirm_auth_sms}</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="new-pw" id="reset_password" style="display:none;">
+                    <div class="table-wrap">
+                        <table class="table table-bordered type-1">
+                            <tbody>
+                                <tr>
+                                    <th class="essential"><label for="u-pw">{$lang->password}</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password_1" id="password_1" placeholder="{$lang->password}" title="{$lang->password}" />
+                                        </div>
+                                        <!-- <span id="availablePW">6~12자리 공백없이 영문,숫자 (특수문자 사용가능)</span> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="essential"><label for="PASSWORD_CP">{$lang->password3}</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password_2" id="password_2" placeholder="{$lang->password3}" title="{$lang->password3}" /> 
+                                        </div>
+                                        <!-- <span id="comparePW">6~12자리 공백없이 영문,숫자 (특수문자 사용가능)</span> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn-area">
+                            <p>
+                                <a href="#" onclick="changePassword();" class="btn btn-sm btn-pink">{$lang->cmd_modify_member_password}</a>
+                                <a href="/" role="button" class="btn btn-sm btn-pink"><i class="icon-home"></i>메인으로</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </form>
+        </div>
+    </section>
+</div>
+
+<!--
 <section class="agreement-list">
-	<!-- 페이지명 클래스 -->
     <div class="container">
         <form action="./" ruleset="findAccount" method="post" class="ff">
             <input type="hidden" name="module" value="member" />
@@ -50,7 +135,6 @@
 </section>
 
 <section class="agreement-list" cond="count($lang->find_account_question_items)>1">
-	<!-- 페이지명 클래스 -->
     <div class="container">
         <form action="./" method="post" class="ff" ruleset="@find_member_account_by_question">
             <input type="hidden" name="module" value="member" />
@@ -119,3 +203,4 @@
         </form>
     </div>
 </section>
+-->

@@ -354,7 +354,7 @@
     border: 1px solid #e5e5e5;
     background-color: #fafafa;
     padding: 55px 0 50px 245px;
-    background-image: url(../images/customer/bg_phone.png);
+    /*background-image: url(../images/customer/bg_phone.png);*/
     background-repeat: no-repeat;
     background-position: 70px 100%;
 }
@@ -466,7 +466,7 @@
     border: 1px solid #e5e5e5;
     background-color: #fafafa;
     padding: 55px 0 50px 245px;
-    background-image: url(../images/customer/bg_phone.png);
+    /* background-image: url(../images/customer/bg_phone.png); */
     background-repeat: no-repeat;
     background-position: 70px 100%;
 }

@@ -103,6 +103,8 @@ elseif(strpos($act,'dispMember') !== false)
 
 if($act == 'dispBoardWrite')
 	$sMainCssClassId = 'chatter-write';
+if($act == 'dispMemberFindAccount')
+	$sMainCssClassId = 'pw-confirm';
 }
 
 <body class="{$sBodyCssClassId}">
