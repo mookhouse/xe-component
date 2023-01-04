@@ -16,9 +16,10 @@
 	<li class="x_active"|cond="$act=='dispAngemomboxAdminSkinInfo'"><a href="{getUrl('act','dispAngemomboxAdminSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_skin}</a></li>
 	<li class="x_active"|cond="$act=='dispAngemomboxAdminMobileSkinInfo'"><a href="{getUrl('act','dispAngemomboxAdminMobileSkinInfo', 'rcpt_no','')}">{$lang->cmd_manage_mobile_skin}</a></li>
 </block>
+	<li class="x_active"|cond="$act=='dispAngemomboxAdminDownloadSmsCsv'"><a href="{getUrl('act','dispAngemomboxAdminDownloadSmsCsv','page','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_download_sms_csv}</a></li>
 	<li class="x_active"|cond="$act=='dispAngemomboxAdminConfig'"><a href="{getUrl('','module',$module, 'act','dispAngemomboxAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li>
 </ul>
 <ul class="x_nav x_nav-tabs" cond="$module_srl">
 	<li class="x_active"|cond="$act=='dispAngemomboxAdminApplicantsList'"><a href="{getUrl('act','dispAngemomboxAdminApplicantsList','page','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_applicants_info}</a></li>
-	<li class="x_active"|cond="$act=='dispAngemomboxAdminWinnerList'"><a href="{getUrl('act','dispAngemomboxAdminWinnerList','winner_yr_mo','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_winner_info}</a></li>
+	<!---li class="x_active"|cond="$act=='dispAngemomboxAdminWinnerList'"><a href="{getUrl('act','dispAngemomboxAdminWinnerList','winner_yr_mo','','search_target','','search_keyword','', 'rcpt_no','')}">{$lang->cmd_winner_info}</a></li--->
 </ul>

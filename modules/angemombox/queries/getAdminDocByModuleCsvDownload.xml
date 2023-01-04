@@ -1,0 +1,18 @@
+<query id="getAdminDocByModuleCsvDownload" action="select">
+    <tables>
+        <table name="angemombox_apply" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+		<condition operation="more" column="regdate" var="begin_date" notnull="notnull" />
+        <condition operation="less" column="regdate" var="end_date" notnull="notnull" pipe="and" />
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="is_deleted_doc" var="is_deleted_doc" default="0" pipe="and" />
+		<condition operation="equal" column="is_accepted" var="is_accepted" pipe="and" />
+    </conditions>
+	 <navigation>
+        <index var="sort_index" default="regdate" order="desc" />
+    </navigation>
+</query>

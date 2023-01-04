@@ -1,6 +1,6 @@
 <query id="getAdminApplicantListByModuleSrlYrMo" action="select">
     <tables>
-        <table name="angemombox_data_lake" />
+        <table name="angemombox_apply" />
     </tables>
     <columns>
         <column name="doc_srl" />

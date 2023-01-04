@@ -11,6 +11,19 @@
 								post_push - 우편 수신동의 - 단일선택 - Y N - 선택
 								sponsor_push - 스폰서 수신동의 - 단일선택 - Y N - 선택]]></value>
 	</item>
+	<item name="cmd_period_begin_yr_mo">
+		<value xml:lang="ko"><![CDATA[시작연월]]></value>
+	</item>
+	<item name="cmd_period_begin_day">
+		<value xml:lang="ko"><![CDATA[시작일]]></value>
+	</item>
+	<item name="cmd_period_end_yr_mo">
+		<value xml:lang="ko"><![CDATA[종료연월]]></value>
+	</item>
+	<item name="cmd_period_end_day">
+		<value xml:lang="ko"><![CDATA[종료일]]></value>
+	</item>
+	
 	<item name="angemombox_management">
 		<value xml:lang="ko"><![CDATA[앙쥬맘박스 응모자 관리]]></value>
 	</item>
@@ -187,6 +200,9 @@
 	</item>
 	<item name="cmd_applicants_info">
 		<value xml:lang="ko"><![CDATA[응모자 정보]]></value>
+	</item>
+	<item name="cmd_download_sms_csv">
+		<value xml:lang="ko"><![CDATA[SMS 발신용 다운로드]]></value>
 	</item>
 	<item name="cmd_download_docs">
 		<value xml:lang="ko"><![CDATA[다운로드]]></value>

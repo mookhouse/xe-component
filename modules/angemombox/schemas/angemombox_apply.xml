@@ -28,5 +28,5 @@
 	<column name="is_accepted" type="char" size="1" />
 	<column name="is_deleted_doc" type="char" size="1" default="0" notnull="notnull" />
     <column name="ipaddress" type="varchar" size="128" />
-	<column name="regdate" type="date" />
+	<column name="regdate" type="date" index="idx_regdate" />
 </table>

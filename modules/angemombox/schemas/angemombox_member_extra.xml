@@ -13,5 +13,5 @@
     <column name="post_push" type="char" size="1" />
     <column name="sponsor_push" type="char" size="1" />
 	<column name="update_date" type="date" />
-    <column name="regdate" type="date" />
+    <column name="regdate" type="date" index="idx_regdate" />
 </table>

@@ -92,13 +92,78 @@ class angemomboxAdminView extends angemombox
 			unset($oMemberInfo);
 		}
 		unset($oMemberModel);
-
+		
 		Context::set('angemombox_list', $oRst->data );
 		Context::set('total_count', $oRst->total_count);
 		Context::set('total_page', $oRst->total_page);
 		Context::set('page', $oRst->page);
 		Context::set('page_navigation', $oRst->page_navigation);
+		unset($oRst);
+
+		// 조회 기간 설정
+		$oAngemomboxAdminModel = getAdminModel('angemombox');
+		$aYrMo = $oAngemomboxAdminModel->getYrMoRangeByModuleSrl(Context::get('module_srl'));
+		unset($oAngemomboxAdminModel);
+		Context::set('aYrMo', $aYrMo);
+
 		$this->setTemplateFile('applicant_list');
+	}
+	
+/**
+ * @brief display SMS list download UX
+ **/
+	public function dispAngemomboxAdminDownloadSmsCsv() 
+	{
+		
+
+		/*$oArgs = new stdClass();
+		$oArgs->module_srl = Context::get('module_srl');
+		$oArgs->page = Context::get('page');
+
+		$aMemberSearchTarget = ['user_name', 'user_id', 'mobile'];
+		$search_target = Context::get('search_target');
+		$search_keyword = Context::get('search_keyword');
+		if(in_array($search_target,$aMemberSearchTarget) && $search_keyword) 
+		{
+			Context::set('search_target', $search_target);
+			Context::set('search_keyword', $search_keyword);
+			$oMemberAdminModel = getAdminModel('member');
+			$oRst = $oMemberAdminModel->getMemberList();
+			unset($oMemberAdminModel);
+			$aMemberSrl = [];
+			foreach($oRst->data as $oSingleMember)
+				$aMemberSrl[] = $oSingleMember->member_srl;
+			unset($oRst);
+			if(!count($aMemberSrl))
+				$aMemberSrl[] = -1;  // search never exists
+			$oArgs->member_srls = $aMemberSrl;
+			$oRst = executeQueryArray('angemombox.getAdminDocByModuleMemberSrls', $oArgs);
+			unset($oArgs);
+		}
+		else
+		{
+			$oArgs->{$search_target} = $search_keyword;
+			$oRst = executeQueryArray('angemombox.getAdminDocByModule', $oArgs);
+			unset($oArgs);
+		}
+		$oMemberModel = &getModel('member');
+		foreach($oRst->data as $key => $val)
+		{
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl, 0);
+			$oRst->data[$key]->member_srl = $oMemberInfo->member_srl;
+			$oRst->data[$key]->user_id = $oMemberInfo->user_id;
+			$oRst->data[$key]->user_name = $oMemberInfo->user_name;
+			$oRst->data[$key]->mobile = $oMemberInfo->mobile;
+			unset($oMemberInfo);
+		}
+		unset($oMemberModel);
+
+		Context::set('angemombox_list', $oRst->data );
+		Context::set('total_count', $oRst->total_count);
+		Context::set('total_page', $oRst->total_page);
+		Context::set('page', $oRst->page);
+		Context::set('page_navigation', $oRst->page_navigation);*/
+		$this->setTemplateFile('sms_download');
 	}
 /**
  * @brief Delete angemombox output

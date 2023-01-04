@@ -1,0 +1,79 @@
+<load target="js/applicants_list.js" />
+<include target="header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+<input type="hidden" name="module" value="{$module}" />
+<input type="hidden" name="act" value="procAngemomboxAdminCSVDownloadSms" />
+	<section class="section">
+		<h1>추출 조건 입력</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="lang_browser_title">아기 생일 시작일</label>
+			<div class="x_controls">
+				<input type="text" name="babybirth_begin_yyyymmdd" id="babybirth_begin_yyyymmdd" placeholder="YYYYMMDD" value="" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="lang_browser_title">아기 생일 종료일</label>
+			<div class="x_controls">
+				<input type="text" name="babybirth_end_yyyymmdd" id="babybirth_end_yyyymmdd" placeholder="YYYYMMDD" value="" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="regist_begin_yyyymmdd">회원가입 시작일</label>
+			<div class="x_controls">
+				<input type="text" name="regist_begin_yyyymmdd" id="regist_begin_yyyymmdd" placeholder="YYYYMMDD" value="" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="regist_end_yyyymmdd">회원가입 종료일</label>
+			<div class="x_controls">
+				<input type="text" name="regist_end_yyyymmdd" id="regist_end_yyyymmdd" placeholder="YYYYMMDD" value="" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label" for="csv_city_name">,로 구분한 거주지명</label>
+			<div class="x_controls">
+				<input type="text" name="csv_city_name" id="csv_city_name" placeholder="화성,수원" value="" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+	</section>
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-left">
+			<a href="{getUrl('act', 'dispBoardAdminContent')}" type="button" class="x_btn">{$lang->cmd_cancel}</a>
+		</div>
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>
+
+
+<!--- hidden form to download CSV begin ----->
+<form action="./" method="post" id='frmCsvDownloadByModule' name="frmCsvDownloadByModule">
+<input type="hidden" name="module" value="{$module}" />
+<input type='hidden' name='act' id='act' value='procAngemomboxAdminCSVDownloadSms'/>
+<input type="hidden" name="period_begin" id="period_begin" />
+<input type="hidden" name="period_end" id="period_end" />
+</form>
+<script type="text/javascript">
+function downloadCsv()
+{
+	document.frmCsvDownloadByModule.submit();
+}
+</script>
+<!--- hidden form to download CSV end ----->

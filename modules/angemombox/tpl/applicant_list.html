@@ -5,11 +5,32 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<!-- 검색 -->
+
+<!-- 페이지 검색 -->
 <form action="./" method="get" class="search x_input-append x_pull-right" style="margin-bottom:-28px">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="module_srl" value="{$module_srl}" />
 	<input type="hidden" name="act" value="dispAngemomboxAdminApplicantsList" />
+	<select name="period_begin_yr_mo" id="period_begin_yr_mo" style="margin-right:4px">
+		<option value="" selected="selected"|cond="$period_begin==''">{$lang->cmd_period_begin_yr_mo}</option>
+		<option loop="$aYrMo=>$_,$sYrMo" value="{$sYrMo}" selected="selected"|cond="$search_target=='mobile'">{$sYrMo}</option>
+	</select>
+	<select name="period_begin_day" id="period_begin_day" style="margin-right:4px">
+		<option value="" selected="selected"|cond="$period_begin==''">{$lang->cmd_period_begin_day}</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+        <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$oMomMemberInfo->aBabyList[0]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+	</select>
+	<select name="period_end_yr_mo" id="period_end_yr_mo" style="margin-right:4px">
+		<option value="" selected="selected"|cond="$period_begin==''">{$lang->cmd_period_end_yr_mo}</option>
+		<option loop="$aYrMo=>$_,$sYrMo" value="{$sYrMo}" selected="selected"|cond="$search_target=='mobile'">{$sYrMo}</option>
+	</select>
+	<select name="period_end_day" id="period_end_day" style="margin-right:4px">
+		<option value="" selected="selected"|cond="$period_begin==''">{$lang->cmd_period_end_day}</option>
+<!--@for($nBirthDay=1;$nBirthDay<32;$nBirthDay++)-->
+        <option value="{sprintf('%02d',$nBirthDay)}" selected|cond="$nBirthDay==$oMomMemberInfo->aBabyList[0]->birthday_day">{sprintf('%02d',$nBirthDay)}</option>
+<!--@end--> 
+	</select>
 	<select name="search_target" id="search_target" style="margin-right:4px">
 		<option value="user_name" selected="selected"|cond="$search_target=='user_name'">{$lang->applicant_name}</option>
 		<option value="mobile" selected="selected"|cond="$search_target=='mobile'">{$lang->applicant_phone}</option>
@@ -19,27 +40,15 @@
 		<option loop="$module_category => $key,$val" value="{$key}" selected="selected"|cond="$module_category_srl==$key">{$val->title}</option>
 	</select>
 	<input type="search" name="search_keyword" title="Search" value="{htmlspecialchars($search_keyword, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" required style="width:150px" />
-	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_search}</button>
+	<button class="x_btn" type="submit">{$lang->cmd_search}</button>
+	<button class="x_btn x_btn-inverse" type="button" onClick='downloadCsv();'>{$lang->cmd_download_docs}</button>
 	<a href="{getUrl('','module',$module,'act',$act)}" class="x_btn">{$lang->cmd_cancel}</a>
 </form>
-<script>
-jQuery(function($){
-	$('#search_target').change(function(){
-		var $this = $(this);
-		if($this.find('>option:last-child').is(':selected')){
-			$this.next('select').show().removeAttr('disabled').next('input[type="search"]').hide().attr('disabled','disabled');
-		} else {
-			$this.next('select').hide().attr('disabled','disabled').next('input[type="search"]').show().removeAttr('disabled');
-		}
-	}).change();
-});
-</script>
 
 <!-- 목록 -->
-
 <form action="./" method="get" id="fo_list">
 <table class="x_table x_table-striped x_table-hover">
-	<caption><strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong> <a href='#' onClick='downloadCsv();'>{$lang->cmd_download_docs}</a></caption>
+	<caption><strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong></caption>
 	<thead>
 		<tr>
 			<th scope="col">{$lang->no}</th>
@@ -135,10 +144,25 @@ jQuery(function($){
 <input type="hidden" name="module" value="{$module}" />
 <input type='hidden' name='act' id='act' value='procAngemomboxAdminCSVDownloadByModule'/>
 <input type="hidden" name="module_srl" value="{$module_srl}" />
+<input type="hidden" name="period_begin" id="period_begin" />
+<input type="hidden" name="period_end" id="period_end" />
+
 </form>
 <script type="text/javascript">
 function downloadCsv()
 {
+console.log('ddd');
+sBeginYrmo = $('#period_begin_yr_mo').val();
+sBeginDay = $('#period_begin_day').val();
+sEndYrmo = $('#period_end_yr_mo').val();
+sEndDay = $('#period_end_day').val();
+	if(!sBeginYrmo ||!sBeginDay ||!sEndYrmo ||!sEndDay)
+	{
+		alert('기간을 선택하세요');
+		return;
+	}
+	$('#period_begin').val(sBeginYrmo+sBeginDay);
+	$('#period_end').val(sEndYrmo+sEndDay);
 	document.frmCsvDownloadByModule.submit();
 }
 </script>

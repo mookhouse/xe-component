@@ -289,235 +289,230 @@ public function procAngemomboxAdminConfig()
 /**
  * @brief 
  */	
-	function procAngemomboxAdminCSVDownloadByModule() 
+	function procAngemomboxAdminCSVDownloadSms() 
 	{
-		$nModuleSrl = Context::get('module_srl');
-		if(!$nModuleSrl) 
-			return new BaseObject(-1, 'msg_invalid_module_srl');
+		/*
+		미즈톡톡(가입일) - 오늘날짜 기준으로, 임산부이고 새로 회원가입한 사람
+
+		SELECT c.USER_NM, c.PHONE_2, c.ADDR, c.ADDR_DETAIL, c.BABY_BIRTH_DT, a.BABY_BIRTH, c.REG_DT
+		FROM COM_USER c LEFT JOIN ANGE_USER_BABY a ON c.USER_ID = a.USER_ID
+		WHERE (c.BABY_BIRTH_DT > 20221128 AND c.BABY_BIRTH_DT < 20241231 OR a.BABY_BIRTH > 20221128 AND a.BABY_BIRTH < 20241231) and (REG_DT between '2022-11-14' AND '2022-11-21')
+		GROUP BY c.USER_ID
+
+		화성 / 동탄지역 4~12개월 
+
+		SELECT c.USER_NM, c.PHONE_2, c.ADDR, c.ADDR_DETAIL, c.BABY_BIRTH_DT, a.BABY_BIRTH, c.REG_DT
+		FROM COM_USER c LEFT JOIN ANGE_USER_BABY a ON c.USER_ID = a.USER_ID
+		WHERE (c.ADDR LIKE '%화성%' OR c.ADDR LIKE '%수원%') AND (c.BABY_BIRTH_DT > 20211101 AND c.BABY_BIRTH_DT < 20220810 OR a.BABY_BIRTH > 20211101 AND a.BABY_BIRTH < 20220810)
+		GROUP BY c.USER_ID
+		*/
+		ini_set('memory_limit', '2048M');  // php.ini default 512M
+		set_time_limit(720);  // sec
+
+		$sBabyBirthBeginYyyymmdd = Context::get('babybirth_begin_yyyymmdd');
+		if(!$sBabyBirthBeginYyyymmdd) 
+			return new BaseObject(-1, 'msg_invalid_babybirth_begin_yyyymmdd');
+		$sBabyBirthEndYyyymmdd = Context::get('babybirth_end_yyyymmdd');
+		if(!$sBabyBirthEndYyyymmdd) 
+			return new BaseObject(-1, 'msg_invalid_babybirth_end_yyyymmdd');
+
+		$sRegistBeginYyyymmdd = Context::get('regist_begin_yyyymmdd');
+		$sRegistEndYyyymmdd = Context::get('regist_end_yyyymmdd');
+		$sCsvCityName = Context::get('csv_city_name');
 		
+		$aUniqMemberList = [];
+		$oArgs = new stdClass();
+		$oArgs->babybirth_begin_date = $sBabyBirthBeginYyyymmdd;
+		$oArgs->babybirth_end_date = $sBabyBirthEndYyyymmdd;
+		
+		// 회원 가입일 기준으로 고유 배열 작성
+		if($sRegistBeginYyyymmdd && $sRegistEndYyyymmdd)
+		{
+			$oArgs->regist_begin_date = $sRegistBeginYyyymmdd.'000000';
+			$oArgs->regist_end_date = $sRegistEndYyyymmdd.'235959';
+			$oRst = executeQueryArray('angemombox.getAdminDocSMSCsvDownloadByRegdate', $oArgs);
+			if(!$oRst->toBool())
+				return $oRst;
+			foreach($oRst->data as $_ => $oSingleSms)
+			{
+				$oRecepientInfo = new stdClass();
+				$oRecepientInfo->user_name = $oSingleSms->user_name;
+				$oRecepientInfo->mobile = $oSingleSms->mobile;
+				$oRecepientInfo->gender = $oSingleSms->gender;
+				$oRecepientInfo->baby_birthday = $oSingleSms->baby_birthday;
+				$oRecepientInfo->addr = $oSingleSms->addr;
+				$oRecepientInfo->sms_push = $oSingleSms->sms_push;
+				$oRecepientInfo->regdate = $oSingleSms->regdate;
+				$aUniqMemberList[$oSingleSms->member_srl] = $oRecepientInfo;
+			}
+			unset($oSingleSms);
+			unset($oRst);
+			unset($oArgs->regist_begin_date);
+			unset($oArgs->regist_end_date);
+		}
+
+		// 회원 가입일 기준으로 고유 배열 작성
+		if($sCsvCityName)
+		{
+			$aCity = explode(',', $sCsvCityName);
+			foreach($aCity as $_=>$sCity)
+			{
+				if(strlen($sCity) < 2)
+					continue;
+
+				$oArgs->city_name = '%'.$sCity.'%';
+				$oRst = executeQueryArray('angemombox.getAdminDocSMSCsvDownloadByCity', $oArgs);
+				if(!$oRst->toBool())
+					return $oRst;
+				foreach($oRst->data as $_ => $oSingleSms)
+				{
+					$oRecepientInfo = new stdClass();
+					$oRecepientInfo->user_name = $oSingleSms->user_name;
+					$oRecepientInfo->mobile = $oSingleSms->mobile;
+					$oRecepientInfo->gender = $oSingleSms->gender;
+					$oRecepientInfo->baby_birthday = $oSingleSms->baby_birthday;
+					$oRecepientInfo->addr = $oSingleSms->addr;
+					$oRecepientInfo->sms_push = $oSingleSms->sms_push;
+					$oRecepientInfo->regdate = $oSingleSms->regdate;
+					$aUniqMemberList[$oSingleSms->member_srl] = $oRecepientInfo;
+				}
+			}
+			unset($oSingleSms);
+			unset($oRst);
+			//unset($oArgs->city_name);
+		}
+		unset($oArgs);		
+
 		//header( 'Content-Type: text/html; charset=UTF-8' );
 		header( 'Content-Type: Application/octet-stream; charset=UTF-8' );
-		header( "Content-Disposition: attachment; filename=\"angemombox_raw-".date('Ymd').".csv\"");
+		header( "Content-Disposition: attachment; filename=\"".date('Ymd')."_SMS-아기생일(".$sBeginYyyymmdd."-".$sEndYyyymmdd.")-회원가입(".$sRegistBeginYyyymmdd."-".$sRegistEndYyyymmdd.")-도시(".$sCsvCityName.").csv\"");
 		echo chr( hexdec( 'EF' ) );
 		echo chr( hexdec( 'BB' ) );
 		echo chr( hexdec( 'BF' ) );
 		
 		// 기본 컬럼 제목 설정 시작
-		$oDataConfig = Array( 'doc_srl','module_srl','member_srl','applicant_name','applicant_name_secured','applicant_phone','applicant_phone_secured','ipaddress','privacy_collection','privacy_sharing','user_agent','datetimestamp_entry','datetimestamp_final','duration_sec','init_referral','utm_source', 'utm_medium', 'utm_campaign', 'utm_term','is_mobile','is_accepted','regdate','member_id' );
+		$oDataConfig = Array('parent_name','parent_phone','parent_gender','baby_birthday','addr','sms_push','regdate');
 
 		foreach( $oDataConfig as $key => $val )
 			echo "\"".$val."\",";
-		// 기본 컬럼 제목 설정 끝
+		// 기본 컬럼 제목 설정 끝	
 		
-		// extra_vars의 컬럼 제목 설정 시작
-		$oAngemomboxModel = getModel('angemombox');
-		$extra_keys = $oAngemomboxModel->getExtraKeys($nModuleSrl);
-		
-		$aAddrEid = array();
-		$aCheckBoxEid = array();
-		$aCheckBoxAnswers = array();
-		$aTempAddrValue = array();
-		$nPhoneNumberLegnth = 0;
-		foreach( $extra_keys as $key=>$val)
-		{
-			switch( $val->type )
-			{
-				case 'kr_zip':
-					echo "\"post_code\",\"address\",";
-					$aAddrEid[] = $val->eid;
-					break;
-				case 'checkbox':
-					$aMultipleAnswer = explode( ',', $val->default);
-					foreach( $aMultipleAnswer as $key1=>$val1)
-						echo "\"".$val->name.'_'.$val1."\",";
-
-					$aCheckBoxAnswers[$val->eid] = $aMultipleAnswer;
-					$aCheckBoxEid[] = $val->eid;
-					break;
-				default:
-					echo "\"".$val->name."\",";
-					break;
-			}
-		}
-		// extra_vars의 컬럼 제목 설정 끝
-		// svauth 모듈이 있다면 실명인증 정보 추출
-		if( getClass('svauth') )
-		{
-			$oSvauthAdminModel = getAdminModel('svauth');
-			$oSvauthDataConfig = Array( '인증일시', '인증실명','인증생일','인증성별','인증국적','인증통신사','인증핸드폰' );
-			if( getClass('svcrm') )
-			{
-				$oSvcrmAdminModel = &getAdminModel('svcrm');
-				$oSvcrmConfig = $oSvcrmAdminModel->getModuleConfig();
-				$aPrivacyAccessPolicy = $oSvcrmConfig->privacy_access_policy;
-				unset($oSvcrmConfig);
-			}
-		}
-		// svauth 컬렘 제목 설정 시작
-		foreach( $oSvauthDataConfig as $key => $val )
-			echo "\"".$val."\",";
-		// svauth 컬렘 제목 설정 끝
-
 		echo "\r\n";
-		$oMemberModel = &getModel('member');
-		$oAngemomboxAdminModel = getAdminModel('angemombox');
+		//echo '<BR>';
 
-		$args->module_srl = $nModuleSrl;
-		$args->is_deleted_doc = 0;
-		$args->is_accepted = 'Y';
-		$args->list_count = 99999;
-		$output = executeQueryArray('angemombox.getAdminAngemomboxByModule', $args);
-		if( !$output->toBool() )
-			return $output;
-
-		$data = $output->data;
-
-		// extra_vars의 컬럼 데이터 설정
-		if( count( $data ) )
+		foreach($aUniqMemberList as $nMemberSrl => $oSingleRecepient)
 		{
-			$to_time = 0;
-			$from_time = 0;
-
-			foreach( $data as $key1 => $val1 )
-			{
-				$nMemberSrl = (int)$val1->member_srl;
-				$nDocSrl = (int)$val1->doc_srl;
-				foreach( $val1 as $key2 => $val2 )
-				{
-					if( $key2 == 'is_deleted_doc' )
-						continue;
-
-					if( $key2 == 'datetimestamp_entry' )
-						$to_time = strtotime( $val2 );
-						
-					if( $key2 == 'datetimestamp_final' )
-					{
-						echo "\"".$val2."\",";
-						$from_time = strtotime( $val2 );
-						$duration_sec = round(abs($to_time - $from_time), 2 );
-						echo "\"".$duration_sec."\",";
-						continue;
-					}
-
-					if( $key2 == 'applicant_name' )
-						echo "\"".$val2."\",\"".$this->_maskMbString($val2,1,1)."\",";
-					else if( $key2 == 'applicant_phone' )
-					{
-						$nPhoneNumberLegnth = strlen( $val2 );
-						switch( $nPhoneNumberLegnth )
-						{
-							case 10:
-								echo "\"".substr($val2, 0, 3).'-'.substr($val2, 3, 3).'-'.substr($val2, 6, 4)."\","; // original number
-								echo "\"".$this->_maskMbString(substr($val2, 0, 3),2,0).'-'.$this->_maskMbString(substr($val2, 3, 3),0,0).'-'.substr($val2, 6, 4)."\","; // masked number
-								break;
-							case 11:
-								echo "\"".substr($val2, 0, 3).'-'.substr($val2, 3, 4).'-'.substr($val2, 7, 4)."\","; // original number
-								echo "\"".$this->_maskMbString(substr($val2, 0, 3),2,0).'-'.$this->_maskMbString(substr($val2, 3, 4),0,0).'-'.substr($val2, 7, 4)."\","; // masked number
-								break;
-							default:
-								echo "\"".$val2."\","; // original number
-								echo "\"".$this->_maskMbString($val2,2,4)."\","; // masked number
-						}
-					}
-					else if( $key2 == 'regdate' )
-					{
-						$dtTemp = strtotime($val2);
-						echo "\"". date("Y-m-d H:i:s",$dtTemp)."\",";
-					}
-					else
-						echo "\"".$val2."\",";
-				}
-
-				// member_id
-				$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl($nMemberSrl, 0, $columnList);
-				if($oMemberInfo)
-					echo "\"".$oMemberInfo->user_id."\",";
-				else
-					echo "\"withdraw\",";
-				// extra_vars
-				$aExtraVars = $oAngemomboxAdminModel->getDocExtraVars($nModuleSrl, $nDocSrl);
-				
-				foreach( $aExtraVars as $key=>$val)
-				{
-					if (in_array($val->eid, $aAddrEid)) 
-					{
-						$aTempAddrValue = explode( "|@|", $val->value );
-						echo "\"".$aTempAddrValue[0]."\",\"".$aTempAddrValue[1]." ".$aTempAddrValue[2]." ".$aTempAddrValue[3]."\",";
-					}
-					else if (in_array($val->eid, $aCheckBoxEid)) 
-					{
-						$sMultipleChoices = null;
-						$aTempCbValue = explode( "|@|", $val->value );
-						$naTempCbValue = count( $aTempCbValue );
-						foreach( $aCheckBoxAnswers[$val->eid] as $key1 => $val1 )
-						{
-							if (in_array($val1, $aTempCbValue))
-								$sMultipleChoices .= "1,";
-							else
-							{
-								$sLastElem = $aTempCbValue[$naTempCbValue -1];
-								if( $val1 == '기타' && strlen($sLastElem) && !in_array($sLastElem, $aCheckBoxAnswers[$val->eid]) )
-									$sMultipleChoices .= $sLastElem.",";
-								else
-									$sMultipleChoices .= "0,";
-							}
-						}
-						echo $sMultipleChoices;
-					}
-					else
-						echo "\"".$val->value."\",";
-				}
-
-				if( $oSvauthAdminModel )
-				{
-					$oSvauthData = $oSvauthAdminModel->getMemberAuthInfo($nMemberSrl,$aPrivacyAccessPolicy);
-					foreach( $oSvauthDataConfig as $authkey=>$authval)
-					{
-						if( $authval == '인증일시' )
-						{
-							if( $oSvauthData->{$authval} == NULL )
-								echo "\"\",";
-							else
-							{
-								$dtTemp = strtotime($oSvauthData->{$authval});
-								echo "\"". date("Y-m-d H:i:s",$dtTemp)."\",";
-							}
-						}
-						else if( $authval == '인증생일' )
-						{
-							if( $oSvauthData->{$authval} == NULL )
-								echo "\"\",";
-							else if( $oSvauthData->{$authval} == '열람권한없음' )
-								echo "\"".$oSvauthData->{$authval}."\",";
-							else
-							{
-								$dtTemp = strtotime($oSvauthData->{$authval});
-								echo "\"". date("Y-m-d",$dtTemp)."\",";
-							}
-						}
-						else if(  $authval == '인증핸드폰' )
-						{
-							$sAuthPhoneNumber = $oSvauthData->{$authval};
-							$nPhoneNumberLegnth = strlen( $sAuthPhoneNumber );
-							switch( $nPhoneNumberLegnth )
-							{
-								case 10:
-									echo "\"".substr($sAuthPhoneNumber, 0, 3).'-'.substr($sAuthPhoneNumber, 3, 3).'-'.substr($sAuthPhoneNumber, 6, 4)."\",";
-									break;
-								case 11:
-									echo "\"".substr($sAuthPhoneNumber, 0, 3).'-'.substr($sAuthPhoneNumber, 3, 4).'-'.substr($sAuthPhoneNumber, 7, 4)."\",";
-									break;
-								default:
-									echo "\"".$sAuthPhoneNumber."\",";
-							}
-						}
-						else
-							echo "\"".$oSvauthData->{$authval}."\",";
-					}
-				}
-				echo "\r\n";
-			}
+			echo "\"".$oSingleRecepient->user_name."\",";
+			echo "=\"".$oSingleRecepient->mobile."\",";
+			echo "\"".$oSingleRecepient->gender."\",";
+			echo "\"".zdate($oSingleRecepient->baby_birthday, 'Y-m-d')."\",";
+			echo "\"".$oSingleRecepient->addr."\",";
+			echo "\"".$oSingleRecepient->sms_push."\",";
+			echo "\"".zdate($oSingleRecepient->regdate, 'Y-m-d H:i:s')."\",";
+			echo "\r\n";
+			//echo '<BR>';
 		}
+		exit(0);
+	}
+/**
+ * @brief 
+ */	
+	function procAngemomboxAdminCSVDownloadByModule() 
+	{
+		$nModuleSrl = Context::get('module_srl');
+		if(!$nModuleSrl) 
+			return new BaseObject(-1, 'msg_invalid_module_srl');
+		$oModuleModel = &getModel('module');
+		$oModuleInfo = $oModuleModel->getModuleInfoByModuleSrl($nModuleSrl);
+		if(gettype($oModuleInfo)!='object')
+			return new BaseObject(-1, 'msg_invalid_module_srl');
+		$sModuleTitle =  mb_substr($oModuleInfo->browser_title, 0, 5);
+		unset($oModuleInfo);
+
+		$sBeginYyyymmdd = Context::get('period_begin');
+		if(!$sBeginYyyymmdd) 
+			return new BaseObject(-1, 'msg_invalid_begin_yyyymmdd');
+		$sEndYyyymmdd = Context::get('period_end');
+		if(!$sEndYyyymmdd) 
+			return new BaseObject(-1, 'msg_invalid_end_yyyymmdd');
+		
+		//header( 'Content-Type: text/html; charset=UTF-8' );
+		header( 'Content-Type: Application/octet-stream; charset=UTF-8' );
+		header( "Content-Disposition: attachment; filename=\"".date('Ymd')."_".$sModuleTitle."-".$sBeginYyyymmdd."-".$sEndYyyymmdd.".csv\"");
+		echo chr( hexdec( 'EF' ) );
+		echo chr( hexdec( 'BB' ) );
+		echo chr( hexdec( 'BF' ) );
+		
+		// 기본 컬럼 제목 설정 시작
+		$oDataConfig = Array( 'doc_srl','module_title','yr_mo','member_id','applicant_name','applicant_phone','parent_gender','parent_pregnant','baby_birthday',
+								'postcode','addr','content', 'email_push', 'sms_push', 'post_push', 'sponsor_push', 'init_referral','utm_source', 'utm_medium', 'utm_campaign', 'utm_term','is_mobile','is_accepted','regdate');
+
+		foreach( $oDataConfig as $key => $val )
+			echo "\"".$val."\",";
+		// 기본 컬럼 제목 설정 끝	
+		
+		echo "\r\n";
+		//echo '<BR>';
+		
+		$oArgs = new stdClass();
+		$oArgs->module_srl = $nModuleSrl;
+		$oArgs->begin_date = $sBeginYyyymmdd.'000000';
+		$oArgs->end_date = $sEndYyyymmdd.'235959';
+		$oArgs->is_deleted_doc = 0;
+		//$args->is_accepted = 'Y';
+		$oArgs->list_count = 99999;
+		$oRst = executeQueryArray('angemombox.getAdminDocByModuleCsvDownload', $oArgs);
+		unset($oArgs);
+		if(!$oRst->toBool())
+			return $oRst;
+
+		$oMemberModel = &getModel('member');
+		foreach($oRst->data as $_ => $oSingleApplicant)
+		{
+			echo "\"".$oSingleApplicant->doc_srl."\",";
+			echo "\"".$sModuleTitle."\",";
+			echo "\"".$oSingleApplicant->yr_mo."\",";
+			// member info
+			$oMemberInfo = $oMemberModel->getMemberInfoByMemberSrl((int)$oSingleApplicant->member_srl);
+			if($oMemberInfo)
+			{
+				echo "\"".$oMemberInfo->user_id."\",";
+				echo "\"".$oMemberInfo->user_name."\",";
+			}
+			else
+			{
+				echo "\"탈퇴\",";
+				echo "\"탈퇴\",";
+			}
+			unset($oMemberInfo);
+			echo "=\"".$oSingleApplicant->mobile."\",";
+			echo "\"".$oSingleApplicant->parent_gender."\",";
+			echo "\"".$oSingleApplicant->parent_pregnant."\",";
+			echo "\"".zdate($oSingleApplicant->baby_birthday, 'Y-m-d')."\",";
+			echo "\"".$oSingleApplicant->postcode."\",";
+			echo "\"".$oSingleApplicant->addr.' '.$oSingleApplicant->addr_detail.' '.$oSingleApplicant->addr_extra."\",";
+
+			$sStrippedContent = str_replace('"', '', $oSingleApplicant->content);
+			$sStrippedContent = str_replace("'", '', $sStrippedContent);
+			echo "\"".$sStrippedContent."\",";
+			
+			echo "\"".$oSingleApplicant->email_push."\",";
+			echo "\"".$oSingleApplicant->sms_push."\",";
+			echo "\"".$oSingleApplicant->post_push."\",";
+			echo "\"".$oSingleApplicant->sponsor_push."\",";
+			echo "\"".$oSingleApplicant->init_referral."\",";
+			echo "\"".$oSingleApplicant->utm_source."\",";
+			echo "\"".$oSingleApplicant->utm_medium."\",";
+			echo "\"".$oSingleApplicant->utm_campaign."\",";
+			echo "\"".$oSingleApplicant->utm_term."\",";
+			echo "\"".$oSingleApplicant->is_mobile."\",";
+			echo "\"".$oSingleApplicant->is_accepted."\",";
+			echo "\"".zdate($oSingleApplicant->regdate, 'Y-m-d H:i:s')."\",";
+			
+			echo "\r\n";
+			//echo '<BR>';
+		}
+		unset($oMemberModel);
 		exit(0);
 	}
 /**

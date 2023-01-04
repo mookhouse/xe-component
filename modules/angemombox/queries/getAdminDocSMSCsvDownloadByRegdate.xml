@@ -1,0 +1,33 @@
+<query id="getAdminDocSMSCsvDownloadByRegdate" action="select">
+    <tables>
+        <table name="angemombox_member_extra" alias="m" />
+        <table name="angemombox_baby_list" alias="b" type="right join">
+            <conditions>
+                <condition operation="equal" column="m.member_srl" default="b.member_srl" />
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+		<column name="m.member_srl" alias="member_srl" />
+		<column name="m.user_name" alias="user_name" />
+		<column name="m.mobile" alias="mobile" />
+		<column name="m.gender" alias="gender" />
+		<column name="b.birthday" alias="baby_birthday" />
+		<column name="m.addr" alias="addr" />
+		<column name="m.sms_push" alias="sms_push" />
+		<column name="m.regdate" alias="regdate" />
+    </columns>
+    <conditions>
+		<group pipe="and">
+			<condition operation="more" column="b.birthday" var="babybirth_begin_date" notnull="notnull" />
+			<condition operation="less" column="b.birthday" var="babybirth_end_date" notnull="notnull" pipe="and" />
+		</group>
+		<group pipe="and">
+			<condition operation="more" column="m.regdate" var="regist_begin_date" />
+	        <condition operation="less" column="m.regdate" var="regist_end_date" pipe="and" />
+        </group>
+    </conditions>
+	<navigation>
+        <index var="sort_index" default="m.regdate" order="desc" />
+    </navigation>
+</query>

@@ -14,6 +14,7 @@
 		<action name="dispAngemomboxAdminMobileSkinInfo" type="view" />
 		<action name="dispAngemomboxAdminDelete" type="view" />
 		<action name="dispAngemomboxAdminApplicantsList" type="view" />
+		<action name="dispAngemomboxAdminDownloadSmsCsv" type="view" />
 		<action name="dispAngemomboxAdminDocDetail" type="view" />
 		<action name="dispAngemomboxAdminWinnerList" type="view" />
 
@@ -26,9 +27,10 @@
 		<action name="procAngemomboxAdminAddWinner" type="controller" />
 		<action name="procAngemomboxAdminDelete" type="controller" />
 		<action name="procAngemomboxAdminDeleteDoc" type="controller" />
-		<action name="procAngemomboxAdminCSVDownloadByModule" type="controller" />
 		<action name="procAngemomboxAdminApproveApplicant" type="controller" />
 		<action name="procAngemomboxAdminConfig" type="controller" />
+		<action name="procAngemomboxAdminCSVDownloadByModule" type="controller" />
+		<action name="procAngemomboxAdminCSVDownloadSms" type="controller" />
 
 		<action name="procAngemomboxRegistration" type="controller" />
 		<action name="procAngemomboxUpdate" type="controller" />
