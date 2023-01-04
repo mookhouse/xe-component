@@ -100,7 +100,7 @@ class angemomboxModel extends module
 	public function checkDuplicatedApply($nModuleSrl, $nMemberSrl, $nYrMo)
 	{
 		$oArgs = new stdClass();
-		$oArgs->parent_member_srl = $nMemberSrl;
+		$oArgs->member_srl = $nMemberSrl;
 		$oArgs->module_srl = $nModuleSrl;
 		$oArgs->yr_mo = $nYrMo;
 
