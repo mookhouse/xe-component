@@ -33,9 +33,20 @@ class angemomboxMobile extends angemomboxView
 		Context::set('oLoggedInfo', $oLoggedInfo);
 
 		$bAllowSubmit = true;
+		$aDenyMsg = [];
 		if(!$oLoggedInfo->mobile)  // 회원 정보에 핸드폰 번호가 없으면 등록 거부
+		{
+			$aDenyMsg[] = '핸드폰 정보를 입력하세요.';
 			$bAllowSubmit = false;
+		}
+		if($oLoggedInfo->$sMemberSmspushFieldName != 'Y' )  // 회원 정보에 SMS 수신 동의 없으면 등록 거부
+		{
+			$aDenyMsg[] = 'SMS 수신 동의하세요.';
+			$bAllowSubmit = false;
+		}
 		Context::set('bAllowSubmit', $bAllowSubmit);
+		Context::set('sDenyMsg', implode('<BR>', $aDenyMsg));
+		unset($aDenyMsg);
 
 		$oOpenRst = $oAngemomboxModel->checkOpenDay($this->module_srl);
 		if(!$oOpenRst->toBool())

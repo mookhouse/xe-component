@@ -67,6 +67,12 @@ function sample6_execDaumPostcode() {
 						</div>
 					</caption>
 					<tbody>
+						<tr cond="$sDenyMsg">
+							<th class=""><font color='red'>신청 불가!</font></th>
+							<td>
+								<div class="form-group basic-group"><font color='red'>{$sDenyMsg}</font></div>
+							</td>
+						</tr>
 						<tr>
 							<th class="essential"><label for="u-name">신청자명</label></th>
 							<td>
