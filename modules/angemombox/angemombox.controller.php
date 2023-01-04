@@ -300,9 +300,9 @@ class angemomboxController extends angemombox
 		{
 			foreach($aExtraKeys as $nIdx => $oExtraItem)
 			{
-				if($oExtraItem->name == $sMomboxModuleSrlFieldTtl)
+				if($oExtraItem->eid == $sMomboxModuleSrlFieldTtl)
 					$oDocObj->{'extra_vars'.$nIdx} = $nModuleSrl;
-				if($oExtraItem->name == $sMomboxApplicationSrlFieldTtl)
+				if($oExtraItem->eid == $sMomboxApplicationSrlFieldTtl)
 					$oDocObj->{'extra_vars'.$nIdx} = $nAngemomboxSrl;
 			}
 		}

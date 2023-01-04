@@ -1,3 +1,11 @@
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML()">
+<!--@if($val->eid=='mombox_module_srl')-->
+{@ $nMomboxModuleSrl = $val->getValueHTML();}
+<!--@elseif($val->eid=='mombox_doc_srl')-->
+{@ $nMomboxDocSrl = $val->getValueHTML();}
+<!--@end-->
+</block>
+
 <link href="/modules/board/m.skins/ange_old_bbs/css/e_magazine_detail.css" rel="stylesheet">
 
 <section class="magazine-view">
@@ -9,6 +17,10 @@
 			<article style="padding-top:2px;">
 				<div class="article-header" style="padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;">
 					<h4>{$oDocument->getTitle()|noescape}</h4>
+					<ul cond="$grant->manager" class="icon-list" style="margin-bottom:10px;">
+						<li class="user">맘박스 모듈 번호: {$nMomboxModuleSrl}</li>
+						<li class="user">맘박스 문서 번호: {$nMomboxDocSrl}</li>
+					</ul>
 					<ul class="icon-list">
 						<li class="user">작성자: {$oDocument->getNickName()}</li>
 						<li class="user">조회수: {$oDocument->get('readed_count')}</li>

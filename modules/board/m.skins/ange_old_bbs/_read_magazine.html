@@ -1,3 +1,17 @@
+<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML()">
+<!--@if($val->eid=='sub_title')-->
+{@ $sSubTitle = $val->getValueHTML();}
+<!--@elseif($val->eid=='open_play_live')-->
+{@ $sOpenPlayLive = $val->getValueHTML();}
+<!--@elseif($val->eid=='monthly_issue')-->
+{@ $sMonthlyIssue = $val->getValueHTML();}
+<!--@elseif($val->eid=='dr_ange')-->
+{@ $sDrAnge = $val->getValueHTML();}
+<!--@elseif($val->eid=='etc')-->
+{@ $sEtc = $val->getValueHTML();}
+<!--@end-->
+</block>
+
 <link href="/modules/board/m.skins/ange_old_magazine/css/e_magazine_detail.css" rel="stylesheet">
 <section class="magazine-view">
 	<div class="container">
@@ -41,41 +55,21 @@
 										<!---div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div--->
 										<span style="font-family:nanum gothic;"><span style="font-size:16px;">{$oDocument->getTitle()|noescape}</span></span>
 									</subtitle>
-									<maintitle><span style="color:#A52A2A;">
-<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='sub_title'">
-﻿{$val->getValueHTML()}
-</block>
-									</span></maintitle>
+									<maintitle><span style="color:#A52A2A;">{$sSubTitle}</span></maintitle>
 								</div>
 								<div><img alt="" src="{$oDocument->getThumbnail(780, 1011, 'crop')}" /></div>
 								<p>&nbsp;</p>
 								<sectionsub><span style="font-family:nanum gothic; font-size:16px;">Opening & Play & Living</span></sectionsub>
-								<p><span style="font-family:nanum gothic; font-size:16px;">
-<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='open_play_live'">
-﻿{$val->getValueHTML()}
-</block>
-								</span></p>
+								<p><span style="font-family:nanum gothic; font-size:16px;">{$sOpenPlayLive}</span></p>
 								<p>&nbsp;</p>
 								<p><sectionsub><span style="font-family:nanum gothic; font-size:16px;">Monthly Issue</span></sectionsub></p>
-								<p><span style="font-family:nanum gothic; font-size:16px;">
-<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='monthly_issue'">
-﻿{$val->getValueHTML()}
-</block>					
-								</span></p>
+								<p><span style="font-family:nanum gothic; font-size:16px;">{$sMonthlyIssue}</span></p>
 								<p>&nbsp;</p>
 								<p><sectionsub><span style="font-family:nanum gothic; font-size:16px;">Dr. ange</span></sectionsub></p>
-								<p><span style="font-size:16px;">
-<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='dr_ange'">
-﻿{$val->getValueHTML()}
-</block>			
-								</span></p>
+								<p><span style="font-size:16px;">{$sDrAnge}</span></p>
 								<p>&nbsp;</p>
 								<p><sectionsub><span style="font-size:16px;"><span style="font-family:nanum gothic;">etc</span></span></sectionsub></p>
-								<p><span style="font-family:nanum gothic; font-size:16px;">
-<block loop="$oDocument->getExtraVars()=>$key,$val" cond="$val->getValueHTML() && $val->eid=='etc'">
-﻿{$val->getValueHTML()}
-</block>
-								</span></p>
+								<p><span style="font-family:nanum gothic; font-size:16px;">{$sEtc}</span></p>
 								<div><p><byline><span style="font-family:nanum gothic;"><span style="font-size:16px;">프로젝트 [호제] {$oDocument->getTitle()|noescape}</span></span></byline></p></div>
 						</div>
 					</figure>
