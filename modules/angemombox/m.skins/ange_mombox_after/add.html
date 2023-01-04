@@ -83,87 +83,16 @@ function sample6_execDaumPostcode() {
 							<th class="essential"><label for="u-phone">핸드폰 번호</label></th>
 							<td>
 								<div class="form-group basic-group" cond="$oLoggedInfo->mobile">{$oLoggedInfo->mobile}</div>
-								<div class="form-group basic-group" cond="!$oLoggedInfo->mobile">등록된 핸드폰 번호가 확인되지 않아서 신청하실 수 없습니다.</div>
+								<div class="form-group basic-group" cond="!$oLoggedInfo->mobile"><font color='red'>핸드폰 번호가 등록되지 않아서 신청하실 수 없습니다.</font></div>
 							</td>
 						</tr>
 						<tr>
 							<th class="essential"><label for="u-addr">받으실 곳</label></th>
 							<td>
-								<div class="form-group">
-<block cond="$oLoggedInfo->address[0]">
-									{$oLoggedInfo->address[0]} {$oLoggedInfo->address[1]} {$oLoggedInfo->address[2]} {$oLoggedInfo->address[3]}
-</block>
-<block cond="!$oLoggedInfo->address[0]">
-									<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control" style='width:80%'>
-									<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
-									<input type="text" name="address" id="address" placeholder="주소" class="form-control" style='width:80%'><BR>
-									<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control" style='width:80%'><BR>
-									<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control" style='width:80%'>
-</block>
-								</div>
+								<div class="form-group" cond="$oLoggedInfo->address[0]">{$oLoggedInfo->address[0]} {$oLoggedInfo->address[1]} {$oLoggedInfo->address[2]} {$oLoggedInfo->address[3]}</div>
+								<div class="form-group" cond="!$oLoggedInfo->address[0]"><font color='red'>배송주소가 등록되지 않아서 신청하실 수 없습니다.</font></div>
 							</td>
 						</tr>
-                        <tr>
-							<th>
-								본인 생일
-							</th>
-							<td>
-								<div class="form-group basic-group">
-									<select class="form-control" id="parent_birth_yr" name="parent_birth_yr">
-										<option value="">년도</option>
-<!--@for($nMomBirthYr=1970;$nMomBirthYr<2003;$nMomBirthYr++)-->
-                                        <option value="{$nMomBirthYr}">{$nMomBirthYr}</option>
-<!--@end-->
-									</select>
-									<select class="form-control" id="parent_birth_mo" name="parent_birth_mo">
-										<option value="">월</option>
-<!--@for($nMomBirthMo=1;$nMomBirthMo<13;$nMomBirthMo++)-->
-                                        <option value="{sprintf('%02d',$nMomBirthMo)}">{sprintf('%02d',$nMomBirthMo)}</option>
-<!--@end-->
-									</select>
-									<select class="form-control" id="parent_birth_day" name="parent_birth_day">
-										<option value="">일</option>
-<!--@for($nMomBirthDay=1;$nMomBirthDay<32;$nMomBirthDay++)-->
-                                        <option value="{sprintf('%02d',$nMomBirthDay)}">{sprintf('%02d',$nMomBirthDay)}</option>
-<!--@end-->
-									</select>
-								</div>
-							</td>
-						</tr>
-                        <tr>
-                            <th class="v-top"><label for="baby_gender">본인 성별</label></th>
-                            <td>
-                                <div class="form-group">
-                                    <select class="form-control" id="parent_gender" name="parent_gender" style='width:80%'>
-                                        <option value="">성별 선택</option>
-                                        <option value="F">여</option>
-                                        <option value="M">남</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-						<tr id="file_tr">
-							<th class="v-top">아기 이름</th>
-							<td>
-								<div class="form-group">
-									<input type="text" id="birth_name" name="birth_name" class="form-control" style='width:80%'>
-								</div>
-							</td>
-						</tr>
-                        <tr>
-                            <th class="v-top"><label for="baby_gender">아기 성별</label></th>
-                            <td>
-                                <div class="form-group">
-                                    <select class="form-control" id="baby_gender" name="baby_gender" style='width:80%'>
-                                        <option value="">성별 선택</option>
-{@
-unset($aBabyGender['D'])  // 성별 모름 제거
-}
-                                        <option loop="$aBabyGender=>$sIdx,$sLabel" value="{$sIdx}">{$sLabel}</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
 						<tr>
 							<th class="essential">아기 생일</th>
 							<td>
@@ -196,22 +125,6 @@ unset($aBabyGender['D'])  // 성별 모름 제거
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<th class=""><label for="feel">SNS아이디</label></th>
-							<td>
-								<div class="form-group">
-									<input type="text" id="SNS" name="SNS" class="form-control">
-								</div>
-							</td>
-						</tr>
-                        <tr>
-                            <th class="v-"><label for="feel">동의</label></th>
-                            <td>
-                                <div class="form-group">
-                                    SMS 정보 수신 <input type="checkbox" id="sms_push" name="sms_push" value="Y" checked="form-control">
-                                </div>
-                            </td>
-                        </tr>
                         <tr>
 							<th class="essential">증빙자료<br>(출생증명서)</th>
 							<td class="file">

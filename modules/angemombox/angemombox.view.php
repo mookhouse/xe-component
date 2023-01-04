@@ -30,7 +30,6 @@ class angemomboxView extends angemombox
 	public function dispAngemomboxIndex()
 	{
 		$oAngemomboxModel = &getModel('angemombox');
-		
 		$oMemberConnectionRst = $oAngemomboxModel->getMemberFieldConnection();
 		if(!$oMemberConnectionRst->toBool())
 			return $oMemberConnectionRst;
@@ -52,9 +51,21 @@ class angemomboxView extends angemombox
 			$aDenyMsg[] = '핸드폰 정보를 입력하세요.';
 			$bAllowSubmit = false;
 		}
+		if(!$oLoggedInfo->address[0])  // 회원 정보에 배송 주소 없으면 등록 거부
+		{
+			$aDenyMsg[] = '배송 주소를 입력하세요.';
+			$bAllowSubmit = false;
+		}
 		if($oLoggedInfo->$sMemberSmspushFieldName != 'Y' )  // 회원 정보에 SMS 수신 동의 없으면 등록 거부
 		{
 			$aDenyMsg[] = 'SMS 수신 동의하세요.';
+			$bAllowSubmit = false;
+		}
+		
+		$aBabyList = $oAngemomboxModel->getBabyList($oLoggedInfo->member_srl);
+		if(!count($aBabyList))  // 회원 정보에 아기 정보 없으면 등록 거부
+		{
+			$aDenyMsg[] = '아기 정보를 입력하세요.';
 			$bAllowSubmit = false;
 		}
 		Context::set('bAllowSubmit', $bAllowSubmit);

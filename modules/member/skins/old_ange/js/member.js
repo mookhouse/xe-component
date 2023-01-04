@@ -161,3 +161,84 @@ function insertSelectedModule(id, module_srl, mid, browser_title) {
     location.href = current_url.setQuery('selected_module_srl',module_srl);
 }
 
+function checkExtraInfo() {
+	console.log('ddd');
+	babies	= [];
+	babies.push({
+						 BABY_NM		: $("#fo_insert_member").find("input[name='baby_nm0']").val()
+						,BABY_SEX_GB	: $("#fo_insert_member").find("select[name='baby_sex_gb0']").val()
+						,BABY_YEAR		: $("#fo_insert_member").find("select[name='baby_year0']").val()
+						,BABY_MONTH		: $("#fo_insert_member").find("select[name='baby_month0']").val()
+						,BABY_DAY		: $("#fo_insert_member").find("select[name='baby_day0']").val()
+					  });
+	
+	babies.push({
+						 BABY_NM		: $("#fo_insert_member").find("input[name='baby_nm1']").val()
+						,BABY_SEX_GB	: $("#fo_insert_member").find("select[name='baby_sex_gb1']").val()
+						,BABY_YEAR		: $("#fo_insert_member").find("select[name='baby_year1']").val()
+						,BABY_MONTH		: $("#fo_insert_member").find("select[name='baby_month1']").val()
+						,BABY_DAY		: $("#fo_insert_member").find("select[name='baby_day1']").val()
+					  });
+
+	babies.push({
+						 BABY_NM		: $("#fo_insert_member").find("input[name='baby_nm2']").val()
+						,BABY_SEX_GB	: $("#fo_insert_member").find("select[name='baby_sex_gb2']").val()
+						,BABY_YEAR		: $("#fo_insert_member").find("select[name='baby_year2']").val()
+						,BABY_MONTH		: $("#fo_insert_member").find("select[name='baby_month2']").val()
+						,BABY_DAY		: $("#fo_insert_member").find("select[name='baby_day2']").val()
+					  });
+	
+	console.log(babies);
+	var baby_empty_ck = true;
+	var baby_full_ck = true;
+	for(var i=0; i < babies.length; i++){
+		// 1개라도 값이 있다면
+		if(babies[i].BABY_NM != '' || babies[i].BABY_SEX_GB != '' || babies[i].BABY_YEAR != '' || babies[i].BABY_MONTH != '' || babies[i].BABY_DAY != ''){
+			//완전히 없지 않기때문에 있는 데이터를 기준으로 해당 row 에 빠진 정보가 있는지 체크
+			baby_empty_ck = false;
+
+			if(babies[i].BABY_NM != ''){ // 이름만 적고 다른데이터중 하나라도 입력안함
+				if(babies[i].BABY_SEX_GB == '' || babies[i].BABY_YEAR == '' || babies[i].BABY_MONTH == '' || babies[i].BABY_DAY == ''){
+					baby_full_ck = false;
+				}
+			}
+
+			if(babies[i].BABY_SEX_GB != ''){ // 성별만 적고 다른데이터중 하나라도 입력안함
+				if(babies[i].BABY_NM == '' || babies[i].BABY_YEAR == '' || babies[i].BABY_MONTH == '' || babies[i].BABY_DAY == ''){
+					baby_full_ck = false;
+				}
+			}
+
+			if(babies[i].BABY_YEAR != ''){ // 생일에 연도만 적고 다른데이터중 하나라도 입력안함
+				if(babies[i].BABY_SEX_GB == '' || babies[i].BABY_NM == '' || babies[i].BABY_MONTH == '' || babies[i].BABY_DAY == ''){
+					baby_full_ck = false;
+				}
+			}
+
+			if(babies[i].BABY_MONTH != ''){ // 생일에 월만 적고 다른데이터중 하나라도 입력안함
+				if(babies[i].BABY_SEX_GB == '' || babies[i].BABY_YEAR == '' || babies[i].BABY_NM == '' || babies[i].BABY_DAY == ''){
+					baby_full_ck = false;
+				}
+			}
+
+			if(babies[i].BABY_DAY != ''){ // 생일에 일만 적고 다른데이터중 하나라도 입력안함
+				if(babies[i].BABY_SEX_GB == '' || babies[i].BABY_YEAR == '' || babies[i].BABY_MONTH == '' || babies[i].BABY_NM == ''){
+					baby_full_ck = false;
+				}
+			}
+		}
+	}
+	if(baby_empty_ck == true){ // 아무 정보도 없을 시
+		$("#baby_nm0").focus();
+		alert('아이정보를 입력해주세요.');
+		return;
+	}
+
+	if(baby_full_ck == false){
+		$("#baby_nm0").focus();
+		alert('아이정보를 정확히 입력해주세요.');
+		return;
+	}
+	$("#fo_insert_member").submit();
+	console.log('ddd');
+}

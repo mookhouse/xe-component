@@ -1,13 +1,14 @@
 <include target="./common_header.html" />
 
 <load target="/modules/member/tpl/js/signup_check.js" />
+<load target="/modules/member/skins/old_ange/js/member.js" />
 <!-- Content Start -->
 <div class="sub-content" style="padding: 0px 29px 75px 64px;">
 	<h2 class="sub-title">{$lang->cmd_signup}</h2>
 	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
-	<form ruleset="@insertMember" id="fo_insert_member" action="./" method="post" enctype="multipart/form-data" class="form-horizontal">
+	<form ruleset="@insertMember" id="fo_insert_member" name="fo_insert_member" action="./" method="post" enctype="multipart/form-data" class="form-horizontal">
 		<input type="hidden" name="act" value="procMemberInsert" />
 		<input type="hidden" name="xe_validator_id" value="modules/member/skins" />
 		<input type="hidden" name="success_return_url" value="{getUrl('act','dispMemberInfo')}" />
@@ -68,7 +69,7 @@ unset($oAngeclubModel);
                                             <div class="row">
                                                 <div class="col-xs-5">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="이름" value="" id="baby_nm0" name="baby_nm0">
+                                                        <input type="text" class="form-control" placeholder="이름" class="baby_nm" id="baby_nm0" name="baby_nm0">
                                                         <label for="BABY_NM0" class="sr-only">이름/태명</label>
                                                         <label>
                                                             <select class="form-control" style="margin-right:0px;" id="baby_sex_gb0" name="baby_sex_gb0" >
@@ -245,7 +246,7 @@ unset($oAngeclubModel);
 			</div> -->
 			<div class="btn-area">
 				<p>
-					<button type="submit" class="btn btn-pink btn-write-submit">{$lang->cmd_registration}</button>
+					<button type="button" class="btn btn-pink btn-write-submit" onClick="checkExtraInfo();">{$lang->cmd_registration}</button>
 					<a href="{getUrl('act','','member_srl','')}" class="btn btn-white" role="button">{$lang->cmd_cancel}</a>
 				</p>
 			</div>
