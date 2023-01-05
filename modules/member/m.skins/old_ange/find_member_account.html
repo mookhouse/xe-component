@@ -1,6 +1,66 @@
 <include target="./common_header.html" />
 
+<block cond="$sSmsAuthPluginTitle">
 <script src="/modules/member/tpl/js/mobile_change_password.js"></script>
+<div class="container">
+    <section class="pw-find">
+        <div class="section-header">
+            <h3 class="section-title">{$lang->cmd_find_id_with_mobile}</h3>
+            <p class="summary">{$lang->about_find_id_with_mobile}</p>
+        </div>
+        <div class="section-content">
+            <form id="confirmFrm">
+                <input type="hidden" name="auth_key" id="auth_key" value="" />
+                <input type="hidden" name="member_srl" id="member_srl" value="" />  
+                <div class="table-wrap">
+                    <table class="table table-bordered table-write type-1">
+                        <tbody>
+                            <tr>
+                                <th class="essential"><label for="user_name_sms">{$lang->user_name}</label></th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" id="user_name_sms" name="user_name_sms" required placeholder="{$lang->user_name}" title="{$lang->user_name}" class="form-control" maxlength="30">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="essential"><label for="mobile_user_id">{$lang->mobile}</label></th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" id="mobile_user_id" name="mobile_user_id" class="form-control" required placeholder="{$lang->mobile}" title="{$lang->mobile}" onkeyup="onlyNumberCheck(this)" maxlength="13">
+                                    </div>
+                                    <BR>
+                                    <div class="form-group">
+                                        <input type="button" onClick="requestSmsAuth('find_id');" class="form-control" value="{$lang->cmd_request_auth_sms}" style="background-color: #b3b3b3; color: #fff;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <article class="authentication" id="p_confirmInfo" style="padding-top:20px;">
+                    <b>{$lang->cmd_input_auth_sms}</b>
+                    <p>SMS로 전송된 인증번호를 입력하시면 비밀번호를 변경할 수 있습니다.<br>일치하는 정보가 없으면 메세지가 전송되지 않습니다.</p>
+                    <div class="form">
+                        <div class="form-group">
+                            <input type="text" id="sms_phrase_user_id" name="sms_phrase_user_id" class="form-control" placeholder="{$lang->sms_phrase}" title="{$lang->sms_phrase}">
+                            <button type="button" class="btn btn-gray" style="width:100px;" onclick="validateSmsAuth('find_id');">{$lang->cmd_confirm_auth_sms}</button>
+                        </div>
+                    </div>
+                </article>
+				<article class="authentication" id="reveal_user_id" style="padding-top:20px; display:none;">
+                    <div class="info">귀하의 회원 아이디는 <b id="user_id_revealed"></b> 입니다.</div>
+                </article>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+
+
 <div class="container">
     <section class="pw-find">
         <div class="section-header">
@@ -15,7 +75,7 @@
                     <table class="table table-bordered table-write type-1">
                         <tbody>
                             <tr>
-                                <th class="essential"><label for="USER_ID">{$lang->user_id}</label></th>
+                                <th class="essential"><label for="user_id_sms">{$lang->user_id}</label></th>
                                 <td>
                                     <div class="form-group">
                                         <input type="text" id="user_id_sms" name="user_id_sms" required placeholder="{$lang->user_id}" title="{$lang->user_id}" class="form-control" maxlength="30">
@@ -23,14 +83,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="essential"><label for="PHONE_2">{$lang->mobile}</label></th>
+                                <th class="essential"><label for="mobile_pw_rst">{$lang->mobile}</label></th>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" id="mobile" name="mobile" class="form-control" required placeholder="{$lang->mobile}" title="{$lang->mobile}" onkeyup="onlyNumberCheck(this)" maxlength="13">
+                                        <input type="text" id="mobile_pw_rst" name="mobile_pw_rst" class="form-control" required placeholder="{$lang->mobile}" title="{$lang->mobile}" onkeyup="onlyNumberCheck(this)" maxlength="13">
                                     </div>
                                     <BR>
                                     <div class="form-group">
-                                        <input type="button" onClick="requestSmsAuth();" class="form-control" value="{$lang->cmd_request_auth_sms}" style="background-color: #b3b3b3; color: #fff;">
+                                        <input type="button" onClick="requestSmsAuth('reset_pw');" class="form-control" value="{$lang->cmd_request_auth_sms}" style="background-color: #b3b3b3; color: #fff;">
                                     </div>
                                 </td>
                             </tr>
@@ -43,8 +103,8 @@
                     <p>SMS로 전송된 인증번호를 입력하시면 비밀번호를 변경할 수 있습니다.<br>일치하는 정보가 없으면 메세지가 전송되지 않습니다.</p>
                     <div class="form">
                         <div class="form-group">
-                            <input type="text" id="sms_phrase" class="form-control" id="sms_phrase" placeholder="{$lang->sms_phrase}" title="{$lang->sms_phrase}">
-                            <button type="button" class="btn btn-gray" style="width:100px;" onclick="validateSmsAuth();">{$lang->cmd_confirm_auth_sms}</button>
+                            <input type="text" id="sms_phrase_pw_rst" name="sms_phrase_pw_rst" class="form-control" placeholder="{$lang->sms_phrase}" title="{$lang->sms_phrase}">
+                            <button type="button" class="btn btn-gray" style="width:100px;" onclick="validateSmsAuth('reset_pw');">{$lang->cmd_confirm_auth_sms}</button>
                         </div>
                     </div>
                 </article>
@@ -84,6 +144,7 @@
         </div>
     </section>
 </div>
+</block>
 
 <!--
 <section class="agreement-list">
